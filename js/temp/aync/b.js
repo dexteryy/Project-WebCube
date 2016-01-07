@@ -1,0 +1,2 @@
+
+exports.myname = 'aync/b';
