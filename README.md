@@ -1,5 +1,5 @@
 
-# YY Demo Collection
+# Demos for static web
 
 ## How to build
 
