@@ -5,6 +5,7 @@ import rename from 'gulp-rename';
 import gulpFilter from 'gulp-filter';
 import webpack from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
+import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
@@ -66,14 +67,23 @@ function buildApp() {
     .pipe(gulp.dest('public/static/'));
 }
 
-gulp.task('build:html', ['clean:html'], () => {
-  gulp.src('containers/**/*.html')
-    .pipe(gulp.dest('public'));
+gulp.task('build:html', ['clean:html', 'build:app'], () => {
+  return buildHTML();
 });
+
+gulp.task('prod:html', ['clean:html', 'prod:app'], () => {
+  return buildHTML();
+});
+
+function buildHTML() {
+  return gulp.src('containers/**/*.html')
+    .pipe(inlinesource())
+    .pipe(gulp.dest('public'));
+}
 
 gulp.task('default', [
   'prod:app',
-  'build:html',
+  'prod:html',
 ]);
 
 gulp.task('watch', () => {
