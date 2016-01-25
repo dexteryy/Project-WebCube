@@ -67,7 +67,7 @@ function buildApp() {
 }
 
 gulp.task('build:html', ['clean:html'], () => {
-  gulp.src('platform/web/**/*.html')
+  gulp.src('containers/**/*.html')
     .pipe(gulp.dest('public'));
 });
 
@@ -78,7 +78,7 @@ gulp.task('default', [
 
 gulp.task('watch', () => {
   gulp.watch(['src/**'], ['build:app']);
-  gulp.watch(['platform/web/**/*.html'], ['build:html']);
+  gulp.watch(['containers/**/*.html'], ['build:html']);
 });
 
 gulp.task('webserver', () => {

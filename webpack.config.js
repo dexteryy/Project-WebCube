@@ -35,8 +35,11 @@ module.exports = {
       test: /\.css$/,
       loader: 'style!css',
     }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url?limit=25000',
+      test: /\.(gif|png|jpe?g|svg)$/i,
+      loaders: [
+        'url?limit=25000',
+        'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+      ],
     }, {
       test: /\.woff$/,
       loader: 'url?limit=100000',

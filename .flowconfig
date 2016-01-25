@@ -1,6 +1,6 @@
 [ignore]
 .*/node_modules/.*
-.*/platform/.*
+.*/containers/.*
 .*/assets/.*
 .*/data/.*
 .*/public/.*

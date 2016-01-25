@@ -1,7 +1,8 @@
 node_modules/
+npm-debug.log
 public/
 src/entries/demo-*
-platform/web/demo-*
+containers/demo-*
 assets/demo-*
 data/demo-*
 tests/demo-*
