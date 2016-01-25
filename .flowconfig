@@ -1,0 +1,26 @@
+[ignore]
+.*/node_modules/.*
+.*/examples/.*
+.*/assets/.*
+.*/data/.*
+.*/public/.*
+
+[include]
+node_modules/
+
+[libs]
+src/declarations/
+
+[options]
+module.name_mapper='^.*\.scss' -> 'CSSModule'
+module.name_mapper='^.*\.less' -> 'CSSModule'
+module.name_mapper='^.*\.css' -> 'CSSModule'
+module.name_mapper='^.*\.png' -> 'AssetModule'
+module.name_mapper='^.*\.jpg' -> 'AssetModule'
+module.name_mapper='^.*\.woff' -> 'AssetModule'
+module.name_mapper='^.*\.json' -> 'FileModule'
+module.name_mapper='^.*\.txt' -> 'FileModule'
+module.system=haste
+munge_underscores=true
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable

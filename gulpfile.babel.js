@@ -1,114 +1,89 @@
-const path = require('path');
-const del = require('del');
-const gulp = require('gulp');
-const rename = require('gulp-rename');
-const webpack = require('webpack-stream');
-const eslint = require('gulp-eslint');
-const jscs = require('gulp-jscs');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const uglify = require('gulp-uglify');
-const minifycss = require('gulp-minify-css');
-const webserver = require('gulp-webserver');
+import 'babel-polyfill';
+import gulp from 'gulp';
+import del from 'del';
+import rename from 'gulp-rename';
+import through from 'through2';
+import webpack from 'webpack-stream';
+import sourcemaps from 'gulp-sourcemaps';
+import eslint from 'gulp-eslint';
+import jscs from 'gulp-jscs';
+import flow from 'gulp-flowtype';
+import uglify from 'gulp-uglify';
+import webserver from 'gulp-webserver';
 
-gulp.task('clean:js', (done) => {
-  del(['public/static/js/**']).then(() => done());
-});
-
-gulp.task('clean:css', (done) => {
-  del(['public/static/css/**']).then(() => done());
+gulp.task('clean:app', (done) => {
+  del(['public/static/**']).then(() => done());
 });
 
 gulp.task('clean:html', (done) => {
   del(['public/**/*.html']).then(() => done());
 });
 
-gulp.task('build:js', ['clean:js'], () => {
-  return gulp.src('js/**/*.js')
+gulp.task('check:js', [], () => {
+  return gulp.src(['src/**/*.js', 'src/**/*.jsx'])
     .pipe(eslint())
     .pipe(eslint.format('stylish'))
     .pipe(eslint.failAfterError())
     .pipe(jscs())
     .pipe(jscs.reporter('console'))
-    .pipe(jscs.reporter('failImmediately'));
+    .pipe(jscs.reporter('failImmediately'))
+    .pipe(flow({
+      all: false,
+      weak: false,
+      declarations: './src/declarations',
+      killFlow: false,
+      beep: true,
+      abort: true,
+    }));
 });
 
-gulp.task('build:js', ['clean:js'], () => {
-  return gulp.src('js/**/*.js')
-    .pipe(webpack({
-      entry: {
-        'flip-api-perf': 'flip-api-perf/entry.js',
-        temp: 'temp/entry.js',
-      },
-      output: {
-        filename: '[name].js',
-        chunkFilename: '[name].js',
-        publicPath: '../static/js/',
-      },
-      resolve: {
-        root: [
-          path.join(__dirname, 'js'),
-        ],
-        modulesDirectories: ['node_modules'],
-      },
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          loader: 'babel',
-          query: {
-            cacheDirectory: true,
-            presets: ['react', 'es2015', 'stage-2'],
-          },
-        }],
-      },
+gulp.task('build:app', ['clean:app'], () => {
+  return buildApp();
+});
+
+gulp.task('prod:app', ['clean:app', 'check:js'], () => {
+  return buildApp()
+    .pipe(through.obj(function (file, enc, cb) {
+      const isJS = /\.js$/.test(file.path);
+      if (isJS) {
+        this.push(file);
+      }
+      cb();
     }))
-    .pipe(gulp.dest('public/static/js'))
     .pipe(uglify())
     .pipe(rename({
       suffix: '_min',
     }))
-    .pipe(gulp.dest('public/static/js'));
+    .pipe(gulp.dest('public/static/'));
 });
 
-gulp.task('build:css', ['clean:css'], () => {
-  gulp.src('css/**/*.scss', { base: 'css' })
-    .pipe(sass({
-      // imagePath: image_path,
-      includePaths: ['css', 'node_modules/normalize.css'],
-    }))
-    .pipe(autoprefixer({
-      browsers: [
-        '> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'Explorer > 7',
-      ],
-      cascade: false,
-    }))
-    .pipe(rename((path) => {
-      path.basename = path.dirname;
-      path.dirname = '';
-    }))
-    .pipe(gulp.dest('public/static/css'))
-    .pipe(minifycss({ keepBreaks: true }))
-    .pipe(rename({
-      suffix: '_min',
-    }))
-    .pipe(gulp.dest('public/static/css'));
-});
+function buildApp() {
+  let webpackConfig;
+  try {
+    webpackConfig = require('./webpack.demo.config.js');
+  } catch (ex) {
+    webpackConfig = require('./webpack.config.js');
+  }
+  return gulp.src('src/**/*.js')
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(webpack(webpackConfig))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('public/static/'));
+}
 
 gulp.task('build:html', ['clean:html'], () => {
-  gulp.src('docs/**/*.html')
+  gulp.src('examples/**/*.html')
     .pipe(gulp.dest('public'));
 });
 
 gulp.task('default', [
-  'build:css',
-  'build:js',
+  'prod:app',
   'build:html',
 ]);
 
 gulp.task('watch', () => {
-  gulp.watch(['css/**'], ['build:css']);
-  gulp.watch(['js/**'], ['build:js']);
-  gulp.watch(['docs/**'], ['build:html']);
+  gulp.watch(['src/**'], ['build:app']);
+  gulp.watch(['examples/**/*.html'], ['build:html']);
 });
 
 gulp.task('webserver', () => {

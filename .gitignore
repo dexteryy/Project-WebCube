@@ -1,3 +1,5 @@
 node_modules/
 public/
-localpics/
+src/entries/demo-*
+examples/demo-*
+webpack.demo.config.js

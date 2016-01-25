@@ -1,7 +1,14 @@
 
-# Demos for static web
+# static-web-starter
 
-## How to build
+## Dependencies
 
 * `npm install`
-* `gulp`
+
+## Build
+
+* `npm run build`
+
+## Demo
+
+* `npm run serve`

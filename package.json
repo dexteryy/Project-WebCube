@@ -1,53 +1,70 @@
 {
-  "name": "yydemo-staticweb",
-  "version": "0.1.0",
+  "name": "static-web-starter",
   "description": "",
-  "main": "gulpfile.js",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "app.js",
+  "scripts": {
+    "build": "node ./node_modules/gulp/bin/gulp.js",
+    "dev": "node ./node_modules/gulp/bin/gulp.js watch",
+    "serve": "node ./node_modules/gulp/bin/gulp.js webserver",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=5.5.0"
+  },
   "dependencies": {
     "babel-polyfill": "^6.3.14",
+    "babel-runtime": "^6.3.19",
     "benchmark": "^2.0.0",
     "chance": "^0.8.0",
-    "core-js": "^2.0.2",
+    "co": "^4.6.0",
     "debug": "^2.2.0",
     "lodash": "^4.0.0",
     "moment": "^2.11.1",
     "mousetrap": "^1.5.3",
     "normalize.css": "^3.0.3",
     "numeral": "^1.5.3",
-    "qs": "^6.0.1",
+    "qs": "^6.0.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "regenerator": "^0.8.42",
-    "superagent": "^1.6.1"
+    "superagent": "^1.7.0",
+    "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.5",
     "babel-core": "^6.2.1",
-    "babel-eslint": "^4.1.6",
+    "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
-    "babel-preset-stage-2": "^6.1.18",
+    "babel-preset-stage-1": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "css-loader": "^0.23.1",
     "del": "^2.1.0",
-    "eslint": "^1.10.3",
-    "eslint-plugin-babel": "^3.0.0",
+    "eslint": "^2.0.0-beta.1",
     "eslint-plugin-flow-vars": "^0.1.3",
     "eslint-plugin-react": "^3.15.0",
+    "exports-loader": "^0.6.2",
+    "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-eslint": "^1.1.1",
+    "gulp-eslint": "^2.0.0-rc-2",
+    "gulp-flowtype": "^0.4.9",
     "gulp-jscs": "^3.0.2",
-    "gulp-minify-css": "^1.2.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-webserver": "^0.9.1",
+    "imports-loader": "^0.6.5",
+    "json-loader": "^0.5.4",
+    "postcss-loader": "^0.8.0",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
     "webpack-stream": "^3.1.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "authors": [
-    "dexteryy <dexter.yy@gmail.com>"
-  ],
-  "license": "ISC"
+  "keywords": []
 }

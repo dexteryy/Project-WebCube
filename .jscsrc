@@ -98,7 +98,7 @@
 	// "disallowPaddingNewLinesBeforeLineComments": false,
 	// Disallows blocks from beginning or ending with 2 newlines.
 	// http://jscs.info/rule/disallowPaddingNewlinesInBlocks
-	"disallowPaddingNewlinesInBlocks": true,
+	"disallowPaddingNewlinesInBlocks": true, // { "allExcept": ["functions"] },
 	// Disallows newlines adjacent to curly braces in all object literals.
 	// http://jscs.info/rule/disallowPaddingNewLinesInObjects
 	// "disallowPaddingNewLinesInObjects": false,
@@ -364,7 +364,7 @@
 	// "requireObjectDestructuring": false,
 	// Requires placing object keys on new line
 	// http://jscs.info/rule/requireObjectKeysOnNewLine
-	"requireObjectKeysOnNewLine": true,
+	// "requireObjectKeysOnNewLine": true,
 	// Requires operators to appear before line breaks and not after.
 	// http://jscs.info/rule/requireOperatorBeforeLineBreak
 	// "requireOperatorBeforeLineBreak": false,

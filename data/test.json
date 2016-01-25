@@ -1,0 +1,57 @@
+{
+  sections: [{
+    id: 1,
+    name: "工程研发部门",
+    count: 120
+  }, {
+    id: 2,
+    name: "产品设计部门",
+    count: 136
+  }],
+  jobs: [{
+    id: 1,
+    name: "Mac 开发工程师",
+    section: 1,
+    count: 9
+  }, {
+    id: 2,
+    name: "iOS App 测试工程师",
+    section: 1,
+    count: 17
+  }, {
+    id: 3,
+    name: "Android 远程控制工程师",
+    section: 1,
+    count: 61
+  }, {
+    id: 4,
+    name: "Web 前端工程师",
+    section: 1,
+    count: 31
+  }, {
+    id: 5,
+    name: "Android 多媒体软件开发工程师",
+    section: 1,
+    count: 2
+  }, {
+    id: 6,
+    name: "网页设计师",
+    section: 2,
+    count: 47
+  }, {
+    id: 7,
+    name: "ID / 工业设计师",
+    section: 2,
+    count: 39
+  }, {
+    id: 8,
+    name: "视觉设计师 / GUI 界面设计师",
+    section: 2,
+    count: 42
+  }, {
+    id: 9,
+    name: "平面设计师",
+    section: 2,
+    count: 8
+  }]
+}

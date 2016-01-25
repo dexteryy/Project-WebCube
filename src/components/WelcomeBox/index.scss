@@ -1,0 +1,31 @@
+
+.welcome {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  padding: 50px;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+
+  &.hide {
+    opacity: 0;
+  }
+
+  .msg {
+    font-size: 40px;
+    padding: 50px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .ok {
+    margin: 50px 0 0 0;
+    padding: 20px 40px;
+    border: none;
+    background: #09f;
+    color: #fff;
+  }
+
+}
