@@ -9,6 +9,10 @@
 
 * `npm run build`
 
-## Demo
+## View in browser
 
 * `npm run serve`
+
+## Development
+
+* `npm run dev`

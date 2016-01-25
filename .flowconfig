@@ -1,6 +1,6 @@
 [ignore]
 .*/node_modules/.*
-.*/examples/.*
+.*/platform/.*
 .*/assets/.*
 .*/data/.*
 .*/public/.*

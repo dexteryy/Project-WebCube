@@ -1,5 +1,8 @@
 node_modules/
 public/
 src/entries/demo-*
-examples/demo-*
+platform/web/demo-*
+assets/demo-*
+data/demo-*
+tests/demo-*
 webpack.demo.config.js
