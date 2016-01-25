@@ -7,7 +7,7 @@ import WelcomeBox from '../../components/WelcomeBox';
 window.onload = function () {
   ReactDOM.render(
     <WelcomeBox message="This is a demo" />,
-    document.getElementById('app')
+    document.getElementById('welcome')
   );
 
   // test
