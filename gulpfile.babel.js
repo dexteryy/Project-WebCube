@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import gulp from 'gulp';
 import del from 'del';
 import rename from 'gulp-rename';
-import through from 'through2';
+import gulpFilter from 'gulp-filter';
 import webpack from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import eslint from 'gulp-eslint';
@@ -42,14 +42,9 @@ gulp.task('build:app', ['clean:app'], () => {
 });
 
 gulp.task('prod:app', ['clean:app', 'check:js'], () => {
+  const jsFilter = gulpFilter(['**/*.js']);
   return buildApp()
-    .pipe(through.obj(function (file, enc, cb) {
-      const isJS = /\.js$/.test(file.path);
-      if (isJS) {
-        this.push(file);
-      }
-      cb();
-    }))
+    .pipe(jsFilter)
     .pipe(uglify())
     .pipe(rename({
       suffix: '_min',
