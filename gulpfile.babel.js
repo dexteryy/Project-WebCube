@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import dotenv from 'dotenv';
 import gulp from 'gulp';
 import del from 'del';
 import fs from 'fs';
@@ -13,7 +14,14 @@ import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
 import uglify from 'gulp-uglify';
+import htmlmin from 'gulp-htmlmin';
 import webserver from 'gulp-webserver';
+
+dotenv.config({
+  path: path.join(__dirname, '.env'),
+});
+
+const isProductionEnv = process.env.NODE_ENV === 'production';
 
 function getWebpackConfig() {
   try {
@@ -45,19 +53,37 @@ function buildApp(myWebpackConfig) {
 function buildHTML() {
   const revData = JSON.parse(fs.readFileSync('rev-version.json'));
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
-  return gulp.src('containers/**/*.html')
+  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
+  let stream = gulp.src('containers/**/*.html')
     .pipe(replace(RE_JS_FILE, ($0, $1, $2) => {
       const filename = $2.replace(/.*\//, '');
       let res = revData;
       filename.split('.').forEach(function (name) {
-        res = res[name];
+        res = typeof res === 'object' && res[name] || $2;
       });
+      if (isProductionEnv) {
+        res = res.replace(RE_ADD_MIN, '$1_min.$2');
+      }
       return `${$1}"${res}"`;
     }))
     .pipe(inlinesource({
       rootpath: path.join(__dirname, 'public'),
-    }))
-    .pipe(gulp.dest('public'));
+    }));
+  if (isProductionEnv) {
+    stream = stream.pipe(htmlmin({
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeTagWhitespace: true,
+      removeRedundantAttributes: true,
+      removeEmptyAttributes: true,
+      useShortDoctype: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      removeCDATASectionsFromCDATA: true,
+    }));
+  }
+  return stream.pipe(gulp.dest('public'));
 }
 
 gulp.task('clean:app', (done) => {

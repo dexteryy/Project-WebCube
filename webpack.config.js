@@ -4,17 +4,19 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import AssetsPlugin from 'assets-webpack-plugin';
 
+const isProductionEnv = process.env.NODE_ENV === 'production';
+
 module.exports = {
   entry: {
-    common: ['babel-polyfill', 'whatwg-fetch', 'react'],
+    // common: ['babel-polyfill', 'whatwg-fetch', 'react'],
     app: ['babel-polyfill', 'entries/app/entry.js'],
   },
   output: {
     filename: 'js/[hash]/[name].js',
     chunkFilename: 'js/[hash]/[name].js',
     path: path.join(__dirname, 'public/static/'),
-    publicPath: process.env.NODE_ENV === 'production'
-      ? 'http://cdn.example.com/assets/'
+    publicPath: isProductionEnv
+      ? process.env.MYAPP_CDN_PREFIX
       : '/static/',
   },
   resolve: {
@@ -74,9 +76,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'common',
+    // }),
     new AssetsPlugin({
       filename: 'rev-version.json',
       fullPath: true,
