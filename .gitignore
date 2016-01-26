@@ -1,4 +1,5 @@
 node_modules/
+rev-version.json
 npm-debug.log
 public/
 src/entries/demo-*
@@ -6,4 +7,4 @@ containers/demo-*
 assets/demo-*
 data/demo-*
 tests/demo-*
-webpack.demo.config.js
+webpack.demo.*

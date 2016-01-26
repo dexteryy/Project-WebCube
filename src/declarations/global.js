@@ -14,3 +14,7 @@ declare module AssetModule {
 declare module FileModule {
   declare var exports: { [key: string]: string };
 }
+
+declare module AppModule {
+  declare var exports: Any;
+}

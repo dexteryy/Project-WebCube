@@ -2,7 +2,7 @@
 import './entry.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WelcomeBox from '../../components/WelcomeBox';
+import WelcomeBox from 'app/components/WelcomeBox';
 
 window.onload = function () {
   ReactDOM.render(
@@ -11,7 +11,7 @@ window.onload = function () {
   );
 
   // test
-  const url = String(require('file!data/test.json'));
+  const url = String(require('data/test.json'));
   fetch(url).then((res) => {
     console.info(res);
   });

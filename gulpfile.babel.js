@@ -1,7 +1,10 @@
 import 'babel-polyfill';
 import gulp from 'gulp';
 import del from 'del';
+import fs from 'fs';
+import path from 'path';
 import rename from 'gulp-rename';
+import replace from 'gulp-replace';
 import gulpFilter from 'gulp-filter';
 import webpack from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
@@ -11,6 +14,51 @@ import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
 import uglify from 'gulp-uglify';
 import webserver from 'gulp-webserver';
+
+function getWebpackConfig() {
+  try {
+    return require('./webpack.demo.config.js');
+  } catch (ex) {
+    return require('./webpack.config.js');
+  }
+}
+
+function buildBaseApp(myWebpackConfig) {
+  return gulp.src('src/**/*.js')
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(webpack(myWebpackConfig))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('public/static/'));
+}
+
+function buildApp(myWebpackConfig) {
+  const jsFilter = gulpFilter(['**/*.js']);
+  return buildBaseApp(myWebpackConfig)
+    .pipe(jsFilter)
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '_min',
+    }))
+    .pipe(gulp.dest('public/static/'));
+}
+
+function buildHTML() {
+  const revData = JSON.parse(fs.readFileSync('rev-version.json'));
+  const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
+  return gulp.src('containers/**/*.html')
+    .pipe(replace(RE_JS_FILE, ($0, $1, $2) => {
+      const filename = $2.replace(/.*\//, '');
+      let res = revData;
+      filename.split('.').forEach(function (name) {
+        res = res[name];
+      });
+      return `${$1}"${res}"`;
+    }))
+    .pipe(inlinesource({
+      rootpath: path.join(__dirname, 'public'),
+    }))
+    .pipe(gulp.dest('public'));
+}
 
 gulp.task('clean:app', (done) => {
   del(['public/static/**']).then(() => done());
@@ -38,56 +86,28 @@ gulp.task('check:js', [], () => {
     }));
 });
 
-gulp.task('build:app', ['clean:app'], () => {
-  return buildApp();
+gulp.task('update:app', ['clean:app'], () => {
+  return buildBaseApp(getWebpackConfig());
 });
 
-gulp.task('prod:app', ['clean:app', 'check:js'], () => {
-  const jsFilter = gulpFilter(['**/*.js']);
-  return buildApp()
-    .pipe(jsFilter)
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '_min',
-    }))
-    .pipe(gulp.dest('public/static/'));
+gulp.task('build:app', ['clean:app', 'check:js'], () => {
+  return buildApp(getWebpackConfig());
 });
-
-function buildApp() {
-  let webpackConfig;
-  try {
-    webpackConfig = require('./webpack.demo.config.js');
-  } catch (ex) {
-    webpackConfig = require('./webpack.config.js');
-  }
-  return gulp.src('src/**/*.js')
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(webpack(webpackConfig))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/static/'));
-}
 
 gulp.task('build:html', ['clean:html', 'build:app'], () => {
   return buildHTML();
 });
 
-gulp.task('prod:html', ['clean:html', 'prod:app'], () => {
-  return buildHTML();
-});
-
-function buildHTML() {
-  return gulp.src('containers/**/*.html')
-    .pipe(inlinesource())
-    .pipe(gulp.dest('public'));
-}
-
 gulp.task('default', [
-  'prod:app',
-  'prod:html',
+  'build:app',
+  'build:html',
+]);
+
+gulp.task('deploy', [
 ]);
 
 gulp.task('watch', () => {
-  gulp.watch(['src/**'], ['build:app']);
+  gulp.watch(['src/**'], ['update:app']);
   gulp.watch(['containers/**/*.html'], ['build:html']);
 });
 
