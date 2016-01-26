@@ -10,8 +10,8 @@ module.exports = {
     app: ['babel-polyfill', 'entries/app/entry.js'],
   },
   output: {
-    filename: '[hash]/[name].js',
-    chunkFilename: '[hash]/[name].js',
+    filename: 'js/[hash]/[name].js',
+    chunkFilename: 'js/[hash]/[name].js',
     path: path.join(__dirname, 'public/static/'),
     publicPath: process.env.NODE_ENV === 'production'
       ? 'http://cdn.example.com/assets/'
@@ -27,7 +27,7 @@ module.exports = {
       data: path.join(__dirname, 'data'),
     },
     modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss', '.png', '.jpg', '.jpeg', 'gif', 'svg'],
+    extensions: ['', '.js', '.jsx'],
   },
   devtool: 'source-map',
   module: {
@@ -45,17 +45,26 @@ module.exports = {
       loader: 'style!css',
     }, {
       test: /\.json$/,
-      loader: 'file?name=[hash]/[name].[ext]',
+      loader: 'file?name=data/[hash]/[name].[ext]',
     }, {
       test: /\.(gif|png|jpe?g|svg)$/i,
       loaders: [
-        'file?limit=25000&name=[hash]/[name].[ext]',
-        // 'url?limit=25000&name=[hash].[name].[ext]',
-        'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+        'url?limit=25000&name=assets/[hash]/[name].[ext]',
+        ((opt) => {
+          return `image-webpack?${opt}`;
+        })({
+          progressive: true,
+          optimizationLevel: 7,
+          interlaced: false,
+          pngquant: {
+            quality: '65-90',
+            speed: 4,
+          },
+        }),
       ],
     }, {
       test: /\.woff$/,
-      loader: 'url?limit=100000&name=[hash]/[name].[ext]',
+      loader: 'url?limit=100000&name=assets/[hash]/[name].[ext]',
     }],
   },
   postcss() {
