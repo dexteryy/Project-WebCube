@@ -1,8 +1,5 @@
 [ignore]
 .*/node_modules/.*
-.*/containers/.*
-.*/assets/.*
-.*/data/.*
 .*/public/.*
 
 [include]

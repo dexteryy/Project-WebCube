@@ -4,9 +4,9 @@ rev-version.json
 npm-debug.log
 public/
 src/entries/demo-*
+src/assets/demo-*
+src/data/demo-*
 containers/demo-*
-assets/demo-*
-data/demo-*
 tests/demo-*
 webpack.demo.*
 .DS_Store

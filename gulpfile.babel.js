@@ -32,7 +32,7 @@ function getWebpackConfig() {
 }
 
 function buildBaseApp(myWebpackConfig) {
-  return gulp.src('src/**/*.js')
+  return gulp.src(['src/**/*.js', 'containers/**/*.js'])
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpack(myWebpackConfig))
     .pipe(sourcemaps.write())
@@ -95,7 +95,7 @@ gulp.task('clean:html', (done) => {
 });
 
 gulp.task('check:js', [], () => {
-  return gulp.src(['src/**/*.js', 'src/**/*.jsx'])
+  return gulp.src(['src/**/*.@(js|jsx)', 'containers/**/*.@(js|jsx)'])
     .pipe(eslint())
     .pipe(eslint.format('stylish'))
     .pipe(eslint.failAfterError())

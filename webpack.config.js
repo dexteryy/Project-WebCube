@@ -9,7 +9,8 @@ const isProductionEnv = process.env.NODE_ENV === 'production';
 module.exports = {
   entry: {
     // common: ['babel-polyfill', 'whatwg-fetch', 'react'],
-    app: ['babel-polyfill', 'entries/app/entry.js'],
+    app: ['babel-polyfill', 'entries/app'],
+    'deploy-app': ['babel-polyfill', './containers/app/deploy.js'],
   },
   output: {
     filename: 'js/[hash]/[name].js',
@@ -22,11 +23,11 @@ module.exports = {
   resolve: {
     root: [
       path.join(__dirname, 'src'),
+      path.join(__dirname, 'container'),
     ],
     alias: {
-      app: path.join(__dirname, 'src'),
-      assets: path.join(__dirname, 'assets'),
-      data: path.join(__dirname, 'data'),
+      app: path.join(__dirname, 'src'), // only for outside or `src/`
+      data: path.join(__dirname, 'data'), // only for outside or `src/`
     },
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx'],
