@@ -17,7 +17,11 @@ module.exports = {
     root: [
       path.join(__dirname, 'src'),
     ],
-    modulesDirectories: ['node_modules', 'assets', 'data'],
+    alias: {
+      assets: path.join(__dirname, 'assets'),
+      data: path.join(__dirname, 'data'),
+    },
+    modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx'],
   },
   devtool: 'source-map',

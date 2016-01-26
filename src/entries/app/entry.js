@@ -11,7 +11,7 @@ window.onload = function () {
   );
 
   // test
-  const url = String(require('file!test.json'));
+  const url = String(require('file!data/test.json'));
   fetch(url).then((res) => {
     console.info(res);
   });
