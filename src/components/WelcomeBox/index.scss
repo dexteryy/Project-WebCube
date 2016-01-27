@@ -1,9 +1,11 @@
 
 .welcome {
+  $light-color: #FFFFFF;
+  $highlight-color: #0099FF;
   position: absolute;
   top: 50px;
-  left: 50px;
   right: 50px;
+  left: 50px;
   padding: 50px;
   text-align: center;
   opacity: 1;
@@ -14,18 +16,17 @@
   }
 
   .msg {
-    font-size: 40px;
     padding: 160px 50px 50px 50px;
+    background: url('../../assets/swifticons/Browsertool.png') $light-color no-repeat center 30px;
+    font-size: 40px;
     text-align: center;
-    background: url('../../assets/swifticons/Browsertool.png') #fff no-repeat center 30px;
   }
 
   .ok {
     margin: 50px 0 0 0;
     padding: 20px 40px;
     border: none;
-    background: #09f;
-    color: #fff;
+    background: $highlight-color;
+    color: $light-color;
   }
-
 }

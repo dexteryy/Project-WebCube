@@ -4,6 +4,7 @@
 ## Dependencies
 
 * `npm install`
+* `gem install scss_lint`
 
 ## Build
 

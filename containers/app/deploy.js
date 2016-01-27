@@ -1,3 +1,4 @@
+/* @flow */
 
 import './deploy.scss';
 import App from '../../';

@@ -13,6 +13,7 @@ import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
+import scsslint from 'gulp-scss-lint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
 import webserver from 'gulp-webserver';
@@ -94,6 +95,12 @@ gulp.task('clean:html', (done) => {
   del(['public/**/*.html']).then(() => done());
 });
 
+gulp.task('check:css', [], () => {
+  return gulp.src(['src/**/*.scss', 'containers/**/*.scss'])
+    .pipe(scsslint())
+    .pipe(scsslint.failReporter());
+});
+
 gulp.task('check:js', [], () => {
   return gulp.src(['src/**/*.@(js|jsx)', 'containers/**/*.@(js|jsx)'])
     .pipe(eslint())
@@ -116,7 +123,7 @@ gulp.task('update:app', ['clean:app'], () => {
   return buildBaseApp(getWebpackConfig());
 });
 
-gulp.task('build:app', ['clean:app', 'check:js'], () => {
+gulp.task('build:app', ['clean:app', 'check:js', 'check:css'], () => {
   return buildApp(getWebpackConfig());
 });
 

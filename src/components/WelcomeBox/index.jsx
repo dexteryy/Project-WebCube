@@ -1,25 +1,30 @@
+/* @flow */
 /* eslint no-useless-constructor: 0 */
 
 import './index.scss';
 import React from 'react';
 
-class WelcomeBox extends React.Component {
+type WelcomeBoxProps = {
+  message: string;
+  bgColor?: string;
+};
 
-  static propTypes = {
-    message: React.PropTypes.string.isRequired,
-    bgColor: React.PropTypes.string,
-  };
+type WelcomeBoxStates = {
+  isHidden: boolean;
+};
+
+class WelcomeBox extends React.Component {
 
   static defaultProps = {
     bgColor: '#eee',
   };
 
-  constructor(props) {
+  constructor(props: WelcomeBoxProps) {
     super(props);
     // Operations usually carried out in componentWillMount go here
   }
 
-  state = {
+  state: WelcomeBoxStates = {
     isHidden: false,
   };
 
@@ -27,7 +32,7 @@ class WelcomeBox extends React.Component {
     this.setState({ isHidden: !this.state.isHidden });
   };
 
-  render() {
+  render(): React.Element {
     const hidden = this.state.isHidden ? 'hide' : '';
     const boxStyles = {
       backgroundColor: this.props.bgColor,

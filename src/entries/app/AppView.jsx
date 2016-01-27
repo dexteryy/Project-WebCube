@@ -1,7 +1,13 @@
+/* @flow */
 
 import React from 'react';
 import WelcomeBox from '../../components/WelcomeBox';
 
-export default function AppView(props) {
+type AppViewOptions = {
+  message: string;
+  bgColor?: string;
+};
+
+export default function AppView(props: AppViewOptions) {
   return <WelcomeBox {...props} />;
 }
