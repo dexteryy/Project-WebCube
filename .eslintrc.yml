@@ -621,12 +621,17 @@ rules:
   space-unary-ops:                    [2, { "words": true, "nonwords": false }]
   # http://eslint.org/docs/rules/spaced-comment
   # require or disallow a space immediately following the # or /* in a comment
+	# http://jscs.info/rule/requireSpaceAfterLineComment
   spaced-comment:
     - 2
     - always
     -
-    # markers: ["eslint", "global", "eslint-env", "jscs"]
-      exceptions:                     ["-", "+", "-+", "=", "*", "!", "/"]
+      line:
+        markers: []
+        exceptions:                     ["-", "+", "-+", "=", "*", "/"]
+      block:
+        markers: []
+        exceptions:                     ["-", "+", "-+", "=", "*", "!", "/"]
   # require regex literals to be wrapped in parentheses
   # http://eslint.org/docs/rules/wrap-regex
   wrap-regex:                         0

@@ -71,6 +71,7 @@ function buildHTML() {
       rootpath: path.join(__dirname, 'public'),
     }));
   if (isProductionEnv) {
+    // https://github.com/kangax/html-minifier
     stream = stream.pipe(htmlmin({
       removeComments: true,
       collapseWhitespace: true,
@@ -109,6 +110,7 @@ gulp.task('check:js', [], () => {
     .pipe(jscs())
     .pipe(jscs.reporter('console'))
     .pipe(jscs.reporter('failImmediately'))
+    // https://www.npmjs.com/package/gulp-flowtype#options
     .pipe(flow({
       all: false,
       weak: false,
@@ -146,6 +148,7 @@ gulp.task('watch', () => {
 
 gulp.task('webserver', () => {
   gulp.src('public')
+    // https://www.npmjs.com/package/gulp-webserver#options
     .pipe(webserver({
       // livereload: true,
       // directoryListing: true,

@@ -104,9 +104,11 @@
 	// "disallowPaddingNewLinesInObjects": false,
 	// Disallows parentheses around arrow function expressions with a single parameter.
 	// http://jscs.info/rule/disallowParenthesesAroundArrowParam
-	// "disallowParenthesesAroundArrowParam": false,
+	// no autofix
+	// "disallowParenthesesAroundArrowParam": true,
 	// Disallows quoted keys in object if possible.
 	// http://jscs.info/rule/disallowQuotedKeysInObjects
+	// eslint
 	// "disallowQuotedKeysInObjects": false, // { "allExcept": ["reserved"] },
 	// Disallows lines from ending in a semicolon.
 	// http://jscs.info/rule/disallowSemicolons
@@ -211,9 +213,11 @@
 	// Disallows unused params in function expression and function declaration.
 	// http://jscs.info/rule/disallowUnusedParams
 	// TODO: https://github.com/jscs-dev/node-jscs/issues/1946
+	// eslint
 	// "disallowUnusedParams": true,
 	// Disallows declaring variables with var.
 	// http://jscs.info/rule/disallowVar
+	// eslint
 	// "disallowVar": false, // true,
 	// Requires the variable to be the left hand operator when doing a boolean comparison
 	// http://jscs.info/rule/disallowYodaConditions
@@ -290,7 +294,7 @@
 	// "requireArrayDestructuring": false,
 	// Requires that arrow functions are used instead of anonymous function expressions in callbacks.
 	// http://jscs.info/rule/requireArrowFunctions
-	// "requireArrowFunctions": false,
+	// "requireArrowFunctions": true,
 	// Requires blocks to begin and end with a newline
 	// http://jscs.info/rule/requireBlocksOnNewline
 	"requireBlocksOnNewline": { "includeComments": true },
@@ -364,6 +368,7 @@
 	// "requireObjectDestructuring": false,
 	// Requires placing object keys on new line
 	// http://jscs.info/rule/requireObjectKeysOnNewLine
+	// don't support { a: 1, b: 2 }
 	// "requireObjectKeysOnNewLine": true,
 	// Requires operators to appear before line breaks and not after.
 	// http://jscs.info/rule/requireOperatorBeforeLineBreak
@@ -431,7 +436,11 @@
 	],
 	// Requires that a line comment (//) be followed by a space.
 	// http://jscs.info/rule/requireSpaceAfterLineComment
-	// "requireSpaceAfterLineComment": { "allExcept": ["=", "/"] },
+	// TODO: //======
+  // http://eslint.org/docs/rules/spaced-comment
+	// "requireSpaceAfterLineComment": {
+	// 	"allExcept": ["-", "+", "-+", "=", "*", "!", "/"]
+	// },
 	// Requires space after object keys.
 	// http://jscs.info/rule/requireSpaceAfterObjectKeys
 	// "requireSpaceAfterObjectKeys": false,
@@ -513,8 +522,14 @@
 	"requireTemplateStrings": { "allExcept": ["stringConcatenation"] },
 	// Requires an extra comma following the final element of an array or object literal.
 	// http://jscs.info/rule/requireTrailingComma
+	// TODO:
+	// [{
+	// 	a: 1,
+	// }, {
+	// 	b: 1,
+	// },]
 	// http://eslint.org/docs/rules/comma-dangle
-	// "requireTrailingComma": false, // { "ignoreSingleLine": true },
+	// "requireTrailingComma": { "ignoreSingleValue": true, "ignoreSingleLine": true },
 	// Requires var declaration to be on the top of an enclosing scope
 	// http://jscs.info/rule/requireVarDeclFirst
 	// "requireVarDeclFirst": false,
@@ -526,7 +541,7 @@
 	"safeContextKeyword": ["self"],
 	// Validates proper alignment of function parameters.
 	// http://jscs.info/rule/validateAlignedFunctionParameters
-	// "validateAlignedFunctionParameters": false,
+	"validateAlignedFunctionParameters": true,
 	// This rule is for validating the positioning of line comments. Block comments are ignored.
 	// http://jscs.info/rule/validateCommentPosition
 	// "validateCommentPosition": { "position": "above" },
@@ -538,7 +553,11 @@
 	"validateLineBreaks": "LF",
 	// Requires each element in array on a single line when array length is more than passed maximum number or array fills more than one line.
 	// http://jscs.info/rule/validateNewlineAfterArrayElements
-	// "validateNewlineAfterArrayElements": false,
+	// TODO:
+	// [{
+	// }, {
+	// }]
+	// "validateNewlineAfterArrayElements": true,
 	// Validates the order in object keys.
 	// http://jscs.info/rule/validateOrderInObjectKeys
 	// "validateOrderInObjectKeys": false,
