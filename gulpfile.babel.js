@@ -153,7 +153,7 @@ gulp.task('webserver', () => {
       // livereload: true,
       // directoryListing: true,
       // open: true,
-      port: 8000,
-      host: 'localhost',
+      port: process.env.MYAPP_DEVSERVER_PORT || 8000,
+      host: process.env.MYAPP_DEVSERVER_HOST || 'localhost',
     }));
 });
