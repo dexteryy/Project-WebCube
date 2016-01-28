@@ -14,7 +14,7 @@ Includes the following toolchains:
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
 * [dotenv](https://www.npmjs.com/package/dotenv)
-* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [EditorConfig](http://editorconfig.org/)
+* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 
 ## Structure
 
@@ -33,13 +33,11 @@ Includes the following toolchains:
     * _**app/**_
       * `index.js`, `index.scss`, `AppView.jsx`
     * _demo-page1/_
-    * _demo-page2/_
     * ...
 * **containers/**
   * _**app/**_
     * `index.html`, `deploy.js`, `deploy.scss`
   * _demo-page1/_
-  * _demo-page2/_
   * ...
 * **data/**
 * **tests/**
