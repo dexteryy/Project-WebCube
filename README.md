@@ -1,6 +1,8 @@
 
 # Static Web App Starter Kits
 
+Includes the following toolchains:
+
 * [Webpack](http://webpack.github.io/docs/)
   * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) and [more](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/))
   * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://www.npmjs.com/package/postcss-loader) ([Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)) + [style-loader](https://www.npmjs.com/package/style-loader)
@@ -15,7 +17,88 @@
 * [dotenv](https://www.npmjs.com/package/dotenv)
 * [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog))
 
+## Structure
+
+#### Directories and Sample Files
+
+- **src/**
+  - **assets/**
+    - _`swifticons/Browsertool.png`_
+  - **declarations/**
+    - `global.js`
+    - `node_modules.js`
+    - `assets.js`
+  - **components/**
+    - _**WelcomeBox/**_
+      * _`index.jsx`_
+      * _`index.scss`_
+  * **models/**
+  * ...
+  * **entries/**
+    * _**app/**_
+      * `index.js`
+      * `index.scss`
+    * _demo-page1/_
+    * _demo-page2/_
+    * ...
+* **containers/**
+  * _**app/**_
+    * `index.html`
+    * `deploy.js`
+    * `deploy.scss`
+  * _demo-page1/_
+  * _demo-page2/_
+  * ...
+* **data/**
+* **tests/**
+* public/
+* ...
+* `index.js`
+* `package.json`
+
+#### Main Entry Point
+
+> Note: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
+
+[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`src/entries/app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/app/index.js)
+
+#### Multiple Entry Points (optional)
+
+Add files:
+
+* `src/entries/demo-page1/index.js`
+* `src/entries/demo-page2/index.js`
+* `containers/demo-page1/index.html`
+* `containers/demo-page2/index.html`
+
+Edit the [`webpack.config.js`](https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.js):
+
+```javascript
+module.exports = {
+  entry: {
+    common: ['babel-polyfill', 'whatwg-fetch', 'react'], // optional
+    'demo-page1': ['babel-polyfill', 'entries/demo-page1'],
+    'demo-page2': ['babel-polyfill', 'entries/demo-page2'],
+  },
+  plugins: [
+    // optional
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+    }),
+```
+
+Edit the `containers/demo-page1/index.html`:
+
+```javascript
+<script src="/static/common.js"></script> <!-- optional -->
+<script src="/static/demo-page1.js"></script>
+```
+
+# Getting Started
+
 ## Installing Dependencies
+
+> Note: Remove redundant packages from [`package.json`](https://github.com/dexteryy/static-app-starter/blob/master/package.json)'s `dependencies`
 
 * `npm install`
 * `gem install scss_lint` (for [gulp-scss-lint](https://www.npmjs.com/package/gulp-scss-lint))
@@ -36,9 +119,9 @@ MYAPP_CDN_PREFIX=http://cdn.example.com/assets/
 
 Build scripts and config files:
 
-* `/package.json`
-* `/gulpfile.babel.js`
-* `/webpack.config.js`
+* [`package.json`](https://github.com/dexteryy/static-app-starter/blob/master/package.json)
+* [`gulpfile.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js)
+* [`webpack.config.js`](https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.js)
 
 ## Open in the Browser
 
@@ -49,19 +132,19 @@ Build scripts and config files:
 
 * `npm run dev`
 
-### Code Style
+#### Code Style
 
 Similiar to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript), [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
 
 More detail:
 
-* `/.eslintrc.yml`
-* `/.jscsrc`
-* `/.flowconfig`
-* `/.scss-lint.yml`
-* `/.csscomb.json`
+* [`.eslintrc.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.eslintrc.yml)
+* [`.jscsrc`](https://github.com/dexteryy/static-app-starter/blob/master/.jscsrc)
+* [`.flowconfig`](https://github.com/dexteryy/static-app-starter/blob/master/.flowconfig)
+* [`.scss-lint.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.scss-lint.yml)
+* [`.csscomb.json`](https://github.com/dexteryy/static-app-starter/blob/master/.csscomb.json)
 
-### Recommended Editor/IDE
+#### Recommended Editor/IDE
 
 * [Atom](atom.io/) + following plugins:
   * [language-babel](https://atom.io/packages/language-babel)
@@ -95,7 +178,7 @@ whitespace:
   enableForCursorLines: true
 ```
 
-### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)
+#### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)
 
 * `git add .`
 * `git cz` (need `npm install commitizen -g`)
@@ -110,4 +193,4 @@ Coming soon...
 
 Deployment scripts:
 
-* `/gulpfile.babel.js`
+* [`gulpfile.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js)
