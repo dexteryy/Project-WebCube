@@ -69,7 +69,7 @@ rules:
   no-whitespace-before-property:      2
   # Suggest using the rest parameters instead of arguments
   # http://eslint.org/docs/2.0.0/rules/prefer-rest-params
-  # TODO: node v5
+  # NOTE: node v5
   prefer-rest-params:                 2
   # Import Sorting
   # http://eslint.org/docs/2.0.0/rules/sort-imports
@@ -310,7 +310,7 @@ rules:
   no-octal:                           2
   # disallow reassignment of function parameters
   # http://eslint.org/docs/rules/no-param-reassign
-  # TODO: node v5 --harmony_default_parameters
+  # NOTE: node v5 --harmony_default_parameters
   no-param-reassign:                  [2, { "props": false }]
   # disallow use of process.env
   # http://eslint.org/docs/rules/no-process-env
@@ -348,7 +348,7 @@ rules:
   # disallow use of the void operator
   # http://eslint.org/docs/rules/no-void
   no-void:                            2
-  # disallow usage of configurable warning terms in comments - e.g. TODO or FIXME
+  # disallow usage of configurable warning terms in comments
   # http://eslint.org/docs/rules/no-warning-comments
   no-warning-comments:                0
   # http://eslint.org/docs/rules/no-with
@@ -679,7 +679,7 @@ rules:
   prefer-arrow-callback:              0
   # suggest using const declaration for variables that are never modified after declared
   # http://eslint.org/docs/rules/prefer-const
-  # TODO:
+  # NOTE:
   # function getQuote()
   #   let quote = 0;
   #   setTimeout(() =>

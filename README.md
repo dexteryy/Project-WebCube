@@ -1,21 +1,20 @@
 
-# Static Web App Starter Kits
+# Static Web App Starter Kit
 
 Includes the following toolchains:
 
 * [Webpack](http://webpack.github.io/docs/)
   * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) and [more](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/))
-  * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://www.npmjs.com/package/postcss-loader) ([Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)) + [style-loader](https://www.npmjs.com/package/style-loader)
+  * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/) + [style-loader](https://www.npmjs.com/package/style-loader)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [Static asset revisioning](https://www.npmjs.com/package/assets-webpack-plugin)
 * [Gulp](http://gulpjs.com/)
-  * [webpack-stream](https://www.npmjs.com/package/webpack-stream/)
   * [Flow](flowtype.org) + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [JSCS](http://jscs.info/)
-  * [SCSS-Lint](https://github.com/brigade/scss-lint) + [CSSComb](http://csscomb.com/)
-  * [UglifyJS2](https://github.com/mishoo/UglifyJS2)
-  * [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
+  * [SCSS-Lint](https://github.com/brigade/scss-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
+  * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
+  * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
 * [dotenv](https://www.npmjs.com/package/dotenv)
-* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog))
+* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [EditorConfig](http://editorconfig.org/)
 
 ## Structure
 
@@ -25,27 +24,20 @@ Includes the following toolchains:
   - **assets/**
     - _`swifticons/Browsertool.png`_
   - **declarations/**
-    - `global.js`
-    - `node_modules.js`
-    - `assets.js`
+    - `global.js`, `node_modules.js`, `assets.js`
   - **components/**
-    - _**WelcomeBox/**_
-      * _`index.jsx`_
-      * _`index.scss`_
+    - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
   * **models/**
   * ...
   * **entries/**
     * _**app/**_
-      * `index.js`
-      * `index.scss`
+      * `index.js`, `index.scss`, `AppView.jsx`
     * _demo-page1/_
     * _demo-page2/_
     * ...
 * **containers/**
   * _**app/**_
-    * `index.html`
-    * `deploy.js`
-    * `deploy.scss`
+    * `index.html`, `deploy.js`, `deploy.scss`
   * _demo-page1/_
   * _demo-page2/_
   * ...
@@ -143,12 +135,13 @@ More detail:
 * [`.flowconfig`](https://github.com/dexteryy/static-app-starter/blob/master/.flowconfig)
 * [`.scss-lint.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.scss-lint.yml)
 * [`.csscomb.json`](https://github.com/dexteryy/static-app-starter/blob/master/.csscomb.json)
+* [`.htmlhintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.htmlhintrc)
 
 #### Recommended Editor/IDE
 
 * [Atom](atom.io/) + following plugins:
   * [language-babel](https://atom.io/packages/language-babel)
-  * [linter](https://atom.io/packages/linter) + [linter-eslint](https://atom.io/packages/linter-eslint) + [linter-jscs](https://atom.io/packages/linter-jscs) + [linter-flow](https://atom.io/packages/linter-flow) + [linter-scss-lint](https://atom.io/packages/linter-scss-lint)
+  * [linter](https://atom.io/packages/linter) + [linter-eslint](https://atom.io/packages/linter-eslint) + [linter-jscs](https://atom.io/packages/linter-jscs) + [linter-flow](https://atom.io/packages/linter-flow) + [linter-scss-lint](https://atom.io/packages/linter-scss-lint) + [linter-htmlhint](https://atom.io/packages/linter-htmlhint)
   * [editorconfig](https://atom.io/packages/editorconfig)
   * [toggle-quotes](https://atom.io/packages/toggle-quotes) + [vim-surround](https://atom.io/packages/vim-surround)
   * [auto-detect-indentation](https://atom.io/packages/auto-detect-indentation) + [resize-indent](https://atom.io/packages/resize-indent)
@@ -156,8 +149,8 @@ More detail:
 
 Recommended Settings for Atom (config.cson):
 
-```
-linter:
+```json
+"linter":
   ignoreVCSIgnoredFiles: false
   lintOnFly: false
 "linter-jscs":
@@ -172,7 +165,7 @@ linter:
 "atom-css-comb":
   projectConfigs: ".csscomb"
   readyMadeConfigs: "csscomb"
-whitespace:
+"whitespace":
   ignoreWhitespaceOnCurrentLine: false
 "trailing-spaces":
   enableForCursorLines: true

@@ -14,6 +14,7 @@ import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
 import scsslint from 'gulp-scss-lint';
+import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
 import webserver from 'gulp-webserver';
@@ -53,26 +54,13 @@ function buildApp(myWebpackConfig) {
 
 function buildHTML() {
   const revData = JSON.parse(fs.readFileSync('rev-version.json'));
-  const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
-  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
   let stream = gulp.src('containers/**/*.html')
-    .pipe(replace(RE_JS_FILE, ($0, $1, $2) => {
-      const filename = $2.replace(/.*\//, '');
-      let res = revData;
-      filename.split('.').forEach(function (name) {
-        res = typeof res === 'object' && res[name] || $2;
-      });
-      if (isProductionEnv) {
-        res = res.replace(RE_ADD_MIN, '$1_min.$2');
-      }
-      return `${$1}"${res}"`;
-    }))
+    .pipe(replaceRev(revData))
     .pipe(inlinesource({
       rootpath: path.join(__dirname, 'public'),
     }));
   if (isProductionEnv) {
-    // https://github.com/kangax/html-minifier
-    stream = stream.pipe(htmlmin({
+    stream = stream.pipe(htmlmin({ // https://github.com/kangax/html-minifier
       removeComments: true,
       collapseWhitespace: true,
       collapseBooleanAttributes: true,
@@ -86,6 +74,22 @@ function buildHTML() {
     }));
   }
   return stream.pipe(gulp.dest('public'));
+}
+
+function replaceRev(revData) {
+  const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
+  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
+  return replace(RE_JS_FILE, ($0, $1, $2) => {
+    const filename = $2.replace(/.*\//, '');
+    let res = revData;
+    filename.split('.').forEach(function (name) {
+      res = typeof res === 'object' && res[name] || $2;
+    });
+    if (isProductionEnv) {
+      res = res.replace(RE_ADD_MIN, '$1_min.$2');
+    }
+    return `${$1}"${res}"`;
+  });
 }
 
 gulp.task('clean:app', (done) => {
@@ -110,8 +114,7 @@ gulp.task('check:js', [], () => {
     .pipe(jscs())
     .pipe(jscs.reporter('console'))
     .pipe(jscs.reporter('failImmediately'))
-    // https://www.npmjs.com/package/gulp-flowtype#options
-    .pipe(flow({
+    .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
       all: false,
       weak: false,
       declarations: './src/declarations',
@@ -121,11 +124,20 @@ gulp.task('check:js', [], () => {
     }));
 });
 
+gulp.task('check:html', [], () => {
+  return gulp.src('containers/**/*.html')
+    .pipe(htmlhint('.htmlhintrc')) // https://github.com/yaniswang/HTMLHint/wiki/Rules
+    .pipe(htmlhint.failReporter());
+});
+
 gulp.task('update:app', ['clean:app'], () => {
   return buildBaseApp(getWebpackConfig());
 });
 
-gulp.task('build:app', ['clean:app', 'check:js', 'check:css'], () => {
+gulp.task('build:app', [
+  'clean:app',
+  'check:js', 'check:css', 'check:html',
+], () => {
   return buildApp(getWebpackConfig());
 });
 
@@ -148,8 +160,7 @@ gulp.task('watch', () => {
 
 gulp.task('webserver', () => {
   gulp.src('public')
-    // https://www.npmjs.com/package/gulp-webserver#options
-    .pipe(webserver({
+    .pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
       // livereload: true,
       // directoryListing: true,
       // open: true,
