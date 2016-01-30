@@ -38,8 +38,8 @@ describe('App', function () {
 
     it('should have correct elements', function () {
       app.init({ root });
-      root.querySelectorAll('.welcome .msg').should.exist;
-      root.querySelectorAll('.welcome .ok').should.exist;
+      root.querySelectorAll('.welcome .msg').length.should.equal(1);
+      root.querySelectorAll('.welcome .ok').length.should.equal(1);
     });
 
   });
