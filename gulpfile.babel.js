@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 import dotenv from 'dotenv';
+import ps from 'ps-node';
+import running from 'is-running';
 import gulp from 'gulp';
 import del from 'del';
 import fs from 'fs';
@@ -17,6 +19,8 @@ import scsslint from 'gulp-scss-lint';
 import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
+import { Server as KarmaServer } from 'karma';
+import mocha from 'gulp-mocha';
 import webserver from 'gulp-webserver';
 
 dotenv.config({
@@ -27,9 +31,9 @@ const isProductionEnv = process.env.NODE_ENV === 'production';
 
 function getWebpackConfig() {
   try {
-    return require('./webpack.demo.config.js');
+    return require('./webpack.demo.config.babel.js');
   } catch (ex) {
-    return require('./webpack.config.js');
+    return require('./webpack.config.babel.js');
   }
 }
 
@@ -92,6 +96,46 @@ function replaceRev(revData) {
   });
 }
 
+function testFunctional() {
+  return gulp.src(['tests/functionals/**/*.js'], { read: false })
+    // gulp-mocha needs filepaths so you can't have any plugins before it
+    .pipe(mocha({ // https://www.npmjs.com/package/gulp-mocha
+      reporter: 'spec',
+      globals: [],
+    }));
+}
+
+function killLastServer(done) {
+  fs.stat('.devserver.pid', function (err) {
+    if (err) {
+      done();
+      return;
+    }
+    const lastPid = parseInt(fs.readFileSync('.devserver.pid').toString(), 10);
+    ps.lookup({ pid: lastPid }, function (err, resultList) {
+      if (err) {
+        done();
+        return;
+      }
+      const process = resultList[0];
+      if (process && running(process.pid)) {
+        ps.kill(process.pid, done);
+      } else {
+        done();
+      }
+    });
+  });
+}
+
+function startDevServer(stream, done) {
+  fs.writeFileSync('.devserver.pid', process.pid);
+  stream.pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
+    port: process.env.MYAPP_DEVSERVER_PORT || 8000,
+    host: process.env.MYAPP_DEVSERVER_HOST || 'localhost',
+  }));
+  done();
+}
+
 gulp.task('clean:app', (done) => {
   del(['public/static/**']).then(() => done());
 });
@@ -130,41 +174,64 @@ gulp.task('check:html', [], () => {
     .pipe(htmlhint.failReporter());
 });
 
-gulp.task('update:app', ['clean:app'], () => {
+gulp.task('check:all', ['check:js', 'check:css', 'check:html'], () => {});
+
+gulp.task('test:unit', [], (done) => {
+  new KarmaServer({
+    configFile: `${__dirname}/karma.conf.js`,
+    singleRun: true,
+  }, done).start();
+});
+
+gulp.task('test:functional', [], testFunctional);
+
+gulp.task('test:all', ['test:unit', 'test:functional'], () => {});
+
+gulp.task('update:app', ['clean:app', 'test:unit'], () => {
   return buildBaseApp(getWebpackConfig());
 });
 
-gulp.task('build:app', [
-  'clean:app',
-  'check:js', 'check:css', 'check:html',
-], () => {
+gulp.task('build:app', ['clean:app', 'check:all', 'test:unit'], () => {
   return buildApp(getWebpackConfig());
 });
 
-gulp.task('build:html', ['clean:html', 'build:app'], () => {
-  return buildHTML();
-});
+gulp.task('build:html', ['clean:html', 'build:app'], buildHTML);
 
-gulp.task('default', [
-  'build:app',
-  'build:html',
+gulp.task('test:afterBuild', ['build:html'], testFunctional);
+
+gulp.task('build', [
+  'test:afterBuild',
 ]);
 
 gulp.task('deploy', [
+  'test:afterBuild',
 ]);
 
-gulp.task('watch', () => {
+gulp.task('default', [
+  'build',
+]);
+
+gulp.task('watch:src', () => {
   gulp.watch(['src/**'], ['update:app']);
-  gulp.watch(['containers/**/*.html'], ['build:html']);
+  gulp.watch(['containers/**', 'data/**'], ['build:html']);
+  gulp.watch(['tests/units/**'], ['test:unit']);
+  gulp.watch(['tests/functionals/**'], ['test:functional']);
 });
 
-gulp.task('webserver', () => {
-  gulp.src('public')
-    .pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
-      // livereload: true,
-      // directoryListing: true,
-      // open: true,
-      port: process.env.MYAPP_DEVSERVER_PORT || 8000,
-      host: process.env.MYAPP_DEVSERVER_HOST || 'localhost',
-    }));
+gulp.task('watch:server', () => {
+  gulp.watch(['src/**'], ['test:afterBuild']);
+  gulp.watch(['containers/**'], ['test:afterBuild']);
+  gulp.watch(['tests/units/**'], ['test:unit']);
+  gulp.watch(['tests/functionals/**'], ['test:functional']);
+});
+
+gulp.task('serve:start', (done) => {
+  const stream = gulp.src('public');
+  killLastServer(function () {
+    startDevServer(stream, done);
+  });
+});
+
+gulp.task('serve:stop', (done) => {
+  killLastServer(done);
 });

@@ -131,7 +131,7 @@
 
 	// Disallows blocks from beginning or ending with 2 newlines.
 	// http://jscs.info/rule/disallowPaddingNewlinesInBlocks
-	"disallowPaddingNewlinesInBlocks": true, // { "allExcept": ["functions"] },
+	// "disallowPaddingNewlinesInBlocks": true, // { "allExcept": ["functions"] },
 
 	// Disallows newlines adjacent to curly braces in all object literals.
 	// http://jscs.info/rule/disallowPaddingNewLinesInObjects

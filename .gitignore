@@ -1,7 +1,10 @@
 node_modules/
+coverage/
 .env
 rev-version.json
 npm-debug.log
+devserver.log
+.devserver.pid
 public/
 src/entries/demo-*
 src/assets/demo-*

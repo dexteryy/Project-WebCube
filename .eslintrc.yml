@@ -585,7 +585,7 @@ rules:
   operator-linebreak:                 [2, "before"]
   # enforce padding within blocks
   # http://eslint.org/docs/rules/padded-blocks
-  padded-blocks:                      [2, "never"]
+  padded-blocks:                      [0, "never"]
   # require quotes around object literal property names
   # http://eslint.org/docs/rules/quote-props
   quote-props:                        [2, "as-needed", { "keywords": true, "numbers": true, "unnecessary": true }]

@@ -4,7 +4,7 @@
 Includes the following toolchains:
 
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) and [more](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/))
+  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/))
   * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/) + [style-loader](https://www.npmjs.com/package/style-loader)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [Static asset revisioning](https://www.npmjs.com/package/assets-webpack-plugin)
@@ -13,8 +13,9 @@ Includes the following toolchains:
   * [SCSS-Lint](https://github.com/brigade/scss-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
+* [Karma](https://karma-runner.github.io/) / [Nightmare](http://nightmarejs.org/) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
 * [dotenv](https://www.npmjs.com/package/dotenv)
-* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
+* [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 
 ## Structure
 
@@ -24,27 +25,31 @@ Includes the following toolchains:
   - **assets/**
     - _`swifticons/Browsertool.png`_
   - **declarations/**
-    - `global.js`, `node_modules.js`, `assets.js`
+    - `global.js`, `node_modules.js`, `assets.js`, ...
   - **components/**
     - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
-  * **models/**
-  * ...
-  * **entries/**
-    * _**app/**_
-      * `index.js`, `index.scss`, `AppView.jsx`
-    * _demo-page1/_
-    * ...
-* **containers/**
-  * _**app/**_
-    * `index.html`, `deploy.js`, `deploy.scss`
-  * _demo-page1/_
-  * ...
-* **data/**
-* **tests/**
-* public/
-* ...
-* `index.js`
-* `package.json`
+  - **models/**
+  - ...
+  - **entries/**
+    - _**app/**_
+      - `index.js`, `index.scss`, `AppView.jsx`
+    - _demo-page1/_
+    - ...
+- **containers/**
+  - _**app/**_
+    - `index.html`, `deploy.js`, `deploy.scss`
+  - _demo-page1/_
+  - ...
+- **data/**
+- **tests/**
+  - **units/**
+      - `test1.spec.js`, `test2.spec.js`, ...
+  - **functionals/**
+      - `test1.spec.js`, `test2.spec.js`, ...
+- public/
+- ...
+- `index.js`
+- `package.json`
 
 #### Main Entry Point
 
@@ -61,7 +66,7 @@ Add files:
 * `containers/demo-page1/index.html`
 * `containers/demo-page2/index.html`
 
-Edit the [`webpack.config.js`](https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.js):
+Edit the [`webpack.config.babel.js`][webpack.config]:
 
 ```javascript
 module.exports = {
@@ -88,7 +93,7 @@ Edit the `containers/demo-page1/index.html`:
 
 ## Installing Dependencies
 
-> Note: Remove redundant packages from [`package.json`](https://github.com/dexteryy/static-app-starter/blob/master/package.json)'s `dependencies`
+> Note: Remove redundant packages from [`package.json`][package.json]'s `dependencies`
 
 * `npm install`
 * `gem install scss_lint` (for [gulp-scss-lint](https://www.npmjs.com/package/gulp-scss-lint))
@@ -109,20 +114,22 @@ MYAPP_CDN_PREFIX=http://cdn.example.com/assets/
 
 Build scripts and config files:
 
-* [`package.json`](https://github.com/dexteryy/static-app-starter/blob/master/package.json)
-* [`gulpfile.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js)
-* [`webpack.config.js`](https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.js)
+* [`package.json`][package.json]
+* [`gulpfile.babel.js`][gulpfile]
+* [`webpack.config.babel.js`][webpack.config]
 
 ## Open in the Browser
 
-* `npm run serve`
+* `npm run startserver` (`npm run stopserver`)
 * `open http://localhost:8000/app/`
 
 ## Development
 
-* `npm run dev`
+* `npm run dev` (only unit tests, no lint step) or `npm run continuousbuild`
 
 #### Code Style
+
+* `npm run lint`
 
 Similiar to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript), [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
 
@@ -176,7 +183,7 @@ Recommended Settings for Atom (config.cson):
 
 ## Testing
 
-Coming soon...
+* `npm run test`
 
 ## Deployment
 
@@ -184,4 +191,8 @@ Coming soon...
 
 Deployment scripts:
 
-* [`gulpfile.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js)
+* [`gulpfile.babel.js`][gulpfile]
+
+[package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
+[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.babel.js
+[gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js

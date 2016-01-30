@@ -5,11 +5,13 @@ import ReactDOM from 'react-dom';
 import AppView from './AppView';
 
 type UserOptions = {
+  root: HTMLElement;
   msg?: string;
   bgColor?: string;
 };
 
 type AppOptions = {
+  root?: HTMLElement;
   msg: string;
   bgColor?: string;
 };
@@ -22,15 +24,18 @@ class App {
 
   init(userOpt: UserOptions) {
     Object.assign(this.opt, userOpt);
+    if (!this.opt.root) {
+      return;
+    }
     ReactDOM.render(new AppView({
       message: this.opt.msg,
-    }), document.getElementById('welcome'));
+    }), this.opt.root);
   }
 
-  getData(url: string) {
+  getData(url: string, cb: Function) {
     // demo
     fetch(url).then((res) => {
-      console.info(res);
+      cb(res);
     });
   }
 
