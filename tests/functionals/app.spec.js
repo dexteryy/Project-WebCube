@@ -6,12 +6,12 @@ import Nightmare from 'nightmare';
 mochaGenerators.install();
 chai.should();
 
-describe('App', () => {
+describe('App', function () {
   const myhost = process.env.MYAPP_DEVSERVER_HOST;
   const myport = process.env.MYAPP_DEVSERVER_PORT;
   const url = `http://${myhost}:${myport}/app/`;
 
-  describe('Start page', () => {
+  describe('Start page', function () {
 
     let nightmare;
 

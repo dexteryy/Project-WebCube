@@ -35,19 +35,19 @@ module.exports = function (config) {
     frameworks: [
       'mocha',
       'chai',
+      'chai-as-promised',
       'chai-dom',
-      // 'chai-as-promised',
       // 'chai-jquery',
       // 'sinon-chai',
       // 'chai-things',
     ],
     preprocessors: {
-      'tests/units.bundle.js': ['webpack', 'sourcemap'],
+      'tests/units.entry.js': ['webpack', 'sourcemap'],
       // 'src/**/*.(js|jsx)': ['coverage'],
     },
     // list of files / patterns to load in the browser
     files: [
-      'tests/units.bundle.js',
+      'tests/units.entry.js',
     ],
     // list of files to exclude
     exclude: [

@@ -4,7 +4,7 @@ import App from '../../';
 
 chai.should();
 
-describe('App', () => {
+describe('App', function () {
 
   let app, root;
 
@@ -21,22 +21,22 @@ describe('App', () => {
     root.innerHTML = '';
   });
 
-  describe('#opt', () => {
+  describe('#opt', function () {
 
     app = new App();
     app.init({ root });
 
-    it('should have default value', () => {
+    it('should have default value', function () {
       app.opt.msg.should.be.a('string');
     });
 
   });
 
-  describe('#init', () => {
+  describe('#init', function () {
 
     app = new App();
 
-    it('should have correct elements', () => {
+    it('should have correct elements', function () {
       app.init({ root });
       root.querySelectorAll('.welcome .msg').should.exist;
       root.querySelectorAll('.welcome .ok').should.exist;

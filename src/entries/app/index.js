@@ -32,8 +32,8 @@ class App {
     }), this.opt.root);
   }
 
+  // Sample
   getData(url: string, cb: Function) {
-    // demo
     fetch(url).then((res) => {
       cb(res);
     });

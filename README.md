@@ -176,6 +176,13 @@ Recommended Settings for Atom (config.cson):
   enableForCursorLines: true
 ```
 
+#### Git Hooks
+
+> Note: Before committing make sure you have executed `npm run build`
+
+* pre-commit: `npm run lint && npm run test`
+* pre-push: `npm run build`
+
 #### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)
 
 * `git add .`
