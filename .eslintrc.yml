@@ -621,7 +621,7 @@ rules:
   space-unary-ops:                    [2, { "words": true, "nonwords": false }]
   # http://eslint.org/docs/rules/spaced-comment
   # require or disallow a space immediately following the # or /* in a comment
-	# http://jscs.info/rule/requireSpaceAfterLineComment
+  # http://jscs.info/rule/requireSpaceAfterLineComment
   spaced-comment:
     - 2
     - always

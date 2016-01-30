@@ -1,422 +1,422 @@
 {
-	"esnext": true,
-
-	// Requires that a function expression be named. Named functions provide more information in the error stack trace than anonymous functions.
-	// http://jscs.info/rule/disallowAnonymousFunctions
-	// "disallowAnonymousFunctions": false,
-
-	// Disallows arrow functions.
-	// http://jscs.info/rule/disallowArrowFunctions
-	// "disallowArrowFunctions": false,
-
-	// Requires the first alphabetical character of a comment to be lowercase.
-	// http://jscs.info/rule/disallowCapitalizedComments
-	// "disallowCapitalizedComments": false,
-
-	// Disallows commas as last token on a line in lists.
-	// http://jscs.info/rule/disallowCommaBeforeLineBreak
-	// "disallowCommaBeforeLineBreak": false,
-
-	// Disallows curly braces after statements.
-	// http://jscs.info/rule/disallowCurlyBraces
-	// "disallowCurlyBraces": false,
-
-	// Disallows identifiers that start or end in _.
-	// http://jscs.info/rule/disallowDanglingUnderscores
-	// "disallowDanglingUnderscores": false,
-
-	// Disallows empty blocks (except for catch blocks).
-	// http://jscs.info/rule/disallowEmptyBlocks
-	"disallowEmptyBlocks": { "allExcept": ["comments"] },
-
-	// Disallows function declarations.
-	// http://jscs.info/rule/disallowFunctionDeclarations
-	// "disallowFunctionDeclarations": false,
-
-	// Disallows identical destructuring names for the key and value in favor of using shorthand destructuring.
-	// http://jscs.info/rule/disallowIdenticalDestructuringNames
-	"disallowIdenticalDestructuringNames": true,
-
-	// Disallows a specified set of identifier names.
-	// http://jscs.info/rule/disallowIdentifierNames
-	"disallowIdentifierNames": [],
-
-	// Disallows implicit type conversion.
-	// http://jscs.info/rule/disallowImplicitTypeConversion
-	"disallowImplicitTypeConversion": ["numeric", "string"],
-
-	// Disallows keywords in your comments
-	// http://jscs.info/rule/disallowKeywordsInComments
-	// "disallowKeywordsInComments": false,
-
-	// Disallows placing keywords on a new line.
-	// http://jscs.info/rule/disallowKeywordsOnNewLine
-	"disallowKeywordsOnNewLine": ["else", "while"],
-
-	// Disallows usage of specified keywords.
-	// http://jscs.info/rule/disallowKeywords
-	"disallowKeywords": [],
-
-	// Requires lines to not contain both spaces and tabs consecutively, or spaces after tabs only for alignment if "smart"
-	// http://jscs.info/rule/disallowMixedSpacesAndTabs
-	"disallowMixedSpacesAndTabs": true,
-
-	// Disallows the test, consequent and alternate to be on separate lines when using the ternary operator.
-	// http://jscs.info/rule/disallowMultiLineTernary
-	// "disallowMultiLineTernary": false,
-
-	// Disallows multiple blank lines in a row.
-	// http://jscs.info/rule/disallowMultipleLineBreaks
-	"disallowMultipleLineBreaks": true,
-
-	// Disallows strings that span multiple lines without using concatenation.
-	// http://jscs.info/rule/disallowMultipleLineStrings
-	"disallowMultipleLineStrings": true,
-
-	// Disallows multiple indentation characters (tabs or spaces) between identifiers, keywords, and any other token
-	// http://jscs.info/rule/disallowMultipleSpaces
-	"disallowMultipleSpaces": { "allowEOLComments": true },
-
-	// Disallows multiple var declaration (except for-loop).
-	// http://jscs.info/rule/disallowMultipleVarDecl
-	"disallowMultipleVarDecl": { "allExcept": ["undefined"] },
-
-	// Disallows unassigned functions to be named inline
-	// http://jscs.info/rule/disallowNamedUnassignedFunctions
-	// "disallowNamedUnassignedFunctions": false,
-
-	// Disallows nested ternaries.
-	// http://jscs.info/rule/disallowNestedTernaries
-	// "disallowNestedTernaries": false,
-
-	// Disallows newline before opening curly brace of all block statements.
-	// http://jscs.info/rule/disallowNewlineBeforeBlockStatements
-	"disallowNewlineBeforeBlockStatements": true,
-
-	// Disallow use of certain node types (from Esprima/ESTree).
-	// http://jscs.info/rule/disallowNodeTypes
-	// "disallowNodeTypes": ["LabeledStatement"],
-
-	// Disallows the not, not equals, and strict not equals operators in conditionals.
-	// http://jscs.info/rule/disallowNotOperatorsInConditionals
-	// "disallowNotOperatorsInConditionals": false,
-
-	// Disallows placing object keys on new line
-	// http://jscs.info/rule/disallowObjectKeysOnNewLine
-	// "disallowObjectKeysOnNewLine": false,
-
-	// Requires putting certain operators on the next line rather than on the current line before a line break.
-	// http://jscs.info/rule/disallowOperatorBeforeLineBreak
-	"disallowOperatorBeforeLineBreak": [".", "?", "+", "-", "*", "/"],
-
-	// Disallow a newline after blocks
-	// http://jscs.info/rule/disallowPaddingNewLinesAfterBlocks
-	// "disallowPaddingNewLinesAfterBlocks": false,
-
-	// Disallow a blank line after 'use strict'; statements
-	// http://jscs.info/rule/disallowPaddingNewLinesAfterUseStrict
-	// "disallowPaddingNewLinesAfterUseStrict": false,
-
-	// Disallows newline before module.exports
-	// http://jscs.info/rule/disallowPaddingNewLinesBeforeExport
-	// "disallowPaddingNewLinesBeforeExport": false,
-
-	// Disallow an empty line above the specified keywords.
-	// http://jscs.info/rule/disallowPaddingNewlinesBeforeKeywords
-	"disallowPaddingNewlinesBeforeKeywords": [],
-
-	// Disallows newline before line comments
-	// http://jscs.info/rule/disallowPaddingNewLinesBeforeLineComments
-	// "disallowPaddingNewLinesBeforeLineComments": false,
-
-	// Disallows blocks from beginning or ending with 2 newlines.
-	// http://jscs.info/rule/disallowPaddingNewlinesInBlocks
-	// "disallowPaddingNewlinesInBlocks": true, // { "allExcept": ["functions"] },
-
-	// Disallows newlines adjacent to curly braces in all object literals.
-	// http://jscs.info/rule/disallowPaddingNewLinesInObjects
-	// "disallowPaddingNewLinesInObjects": false,
-
-	// Disallows parentheses around arrow function expressions with a single parameter.
-	// http://jscs.info/rule/disallowParenthesesAroundArrowParam
-	// no autofix
-	// "disallowParenthesesAroundArrowParam": true,
-
-	// Disallows quoted keys in object if possible.
-	// http://jscs.info/rule/disallowQuotedKeysInObjects
-	// eslint
-	// "disallowQuotedKeysInObjects": false, // { "allExcept": ["reserved"] },
-
-	// Disallows lines from ending in a semicolon.
-	// http://jscs.info/rule/disallowSemicolons
-	// "disallowSemicolons": false,
-
-	// Require arrow functions to use a block statement (explicit return).
-	// http://jscs.info/rule/disallowShorthandArrowFunctions
-	// "disallowShorthandArrowFunctions": false,
-
-	// Requires sticking binary operators to the right.
-	// http://jscs.info/rule/disallowSpaceAfterBinaryOperators
-	// "disallowSpaceAfterBinaryOperators": false,
-
-	// Disallows spaces after commas
-	// http://jscs.info/rule/disallowSpaceAfterComma
-	// "disallowSpaceAfterComma": false,
-
-	// Disallows space after keyword.
-	// http://jscs.info/rule/disallowSpaceAfterKeywords
-	// "disallowSpaceAfterKeywords": false,
-
-	// Requires that a line comment (//) not be followed by a space.
-	// http://jscs.info/rule/disallowSpaceAfterLineComment
-	// "disallowSpaceAfterLineComment": false,
-
-	// Disallows space after object keys.
-	// http://jscs.info/rule/disallowSpaceAfterObjectKeys
-	"disallowSpaceAfterObjectKeys": { "allExcept": ["method"] },
-
-	// Requires sticking unary operators to the right.
-	// http://jscs.info/rule/disallowSpaceAfterPrefixUnaryOperators
-	"disallowSpaceAfterPrefixUnaryOperators": true,
-
-	// Requires sticking binary operators to the left.
-	// http://jscs.info/rule/disallowSpaceBeforeBinaryOperators
-	// "disallowSpaceBeforeBinaryOperators": false,
-
-	// Disallows space before block statements (for loops, control structures).
-	// http://jscs.info/rule/disallowSpaceBeforeBlockStatements
-	// "disallowSpaceBeforeBlockStatements": false,
-
-	// Disallows spaces before commas
-	// http://jscs.info/rule/disallowSpaceBeforeComma
-	"disallowSpaceBeforeComma": { "allExcept": ["sparseArrays"] },
-
-	// Disallows space before keyword.
-	// http://jscs.info/rule/disallowSpaceBeforeKeywords
-	// "disallowSpaceBeforeKeywords": false,
-
-	// Disallows space before object values.
-	// http://jscs.info/rule/disallowSpaceBeforeObjectValues
-	// "disallowSpaceBeforeObjectValues": false,
-
-	// Requires sticking unary operators to the left.
-	// http://jscs.info/rule/disallowSpaceBeforePostfixUnaryOperators
-	"disallowSpaceBeforePostfixUnaryOperators": true,
-
-	// Disallows spaces before semicolons.
-	// http://jscs.info/rule/disallowSpaceBeforeSemicolon
-	"disallowSpaceBeforeSemicolon": true, // { "allExcept": [ "(" ] },
-
-	// Ensure there are no spaces after argument separators in call expressions.
-	// http://jscs.info/rule/disallowSpaceBetweenArguments
-	// "disallowSpaceBetweenArguments": false,
-
-	// Disallows space before () or {} in anonymous function expressions.
-	// http://jscs.info/rule/disallowSpacesInAnonymousFunctionExpression
-	// "disallowSpacesInAnonymousFunctionExpression": false,
-
-	// Disallows space before () in call expressions.
-	// http://jscs.info/rule/disallowSpacesInCallExpression
-	"disallowSpacesInCallExpression": true,
-
-	// Disallows space before and/or after ? or: in conditional expressions.
-	// http://jscs.info/rule/disallowSpacesInConditionalExpression
-	// "disallowSpacesInConditionalExpression": false,
-
-	// Disallow spaces in between for statement.
-	// http://jscs.info/rule/disallowSpacesInForStatement
-	// "disallowSpacesInForStatement": false,
+  "esnext": true,
+
+  // Requires that a function expression be named. Named functions provide more information in the error stack trace than anonymous functions.
+  // http://jscs.info/rule/disallowAnonymousFunctions
+  // "disallowAnonymousFunctions": false,
+
+  // Disallows arrow functions.
+  // http://jscs.info/rule/disallowArrowFunctions
+  // "disallowArrowFunctions": false,
+
+  // Requires the first alphabetical character of a comment to be lowercase.
+  // http://jscs.info/rule/disallowCapitalizedComments
+  // "disallowCapitalizedComments": false,
+
+  // Disallows commas as last token on a line in lists.
+  // http://jscs.info/rule/disallowCommaBeforeLineBreak
+  // "disallowCommaBeforeLineBreak": false,
+
+  // Disallows curly braces after statements.
+  // http://jscs.info/rule/disallowCurlyBraces
+  // "disallowCurlyBraces": false,
+
+  // Disallows identifiers that start or end in _.
+  // http://jscs.info/rule/disallowDanglingUnderscores
+  // "disallowDanglingUnderscores": false,
+
+  // Disallows empty blocks (except for catch blocks).
+  // http://jscs.info/rule/disallowEmptyBlocks
+  "disallowEmptyBlocks": { "allExcept": ["comments"] },
+
+  // Disallows function declarations.
+  // http://jscs.info/rule/disallowFunctionDeclarations
+  // "disallowFunctionDeclarations": false,
+
+  // Disallows identical destructuring names for the key and value in favor of using shorthand destructuring.
+  // http://jscs.info/rule/disallowIdenticalDestructuringNames
+  "disallowIdenticalDestructuringNames": true,
+
+  // Disallows a specified set of identifier names.
+  // http://jscs.info/rule/disallowIdentifierNames
+  "disallowIdentifierNames": [],
+
+  // Disallows implicit type conversion.
+  // http://jscs.info/rule/disallowImplicitTypeConversion
+  "disallowImplicitTypeConversion": ["numeric", "string"],
+
+  // Disallows keywords in your comments
+  // http://jscs.info/rule/disallowKeywordsInComments
+  // "disallowKeywordsInComments": false,
+
+  // Disallows placing keywords on a new line.
+  // http://jscs.info/rule/disallowKeywordsOnNewLine
+  "disallowKeywordsOnNewLine": ["else", "while"],
+
+  // Disallows usage of specified keywords.
+  // http://jscs.info/rule/disallowKeywords
+  "disallowKeywords": [],
+
+  // Requires lines to not contain both spaces and tabs consecutively, or spaces after tabs only for alignment if "smart"
+  // http://jscs.info/rule/disallowMixedSpacesAndTabs
+  "disallowMixedSpacesAndTabs": true,
+
+  // Disallows the test, consequent and alternate to be on separate lines when using the ternary operator.
+  // http://jscs.info/rule/disallowMultiLineTernary
+  // "disallowMultiLineTernary": false,
+
+  // Disallows multiple blank lines in a row.
+  // http://jscs.info/rule/disallowMultipleLineBreaks
+  "disallowMultipleLineBreaks": true,
+
+  // Disallows strings that span multiple lines without using concatenation.
+  // http://jscs.info/rule/disallowMultipleLineStrings
+  "disallowMultipleLineStrings": true,
+
+  // Disallows multiple indentation characters (tabs or spaces) between identifiers, keywords, and any other token
+  // http://jscs.info/rule/disallowMultipleSpaces
+  "disallowMultipleSpaces": { "allowEOLComments": true },
+
+  // Disallows multiple var declaration (except for-loop).
+  // http://jscs.info/rule/disallowMultipleVarDecl
+  "disallowMultipleVarDecl": { "allExcept": ["undefined"] },
+
+  // Disallows unassigned functions to be named inline
+  // http://jscs.info/rule/disallowNamedUnassignedFunctions
+  // "disallowNamedUnassignedFunctions": false,
+
+  // Disallows nested ternaries.
+  // http://jscs.info/rule/disallowNestedTernaries
+  // "disallowNestedTernaries": false,
+
+  // Disallows newline before opening curly brace of all block statements.
+  // http://jscs.info/rule/disallowNewlineBeforeBlockStatements
+  "disallowNewlineBeforeBlockStatements": true,
+
+  // Disallow use of certain node types (from Esprima/ESTree).
+  // http://jscs.info/rule/disallowNodeTypes
+  // "disallowNodeTypes": ["LabeledStatement"],
+
+  // Disallows the not, not equals, and strict not equals operators in conditionals.
+  // http://jscs.info/rule/disallowNotOperatorsInConditionals
+  // "disallowNotOperatorsInConditionals": false,
+
+  // Disallows placing object keys on new line
+  // http://jscs.info/rule/disallowObjectKeysOnNewLine
+  // "disallowObjectKeysOnNewLine": false,
+
+  // Requires putting certain operators on the next line rather than on the current line before a line break.
+  // http://jscs.info/rule/disallowOperatorBeforeLineBreak
+  "disallowOperatorBeforeLineBreak": [".", "?", "+", "-", "*", "/"],
+
+  // Disallow a newline after blocks
+  // http://jscs.info/rule/disallowPaddingNewLinesAfterBlocks
+  // "disallowPaddingNewLinesAfterBlocks": false,
+
+  // Disallow a blank line after 'use strict'; statements
+  // http://jscs.info/rule/disallowPaddingNewLinesAfterUseStrict
+  // "disallowPaddingNewLinesAfterUseStrict": false,
+
+  // Disallows newline before module.exports
+  // http://jscs.info/rule/disallowPaddingNewLinesBeforeExport
+  // "disallowPaddingNewLinesBeforeExport": false,
+
+  // Disallow an empty line above the specified keywords.
+  // http://jscs.info/rule/disallowPaddingNewlinesBeforeKeywords
+  "disallowPaddingNewlinesBeforeKeywords": [],
+
+  // Disallows newline before line comments
+  // http://jscs.info/rule/disallowPaddingNewLinesBeforeLineComments
+  // "disallowPaddingNewLinesBeforeLineComments": false,
+
+  // Disallows blocks from beginning or ending with 2 newlines.
+  // http://jscs.info/rule/disallowPaddingNewlinesInBlocks
+  // "disallowPaddingNewlinesInBlocks": true, // { "allExcept": ["functions"] },
+
+  // Disallows newlines adjacent to curly braces in all object literals.
+  // http://jscs.info/rule/disallowPaddingNewLinesInObjects
+  // "disallowPaddingNewLinesInObjects": false,
+
+  // Disallows parentheses around arrow function expressions with a single parameter.
+  // http://jscs.info/rule/disallowParenthesesAroundArrowParam
+  // no autofix
+  // "disallowParenthesesAroundArrowParam": true,
+
+  // Disallows quoted keys in object if possible.
+  // http://jscs.info/rule/disallowQuotedKeysInObjects
+  // eslint
+  // "disallowQuotedKeysInObjects": false, // { "allExcept": ["reserved"] },
+
+  // Disallows lines from ending in a semicolon.
+  // http://jscs.info/rule/disallowSemicolons
+  // "disallowSemicolons": false,
+
+  // Require arrow functions to use a block statement (explicit return).
+  // http://jscs.info/rule/disallowShorthandArrowFunctions
+  // "disallowShorthandArrowFunctions": false,
+
+  // Requires sticking binary operators to the right.
+  // http://jscs.info/rule/disallowSpaceAfterBinaryOperators
+  // "disallowSpaceAfterBinaryOperators": false,
+
+  // Disallows spaces after commas
+  // http://jscs.info/rule/disallowSpaceAfterComma
+  // "disallowSpaceAfterComma": false,
+
+  // Disallows space after keyword.
+  // http://jscs.info/rule/disallowSpaceAfterKeywords
+  // "disallowSpaceAfterKeywords": false,
+
+  // Requires that a line comment (//) not be followed by a space.
+  // http://jscs.info/rule/disallowSpaceAfterLineComment
+  // "disallowSpaceAfterLineComment": false,
+
+  // Disallows space after object keys.
+  // http://jscs.info/rule/disallowSpaceAfterObjectKeys
+  "disallowSpaceAfterObjectKeys": { "allExcept": ["method"] },
+
+  // Requires sticking unary operators to the right.
+  // http://jscs.info/rule/disallowSpaceAfterPrefixUnaryOperators
+  "disallowSpaceAfterPrefixUnaryOperators": true,
+
+  // Requires sticking binary operators to the left.
+  // http://jscs.info/rule/disallowSpaceBeforeBinaryOperators
+  // "disallowSpaceBeforeBinaryOperators": false,
+
+  // Disallows space before block statements (for loops, control structures).
+  // http://jscs.info/rule/disallowSpaceBeforeBlockStatements
+  // "disallowSpaceBeforeBlockStatements": false,
+
+  // Disallows spaces before commas
+  // http://jscs.info/rule/disallowSpaceBeforeComma
+  "disallowSpaceBeforeComma": { "allExcept": ["sparseArrays"] },
+
+  // Disallows space before keyword.
+  // http://jscs.info/rule/disallowSpaceBeforeKeywords
+  // "disallowSpaceBeforeKeywords": false,
+
+  // Disallows space before object values.
+  // http://jscs.info/rule/disallowSpaceBeforeObjectValues
+  // "disallowSpaceBeforeObjectValues": false,
+
+  // Requires sticking unary operators to the left.
+  // http://jscs.info/rule/disallowSpaceBeforePostfixUnaryOperators
+  "disallowSpaceBeforePostfixUnaryOperators": true,
+
+  // Disallows spaces before semicolons.
+  // http://jscs.info/rule/disallowSpaceBeforeSemicolon
+  "disallowSpaceBeforeSemicolon": true, // { "allExcept": [ "(" ] },
+
+  // Ensure there are no spaces after argument separators in call expressions.
+  // http://jscs.info/rule/disallowSpaceBetweenArguments
+  // "disallowSpaceBetweenArguments": false,
+
+  // Disallows space before () or {} in anonymous function expressions.
+  // http://jscs.info/rule/disallowSpacesInAnonymousFunctionExpression
+  // "disallowSpacesInAnonymousFunctionExpression": false,
+
+  // Disallows space before () in call expressions.
+  // http://jscs.info/rule/disallowSpacesInCallExpression
+  "disallowSpacesInCallExpression": true,
+
+  // Disallows space before and/or after ? or: in conditional expressions.
+  // http://jscs.info/rule/disallowSpacesInConditionalExpression
+  // "disallowSpacesInConditionalExpression": false,
+
+  // Disallow spaces in between for statement.
+  // http://jscs.info/rule/disallowSpacesInForStatement
+  // "disallowSpacesInForStatement": false,
 
-	// Disallows space before () or {} in function declarations.
-	// http://jscs.info/rule/disallowSpacesInFunctionDeclaration
-	"disallowSpacesInFunctionDeclaration": { "beforeOpeningRoundBrace": true },
+  // Disallows space before () or {} in function declarations.
+  // http://jscs.info/rule/disallowSpacesInFunctionDeclaration
+  "disallowSpacesInFunctionDeclaration": { "beforeOpeningRoundBrace": true },
 
-	// Disallows space before () or {} in function expressions (both named and anonymous).
-	// http://jscs.info/rule/disallowSpacesInFunctionExpression
-	// "disallowSpacesInFunctionExpression": false,
+  // Disallows space before () or {} in function expressions (both named and anonymous).
+  // http://jscs.info/rule/disallowSpacesInFunctionExpression
+  // "disallowSpacesInFunctionExpression": false,
 
-	// Disallows space before () or {} in function expressions (both named and anonymous) and function declarations.
-	// http://jscs.info/rule/disallowSpacesInFunction
-	// "disallowSpacesInFunction": false,
+  // Disallows space before () or {} in function expressions (both named and anonymous) and function declarations.
+  // http://jscs.info/rule/disallowSpacesInFunction
+  // "disallowSpacesInFunction": false,
 
-	// Disallow space before or after * in generator functions
-	// http://jscs.info/rule/disallowSpacesInGenerator
-	"disallowSpacesInGenerator": { "beforeStar": true }, // false,
-
-	// Disallows space before () or {} in named function expressions.
-	// http://jscs.info/rule/disallowSpacesInNamedFunctionExpression
-	"disallowSpacesInNamedFunctionExpression": { "beforeOpeningRoundBrace": true },
-
-	// Disallows space after opening array square bracket and before closing. Reports only on arrays, not on property accessors. Use disallowSpacesInsideBrackets to report on all brackets.
-	// http://jscs.info/rule/disallowSpacesInsideArrayBrackets
-	"disallowSpacesInsideArrayBrackets": true,
+  // Disallow space before or after * in generator functions
+  // http://jscs.info/rule/disallowSpacesInGenerator
+  "disallowSpacesInGenerator": { "beforeStar": true }, // false,
+
+  // Disallows space before () or {} in named function expressions.
+  // http://jscs.info/rule/disallowSpacesInNamedFunctionExpression
+  "disallowSpacesInNamedFunctionExpression": { "beforeOpeningRoundBrace": true },
+
+  // Disallows space after opening array square bracket and before closing. Reports only on arrays, not on property accessors. Use disallowSpacesInsideBrackets to report on all brackets.
+  // http://jscs.info/rule/disallowSpacesInsideArrayBrackets
+  "disallowSpacesInsideArrayBrackets": true,
 
-	// Disallows space after opening square bracket and before closing. Reports on all on brackets, even on property accessors. Use disallowSpacesInsideArrayBrackets to exclude property accessors.
-	// http://jscs.info/rule/disallowSpacesInsideBrackets
-	"disallowSpacesInsideBrackets": true,
+  // Disallows space after opening square bracket and before closing. Reports on all on brackets, even on property accessors. Use disallowSpacesInsideArrayBrackets to exclude property accessors.
+  // http://jscs.info/rule/disallowSpacesInsideBrackets
+  "disallowSpacesInsideBrackets": true,
 
-	// Disallows space after opening object curly brace and before closing.
-	// http://jscs.info/rule/disallowSpacesInsideObjectBrackets
-	"disallowSpacesInsideObjectBrackets": false,
+  // Disallows space after opening object curly brace and before closing.
+  // http://jscs.info/rule/disallowSpacesInsideObjectBrackets
+  "disallowSpacesInsideObjectBrackets": false,
 
-	// Disallows space after opening round bracket and before closing.
-	// http://jscs.info/rule/disallowSpacesInsideParentheses
-	"disallowSpacesInsideParentheses": true,
+  // Disallows space after opening round bracket and before closing.
+  // http://jscs.info/rule/disallowSpacesInsideParentheses
+  "disallowSpacesInsideParentheses": true,
 
-	// Disallows space after opening and before closing grouping parentheses.
-	// http://jscs.info/rule/disallowSpacesInsideParenthesizedExpression
-	"disallowSpacesInsideParenthesizedExpression": true,
+  // Disallows space after opening and before closing grouping parentheses.
+  // http://jscs.info/rule/disallowSpacesInsideParenthesizedExpression
+  "disallowSpacesInsideParenthesizedExpression": true,
 
-	// Disallows tabs everywhere.
-	// http://jscs.info/rule/disallowTabs
-	"disallowTabs": true,
+  // Disallows tabs everywhere.
+  // http://jscs.info/rule/disallowTabs
+  "disallowTabs": true,
 
-	// Disallows an extra comma following the final element of an array or object literal.
-	// http://jscs.info/rule/disallowTrailingComma
-	// http://eslint.org/docs/rules/comma-dangle
-	// "disallowTrailingComma": false, // true,
+  // Disallows an extra comma following the final element of an array or object literal.
+  // http://jscs.info/rule/disallowTrailingComma
+  // http://eslint.org/docs/rules/comma-dangle
+  // "disallowTrailingComma": false, // true,
 
-	// Requires all lines to end on a non-whitespace character
-	// http://jscs.info/rule/disallowTrailingWhitespace
-	"disallowTrailingWhitespace": true, // false,
+  // Requires all lines to end on a non-whitespace character
+  // http://jscs.info/rule/disallowTrailingWhitespace
+  "disallowTrailingWhitespace": true, // false,
 
-	// Disallows unused params in function expression and function declaration.
-	// http://jscs.info/rule/disallowUnusedParams
-	// NOTE: https://github.com/jscs-dev/node-jscs/issues/1946
-	// NOTE: eslint
-	// "disallowUnusedParams": true,
-
-	// Disallows declaring variables with var.
-	// http://jscs.info/rule/disallowVar
-	// eslint
-	// "disallowVar": false, // true,
+  // Disallows unused params in function expression and function declaration.
+  // http://jscs.info/rule/disallowUnusedParams
+  // NOTE: https://github.com/jscs-dev/node-jscs/issues/1946
+  // NOTE: eslint
+  // "disallowUnusedParams": true,
+
+  // Disallows declaring variables with var.
+  // http://jscs.info/rule/disallowVar
+  // eslint
+  // "disallowVar": false, // true,
 
-	// Requires the variable to be the left hand operator when doing a boolean comparison
-	// http://jscs.info/rule/disallowYodaConditions
-	// "disallowYodaConditions": false,
+  // Requires the variable to be the left hand operator when doing a boolean comparison
+  // http://jscs.info/rule/disallowYodaConditions
+  // "disallowYodaConditions": false,
 
-	// Validate jsdoc comments
-	// http://jscs.info/rule/jsDoc
-	"jsDoc": {
+  // Validate jsdoc comments
+  // http://jscs.info/rule/jsDoc
+  "jsDoc": {
 
-		// Checks tag names are valid.
-		"checkAnnotations": {
-			"preset": "jsdoc3",
-			"extra": {}
-		},
-
-		// Checks all parameters are documented.
-		"checkParamExistence": true,
+    // Checks tag names are valid.
+    "checkAnnotations": {
+      "preset": "jsdoc3",
+      "extra": {}
+    },
+
+    // Checks all parameters are documented.
+    "checkParamExistence": true,
 
-		// Checks param names in jsdoc and in function declaration are equal.
-		"checkParamNames": true,
+    // Checks param names in jsdoc and in function declaration are equal.
+    "checkParamNames": true,
 
-		// Checks params in jsdoc contains type.
-		"requireParamTypes": true,
-
-		// Reports redundant params in jsdoc.
-		"checkRedundantParams": true,
-
-		// Checks for differences between the jsdoc and actual return types if both exist.
-		"checkReturnTypes": true,
-
-		// Report statements for functions without return.
-		"checkRedundantReturns": true,
-
-		// Checks returns in jsdoc contains type
-		"requireReturnTypes": true,
-
-		// Reports invalid types for bunch of tags.
-		"checkTypes": true,
-
-		// Reports redundant access declarations.
-		"checkRedundantAccess": "enforceLeadingUnderscore",
-
-		// Checks access declaration is set for _underscored function names
-		// "leadingUnderscoreAccess": true,
-
-		// Checks jsdoc block exists.
-		// "enforceExistence": {
-		// 	"allExcept": {
-		// 		"expressions": true, // skip expression functions
-		// 		"exports": true, // skip module.exports = function () {};
-		// 		"paramless-procedures": true // functions without parameters and with empty return statements will be skipped
-		// 	}
-		// },
-
-		// Checks a param description has a hyphen before it (checks for -).
-		// "requireHyphenBeforeDescription": true,
-
-		// Checks a doc comment description has padding newline.
-		// "requireNewlineAfterDescription": true,
-
-		// Checks a doc comment description has no padding newlines.
-		"disallowNewlineAfterDescription": true
-
-		// Checks a doc comment description is a complete sentence. A complete sentence is defined as starting with an upper case letter and ending with a period.
-		// "requireDescriptionCompleteSentence": true,
-
-		// Checks a param description exists.
-		// "requireParamDescription": true,
-
-		// Checks a return description exists.
-		// "requireReturnDescription": true
-
-	},
-	// Requires all lines to be at most the number of characters specified
-	// http://jscs.info/rule/maximumLineLength
-	// "maximumLineLength": {
-	// 	"value": 80,
-	// 	"allExcept": ["regex", "comments", "urlComments", "require"] // "functionSignature"
-	// },
-
-	// Requires the file to be at most the number of lines specified
-	// http://jscs.info/rule/maximumNumberOfLines
-	// "maximumNumberOfLines": { "value": 2000, "allExcept": ["comments"] },
-
-	// Enforces indentation of parameters in multiline functions
-	// http://jscs.info/rule/requireAlignedMultilineParams
-	"requireAlignedMultilineParams": true,
-
-	// Requires proper alignment in object literals.
-	// http://jscs.info/rule/requireAlignedObjectValues
-	// "requireAlignedObjectValues": false,
-
-	// Requires that a function expression be anonymous.
-	// http://jscs.info/rule/requireAnonymousFunctions
-	// "requireAnonymousFunctions": false,
-
-	// Requires that variable assignment from array values are * destructured.
-	// http://jscs.info/rule/requireArrayDestructuring
-	// "requireArrayDestructuring": false,
-
-	// Requires that arrow functions are used instead of anonymous function expressions in callbacks.
-	// http://jscs.info/rule/requireArrowFunctions
-	// "requireArrowFunctions": true,
-
-	// Requires blocks to begin and end with a newline
-	// http://jscs.info/rule/requireBlocksOnNewline
-	"requireBlocksOnNewline": { "includeComments": true },
-
-	// Requires identifiers to be camelCased or UPPERCASE_WITH_UNDERSCORES
-	// http://jscs.info/rule/requireCamelCaseOrUpperCaseIdentifiers
-	"requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
-
-	// Requires the first alphabetical character of a comment to be uppercase, unless it is part of a multi-line textblock.
-	// http://jscs.info/rule/requireCapitalizedComments
-	// "requireCapitalizedComments": false,
-
-	// Requires constructors to be capitalized (except for this)
-	// http://jscs.info/rule/requireCapitalizedConstructors
-	"requireCapitalizedConstructors": true,
-
-	// Requires commas as last token on a line in lists.
-	// http://jscs.info/rule/requireCommaBeforeLineBreak
-	"requireCommaBeforeLineBreak": true,
-
-	// Requires curly braces after statements.
-	// http://jscs.info/rule/requireCurlyBraces
-	"requireCurlyBraces": [
+    // Checks params in jsdoc contains type.
+    "requireParamTypes": true,
+
+    // Reports redundant params in jsdoc.
+    "checkRedundantParams": true,
+
+    // Checks for differences between the jsdoc and actual return types if both exist.
+    "checkReturnTypes": true,
+
+    // Report statements for functions without return.
+    "checkRedundantReturns": true,
+
+    // Checks returns in jsdoc contains type
+    "requireReturnTypes": true,
+
+    // Reports invalid types for bunch of tags.
+    "checkTypes": true,
+
+    // Reports redundant access declarations.
+    "checkRedundantAccess": "enforceLeadingUnderscore",
+
+    // Checks access declaration is set for _underscored function names
+    // "leadingUnderscoreAccess": true,
+
+    // Checks jsdoc block exists.
+    // "enforceExistence": {
+    // 	"allExcept": {
+    // 		"expressions": true, // skip expression functions
+    // 		"exports": true, // skip module.exports = function () {};
+    // 		"paramless-procedures": true // functions without parameters and with empty return statements will be skipped
+    // 	}
+    // },
+
+    // Checks a param description has a hyphen before it (checks for -).
+    // "requireHyphenBeforeDescription": true,
+
+    // Checks a doc comment description has padding newline.
+    // "requireNewlineAfterDescription": true,
+
+    // Checks a doc comment description has no padding newlines.
+    "disallowNewlineAfterDescription": true
+
+    // Checks a doc comment description is a complete sentence. A complete sentence is defined as starting with an upper case letter and ending with a period.
+    // "requireDescriptionCompleteSentence": true,
+
+    // Checks a param description exists.
+    // "requireParamDescription": true,
+
+    // Checks a return description exists.
+    // "requireReturnDescription": true
+
+  },
+  // Requires all lines to be at most the number of characters specified
+  // http://jscs.info/rule/maximumLineLength
+  // "maximumLineLength": {
+  // 	"value": 80,
+  // 	"allExcept": ["regex", "comments", "urlComments", "require"] // "functionSignature"
+  // },
+
+  // Requires the file to be at most the number of lines specified
+  // http://jscs.info/rule/maximumNumberOfLines
+  // "maximumNumberOfLines": { "value": 2000, "allExcept": ["comments"] },
+
+  // Enforces indentation of parameters in multiline functions
+  // http://jscs.info/rule/requireAlignedMultilineParams
+  "requireAlignedMultilineParams": true,
+
+  // Requires proper alignment in object literals.
+  // http://jscs.info/rule/requireAlignedObjectValues
+  // "requireAlignedObjectValues": false,
+
+  // Requires that a function expression be anonymous.
+  // http://jscs.info/rule/requireAnonymousFunctions
+  // "requireAnonymousFunctions": false,
+
+  // Requires that variable assignment from array values are * destructured.
+  // http://jscs.info/rule/requireArrayDestructuring
+  // "requireArrayDestructuring": false,
+
+  // Requires that arrow functions are used instead of anonymous function expressions in callbacks.
+  // http://jscs.info/rule/requireArrowFunctions
+  // "requireArrowFunctions": true,
+
+  // Requires blocks to begin and end with a newline
+  // http://jscs.info/rule/requireBlocksOnNewline
+  "requireBlocksOnNewline": { "includeComments": true },
+
+  // Requires identifiers to be camelCased or UPPERCASE_WITH_UNDERSCORES
+  // http://jscs.info/rule/requireCamelCaseOrUpperCaseIdentifiers
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+
+  // Requires the first alphabetical character of a comment to be uppercase, unless it is part of a multi-line textblock.
+  // http://jscs.info/rule/requireCapitalizedComments
+  // "requireCapitalizedComments": false,
+
+  // Requires constructors to be capitalized (except for this)
+  // http://jscs.info/rule/requireCapitalizedConstructors
+  "requireCapitalizedConstructors": true,
+
+  // Requires commas as last token on a line in lists.
+  // http://jscs.info/rule/requireCommaBeforeLineBreak
+  "requireCommaBeforeLineBreak": true,
+
+  // Requires curly braces after statements.
+  // http://jscs.info/rule/requireCurlyBraces
+  "requireCurlyBraces": [
     "if",
     "else",
     "for",
@@ -424,140 +424,140 @@
     "do",
     "try",
     "catch"
-	],
+  ],
 
-	// Require a $ before variable names that are jquery assignments.
-	// http://jscs.info/rule/requireDollarBeforejQueryAssignment
-	// "requireDollarBeforejQueryAssignment": false,
+  // Require a $ before variable names that are jquery assignments.
+  // http://jscs.info/rule/requireDollarBeforejQueryAssignment
+  // "requireDollarBeforejQueryAssignment": false,
 
-	// Requires member expressions to use dot notation when possible
-	// http://jscs.info/rule/requireDotNotation
-	"requireDotNotation": { "allExcept": ["keywords"] }, // { "allExcept": ["keywords", "snake_case"] },
+  // Requires member expressions to use dot notation when possible
+  // http://jscs.info/rule/requireDotNotation
+  "requireDotNotation": { "allExcept": ["keywords"] }, // { "allExcept": ["keywords", "snake_case"] },
 
-	// Requires to return early in a function.
-	// http://jscs.info/rule/requireEarlyReturn
-	// "requireEarlyReturn": false,
+  // Requires to return early in a function.
+  // http://jscs.info/rule/requireEarlyReturn
+  // "requireEarlyReturn": false,
 
-	// Requires declaring objects via ES6 enhanced object literals
-	// http://jscs.info/rule/requireEnhancedObjectLiterals
-	"requireEnhancedObjectLiterals": true,
+  // Requires declaring objects via ES6 enhanced object literals
+  // http://jscs.info/rule/requireEnhancedObjectLiterals
+  "requireEnhancedObjectLiterals": true,
 
-	// Requires function declarations by disallowing assignment of functions expressions to variables. Function expressions are allowed in all other contexts, including when passed as function arguments or immediately invoked.
-	// http://jscs.info/rule/requireFunctionDeclarations
-	"requireFunctionDeclarations": true, // false,
+  // Requires function declarations by disallowing assignment of functions expressions to variables. Function expressions are allowed in all other contexts, including when passed as function arguments or immediately invoked.
+  // http://jscs.info/rule/requireFunctionDeclarations
+  "requireFunctionDeclarations": true, // false,
 
-	// Requires placing keywords on a new line.
-	// http://jscs.info/rule/requireKeywordsOnNewLine
-	// "requireKeywordsOnNewLine": false,
+  // Requires placing keywords on a new line.
+  // http://jscs.info/rule/requireKeywordsOnNewLine
+  // "requireKeywordsOnNewLine": false,
 
-	// Requires placing line feed after assigning a variable.
-	// http://jscs.info/rule/requireLineBreakAfterVariableAssignment
-	"requireLineBreakAfterVariableAssignment": true,
+  // Requires placing line feed after assigning a variable.
+  // http://jscs.info/rule/requireLineBreakAfterVariableAssignment
+  "requireLineBreakAfterVariableAssignment": true,
 
-	// Requires placing line feed at file end.
-	// http://jscs.info/rule/requireLineFeedAtFileEnd
-	// "requireLineFeedAtFileEnd": false,
+  // Requires placing line feed at file end.
+  // http://jscs.info/rule/requireLineFeedAtFileEnd
+  // "requireLineFeedAtFileEnd": false,
 
-	// Requires function names to match member and property names.
-	// http://jscs.info/rule/requireMatchingFunctionName
-	"requireMatchingFunctionName": true,
+  // Requires function names to match member and property names.
+  // http://jscs.info/rule/requireMatchingFunctionName
+  "requireMatchingFunctionName": true,
 
-	// Requires the test, consequent and alternate to be on separate lines when using the ternary operator.
-	// http://jscs.info/rule/requireMultiLineTernary
-	// "requireMultiLineTernary": false,
+  // Requires the test, consequent and alternate to be on separate lines when using the ternary operator.
+  // http://jscs.info/rule/requireMultiLineTernary
+  // "requireMultiLineTernary": false,
 
-	// Requires multiple var declaration.
-	// http://jscs.info/rule/requireMultipleVarDecl
-	// "requireMultipleVarDecl": false,
+  // Requires multiple var declaration.
+  // http://jscs.info/rule/requireMultipleVarDecl
+  // "requireMultipleVarDecl": false,
 
-	// Require unassigned functions to be named inline
-	// http://jscs.info/rule/requireNamedUnassignedFunctions
-	// "requireNamedUnassignedFunctions": false,
+  // Require unassigned functions to be named inline
+  // http://jscs.info/rule/requireNamedUnassignedFunctions
+  // "requireNamedUnassignedFunctions": false,
 
-	// Requires newline before opening curly brace of all block statements.
-	// http://jscs.info/rule/requireNewlineBeforeBlockStatements
-	// "requireNewlineBeforeBlockStatements": false,
+  // Requires newline before opening curly brace of all block statements.
+  // http://jscs.info/rule/requireNewlineBeforeBlockStatements
+  // "requireNewlineBeforeBlockStatements": false,
 
-	// Requires use of binary, hexadecimal, and octal literals instead of parseInt.
-	// http://jscs.info/rule/requireNumericLiterals
-	// "requireNumericLiterals": false,
+  // Requires use of binary, hexadecimal, and octal literals instead of parseInt.
+  // http://jscs.info/rule/requireNumericLiterals
+  // "requireNumericLiterals": false,
 
-	// Requires variable declarations from objects via destructuring
-	// http://jscs.info/rule/requireObjectDestructuring
-	// "requireObjectDestructuring": false,
+  // Requires variable declarations from objects via destructuring
+  // http://jscs.info/rule/requireObjectDestructuring
+  // "requireObjectDestructuring": false,
 
-	// Requires placing object keys on new line
-	// http://jscs.info/rule/requireObjectKeysOnNewLine
-	// don't support { a: 1, b: 2 }
-	// "requireObjectKeysOnNewLine": true,
+  // Requires placing object keys on new line
+  // http://jscs.info/rule/requireObjectKeysOnNewLine
+  // don't support { a: 1, b: 2 }
+  // "requireObjectKeysOnNewLine": true,
 
-	// Requires operators to appear before line breaks and not after.
-	// http://jscs.info/rule/requireOperatorBeforeLineBreak
-	// "requireOperatorBeforeLineBreak": false,
+  // Requires operators to appear before line breaks and not after.
+  // http://jscs.info/rule/requireOperatorBeforeLineBreak
+  // "requireOperatorBeforeLineBreak": false,
 
-	// Requires an extra blank newline after var declarations, as long as it is not the last expression in the current block.
-	// http://jscs.info/rule/requirePaddingNewLineAfterVariableDeclaration
-	// "requirePaddingNewLineAfterVariableDeclaration": false,
+  // Requires an extra blank newline after var declarations, as long as it is not the last expression in the current block.
+  // http://jscs.info/rule/requirePaddingNewLineAfterVariableDeclaration
+  // "requirePaddingNewLineAfterVariableDeclaration": false,
 
-	// Requires newline after blocks
-	// http://jscs.info/rule/requirePaddingNewLinesAfterBlocks
-	// "requirePaddingNewLinesAfterBlocks": false,
+  // Requires newline after blocks
+  // http://jscs.info/rule/requirePaddingNewLinesAfterBlocks
+  // "requirePaddingNewLinesAfterBlocks": false,
 
-	// Requires a blank line after 'use strict'; statements
-	// http://jscs.info/rule/requirePaddingNewLinesAfterUseStrict
-	// "requirePaddingNewLinesAfterUseStrict": false,
+  // Requires a blank line after 'use strict'; statements
+  // http://jscs.info/rule/requirePaddingNewLinesAfterUseStrict
+  // "requirePaddingNewLinesAfterUseStrict": false,
 
-	// Requires newline before module.exports
-	// http://jscs.info/rule/requirePaddingNewLinesBeforeExport
-	"requirePaddingNewLinesBeforeExport": true,
+  // Requires newline before module.exports
+  // http://jscs.info/rule/requirePaddingNewLinesBeforeExport
+  "requirePaddingNewLinesBeforeExport": true,
 
-	// Requires an empty line above the specified keywords unless the keyword is the first expression in a block.
-	// http://jscs.info/rule/requirePaddingNewlinesBeforeKeywords
-	// "requirePaddingNewlinesBeforeKeywords": false,
+  // Requires an empty line above the specified keywords unless the keyword is the first expression in a block.
+  // http://jscs.info/rule/requirePaddingNewlinesBeforeKeywords
+  // "requirePaddingNewlinesBeforeKeywords": false,
 
-	// Requires newline before line comments
-	// http://jscs.info/rule/requirePaddingNewLinesBeforeLineComments
-	// "requirePaddingNewLinesBeforeLineComments": false,
+  // Requires newline before line comments
+  // http://jscs.info/rule/requirePaddingNewLinesBeforeLineComments
+  // "requirePaddingNewLinesBeforeLineComments": false,
 
-	// Requires blocks to begin and end with 2 newlines
-	// http://jscs.info/rule/requirePaddingNewlinesInBlocks
-	// "requirePaddingNewlinesInBlocks": false,
+  // Requires blocks to begin and end with 2 newlines
+  // http://jscs.info/rule/requirePaddingNewlinesInBlocks
+  // "requirePaddingNewlinesInBlocks": false,
 
-	// Requires newline inside curly braces of all objects.
-	// http://jscs.info/rule/requirePaddingNewLinesInObjects
-	// "requirePaddingNewLinesInObjects": false,
+  // Requires newline inside curly braces of all objects.
+  // http://jscs.info/rule/requirePaddingNewLinesInObjects
+  // "requirePaddingNewLinesInObjects": false,
 
-	// Requires parentheses around arrow function expressions with a single parameter.
-	// http://jscs.info/rule/requireParenthesesAroundArrowParam
-	// "requireParenthesesAroundArrowParam": false,
+  // Requires parentheses around arrow function expressions with a single parameter.
+  // http://jscs.info/rule/requireParenthesesAroundArrowParam
+  // "requireParenthesesAroundArrowParam": false,
 
-	// Requires parentheses around immediately invoked function expressions.
-	// http://jscs.info/rule/requireParenthesesAroundIIFE
-	"requireParenthesesAroundIIFE": true,
+  // Requires parentheses around immediately invoked function expressions.
+  // http://jscs.info/rule/requireParenthesesAroundIIFE
+  "requireParenthesesAroundIIFE": true,
 
-	// Requires quoted keys in objects.
-	// http://jscs.info/rule/requireQuotedKeysInObjects
-	// "requireQuotedKeysInObjects": false,
+  // Requires quoted keys in objects.
+  // http://jscs.info/rule/requireQuotedKeysInObjects
+  // "requireQuotedKeysInObjects": false,
 
-	// Requires semicolon after:
-	// http://jscs.info/rule/requireSemicolons
-	"requireSemicolons": true,
+  // Requires semicolon after:
+  // http://jscs.info/rule/requireSemicolons
+  "requireSemicolons": true,
 
-	// Require arrow functions to use an expression body when returning a single statement (no block statement, implicit return).
-	// http://jscs.info/rule/requireShorthandArrowFunctions
-	// "requireShorthandArrowFunctions": true,
+  // Require arrow functions to use an expression body when returning a single statement (no block statement, implicit return).
+  // http://jscs.info/rule/requireShorthandArrowFunctions
+  // "requireShorthandArrowFunctions": true,
 
-	// Disallows sticking binary operators to the right.
-	// http://jscs.info/rule/requireSpaceAfterBinaryOperators
-	"requireSpaceAfterBinaryOperators": true,
+  // Disallows sticking binary operators to the right.
+  // http://jscs.info/rule/requireSpaceAfterBinaryOperators
+  "requireSpaceAfterBinaryOperators": true,
 
-	// Requires space after comma
-	// http://jscs.info/rule/requireSpaceAfterComma
-	"requireSpaceAfterComma": { "allExcept": ["trailing"] },
+  // Requires space after comma
+  // http://jscs.info/rule/requireSpaceAfterComma
+  "requireSpaceAfterComma": { "allExcept": ["trailing"] },
 
-	// Requires space after keyword.
-	// http://jscs.info/rule/requireSpaceAfterKeywords
-	"requireSpaceAfterKeywords": [
+  // Requires space after keyword.
+  // http://jscs.info/rule/requireSpaceAfterKeywords
+  "requireSpaceAfterKeywords": [
     "do",
     "for",
     "if",
@@ -570,177 +570,177 @@
     "with",
     "return",
     "typeof"
-	],
+  ],
 
-	// Requires that a line comment (//) be followed by a space.
-	// http://jscs.info/rule/requireSpaceAfterLineComment
-	// NOTE: //======
+  // Requires that a line comment (//) be followed by a space.
+  // http://jscs.info/rule/requireSpaceAfterLineComment
+  // NOTE: //======
   // NOTE: http://eslint.org/docs/rules/spaced-comment
-	// "requireSpaceAfterLineComment": {
-	// 	"allExcept": ["-", "+", "-+", "=", "*", "!", "/"]
-	// },
+  // "requireSpaceAfterLineComment": {
+  // 	"allExcept": ["-", "+", "-+", "=", "*", "!", "/"]
+  // },
 
-	// Requires space after object keys.
-	// http://jscs.info/rule/requireSpaceAfterObjectKeys
-	// "requireSpaceAfterObjectKeys": false,
+  // Requires space after object keys.
+  // http://jscs.info/rule/requireSpaceAfterObjectKeys
+  // "requireSpaceAfterObjectKeys": false,
 
-	// Disallows sticking unary operators to the right.
-	// http://jscs.info/rule/requireSpaceAfterPrefixUnaryOperators
-	// "requireSpaceAfterPrefixUnaryOperators": false,
+  // Disallows sticking unary operators to the right.
+  // http://jscs.info/rule/requireSpaceAfterPrefixUnaryOperators
+  // "requireSpaceAfterPrefixUnaryOperators": false,
 
-	// Disallows sticking binary operators to the left.
-	// http://jscs.info/rule/requireSpaceBeforeBinaryOperators
-	"requireSpaceBeforeBinaryOperators": true,
+  // Disallows sticking binary operators to the left.
+  // http://jscs.info/rule/requireSpaceBeforeBinaryOperators
+  "requireSpaceBeforeBinaryOperators": true,
 
-	// Requires space(s) before block statements (for loops, control structures).
-	// http://jscs.info/rule/requireSpaceBeforeBlockStatements
-	"requireSpaceBeforeBlockStatements": true,
+  // Requires space(s) before block statements (for loops, control structures).
+  // http://jscs.info/rule/requireSpaceBeforeBlockStatements
+  "requireSpaceBeforeBlockStatements": true,
 
-	// Requires space before comma
-	// http://jscs.info/rule/requireSpaceBeforeComma
-	// "requireSpaceBeforeComma": false,
+  // Requires space before comma
+  // http://jscs.info/rule/requireSpaceBeforeComma
+  // "requireSpaceBeforeComma": false,
 
-	// Requires space before keyword.
-	// http://jscs.info/rule/requireSpaceBeforeKeywords
-	"requireSpaceBeforeKeywords": [
-		"else",
-		"while",
-		"catch"
-	],
+  // Requires space before keyword.
+  // http://jscs.info/rule/requireSpaceBeforeKeywords
+  "requireSpaceBeforeKeywords": [
+    "else",
+    "while",
+    "catch"
+  ],
 
-	// Requires space after object keys.
-	// http://jscs.info/rule/requireSpaceBeforeObjectValues
-	"requireSpaceBeforeObjectValues": true,
+  // Requires space after object keys.
+  // http://jscs.info/rule/requireSpaceBeforeObjectValues
+  "requireSpaceBeforeObjectValues": true,
 
-	// Disallows sticking unary operators to the left.
-	// http://jscs.info/rule/requireSpaceBeforePostfixUnaryOperators
-	// "requireSpaceBeforePostfixUnaryOperators": false,
+  // Disallows sticking unary operators to the left.
+  // http://jscs.info/rule/requireSpaceBeforePostfixUnaryOperators
+  // "requireSpaceBeforePostfixUnaryOperators": false,
 
-	// Ensure there are spaces after argument separators in call expressions.
-	// http://jscs.info/rule/requireSpaceBetweenArguments
-	"requireSpaceBetweenArguments": true,
+  // Ensure there are spaces after argument separators in call expressions.
+  // http://jscs.info/rule/requireSpaceBetweenArguments
+  "requireSpaceBetweenArguments": true,
 
-	// Requires space before () or {} in anonymous function expressions.
-	// http://jscs.info/rule/requireSpacesInAnonymousFunctionExpression
-	"requireSpacesInAnonymousFunctionExpression": { "beforeOpeningRoundBrace": true, "beforeOpeningCurlyBrace": true, "allExcept": ["shorthand"] },
+  // Requires space before () or {} in anonymous function expressions.
+  // http://jscs.info/rule/requireSpacesInAnonymousFunctionExpression
+  "requireSpacesInAnonymousFunctionExpression": { "beforeOpeningRoundBrace": true, "beforeOpeningCurlyBrace": true, "allExcept": ["shorthand"] },
 
-	// Requires space before () in call expressions.
-	// http://jscs.info/rule/requireSpacesInCallExpression
-	"requireSpacesInCallExpression": false,
+  // Requires space before () in call expressions.
+  // http://jscs.info/rule/requireSpacesInCallExpression
+  "requireSpacesInCallExpression": false,
 
-	// Requires space before and/or after ? or: in conditional expressions.
-	// http://jscs.info/rule/requireSpacesInConditionalExpression
-	"requireSpacesInConditionalExpression": { "afterTest": true, "beforeConsequent": true, "afterConsequent": true, "beforeAlternate": true },
+  // Requires space before and/or after ? or: in conditional expressions.
+  // http://jscs.info/rule/requireSpacesInConditionalExpression
+  "requireSpacesInConditionalExpression": { "afterTest": true, "beforeConsequent": true, "afterConsequent": true, "beforeAlternate": true },
 
-	// Requires spaces inbetween for statement.
-	// http://jscs.info/rule/requireSpacesInForStatement
-	"requireSpacesInForStatement": true,
+  // Requires spaces inbetween for statement.
+  // http://jscs.info/rule/requireSpacesInForStatement
+  "requireSpacesInForStatement": true,
 
-	// Requires space before () or {} in function declarations.
-	// http://jscs.info/rule/requireSpacesInFunctionDeclaration
-	"requireSpacesInFunctionDeclaration": { "beforeOpeningCurlyBrace": true },
+  // Requires space before () or {} in function declarations.
+  // http://jscs.info/rule/requireSpacesInFunctionDeclaration
+  "requireSpacesInFunctionDeclaration": { "beforeOpeningCurlyBrace": true },
 
-	// Requires space before () or {} in function expressions (both named and anonymous).
-	// http://jscs.info/rule/requireSpacesInFunctionExpression
-	// "requireSpacesInFunctionExpression": false,
+  // Requires space before () or {} in function expressions (both named and anonymous).
+  // http://jscs.info/rule/requireSpacesInFunctionExpression
+  // "requireSpacesInFunctionExpression": false,
 
-	// Requires space before () or {} in function expressions (both named and anonymous) and function declarations.
-	// http://jscs.info/rule/requireSpacesInFunction
-	// "requireSpacesInFunction": false,
+  // Requires space before () or {} in function expressions (both named and anonymous) and function declarations.
+  // http://jscs.info/rule/requireSpacesInFunction
+  // "requireSpacesInFunction": false,
 
-	// Requires space before and after * in generator functions
-	// http://jscs.info/rule/requireSpacesInGenerator
-	"requireSpacesInGenerator": { "afterStar": true },
+  // Requires space before and after * in generator functions
+  // http://jscs.info/rule/requireSpacesInGenerator
+  "requireSpacesInGenerator": { "afterStar": true },
 
-	// Requires space before () or {} in named function expressions.
-	// http://jscs.info/rule/requireSpacesInNamedFunctionExpression
-	"requireSpacesInNamedFunctionExpression": { "beforeOpeningCurlyBrace": true },
+  // Requires space before () or {} in named function expressions.
+  // http://jscs.info/rule/requireSpacesInNamedFunctionExpression
+  "requireSpacesInNamedFunctionExpression": { "beforeOpeningCurlyBrace": true },
 
-	// Requires space after opening array square bracket and before closing. Reports only on arrays, not on property accessors. Use requireSpacesInsideBrackets to report on all brackets.
-	// http://jscs.info/rule/requireSpacesInsideArrayBrackets
-	// "requireSpacesInsideArrayBrackets": false,
+  // Requires space after opening array square bracket and before closing. Reports only on arrays, not on property accessors. Use requireSpacesInsideBrackets to report on all brackets.
+  // http://jscs.info/rule/requireSpacesInsideArrayBrackets
+  // "requireSpacesInsideArrayBrackets": false,
 
-	// Requires space after opening square bracket and before closing. Reports on all on brackets, even on property accessors. Use requireSpacesInsideArrayBrackets to exclude property accessors.
-	// http://jscs.info/rule/requireSpacesInsideBrackets
-	// "requireSpacesInsideBrackets": false,
+  // Requires space after opening square bracket and before closing. Reports on all on brackets, even on property accessors. Use requireSpacesInsideArrayBrackets to exclude property accessors.
+  // http://jscs.info/rule/requireSpacesInsideBrackets
+  // "requireSpacesInsideBrackets": false,
 
-	// Requires space after opening object curly brace and before closing.
-	// http://jscs.info/rule/requireSpacesInsideObjectBrackets
-	"requireSpacesInsideObjectBrackets": "all",
+  // Requires space after opening object curly brace and before closing.
+  // http://jscs.info/rule/requireSpacesInsideObjectBrackets
+  "requireSpacesInsideObjectBrackets": "all",
 
-	// Requires space after opening round bracket and before closing.
-	// http://jscs.info/rule/requireSpacesInsideParentheses
-	// "requireSpacesInsideParentheses": false,
+  // Requires space after opening round bracket and before closing.
+  // http://jscs.info/rule/requireSpacesInsideParentheses
+  // "requireSpacesInsideParentheses": false,
 
-	// Requires space after opening and before closing grouping parentheses.
-	// http://jscs.info/rule/requireSpacesInsideParenthesizedExpression
-	// "requireSpacesInsideParenthesizedExpression": false,
+  // Requires space after opening and before closing grouping parentheses.
+  // http://jscs.info/rule/requireSpacesInsideParenthesizedExpression
+  // "requireSpacesInsideParenthesizedExpression": false,
 
-	// Disallows using .apply in favor of the spread operator
-	// http://jscs.info/rule/requireSpread
-	// "requireSpread": false,
+  // Disallows using .apply in favor of the spread operator
+  // http://jscs.info/rule/requireSpread
+  // "requireSpread": false,
 
-	// Requires the use of template strings instead of string concatenation.
-	// http://jscs.info/rule/requireTemplateStrings
-	"requireTemplateStrings": { "allExcept": ["stringConcatenation"] },
+  // Requires the use of template strings instead of string concatenation.
+  // http://jscs.info/rule/requireTemplateStrings
+  "requireTemplateStrings": { "allExcept": ["stringConcatenation"] },
 
-	// Requires an extra comma following the final element of an array or object literal.
-	// http://jscs.info/rule/requireTrailingComma
-	// NOTE:
-	// [{
-	// 	a: 1,
-	// }, {
-	// 	b: 1,
-	// },]
-	// NOTE: http://eslint.org/docs/rules/comma-dangle
-	// "requireTrailingComma": { "ignoreSingleValue": true, "ignoreSingleLine": true },
+  // Requires an extra comma following the final element of an array or object literal.
+  // http://jscs.info/rule/requireTrailingComma
+  // NOTE:
+  // [{
+  // 	a: 1,
+  // }, {
+  // 	b: 1,
+  // },]
+  // NOTE: http://eslint.org/docs/rules/comma-dangle
+  // "requireTrailingComma": { "ignoreSingleValue": true, "ignoreSingleLine": true },
 
-	// Requires var declaration to be on the top of an enclosing scope
-	// http://jscs.info/rule/requireVarDeclFirst
-	// "requireVarDeclFirst": false,
+  // Requires var declaration to be on the top of an enclosing scope
+  // http://jscs.info/rule/requireVarDeclFirst
+  // "requireVarDeclFirst": false,
 
-	// Requires the variable to be the right hand operator when doing a boolean comparison
-	// http://jscs.info/rule/requireYodaConditions
-	// "requireYodaConditions": false,
+  // Requires the variable to be the right hand operator when doing a boolean comparison
+  // http://jscs.info/rule/requireYodaConditions
+  // "requireYodaConditions": false,
 
-	// Option to check var that = this expressions
-	// http://jscs.info/rule/safeContextKeyword
-	"safeContextKeyword": ["self"],
+  // Option to check var that = this expressions
+  // http://jscs.info/rule/safeContextKeyword
+  "safeContextKeyword": ["self"],
 
-	// Validates proper alignment of function parameters.
-	// http://jscs.info/rule/validateAlignedFunctionParameters
-	"validateAlignedFunctionParameters": true,
+  // Validates proper alignment of function parameters.
+  // http://jscs.info/rule/validateAlignedFunctionParameters
+  "validateAlignedFunctionParameters": true,
 
-	// This rule is for validating the positioning of line comments. Block comments are ignored.
-	// http://jscs.info/rule/validateCommentPosition
-	// "validateCommentPosition": { "position": "above" },
+  // This rule is for validating the positioning of line comments. Block comments are ignored.
+  // http://jscs.info/rule/validateCommentPosition
+  // "validateCommentPosition": { "position": "above" },
 
-	// Validates indentation for switch statements and block statements
-	// http://jscs.info/rule/validateIndentation
-	"validateIndentation": 2,
+  // Validates indentation for switch statements and block statements
+  // http://jscs.info/rule/validateIndentation
+  "validateIndentation": 2,
 
-	// Option to check line break characters
-	// http://jscs.info/rule/validateLineBreaks
-	"validateLineBreaks": "LF",
+  // Option to check line break characters
+  // http://jscs.info/rule/validateLineBreaks
+  "validateLineBreaks": "LF",
 
-	// Requires each element in array on a single line when array length is more than passed maximum number or array fills more than one line.
-	// http://jscs.info/rule/validateNewlineAfterArrayElements
-	// NOTE:
-	// [{
-	// }, {
-	// }]
-	// "validateNewlineAfterArrayElements": true,
+  // Requires each element in array on a single line when array length is more than passed maximum number or array fills more than one line.
+  // http://jscs.info/rule/validateNewlineAfterArrayElements
+  // NOTE:
+  // [{
+  // }, {
+  // }]
+  // "validateNewlineAfterArrayElements": true,
 
-	// Validates the order in object keys.
-	// http://jscs.info/rule/validateOrderInObjectKeys
-	// "validateOrderInObjectKeys": false,
+  // Validates the order in object keys.
+  // http://jscs.info/rule/validateOrderInObjectKeys
+  // "validateOrderInObjectKeys": false,
 
-	// Enable validation of separators between function parameters. Will ignore newlines.
-	// http://jscs.info/rule/validateParameterSeparator
-	"validateParameterSeparator": ", ",
+  // Enable validation of separators between function parameters. Will ignore newlines.
+  // http://jscs.info/rule/validateParameterSeparator
+  "validateParameterSeparator": ", ",
 
-	// Requires all quote marks to be either the supplied value, or consistent if true
-	// http://jscs.info/rule/validateQuoteMarks
-	"validateQuoteMarks": { "mark": "'", "escape": true, "ignoreJSX": true }
+  // Requires all quote marks to be either the supplied value, or consistent if true
+  // http://jscs.info/rule/validateQuoteMarks
+  "validateQuoteMarks": { "mark": "'", "escape": true, "ignoreJSX": true }
 
 }
