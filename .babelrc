@@ -5,18 +5,16 @@
     "stage-1"
   ],
   "plugins": [
-    // "transform-runtime"
   ],
   "env": {
     "dev": {
       "plugins": [
-        // "transform-runtime",
         // ["react-transform", {
         //   "transforms": [
-        //     // {
-        //     //   "transform": "react-transform-catch-errors",
-        //     //   "imports": ["react", "redbox-react"]
-        //     // },
+        //     {
+        //       "transform": "react-transform-catch-errors",
+        //       "imports": ["react", "redbox-react"]
+        //     },
         //     {
         //       "transform": "react-transform-hmr",
         //       "imports": ["react"],

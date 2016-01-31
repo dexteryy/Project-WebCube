@@ -10,11 +10,12 @@
     "lint": "node ./node_modules/gulp/bin/gulp.js check:all",
     "test": "node ./node_modules/gulp/bin/gulp.js test:all",
     "build": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build",
-    "dev": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:src",
-    "continuousbuild": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:server",
-    "startserver": "nohup node ./node_modules/gulp/bin/gulp.js serve:start > devserver.log 2>&1 &",
-    "stopserver": "node ./node_modules/gulp/bin/gulp.js serve:stop",
-    "deploy": "NODE_ENV=production node ./node_modules/gulp/bin/gulp.js"
+    "dev": "node ./node_modules/gulp/bin/gulp.js watch:dev",
+    "testing": "node ./node_modules/gulp/bin/gulp.js watch:units",
+    "building": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:all",
+    "startserver": "nohup node ./node_modules/gulp/bin/gulp.js server:start > webserver.log 2>&1 &",
+    "stopserver": "node ./node_modules/gulp/bin/gulp.js server:stop",
+    "deploy": "NODE_ENV=production node ./node_modules/gulp/bin/gulp.js deploy"
   },
   "config": {
     "ghooks": {
@@ -51,6 +52,7 @@
     "babel-core": "^6.2.1",
     "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
+    "babel-plugin-react-transform": "^2.0.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-1": "^6.3.13",
@@ -102,9 +104,14 @@
     "postcss-loader": "^0.8.0",
     "ps-node": "0.0.5",
     "raw-loader": "^0.5.1",
+    "react-transform-catch-errors": "^1.0.1",
+    "react-transform-hmr": "^1.0.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.6.4",
     "webpack-stream": "^3.1.0"
   },
   "keywords": []

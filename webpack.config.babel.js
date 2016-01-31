@@ -4,17 +4,33 @@ import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
+const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
+const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
+const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
+
+const entries = {
+  // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
+  // common: ['babel-polyfill', 'whatwg-fetch', 'react'],
+  app: ['babel-polyfill', 'entries/app'],
+  'deploy-app': ['babel-polyfill', './containers/app/deploy.js'],
+};
+
+if (liveMode === 'hmr' || liveMode === 'refresh') {
+  // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
+  for (const entry in entries) {
+    entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`);
+  }
+}
 
 module.exports = {
-  entry: {
-    // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-    // common: ['babel-polyfill', 'whatwg-fetch', 'react'],
-    app: ['babel-polyfill', 'entries/app'],
-    'deploy-app': ['babel-polyfill', './containers/app/deploy.js'],
-  },
+  entry: entries,
   output: {
-    filename: 'js/[hash]/[name].js',
-    chunkFilename: 'js/[hash]/[name].js',
+    filename: isProductionEnv
+      ? 'js/[hash]/[name].js'
+      : 'js/[name].js',
+    chunkFilename: isProductionEnv
+      ? 'js/[hash]/[name].js'
+      : 'js/[name].js',
     path: path.join(__dirname, 'public/static/'),
     publicPath: isProductionEnv
       ? process.env.MYAPP_CDN_PREFIX
@@ -74,12 +90,16 @@ module.exports = {
     }, {
       test: /\.json$/,
       // https://www.npmjs.com/package/file-loader
-      loader: 'file?name=data/[hash]/[name].[ext]',
+      loader: isProductionEnv
+        ? 'file?name=data/[hash]/[name].[ext]'
+        : 'file?name=data/[name].[ext]',
     }, {
       test: /\.(gif|png|jpe?g|svg)$/i,
       loaders: [
         // https://www.npmjs.com/package/url-loader
-        'url?limit=25000&name=assets/[hash]/[name].[ext]',
+        isProductionEnv
+          ? 'url?limit=25000&name=assets/[hash]/[name].[ext]'
+          : 'url?limit=25000&name=assets/[name].[ext]',
         // https://www.npmjs.com/package/image-webpack-loader
         ((imageOpt) => {
           return `image-webpack?${imageOpt}`;
@@ -95,7 +115,9 @@ module.exports = {
       ],
     }, {
       test: /\.woff$/,
-      loader: 'url?limit=100000&name=assets/[hash]/[name].[ext]',
+      loader: isProductionEnv
+        ? 'url?limit=100000&name=assets/[hash]/[name].[ext]'
+        : 'url?limit=100000&name=assets/[name].[ext]',
     }],
   },
   // https://www.npmjs.com/package/postcss-loader
@@ -117,5 +139,9 @@ module.exports = {
       fullPath: true,
       prettyPrint: true,
     }),
+    // https://github.com/glenjamin/webpack-hot-middleware
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin(),
   ],
 };

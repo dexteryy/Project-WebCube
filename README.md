@@ -4,15 +4,17 @@
 Includes the following toolchains:
 
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/))
-  * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/) + [style-loader](https://www.npmjs.com/package/style-loader)
+  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/) + ~~[React Transform Plugins](https://github.com/gaearon/babel-plugin-react-transform))~~
+  * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](http://cssnano.co/options/), ...) + [style-loader](https://www.npmjs.com/package/style-loader)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [Static asset revisioning](https://www.npmjs.com/package/assets-webpack-plugin)
+  * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)
 * [Gulp](http://gulpjs.com/)
   * [Flow](flowtype.org) + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [JSCS](http://jscs.info/)
   * [SCSS-Lint](https://github.com/brigade/scss-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
+  * [gulp-watch](https://www.npmjs.com/package/gulp-watch)
 * [Karma](https://karma-runner.github.io/) / [Nightmare](http://nightmarejs.org/) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
 * [dotenv](https://www.npmjs.com/package/dotenv)
 * [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
@@ -53,7 +55,7 @@ Includes the following toolchains:
 
 #### Main Entry Point
 
-> Note: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
+> NOTE: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
 
 [`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`src/entries/app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/app/index.js)
 
@@ -93,43 +95,105 @@ Edit the `containers/demo-page1/index.html`:
 
 ## Installing Dependencies
 
-> Note: Remove redundant packages from [`package.json`][package.json]'s `dependencies`
+> NOTE: Remove redundant packages from [`package.json`][package.json]'s `dependencies`
 
-* `npm install`
-* `gem install scss_lint` (for [gulp-scss-lint](https://www.npmjs.com/package/gulp-scss-lint))
+```bash
+npm install
+gem install scss_lint # for gulp-scss-lint
+```
 
 ## Local Configuration
 
 * Create a `.env` file in the root directory. For example:
 
 ```ini
-MYAPP_DEVSERVER_HOST=localhost
-MYAPP_DEVSERVER_PORT=8000
+MYAPP_SERVER_HOST=localhost
+MYAPP_SERVER_PORT=8000
 MYAPP_CDN_PREFIX=http://cdn.example.com/assets/
 ```
 
 ## Building
 
-* `npm run build` or `NODE_ENV=production npm run build`
+```
+npm run build
+```
 
-Build scripts and config files:
+or
 
-* [`package.json`][package.json]
-* [`gulpfile.babel.js`][gulpfile]
-* [`webpack.config.babel.js`][webpack.config]
+```
+NODE_ENV=production npm run build
+```
 
-## Open in the Browser
+> Build scripts and config files:
+>
+> * [`package.json`][package.json]
+> * [`gulpfile.babel.js`][gulpfile]
+> * [`webpack.config.babel.js`][webpack.config]
 
-* `npm run startserver` (`npm run stopserver`)
-* `open http://localhost:8000/app/`
+Open in the browser
+
+```
+open http://localhost:8000/app/
+```
+
+Manually start/stop web server:
+
+```
+npm run startserver
+npm run stopserver
+```
 
 ## Development
 
-* `npm run dev` (only unit tests, no lint step) or `npm run continuousbuild`
+For faster recompiling ([webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)):
+
+```
+npm run dev
+```
+
+Enable automatic refreshing:
+
+```
+LIVE_MODE=refresh npm run dev
+```
+
+Enable HMR (Hot Module Replacement):
+
+```
+LIVE_MODE=hmr npm run dev
+```
+
+For automatic running unit tests (no web server):
+
+```
+npm run testing
+```
+
+For automatic building, running all tests:
+
+```
+npm run building
+```
+
+```
+NODE_ENV=production npm run building
+```
+
+#### Testing
+
+Manually run all tests:
+
+```
+npm run test
+```
 
 #### Code Style
 
-* `npm run lint`
+Manually run static checking:
+
+```
+npm run lint
+```
 
 Similiar to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript), [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
 
@@ -178,23 +242,25 @@ Recommended Settings for Atom (config.cson):
 
 #### Git Hooks
 
-> Note: Before committing make sure you have executed `npm run build`
+> NOTE: Before committing make sure you have executed `npm run build`
 
 * pre-commit: `npm run lint && npm run test`
 * pre-push: `npm run build`
 
 #### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)
 
-* `git add .`
-* `git cz` (need `npm install commitizen -g`)
+> NOTE: Need `npm install commitizen -g`
 
-## Testing
-
-* `npm run test`
+```
+git add .
+git cz
+```
 
 ## Deployment
 
-* `npm run deploy`
+```
+npm run deploy
+```
 
 Deployment scripts:
 

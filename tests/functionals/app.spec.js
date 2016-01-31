@@ -7,8 +7,8 @@ mochaGenerators.install();
 chai.should();
 
 describe('App', function () {
-  const myhost = process.env.MYAPP_DEVSERVER_HOST;
-  const myport = process.env.MYAPP_DEVSERVER_PORT;
+  const myhost = process.env.MYAPP_SERVER_HOST;
+  const myport = process.env.MYAPP_SERVER_PORT;
   const url = `http://${myhost}:${myport}/app/`;
 
   describe('Start page', function () {

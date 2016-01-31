@@ -9,7 +9,7 @@ import path from 'path';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import gulpFilter from 'gulp-filter';
-import webpack from 'webpack-stream';
+import webpackStream from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
@@ -22,12 +22,17 @@ import htmlmin from 'gulp-htmlmin';
 import { Server as KarmaServer } from 'karma';
 import mocha from 'gulp-mocha';
 import webserver from 'gulp-webserver';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 
 dotenv.config({
   path: path.join(__dirname, '.env'),
 });
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
+const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
+const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
+const pidFile = path.join(__dirname, '.webserver.pid');
 
 function getWebpackConfig() {
   try {
@@ -37,10 +42,26 @@ function getWebpackConfig() {
   }
 }
 
+function getDevServer() {
+  return new WebpackDevServer(webpack(getWebpackConfig()), {
+    contentBase: 'containers',
+    publicPath: isProductionEnv
+      ? process.env.MYAPP_CDN_PREFIX
+      : '/static/',
+    hot: (process.env.LIVE_MODE || '').toLowerCase() === 'hmr',
+    noInfo: true,
+    stats: { colors: true },
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true,
+    },
+  });
+}
+
 function buildBaseApp(myWebpackConfig) {
   return gulp.src(['src/**/*.js', 'containers/**/*.js'])
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(webpack(myWebpackConfig))
+    .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/static/'));
 }
@@ -106,32 +127,28 @@ function testFunctional() {
 }
 
 function killLastServer(done) {
-  fs.stat('.devserver.pid', function (err) {
+  fs.stat(pidFile, function (err) {
     if (err) {
       done();
       return;
     }
-    const lastPid = parseInt(fs.readFileSync('.devserver.pid').toString(), 10);
-    ps.lookup({ pid: lastPid }, function (err, resultList) {
-      if (err) {
-        done();
-        return;
-      }
-      const process = resultList[0];
-      if (process && running(process.pid)) {
-        ps.kill(process.pid, done);
-      } else {
-        done();
-      }
+    const lastPid = parseInt(fs.readFileSync(pidFile).toString(), 10);
+    fs.unlinkSync(pidFile);
+    if (!lastPid || !running(lastPid)) {
+      done();
+      return;
+    }
+    ps.kill(lastPid, function () {
+      done();
     });
   });
 }
 
-function startDevServer(stream, done) {
-  fs.writeFileSync('.devserver.pid', process.pid);
+function startWebServer(stream, done) {
+  fs.writeFileSync(pidFile, process.pid);
   stream.pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
-    port: process.env.MYAPP_DEVSERVER_PORT || 8000,
-    host: process.env.MYAPP_DEVSERVER_HOST || 'localhost',
+    port: serverPort,
+    host: serverHost,
   }));
   done();
 }
@@ -195,6 +212,8 @@ gulp.task('build:app', ['clean:app', 'check:all', 'test:unit'], () => {
   return buildApp(getWebpackConfig());
 });
 
+gulp.task('update:html', ['clean:html'], buildHTML);
+
 gulp.task('build:html', ['clean:html', 'build:app'], buildHTML);
 
 gulp.task('test:afterBuild', ['build:html'], testFunctional);
@@ -211,27 +230,38 @@ gulp.task('default', [
   'build',
 ]);
 
-gulp.task('watch:src', () => {
-  gulp.watch(['src/**'], ['update:app']);
-  gulp.watch(['containers/**', 'data/**'], ['build:html']);
+gulp.task('watch:dev', ['clean:html', 'server:stop'], () => {
+  if (isProductionEnv) {
+    throw new Error('Don\'t use webpack-dev-server for production env');
+  }
+  getDevServer().listen(serverPort, serverHost, function () {});
+});
+
+gulp.task('watch:units', () => {
+  gulp.watch(['src/**'], ['test:unit']);
+  gulp.watch(['tests/units/**'], ['test:unit']);
+});
+
+gulp.task('watch:all', () => {
+  if (process.env.NODE_ENV !== 'production') {
+    gulp.watch(['src/**'], ['update:app']);
+    gulp.watch(['containers/**/*.!(html)', 'data/**'], ['update:app']);
+    gulp.watch(['containers/**/*.html'], ['update:html']);
+  } else {
+    gulp.watch(['src/**'], ['test:afterBuild']);
+    gulp.watch(['containers/**'], ['test:afterBuild']);
+  }
   gulp.watch(['tests/units/**'], ['test:unit']);
   gulp.watch(['tests/functionals/**'], ['test:functional']);
 });
 
-gulp.task('watch:server', () => {
-  gulp.watch(['src/**'], ['test:afterBuild']);
-  gulp.watch(['containers/**'], ['test:afterBuild']);
-  gulp.watch(['tests/units/**'], ['test:unit']);
-  gulp.watch(['tests/functionals/**'], ['test:functional']);
-});
-
-gulp.task('serve:start', (done) => {
+gulp.task('server:start', (done) => {
   const stream = gulp.src('public');
   killLastServer(function () {
-    startDevServer(stream, done);
+    startWebServer(stream, done);
   });
 });
 
-gulp.task('serve:stop', (done) => {
+gulp.task('server:stop', (done) => {
   killLastServer(done);
 });

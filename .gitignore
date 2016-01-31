@@ -3,8 +3,8 @@ coverage/
 .env
 rev-version.json
 npm-debug.log
-devserver.log
-.devserver.pid
+webserver.log
+.webserver.pid
 public/
 src/entries/demo-*
 src/assets/demo-*
