@@ -24,15 +24,33 @@ import mocha from 'gulp-mocha';
 import webserver from 'gulp-webserver';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+import express from 'express';
 
 dotenv.config({
   path: path.join(__dirname, '.env'),
 });
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
+const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
 const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
 const pidFile = path.join(__dirname, '.webserver.pid');
+
+const compiler = webpack(getWebpackConfig());
+
+const devServerConfig = {
+  contentBase: 'containers',
+  publicPath: isProductionEnv
+    ? process.env.MYAPP_CDN_PREFIX
+    : '/static/',
+  hot: liveMode === 'hmr',
+  noInfo: true,
+  stats: { colors: true },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true,
+  },
+};
 
 function getWebpackConfig() {
   try {
@@ -43,19 +61,17 @@ function getWebpackConfig() {
 }
 
 function getDevServer() {
-  return new WebpackDevServer(webpack(getWebpackConfig()), {
-    contentBase: 'containers',
-    publicPath: isProductionEnv
-      ? process.env.MYAPP_CDN_PREFIX
-      : '/static/',
-    hot: (process.env.LIVE_MODE || '').toLowerCase() === 'hmr',
-    noInfo: true,
-    stats: { colors: true },
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: true,
-    },
-  });
+  return new WebpackDevServer(compiler, devServerConfig);
+}
+
+function getHotDevServer() {
+  return express()
+    .use(require('webpack-dev-middleware')(compiler, devServerConfig))
+    .use(require('webpack-hot-middleware')(compiler))
+    .get('*', function (req, res) {
+      res.sendFile(path.join(__dirname,
+        'containers', req.params[0], 'index.html'));
+    });
 }
 
 function buildBaseApp(myWebpackConfig) {
@@ -234,7 +250,13 @@ gulp.task('watch:dev', ['clean:html', 'server:stop'], () => {
   if (isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
-  getDevServer().listen(serverPort, serverHost, function () {});
+  const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  server.listen(serverPort, serverHost, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`Listening at http://${serverHost}:${serverPort}`);
+  });
 });
 
 gulp.task('watch:units', () => {

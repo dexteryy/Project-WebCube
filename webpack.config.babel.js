@@ -15,10 +15,15 @@ const entries = {
   'deploy-app': ['babel-polyfill', './containers/app/deploy.js'],
 };
 
-if (liveMode === 'hmr' || liveMode === 'refresh') {
+if (liveMode === 'refresh') {
   // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
   for (const entry in entries) {
     entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`);
+  }
+} else if (liveMode === 'hmr') {
+  // https://www.npmjs.com/package/webpack-hot-middleware
+  for (const entry in entries) {
+    entries[entry].unshift('webpack-hot-middleware/client');
   }
 }
 
@@ -141,7 +146,7 @@ module.exports = {
     }),
     // https://github.com/glenjamin/webpack-hot-middleware
     // new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
 };
