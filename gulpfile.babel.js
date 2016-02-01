@@ -60,20 +60,6 @@ function getWebpackConfig() {
   }
 }
 
-function getDevServer() {
-  return new WebpackDevServer(compiler, devServerConfig);
-}
-
-function getHotDevServer() {
-  return express()
-    .use(require('webpack-dev-middleware')(compiler, devServerConfig))
-    .use(require('webpack-hot-middleware')(compiler))
-    .get('*', function (req, res) {
-      res.sendFile(path.join(__dirname,
-        'containers', req.params[0], 'index.html'));
-    });
-}
-
 function buildBaseApp(myWebpackConfig) {
   return gulp.src(['src/**/*.js', 'containers/**/*.js'])
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -142,7 +128,43 @@ function testFunctional() {
     }));
 }
 
-function killLastServer(done) {
+function getDevServer() {
+  return new WebpackDevServer(compiler, devServerConfig);
+}
+
+function getHotDevServer() {
+  return express()
+    .use(require('webpack-dev-middleware')(compiler, devServerConfig))
+    .use(require('webpack-hot-middleware')(compiler))
+    .get('*', function (req, res) {
+      res.sendFile(path.join(__dirname,
+        'containers', req.params[0], 'index.html'));
+    });
+}
+
+function startDevServer() {
+  if (isProductionEnv) {
+    throw new Error('Don\'t use webpack-dev-server for production env');
+  }
+  const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  server.listen(serverPort, serverHost, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`Listening at http://${serverHost}:${serverPort}`);
+  });
+}
+
+function startWebServer(stream, done) {
+  fs.writeFileSync(pidFile, process.pid);
+  stream.pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
+    port: serverPort,
+    host: serverHost,
+  }));
+  done();
+}
+
+function stopWebServer(done) {
   fs.stat(pidFile, function (err) {
     if (err) {
       done();
@@ -158,15 +180,6 @@ function killLastServer(done) {
       done();
     });
   });
-}
-
-function startWebServer(stream, done) {
-  fs.writeFileSync(pidFile, process.pid);
-  stream.pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
-    port: serverPort,
-    host: serverHost,
-  }));
-  done();
 }
 
 gulp.task('clean:app', (done) => {
@@ -246,18 +259,7 @@ gulp.task('default', [
   'build',
 ]);
 
-gulp.task('watch:dev', ['clean:html', 'server:stop'], () => {
-  if (isProductionEnv) {
-    throw new Error('Don\'t use webpack-dev-server for production env');
-  }
-  const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
-  server.listen(serverPort, serverHost, (err) => {
-    if (err) {
-      throw err;
-    }
-    console.log(`Listening at http://${serverHost}:${serverPort}`);
-  });
-});
+gulp.task('watch:dev', ['clean:html', 'server:stop'], startDevServer);
 
 gulp.task('watch:units', () => {
   gulp.watch(['src/**'], ['test:unit']);
@@ -279,11 +281,11 @@ gulp.task('watch:all', () => {
 
 gulp.task('server:start', (done) => {
   const stream = gulp.src('public');
-  killLastServer(function () {
+  stopWebServer(function () {
     startWebServer(stream, done);
   });
 });
 
 gulp.task('server:stop', (done) => {
-  killLastServer(done);
+  stopWebServer(done);
 });

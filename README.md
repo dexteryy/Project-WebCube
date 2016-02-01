@@ -15,7 +15,7 @@ Includes the following toolchains:
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
   * [gulp-watch](https://www.npmjs.com/package/gulp-watch)
-* [Karma](https://karma-runner.github.io/) / [Nightmare](http://nightmarejs.org/) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
+* [Karma](https://karma-runner.github.io/) ([PhantomJS](http://phantomjs.org/)) / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
 * [dotenv](https://www.npmjs.com/package/dotenv)
 * [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 
@@ -186,6 +186,12 @@ Manually run all tests:
 ```
 npm run test
 ```
+
+Unit tests + Functional tests:
+
+- **tests/**
+  - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
+  - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 
 #### Code Style
 
