@@ -61,7 +61,7 @@ linters:
     ignore_single_line_blocks: true
   # Reports when you have an empty rule set.
   EmptyRule:
-    enabled: true
+    enabled: false
   # Reports when you have an @extend directive.
   ExtendDirective:
     enabled: false

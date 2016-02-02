@@ -493,7 +493,7 @@ rules:
   # http://eslint.org/docs/rules/linebreak-style
   linebreak-style:                    [2, "unix"]
   # enforce empty lines around comments
-  lines-around-comment:               [2, { "beforeBlockComment": true, "allowBlockStart": true }]
+  lines-around-comment:               [0, { "beforeBlockComment": true, "allowBlockStart": true, "allowBlockEnd": true, "allowObjectStart": true, "allowObjectEnd": true, "allowArrayStart": true, "allowArrayEnd": true }]
   # specify the maximum depth that blocks can be nested
   # http://eslint.org/docs/rules/max-depth
   max-depth:                          [2, 4]

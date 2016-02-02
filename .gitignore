@@ -9,7 +9,12 @@ public/
 src/entries/demo-*
 src/assets/demo-*
 src/data/demo-*
+src/components/Demo*
+src/models/demo-*
 containers/demo-*
 tests/demo-*
+tests/units/demo-*
+tests/units/Demo*
+tests/functionals/demo-*
 webpack.demo.*
 .DS_Store

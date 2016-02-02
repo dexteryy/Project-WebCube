@@ -6,12 +6,13 @@ import Nightmare from 'nightmare';
 mochaGenerators.install();
 chai.should();
 
-describe('App', function () {
+describe('app', function () {
   const myhost = process.env.MYAPP_SERVER_HOST;
   const myport = process.env.MYAPP_SERVER_PORT;
   const url = `http://${myhost}:${myport}/app/`;
 
   describe('Start page', function () {
+    this.timeout(5000);
 
     let nightmare;
 
@@ -23,16 +24,23 @@ describe('App', function () {
       yield nightmare.end();
     });
 
+    it('should be mounted', function* () {
+      const result = yield nightmare.goto(url).evaluate(function () {
+        return document.querySelectorAll('.app').length;
+      });
+      result.should.equal(1);
+    });
+
     it('should have WelcomeBox', function* () {
       const result = yield nightmare.goto(url).evaluate(function () {
-        return document.querySelectorAll('.welcome').length;
+        return document.querySelectorAll('.welcome-box').length;
       });
       result.should.equal(1);
     });
 
     it('should contain correct text in WelcomeBox', function* () {
       const result = yield nightmare.goto(url).evaluate(function () {
-        return document.querySelector('.welcome .msg').innerHTML;
+        return document.querySelector('.welcome-box .msg').innerHTML;
       });
       result.should.equal('This is a demo');
     });

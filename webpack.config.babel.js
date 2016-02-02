@@ -10,19 +10,18 @@ const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-  // common: ['babel-polyfill', 'whatwg-fetch', 'react'],
-  app: ['babel-polyfill', 'entries/app'],
-  'deploy-app': ['babel-polyfill', './containers/app/deploy.js'],
+  // common: ['whatwg-fetch', 'react'],
+  app: ['./containers/app/deploy.js'],
+  /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
 };
 
-if (liveMode === 'refresh') {
-  // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
-  for (const entry in entries) {
+for (const entry in entries) {
+  entries[entry].unshift('babel-polyfill');
+  if (liveMode === 'refresh') {
+    // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
     entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`);
-  }
-} else if (liveMode === 'hmr') {
-  // https://www.npmjs.com/package/webpack-hot-middleware
-  for (const entry in entries) {
+  } else if (liveMode === 'hmr') {
+    // https://www.npmjs.com/package/webpack-hot-middleware
     entries[entry].unshift('webpack-hot-middleware/client');
   }
 }

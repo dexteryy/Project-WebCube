@@ -38,7 +38,7 @@ class WelcomeBox extends React.Component {
       backgroundColor: this.props.bgColor,
     };
     return (
-      <div className={`welcome ${hidden}`} style={boxStyles}>
+      <div className={`welcome-box ${hidden}`} style={boxStyles}>
         <div className="msg">{this.props.message}</div>
         <button className="ok"
           onClick={this._handleClick}

@@ -2,11 +2,9 @@
 /* eslint no-useless-constructor: 0 */
 
 import React from 'react';
-import WelcomeBox from '../../components/WelcomeBox';
 
 type AppViewProps = {
-  message: string;
-  bgColor?: string;
+
 };
 
 type AppViewStates = {
@@ -30,8 +28,7 @@ class AppView extends React.Component {
 
   render(): React.Element {
     return (
-      <div className="app">
-        <WelcomeBox {...this.props} />
+      <div className="{{entryName}}">
       </div>
     );
   }

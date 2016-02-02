@@ -1,0 +1,10 @@
+
+@import '~normalize.css';
+
+.{{{entryName}}} {
+  $main-color: #FF6600;
+  width: 200px;
+  height: 200px;
+  margin: 100px auto;
+  background: $main-color;
+}

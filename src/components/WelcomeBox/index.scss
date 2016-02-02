@@ -1,12 +1,8 @@
 
-.welcome {
+.welcome-box {
   $light-color: #FFFFFF;
   $highlight-color: #0099FF;
-  position: absolute;
-  top: 50px;
-  right: 50px;
-  left: 50px;
-  padding: 50px;
+  padding: 10%;
   text-align: center;
   opacity: 1;
   transition: opacity 400ms ease-in-out;
@@ -16,9 +12,9 @@
   }
 
   .msg {
-    padding: 160px 50px 50px 50px;
+    padding: 160px 5% 10% 5%;
     background: url('../../assets/swifticons/Browsertool.png') $light-color no-repeat center 30px;
-    font-size: 40px;
+    font-size: 2em;
     text-align: center;
   }
 

@@ -7,20 +7,16 @@ import AppView from './AppView';
 
 type UserOptions = {
   root: HTMLElement;
-  msg?: string;
-  bgColor?: string;
 };
 
 type AppOptions = {
   root?: HTMLElement;
-  msg: string;
-  bgColor?: string;
 };
 
 class App {
 
   opt: AppOptions = {
-    msg: 'For configuring',
+
   };
 
   init(userOpt: UserOptions) {
@@ -29,15 +25,8 @@ class App {
       return;
     }
     ReactDOM.render(React.createElement(AppView, {
-      message: this.opt.msg,
-    }), this.opt.root);
-  }
 
-  // Sample
-  getData(url: string, cb: Function) {
-    fetch(url).then((res) => {
-      cb(res);
-    });
+    }), this.opt.root);
   }
 
 }
