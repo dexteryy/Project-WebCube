@@ -30,15 +30,15 @@ Includes the following toolchains:
   - **components/** - React components, new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
     - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
   - **models/**
-  - **entries/** - Single/Multiple entry point, see [details](https://github.com/dexteryy/static-app-starter#multiple-entry-point)
+  - **entries/** - Single/Multiple entry point, see [details](https://github.com/dexteryy/static-app-starter#multiple-entry-points-optional)
     - _**app/**_ - Main entry point, see [details](https://github.com/dexteryy/static-app-starter#main-entry-point)
       - `index.js`, `index.scss`, `AppView.jsx`
-    - _demo-page1/_ - See [.gitignore](gitignore) and 'demo' generator in [plopfile.babel.js](plopfile)
+    - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
     - ...
 - **containers/** - For testing or deployment
   - _**app/**_ - For main entry point
     - `index.html`, `deploy.js`, `deploy.scss`
-  - _demo-page1/_ - See [.gitignore](gitignore) and 'demo' generator in [plopfile.babel.js](plopfile)
+  - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
 - **data/**
 - **templates/** - Handlebar templates for Plop, see [Micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator) section
 - **tests/** - See [Testing](https://github.com/dexteryy/static-app-starter#testing) section
@@ -89,7 +89,7 @@ Edit the `containers/demo-page1/index.html`:
 <script src="/static/demo-page1.js"></script>
 ```
 
-> NOTE: To enable `common.js` and continue use [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator), you need to modify [templates/containers/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/containers/index.htm)
+> NOTE: To enable `common.js` and continue use [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator), you need to modify [templates/containers/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/containers/index.html)
 
 # Getting Started
 
@@ -186,11 +186,9 @@ npm run new
 ```
 
 * `npm run new entry` - Add a new entry point
-* `npm run new demo` - Add a new entry point for demo (run `npm run new initDemo` first), see [.gitignore](gitignore)
+* `npm run new demo` - Add a new entry point for demo (run `npm run new initDemo` first), see [.gitignore][gitignore]
 * `npm run new initDemo` - Initialize config files for demo entries
 * `npm run new component` - Add a new component
-<!-- * `npm run new unittest` - Add a new spec file for unit test -->
-<!-- * `npm run new functest` - Add a new spec file for functional test -->
 
 Generator scripts:
 
