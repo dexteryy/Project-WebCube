@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "node ./node_modules/gulp/bin/gulp.js check:all",
     "test": "node ./node_modules/gulp/bin/gulp.js test:all",
+    "quicktest": "node ./node_modules/gulp/bin/gulp.js test:unit",
     "build": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build",
     "new": "node ./node_modules/plop/plop.js",
     "dev": "node ./node_modules/gulp/bin/gulp.js watch:dev",
@@ -20,7 +21,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint && npm run test",
+      "pre-commit": "npm run lint && npm run quicktest",
       "pre-push": "npm run build"
     },
     "commitizen": {
