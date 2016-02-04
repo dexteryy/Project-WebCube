@@ -23,13 +23,14 @@ Includes the following toolchains:
 #### Directories and Sample Files
 
 - **src/** - All source code for runtime, including JS, CSS and images
-  - **assets/** -
+  - **assets/** - Shared assets
     - _`swifticons/Browsertool.png`_
   - **declarations/** - Flow Declarations
     - `global.js`, `node_modules.js`, `assets.js`, ...
   - **components/** - React components, new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
     - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
   - **models/**
+  - **utils/**
   - **entries/** - Single/Multiple entry point, see [details](https://github.com/dexteryy/static-app-starter#multiple-entry-points-optional)
     - _**app/**_ - Main entry point, see [details](https://github.com/dexteryy/static-app-starter#main-entry-point)
       - `index.js`, `index.scss`, `AppView.jsx`

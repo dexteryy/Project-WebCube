@@ -6,7 +6,7 @@ import gulp from 'gulp';
 import del from 'del';
 import fs from 'fs';
 import path from 'path';
-import rename from 'gulp-rename';
+// import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import gulpFilter from 'gulp-filter';
 import webpackStream from 'webpack-stream';
@@ -74,16 +74,31 @@ function buildApp(myWebpackConfig) {
   return buildBaseApp(myWebpackConfig)
     .pipe(jsFilter)
     .pipe(uglify())
-    .pipe(rename({
-      suffix: '_min',
-    }))
+    // .pipe(rename({
+    //   suffix: '_min',
+    // }))
     .pipe(gulp.dest('public/static/'));
 }
 
 function buildHTML() {
   const revData = JSON.parse(fs.readFileSync('rev-version.json'));
+  const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
+  const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
+  function replaceRev($0, $1, $2) {
+    // const RE_ADD_MIN = /^(.+?)\.(.+)$/;
+    const filename = $2.replace(/.*\//, '');
+    let res = revData;
+    filename.split('.').forEach(function (name) {
+      res = typeof res === 'object' && res[name] || $2;
+    });
+    // if (isProductionEnv) {
+    //   res = res.replace(RE_ADD_MIN, '$1_min.$2');
+    // }
+    return `${$1}"${res}"`;
+  }
   let stream = gulp.src('containers/**/*.html')
-    .pipe(replaceRev(revData))
+    .pipe(replace(RE_JS_FILE, replaceRev))
+    .pipe(replace(RE_CSS_FILE, replaceRev))
     .pipe(inlinesource({
       rootpath: path.join(__dirname, 'public'),
     }));
@@ -102,22 +117,6 @@ function buildHTML() {
     }));
   }
   return stream.pipe(gulp.dest('public'));
-}
-
-function replaceRev(revData) {
-  const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
-  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
-  return replace(RE_JS_FILE, ($0, $1, $2) => {
-    const filename = $2.replace(/.*\//, '');
-    let res = revData;
-    filename.split('.').forEach(function (name) {
-      res = typeof res === 'object' && res[name] || $2;
-    });
-    if (isProductionEnv) {
-      res = res.replace(RE_ADD_MIN, '$1_min.$2');
-    }
-    return `${$1}"${res}"`;
-  });
 }
 
 function testFunctional() {
