@@ -121,7 +121,7 @@ function replaceRev(revData) {
 }
 
 function testFunctional() {
-  return gulp.src(['tests/functionals/**/*.js'], { read: false })
+  return gulp.src(['test/functionals/**/*.js'], { read: false })
     // gulp-mocha needs filepaths so you can't have any plugins before it
     .pipe(mocha({ // https://www.npmjs.com/package/gulp-mocha
       reporter: 'spec',
@@ -272,7 +272,7 @@ gulp.task('watch:dev', ['clean:html', 'server:stop'], startDevServer);
 
 gulp.task('watch:units', () => {
   gulp.watch(['src/**'], ['test:unit']);
-  gulp.watch(['tests/units/**'], ['test:unit']);
+  gulp.watch(['test/units/**'], ['test:unit']);
 });
 
 gulp.task('watch:all', () => {
@@ -284,8 +284,8 @@ gulp.task('watch:all', () => {
     gulp.watch(['src/**'], ['test:afterBuild']);
     gulp.watch(['containers/**'], ['test:afterBuild']);
   }
-  gulp.watch(['tests/units/**'], ['test:unit']);
-  gulp.watch(['tests/functionals/**'], ['test:functional']);
+  gulp.watch(['test/units/**'], ['test:unit']);
+  gulp.watch(['test/functionals/**'], ['test:functional']);
 });
 
 gulp.task('server:start', (done) => {

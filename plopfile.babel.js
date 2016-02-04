@@ -28,8 +28,8 @@ module.exports = function (plop) {
     templateFile: 'templates/containers/deploy.scss',
   }, {
     type: 'add',
-    path: 'tests/functionals/{{entryName}}/index.spec.js',
-    templateFile: 'templates/tests/functionals/spec.js',
+    path: 'test/functionals/{{entryName}}/index.spec.js',
+    templateFile: 'templates/test/functionals/spec.js',
   }];
 
   plop.setGenerator('entry', {
@@ -100,8 +100,8 @@ module.exports = function (plop) {
       templateFile: 'templates/src/components/index.scss',
     }, {
       type: 'add',
-      path: 'tests/units/{{pascalCase componentName}}.spec.js',
-      templateFile: 'templates/tests/units/component.spec.js',
+      path: 'test/units/{{pascalCase componentName}}.spec.js',
+      templateFile: 'templates/test/units/component.spec.js',
     }],
   });
 

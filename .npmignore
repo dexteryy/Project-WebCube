@@ -6,7 +6,7 @@ webserver.log
 containers/
 data/
 templates/
-tests/
+test/
 public/
 coverage/
 karma.*

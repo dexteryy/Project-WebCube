@@ -12,9 +12,9 @@ src/data/demo-*
 src/components/Demo*
 src/models/demo-*
 containers/demo-*
-tests/demo-*
-tests/units/demo-*
-tests/units/Demo*
-tests/functionals/demo-*
+test/demo-*
+test/units/demo-*
+test/units/Demo*
+test/functionals/demo-*
 webpack.demo.*
 .DS_Store

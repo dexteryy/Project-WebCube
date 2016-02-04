@@ -42,12 +42,12 @@ module.exports = function (config) {
       // 'chai-things',
     ],
     preprocessors: {
-      'tests/units.entry.js': ['webpack', 'sourcemap'],
+      'test/units.entry.js': ['webpack', 'sourcemap'],
       // 'src/**/*.(js|jsx)': ['coverage'],
     },
     // list of files / patterns to load in the browser
     files: [
-      'tests/units.entry.js',
+      'test/units.entry.js',
     ],
     // list of files to exclude
     exclude: [
