@@ -1,8 +1,10 @@
 /* @flow */
 /* eslint no-useless-constructor: 0 */
 
-import './index.scss';
-import React from 'react';
+import styles from './index.scss';
+import React, { Component } from 'react';
+import cssModules from 'react-css-modules';
+import debounce from 'lodash/debounce';
 
 type WelcomeBoxProps = {
   message: string;
@@ -13,7 +15,7 @@ type WelcomeBoxStates = {
   isHidden: boolean;
 };
 
-class WelcomeBox extends React.Component {
+class WelcomeBox extends Component {
 
   static defaultProps = {
     bgColor: '#eee',
@@ -28,19 +30,19 @@ class WelcomeBox extends React.Component {
     isHidden: false,
   };
 
-  _handleClick = () => {
+  _handleClick = debounce(() => {
     this.setState({ isHidden: !this.state.isHidden });
-  };
+  }, 500);
 
   render(): React.Element {
-    const hidden = this.state.isHidden ? 'hide' : '';
-    const boxStyles = {
+    const boxStyle = this.state.isHidden ? 'box-hide' : 'box';
+    const boxCustomStyles = {
       backgroundColor: this.props.bgColor,
     };
     return (
-      <div className={`welcome-box ${hidden}`} style={boxStyles}>
-        <div className="msg">{this.props.message}</div>
-        <button className="ok"
+      <div className="welcome-box" styleName={boxStyle} style={boxCustomStyles}>
+        <div className="msg" styleName="msg">{this.props.message}</div>
+        <button styleName="ok"
           onClick={this._handleClick}
         >Get Started</button>
       </div>
@@ -49,4 +51,4 @@ class WelcomeBox extends React.Component {
 
 }
 
-export default WelcomeBox;
+export default cssModules(WelcomeBox, styles);

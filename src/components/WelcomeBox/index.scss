@@ -1,28 +1,33 @@
 
-.welcome-box {
-  $light-color: #FFFFFF;
-  $highlight-color: #0099FF;
+$bgcolor: #fff;
+$msg-text-size: 2em;
+
+.box {
+  all: initial;
+  display: block;
   padding: 10%;
   text-align: center;
   opacity: 1;
   transition: opacity 400ms ease-in-out;
+}
 
-  &.hide {
-    opacity: 0;
-  }
+.box-hide {
+  composes: box;
+  opacity: 0;
+}
 
-  .msg {
-    padding: 160px 5% 10% 5%;
-    background: url('../../assets/swifticons/Browsertool.png') $light-color no-repeat center 30px;
-    font-size: 2em;
-    text-align: center;
-  }
+.msg {
+  all: initial;
+  display: block;
+  padding: 160px 5% 10% 5%;
+  background: url('../../assets/swifticons/Browsertool.png') $bgcolor no-repeat center 30px;
+  font-size: $msg-text-size;
+  text-align: center;
+}
 
-  .ok {
-    margin: 50px 0 0 0;
-    padding: 20px 40px;
-    border: none;
-    background: $highlight-color;
-    color: $light-color;
-  }
+.ok {
+  composes: pure-button from 'purecss/build/buttons.css';
+  composes: pure-button-primary from 'purecss/build/buttons.css';
+  margin: 50px 0 0 0;
+  padding: 20px 40px;
 }

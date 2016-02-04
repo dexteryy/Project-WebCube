@@ -2,7 +2,7 @@
 import chai from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WelcomeBox from 'app/components/WelcomeBox';
+import WelcomeBox from 'src/components/WelcomeBox';
 
 chai.should();
 

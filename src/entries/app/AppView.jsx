@@ -1,8 +1,11 @@
 /* @flow */
 /* eslint no-useless-constructor: 0 */
 
-import React from 'react';
+import styles from './index.scss';
+import React, { Component } from 'react';
+import cssModules from 'react-css-modules';
 import WelcomeBox from '../../components/WelcomeBox';
+import pick from 'lodash/pick';
 
 type AppViewProps = {
   message: string;
@@ -13,7 +16,7 @@ type AppViewStates = {
 
 };
 
-class AppView extends React.Component {
+class AppView extends Component {
 
   static defaultProps = {
 
@@ -30,12 +33,12 @@ class AppView extends React.Component {
 
   render(): React.Element {
     return (
-      <div className="app">
-        <WelcomeBox {...this.props} />
+      <div className="app" styleName="app">
+        <WelcomeBox {...pick(this.props, ['message', 'bgColor'])} />
       </div>
     );
   }
 
 }
 
-export default AppView;
+export default cssModules(AppView, styles);

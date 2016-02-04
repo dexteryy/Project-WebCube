@@ -78,7 +78,7 @@ module.exports = function (plop) {
     actions: [{
       type: 'add',
       path: 'webpack.demo.config.babel.js',
-      templateFile: 'templates/webpack.demo.config.babel.js',
+      templateFile: 'templates/tpl.webpack.demo.config.babel.js',
     }],
   });
 

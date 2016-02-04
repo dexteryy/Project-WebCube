@@ -1,7 +1,10 @@
 
 import path from 'path';
 import webpack from 'webpack';
+// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
+import cssnext from 'postcss-cssnext';
+import postcssReporter from 'postcss-reporter';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
@@ -26,6 +29,37 @@ for (const entry in entries) {
   }
 }
 
+// https://github.com/ai/browserslist#queries
+const browsers = ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'];
+// const browsers = ['ie <= 8'];
+
+const cssLoaderConfig = JSON.stringify({
+  modules: true,
+  importLoaders: 1,
+  localIdentName: '[name]__[local]___[hash:base64:5]',
+  // https://github.com/webpack/css-loader#minification
+  // https://github.com/webpack/css-loader/blob/master/lib/processCss.js
+  minimize: true,
+  // http://cssnano.co/options/
+  // https://github.com/ben-eb/cssnano/blob/master/index.js
+  // https://github.com/postcss/autoprefixer#options
+  autoprefixer: {
+    browsers,
+    // https://github.com/postcss/autoprefixer#outdated-prefixes
+    remove: false,
+    add: true,
+    cascade: false,
+  },
+  discardComments: {
+    removeAll: true,
+  },
+  discardUnused: true,
+  mergeIdents: true,
+  // zindex: true,
+  // normalizeUrl: true,
+  // reduceIdents: true,
+});
+
 module.exports = {
   entry: entries,
   output: {
@@ -46,7 +80,7 @@ module.exports = {
       path.join(__dirname, 'container'),
     ],
     alias: {
-      app: path.join(__dirname, 'src'), // only for outside or `src/`
+      src: path.join(__dirname, 'src'), // only for outside or `src/`
       data: path.join(__dirname, 'data'), // only for outside or `src/`
     },
     modulesDirectories: ['node_modules'],
@@ -63,34 +97,14 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loader: ((cssOpt) => {
-        return `style!css?${cssOpt}!postcss!sass`;
-      })(JSON.stringify({
-        // https://github.com/webpack/css-loader#minification
-        // https://github.com/webpack/css-loader/blob/master/lib/processCss.js
-        minimize: true,
-        // http://cssnano.co/options/
-        // https://github.com/ben-eb/cssnano/blob/master/index.js
-        // https://github.com/postcss/autoprefixer#options
-        autoprefixer: {
-          // https://github.com/ai/browserslist#queries
-          browsers: ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'],
-          // https://github.com/postcss/autoprefixer#outdated-prefixes
-          remove: false,
-          add: true,
-          cascade: false,
-        },
-        discardComments: {
-          removeAll: true,
-        },
-        discardUnused: true,
-        mergeIdents: true,
-        // zindex: true,
-        // normalizeUrl: true,
-        // reduceIdents: true,
-      })),
+        return `style!css?${cssOpt}!sass`;
+        // return ExtractTextPlugin.extract('style', `css?${cssOpt}`, 'sass');
+      })(cssLoaderConfig),
     }, {
       test: /\.css$/,
-      loader: 'style!css',
+      loader: ((cssOpt) => {
+        return `style!css?${cssOpt}!postcss`;
+      })(cssLoaderConfig),
     }, {
       test: /\.json$/,
       // https://www.npmjs.com/package/file-loader
@@ -126,7 +140,15 @@ module.exports = {
   },
   // https://www.npmjs.com/package/postcss-loader
   postcss() {
-    return [];
+    return [
+      cssnext({
+        browsers,
+        features: {
+          autoprefixer: false,
+        },
+      }),
+      postcssReporter(),
+    ];
   },
   plugins: [
     // http://mts.io/2015/04/08/webpack-shims-polyfills/
@@ -137,6 +159,9 @@ module.exports = {
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'common',
     // }),
+    // new ExtractTextPlugin(isProductionEnv
+    //   ? 'css/[contenthash]/[name].css'
+    //   : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
       filename: 'rev-version.json',

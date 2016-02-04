@@ -1,7 +1,7 @@
 /* @flow */
 
 import './deploy.scss';
-import App from 'app/entries/{{entryName}}';
+import App from 'src/entries/{{entryName}}';
 
 const app = new App();
 

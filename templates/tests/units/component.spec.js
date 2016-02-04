@@ -2,7 +2,7 @@
 import chai from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {{pascalCase componentName}} from 'app/components/{{pascalCase componentName}}';
+import {{pascalCase componentName}} from 'src/components/{{pascalCase componentName}}';
 
 chai.should();
 

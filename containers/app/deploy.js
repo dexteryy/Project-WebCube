@@ -2,7 +2,7 @@
 
 import './deploy.scss';
 import App from '../../';
-// or import App from 'app/entries/app';
+// or import App from 'src/entries/app';
 
 const app = new App();
 const url = String(require('data/test.json'));

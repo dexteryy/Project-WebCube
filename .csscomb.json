@@ -1,14 +1,13 @@
 {
-  "remove-empty-rulesets": true,
+  "remove-empty-rulesets": false,
   "always-semicolon": true,
-  "color-case": "upper",
+  "color-case": "lower",
   "block-indent": "  ",
-  "color-shorthand": false,
+  "color-shorthand": true,
   "element-case": "lower",
   "eof-newline": true,
   "leading-zero": true,
   "quotes": "single",
-  "sort-order-fallback": "abc",
   "space-before-colon": "",
   "space-after-colon": " ",
   "space-before-combinator": " ",
@@ -22,8 +21,9 @@
   "strip-spaces": true,
   "tab-size": true,
   "unitless-zero": true,
-  "sort-order-fallback": "abc",
+  "sort-order-fallback": "",
   "sort-order": [
+    "...",
     "$include",
     "$variable",
 

@@ -15,7 +15,8 @@ import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
-import scsslint from 'gulp-scss-lint';
+import sassLint from 'gulp-sass-lint';
+import cssLint from 'gulp-csslint';
 import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
@@ -190,10 +191,18 @@ gulp.task('clean:html', (done) => {
   del(['public/**/*.html']).then(() => done());
 });
 
-gulp.task('check:css', [], () => {
+gulp.task('check:scss', [], () => {
   return gulp.src(['src/**/*.scss', 'containers/**/*.scss'])
-    .pipe(scsslint())
-    .pipe(scsslint.failReporter());
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError());
+});
+
+gulp.task('check:css', [], () => {
+  return gulp.src(['src/**/*.css', 'containers/**/*.css'])
+    .pipe(cssLint('.csslintrc'))
+    .pipe(cssLint.reporter())
+    .pipe(cssLint.reporter('fail'));
 });
 
 gulp.task('check:js', [], () => {
@@ -220,7 +229,7 @@ gulp.task('check:html', [], () => {
     .pipe(htmlhint.failReporter());
 });
 
-gulp.task('check:all', ['check:js', 'check:css', 'check:html'], () => {});
+gulp.task('check:all', ['check:js', 'check:scss', 'check:css', 'check:html'], () => {});
 
 gulp.task('test:unit', [], (done) => {
   new KarmaServer({

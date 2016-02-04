@@ -1,8 +1,9 @@
 /* @flow */
 /* eslint no-useless-constructor: 0 */
 
-import './index.scss';
-import React from 'react';
+import styles from './index.scss';
+import React, { Component } from 'react';
+import cssModules from 'react-css-modules';
 
 type {{pascalCase componentName}}Props = {
 
@@ -12,7 +13,7 @@ type {{pascalCase componentName}}States = {
 
 };
 
-class {{pascalCase componentName}} extends React.Component {
+class {{pascalCase componentName}} extends Component {
 
   static defaultProps = {
 
@@ -29,11 +30,11 @@ class {{pascalCase componentName}} extends React.Component {
 
   render(): React.Element {
     return (
-      <div className="{{dashCase componentName}}">
+      <div className="{{dashCase componentName}}" styleName="root">
       </div>
     );
   }
 
 }
 
-export default {{pascalCase componentName}};
+export default cssModules({{pascalCase componentName}}, styles);
