@@ -1,7 +1,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
@@ -37,10 +37,10 @@ const cssLoaderConfig = JSON.stringify({
   modules: true,
   importLoaders: 1,
   localIdentName: '[name]__[local]___[hash:base64:5]',
-  sourceMap: true,
+  sourceMap: !isProductionEnv,
   // https://github.com/webpack/css-loader#minification
   // https://github.com/webpack/css-loader/blob/master/lib/processCss.js
-  minimize: true,
+  minimize: isProductionEnv,
   // http://cssnano.co/options/
   // https://github.com/ben-eb/cssnano/blob/master/index.js
   // https://github.com/postcss/autoprefixer#options
@@ -98,14 +98,14 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loader: ((cssOpt) => {
-        // return `style!css?${cssOpt}!postcss!sass`;
-        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`);
+        return `style?singleton!css?${cssOpt}!postcss!sass`;
+        // return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`);
       })(cssLoaderConfig),
     }, {
       test: /\.css$/,
       loader: ((cssOpt) => {
-        // return `style!css?${cssOpt}!postcss`;
-        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`);
+        return `style?singleton!css?${cssOpt}!postcss`;
+        // return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`);
       })(cssLoaderConfig),
     }, {
       test: /\.json$/,
@@ -162,9 +162,9 @@ module.exports = {
     //   name: 'common',
     // }),
     // https://www.npmjs.com/package/extract-text-webpack-plugin
-    new ExtractTextPlugin(isProductionEnv
-      ? 'css/[contenthash]/[name].css'
-      : 'css/[name].css', { allChunks: true }),
+    // new ExtractTextPlugin(isProductionEnv
+    //   ? 'css/[contenthash]/[name].css'
+    //   : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
       filename: 'rev-version.json',

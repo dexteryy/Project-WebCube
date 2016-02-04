@@ -6,7 +6,7 @@ import gulp from 'gulp';
 import del from 'del';
 import fs from 'fs';
 import path from 'path';
-// import rename from 'gulp-rename';
+import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import gulpFilter from 'gulp-filter';
 import webpackStream from 'webpack-stream';
@@ -61,23 +61,30 @@ function getWebpackConfig() {
   }
 }
 
-function buildBaseApp(myWebpackConfig) {
-  return gulp.src(['src/**/*.js', 'containers/**/*.js'])
+function buildApp(myWebpackConfig) {
+  let stream = gulp.src(['src/**/*.js', 'containers/**/*.js'])
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/static/'));
-}
-
-function buildApp(myWebpackConfig) {
-  const jsFilter = gulpFilter(['**/*.js']);
-  return buildBaseApp(myWebpackConfig)
-    .pipe(jsFilter)
-    .pipe(uglify())
-    // .pipe(rename({
-    //   suffix: '_min',
-    // }))
-    .pipe(gulp.dest('public/static/'));
+  if (isProductionEnv) {
+    const jsFilter = gulpFilter(['**/*.js'], { restore: true });
+    const cssFilter = gulpFilter(['**/*.css'], { restore: true });
+    stream = stream.pipe(jsFilter)
+      .pipe(uglify())
+      .pipe(rename({
+        suffix: '_min',
+      }))
+      .pipe(gulp.dest('public/static/'))
+      .pipe(jsFilter.restore)
+      .pipe(cssFilter)
+      .pipe(rename({
+        suffix: '_min',
+      }))
+      .pipe(gulp.dest('public/static/'))
+      .pipe(cssFilter.restore);
+  }
+  return stream;
 }
 
 function buildHTML() {
@@ -85,15 +92,15 @@ function buildHTML() {
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
   function replaceRev($0, $1, $2) {
-    // const RE_ADD_MIN = /^(.+?)\.(.+)$/;
+    const RE_ADD_MIN = /^(.+?)\.(.+)$/;
     const filename = $2.replace(/.*\//, '');
     let res = revData;
     filename.split('.').forEach(function (name) {
       res = typeof res === 'object' && res[name] || $2;
     });
-    // if (isProductionEnv) {
-    //   res = res.replace(RE_ADD_MIN, '$1_min.$2');
-    // }
+    if (isProductionEnv) {
+      res = res.replace(RE_ADD_MIN, '$1_min.$2');
+    }
     return `${$1}"${res}"`;
   }
   let stream = gulp.src('containers/**/*.html')
@@ -242,7 +249,7 @@ gulp.task('test:functional', [], testFunctional);
 gulp.task('test:all', ['test:unit', 'test:functional'], () => {});
 
 gulp.task('update:app', ['clean:app', 'test:unit'], () => {
-  return buildBaseApp(getWebpackConfig());
+  return buildApp(getWebpackConfig());
 });
 
 gulp.task('build:app', ['clean:app', 'check:all', 'test:unit'], () => {
