@@ -30,7 +30,8 @@ for (const entry in entries) {
 }
 
 // https://github.com/ai/browserslist#queries
-const browsers = ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'];
+const browsers = ['last 2 versions', 'ie 10'];
+// const browsers = ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'];
 // const browsers = ['ie 6-8', 'opera 12.1', 'ios 6', 'android 4'];
 
 const cssLoaderConfig = JSON.stringify({
@@ -134,7 +135,7 @@ module.exports = {
         })),
       ],
     }, {
-      test: /\.woff$/,
+      test: /\.(woff|woff2|ttf|eot)$/,
       loader: isProductionEnv
         ? 'url?limit=100000&name=assets/[hash]/[name].[ext]'
         : 'url?limit=100000&name=assets/[name].[ext]',

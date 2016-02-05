@@ -2,42 +2,88 @@
 $bgcolor: #fff;
 $ok-text-color: #fff;
 $msg-text-size: 2em;
-$ok-text-size: 1.2em;
+$ok-text-size: 0.8em;
+$ok-semantic-bgcolor: #f00;
 
 .box {
-  all: initial;
+  composes: animated from 'animate.css';
   display: block;
   padding: 10%;
+  font-size: 14px;
   text-align: center;
-  opacity: 1;
-  transition: opacity 400ms ease-in-out;
 }
 
-.box-hide {
+.box-jello {
   composes: box;
-  opacity: 0;
+  composes: jello from 'animate.css';
+}
+
+.box-wobble {
+  composes: box;
+  composes: wobble from 'animate.css';
+}
+
+.box-tada {
+  composes: box;
+  composes: tada from 'animate.css';
+}
+
+.box-flash {
+  composes: box;
+  composes: flash from 'animate.css';
+}
+
+.box-rubberband {
+  composes: box;
+  composes: rubberBand from 'animate.css';
+}
+
+.box-swing {
+  composes: box;
+  composes: swing from 'animate.css';
 }
 
 .msg {
-  all: initial;
   display: block;
-  padding: 160px 5% 10% 5%;
+  margin-bottom: 10%;
+  padding: 160px 5% 30px 5%;
   background: url('../../assets/swifticons/Browsertool.png') $bgcolor no-repeat center 30px;
   font-size: $msg-text-size;
   text-align: center;
 }
 
 .ok {
-  composes: pure-button from 'purecss/build/buttons.css';
-  composes: pure-button-primary from 'purecss/build/buttons.css';
-  // composes: button from 'skeleton-css/css/skeleton.css';
-  // composes: button-primary from 'skeleton-css/css/skeleton.css';
-  margin: 50px 0 0 0;
-  border-radius: 0;
-  color: $ok-text-color;
-  font-size: $ok-text-size;
+  margin: 10px !important;
+  color: $ok-text-color !important;
+  font-size: $ok-text-size !important;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
 
   &:focus {
-    color: $ok-text-color;
+    color: $ok-text-color !important;
   }
+}
+
+.ok-pure {
+  composes: pure-button from 'purecss/build/buttons.css';
+  composes: pure-button-primary from 'purecss/build/buttons.css';
+  composes: ok;
+}
+
+.ok-semantic {
+  composes: ok;
+}
+
+.ok-semantic-main {
+  background-color: $ok-semantic-bgcolor !important;
+  color: $ok-text-color !important;
+  font-size: 1em !important;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
+}
+
+.ok-semantic-label {
+  border-color: $ok-semantic-bgcolor !important;
+  color: $ok-semantic-bgcolor !important;
+  text-transform: uppercase !important;
 }

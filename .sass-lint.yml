@@ -118,7 +118,7 @@ rules:
   # enforce that ID selectors are not allowed to be used
   no-ids: 2
   # enforce that important declarations are not allowed to be used
-  no-important: 2
+  no-important: 0
   # enforce that only valid of hexadecimal values are written
   no-invalid-hex: 2
   # enforce that selectors aren't repeated and that their properties are merged. You may also pass a whitelist of selectors you wish to exclude from merging
@@ -340,7 +340,7 @@ rules:
   url-quotes: 2
   # enforce the use of variables for the values of specified properties. There are no properties by default
   variable-for-property:
-    - 2
+    - 0
     - properties:
         - font
         - font-size
