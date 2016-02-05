@@ -70,7 +70,7 @@ module.exports = {
     chunkFilename: isProductionEnv
       ? 'js/[hash]/[name].js'
       : 'js/[name].js',
-    path: path.join(__dirname, 'public/static/'),
+    path: path.join(__dirname, 'build/public/static/'),
     publicPath: isProductionEnv
       ? process.env.MYAPP_CDN_PREFIX
       : '/static/',

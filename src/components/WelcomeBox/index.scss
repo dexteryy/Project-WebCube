@@ -1,6 +1,8 @@
 
 $bgcolor: #fff;
+$ok-text-color: #fff;
 $msg-text-size: 2em;
+$ok-text-size: 1.2em;
 
 .box {
   all: initial;
@@ -28,6 +30,14 @@ $msg-text-size: 2em;
 .ok {
   composes: pure-button from 'purecss/build/buttons.css';
   composes: pure-button-primary from 'purecss/build/buttons.css';
+  // composes: button from 'skeleton-css/css/skeleton.css';
+  // composes: button-primary from 'skeleton-css/css/skeleton.css';
   margin: 50px 0 0 0;
-  padding: 20px 40px;
+  border-radius: 0;
+  color: $ok-text-color;
+  font-size: $ok-text-size;
+
+  &:focus {
+    color: $ok-text-color;
+  }
 }

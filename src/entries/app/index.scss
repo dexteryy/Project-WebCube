@@ -1,4 +1,15 @@
 
+$text-color: #fff;
+$list-text-size: 0.8em;
+
 .app {
+  min-width: 256px;
   margin: 10%;
+}
+
+.list {
+  composes: u-full-width from 'skeleton-css/css/skeleton.css';
+  margin-top: 20px;
+  color: $text-color;
+  font-size: $list-text-size;
 }

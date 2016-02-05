@@ -1,5 +1,6 @@
 /* @flow */
 
+import 'normalize.css';
 import './deploy.scss';
 import App from '../../';
 // or import App from 'src/entries/app';

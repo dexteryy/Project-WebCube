@@ -66,7 +66,7 @@ function buildApp(myWebpackConfig) {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/static/'));
+    .pipe(gulp.dest('build/public/static/'));
   if (isProductionEnv) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
@@ -75,13 +75,13 @@ function buildApp(myWebpackConfig) {
       .pipe(rename({
         suffix: '_min',
       }))
-      .pipe(gulp.dest('public/static/'))
+      .pipe(gulp.dest('build/public/static/'))
       .pipe(jsFilter.restore)
       .pipe(cssFilter)
       .pipe(rename({
         suffix: '_min',
       }))
-      .pipe(gulp.dest('public/static/'))
+      .pipe(gulp.dest('build/public/static/'))
       .pipe(cssFilter.restore);
   }
   return stream;
@@ -91,8 +91,8 @@ function buildHTML() {
   const revData = JSON.parse(fs.readFileSync('rev-version.json'));
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
+  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
   function replaceRev($0, $1, $2) {
-    const RE_ADD_MIN = /^(.+?)\.(.+)$/;
     const filename = $2.replace(/.*\//, '');
     let res = revData;
     filename.split('.').forEach(function (name) {
@@ -107,7 +107,7 @@ function buildHTML() {
     .pipe(replace(RE_JS_FILE, replaceRev))
     .pipe(replace(RE_CSS_FILE, replaceRev))
     .pipe(inlinesource({
-      rootpath: path.join(__dirname, 'public'),
+      rootpath: path.join(__dirname, 'build/public'),
     }));
   if (isProductionEnv) {
     stream = stream.pipe(htmlmin({ // https://github.com/kangax/html-minifier
@@ -123,7 +123,7 @@ function buildHTML() {
       removeCDATASectionsFromCDATA: true,
     }));
   }
-  return stream.pipe(gulp.dest('public'));
+  return stream.pipe(gulp.dest('build/public'));
 }
 
 function testFunctional() {
@@ -174,27 +174,37 @@ function startWebServer(stream, done) {
 function stopWebServer(done) {
   fs.stat(pidFile, function (err) {
     if (err) {
-      done();
-      return;
+      return done();
     }
-    const lastPid = parseInt(fs.readFileSync(pidFile).toString(), 10);
-    fs.unlinkSync(pidFile);
-    if (!lastPid || !running(lastPid)) {
-      done();
-      return;
+    let lastPid, isRunning;
+    try {
+      lastPid = parseInt(fs.readFileSync(pidFile).toString(), 10);
+      fs.unlinkSync(pidFile);
+      isRunning = lastPid && running(lastPid);
+    } catch (ex) {
+      return done();
+    }
+    if (!isRunning) {
+      return done();
     }
     ps.kill(lastPid, function () {
       done();
     });
+    return '';
   });
 }
 
 gulp.task('clean:app', (done) => {
-  del(['public/static/**']).then(() => done());
+  del([
+    'build/public/static/js/**',
+    'build/public/static/css/**',
+    'build/public/static/assets/**',
+    'build/public/static/data/**',
+  ]).then(() => done());
 });
 
 gulp.task('clean:html', (done) => {
-  del(['public/**/*.html']).then(() => done());
+  del(['build/public/!(static)/**']).then(() => done());
 });
 
 gulp.task('check:scss', [], () => {
@@ -295,7 +305,7 @@ gulp.task('watch:all', () => {
 });
 
 gulp.task('server:start', (done) => {
-  const stream = gulp.src('public');
+  const stream = gulp.src('build/public');
   stopWebServer(function () {
     startWebServer(stream, done);
   });

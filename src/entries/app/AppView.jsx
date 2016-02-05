@@ -1,6 +1,8 @@
 /* @flow */
 /* eslint no-useless-constructor: 0 */
 
+import 'normalize.css';
+import 'skeleton-css/css/skeleton.css';
 import styles from './index.scss';
 import React, { Component } from 'react';
 import cssModules from 'react-css-modules';
@@ -35,6 +37,30 @@ class AppView extends Component {
     return (
       <div className="app" styleName="app">
         <WelcomeBox {...pick(this.props, ['message', 'bgColor'])} />
+        <table styleName="list">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Sex</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dave Gamache</td>
+              <td>26</td>
+              <td>Male</td>
+              <td>San Francisco</td>
+            </tr>
+            <tr>
+              <td>Dwayne Johnson</td>
+              <td>42</td>
+              <td>Male</td>
+              <td>Hayward</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 /* @flow */
 /* eslint no-useless-constructor: 0 */
 
+import 'normalize.css';
 import styles from './index.scss';
 import React, { Component } from 'react';
 import cssModules from 'react-css-modules';

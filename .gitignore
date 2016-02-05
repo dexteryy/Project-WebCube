@@ -1,11 +1,14 @@
 node_modules/
-coverage/
+.npm
+*.log
+*.pid
 .env
 rev-version.json
-npm-debug.log
-webserver.log
-.webserver.pid
-public/
+build/public/*
+!build/public/static/
+build/public/static/*
+!build/public/static/favicon.png
+coverage/
 src/entries/demo-*
 src/assets/demo-*
 src/data/demo-*
@@ -17,4 +20,3 @@ test/units/demo-*
 test/units/Demo*
 test/functionals/demo-*
 webpack.demo.*
-.DS_Store
