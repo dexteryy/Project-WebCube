@@ -276,7 +276,7 @@ Recommended Settings for Atom (config.cson):
 
 #### Git Hooks
 
-* pre-commit: `npm run lint && npm run quicktest`
+* pre-commit: `npm run lint && npm run unittest`
 * pre-push: `npm run build`
 
 #### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)

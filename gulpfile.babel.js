@@ -269,11 +269,11 @@ gulp.task('test:functional', [], testFunctional);
 
 gulp.task('test:all', ['test:unit', 'test:functional'], () => {});
 
-gulp.task('update:app', ['clean:app', 'test:unit'], () => {
+gulp.task('update:app', ['clean:app'], () => {
   return buildApp(getWebpackConfig());
 });
 
-gulp.task('build:app', ['clean:app', 'check:all', 'test:unit'], () => {
+gulp.task('build:app', ['clean:app', 'check:all'], () => {
   return buildApp(getWebpackConfig());
 });
 
@@ -302,7 +302,7 @@ gulp.task('watch:units', () => {
   gulp.watch(['test/units/**'], ['test:unit']);
 });
 
-gulp.task('watch:all', () => {
+gulp.task('watch:build', () => {
   if (process.env.NODE_ENV !== 'production') {
     gulp.watch(['src/**'], ['update:app']);
     gulp.watch(['containers/**/*.!(html)', 'data/**'], ['update:app']);
@@ -311,7 +311,6 @@ gulp.task('watch:all', () => {
     gulp.watch(['src/**'], ['test:afterBuild']);
     gulp.watch(['containers/**'], ['test:afterBuild']);
   }
-  gulp.watch(['test/units/**'], ['test:unit']);
   gulp.watch(['test/functionals/**'], ['test:functional']);
 });
 

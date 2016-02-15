@@ -9,20 +9,21 @@
   "scripts": {
     "lint": "node ./node_modules/gulp/bin/gulp.js check:all",
     "test": "node ./node_modules/gulp/bin/gulp.js test:all",
-    "quicktest": "node ./node_modules/gulp/bin/gulp.js test:unit",
+    "quicktest": "node ./node_modules/gulp/bin/gulp.js test:functional",
+    "unittest": "node ./node_modules/gulp/bin/gulp.js test:unit",
     "build": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build",
     "quickbuild": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build:html",
     "new": "node ./node_modules/plop/plop.js",
     "dev": "node ./node_modules/gulp/bin/gulp.js watch:dev",
     "testing": "node ./node_modules/gulp/bin/gulp.js watch:units",
-    "building": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:all",
+    "building": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:build",
     "startserver": "nohup node ./node_modules/gulp/bin/gulp.js server:start > webserver.log 2>&1 &",
     "stopserver": "node ./node_modules/gulp/bin/gulp.js server:stop",
     "deploy": "NODE_ENV=production node ./node_modules/gulp/bin/gulp.js deploy"
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint && npm run quicktest",
+      "pre-commit": "npm run lint && npm run unittest",
       "pre-push": "npm run build"
     },
     "commitizen": {
