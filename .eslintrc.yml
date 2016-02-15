@@ -7,7 +7,7 @@ plugins:
   - flow-vars
 # - babel # TODO
 
-# TODO: http://eslint.org/blog/2016/01/eslint-v2.0.0-beta.1-released/
+# http://eslint.org/blog/2016/02/eslint-v2.0.0-released
 parserOptions:
   ecmaVersion: 6
   ecmaFeatures:
@@ -38,44 +38,68 @@ globals:
 
 rules:
   # 2.0.0
-  # TODO: http://eslint.org/blog/2016/01/eslint-v2.0.0-beta.1-released/
-
+  # http://eslint.org/blog/2016/02/eslint-v2.0.0-released
   # Enforce spacing before and after keywords
-  # http://eslint.org/docs/2.0.0/rules/keyword-spacing
+  # http://eslint.org/docs/rules/keyword-spacing
   keyword-spacing:                    2 # [2, { "before: true, "after: true, "overrides: null }]
   # Disallow arrow functions where they could be confused with comparisons
-  # http://eslint.org/docs/2.0.0/rules/no-confusing-arrow
+  # http://eslint.org/docs/rules/no-confusing-arrow
   no-confusing-arrow:                 2
   # Enforces return statements in callbacks of array's methods
-  # http://eslint.org/docs/2.0.0/rules/array-callback-return
+  # http://eslint.org/docs/rules/array-callback-return
   array-callback-return:              2
+  # Blacklist certain identifiers to prevent them being used
+  # http://eslint.org/docs/rules/id-blacklist
+  id-blacklist:                       0
+  # Newline Per Chained Method Call
+  # http://eslint.org/docs/rules/newline-per-chained-call
+  newline-per-chained-call:           0
+  # Disallow empty functions
+  # http://eslint.org/docs/rules/no-empty-function
+  # TODO:  node.body.body.length === 0 TypeError: Cannot read property 'length' of undefined
+  # no-empty-function:                  2
+  # Disallow Unnecessary Labels
+  # http://eslint.org/docs/rules/no-extra-label
+  no-extra-label:                     0
   # Disallow var and Named Functions in Global Scope
-  # http://eslint.org/docs/2.0.0/rules/no-implicit-globals
+  # http://eslint.org/docs/rules/no-implicit-globals
   no-implicit-globals:                2
   # Disallow specific imports
-  # http://eslint.org/docs/2.0.0/rules/no-restricted-imports
+  # http://eslint.org/docs/rules/no-restricted-imports
   no-restricted-imports:              0
+  # Disallow Self Assignment
+  # http://eslint.org/docs/rules/no-self-assign
+  no-self-assign:                     2
   # Disallow Symbol Constructor
-  # http://eslint.org/docs/2.0.0/rules/no-new-symbol
+  # http://eslint.org/docs/rules/no-new-symbol
   no-new-symbol:                      2
   # Disallow unmodified conditions of loops
-  # http://eslint.org/docs/2.0.0/rules/no-unmodified-loop-condition
+  # http://eslint.org/docs/rules/no-unmodified-loop-condition
   no-unmodified-loop-condition:       2
+  # Disallow Unused Labels
+  # http://eslint.org/docs/rules/no-unused-labels
+  no-unused-labels:                   0
   # Disallow unnecessary constructor
-  # http://eslint.org/docs/2.0.0/rules/no-useless-constructor
+  # http://eslint.org/docs/rules/no-useless-constructor
   no-useless-constructor:             2
   # Disallow whitespace before properties
-  # http://eslint.org/docs/2.0.0/rules/no-whitespace-before-property
+  # http://eslint.org/docs/rules/no-whitespace-before-property
   no-whitespace-before-property:      2
+  # Require or disallow an newline around variable declarations
+  # http://eslint.org/docs/rules/one-var-declaration-per-line
+  one-var-declaration-per-line:       [2, "initializations"]
+  # Enforce Usage of Spacing in Template Strings
+  # http://eslint.org/docs/rules/template-curly-spacing
+  template-curly-spacing:             2
   # Suggest using the rest parameters instead of arguments
-  # http://eslint.org/docs/2.0.0/rules/prefer-rest-params
+  # http://eslint.org/docs/rules/prefer-rest-params
   # NOTE: node v5
   prefer-rest-params:                 2
   # Import Sorting
-  # http://eslint.org/docs/2.0.0/rules/sort-imports
+  # http://eslint.org/docs/rules/sort-imports
   sort-imports:                       0
   # Enforce spacing around the * in yield* expressions
-  # http://eslint.org/docs/2.0.0/rules/yield-star-spacing
+  # http://eslint.org/docs/rules/yield-star-spacing
   yield-star-spacing:                 [2, { "before": false, "after": true }]
   # Possible Errors
   # The following rules point out areas where you might have made mistakes.
@@ -231,9 +255,6 @@ rules:
   # disallow else after a return in an if
   # http://eslint.org/docs/rules/no-else-return
   no-else-return:                     2
-  # disallow use of labels for anything other than loops and switches
-  # http://eslint.org/docs/rules/no-empty-label
-  no-empty-label:                     2
   # disallow use of empty destructuring patterns
   # http://eslint.org/docs/rules/no-empty-pattern
   no-empty-pattern:                   2
@@ -371,7 +392,7 @@ rules:
 
   # controls location of Use Strict Directives
   # http://eslint.org/docs/rules/strict
-  strict:                             0
+  strict:                             [2, "never"]
   # Variables
   # These rules have to do with variable declarations.
 
