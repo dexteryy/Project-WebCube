@@ -16,7 +16,9 @@ import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
 import flow from 'gulp-flowtype';
 import sassLint from 'gulp-sass-lint';
-import cssLint from 'gulp-csslint';
+import styleLint from 'gulp-stylelint';
+import styleLintFailReporter from 'gulp-stylelint-fail-reporter';
+import styleLintConsoleReporter from 'gulp-stylelint-console-reporter';
 import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
@@ -128,7 +130,7 @@ function buildHTML() {
 
 function testFunctional() {
   return gulp.src(['test/functionals/**/*.js'], { read: false })
-    // gulp-mocha needs filepaths so you can't have any plugins before it
+    // Gulp-mocha needs filepaths so you can't have any plugins before it
     .pipe(mocha({ // https://www.npmjs.com/package/gulp-mocha
       reporter: 'spec',
       globals: [],
@@ -211,14 +213,23 @@ gulp.task('check:scss', [], () => {
   return gulp.src(['src/**/*.scss', 'containers/**/*.scss'])
     .pipe(sassLint())
     .pipe(sassLint.format())
-    .pipe(sassLint.failOnError());
+    .pipe(sassLint.failOnError())
+    .pipe(styleLint({
+      reporters: [
+        styleLintConsoleReporter(),
+        styleLintFailReporter(),
+      ],
+    }));
 });
 
 gulp.task('check:css', [], () => {
   return gulp.src(['src/**/*.css', 'containers/**/*.css'])
-    .pipe(cssLint('.csslintrc'))
-    .pipe(cssLint.reporter())
-    .pipe(cssLint.reporter('fail'));
+    .pipe(styleLint({
+      reporters: [
+        styleLintConsoleReporter(),
+        styleLintFailReporter(),
+      ],
+    }));
 });
 
 gulp.task('check:js', [], () => {

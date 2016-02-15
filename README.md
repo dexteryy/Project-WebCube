@@ -11,7 +11,7 @@ Includes the following toolchains:
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware)
 * [Gulp](http://gulpjs.com/)
   * [Flow](flowtype.org) + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [JSCS](http://jscs.info/)
-  * [SASS-Lint](https://github.com/sasstools/sass-lint) / [CSSLint](https://github.com/CSSLint/csslint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
+  * [StyleLint](http://stylelint.io/) / [SASS-Lint](https://github.com/sasstools/sass-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
   * [gulp-watch](https://www.npmjs.com/package/gulp-watch) + [gulp-webserver](https://www.npmjs.com/package/gulp-webserver)
@@ -232,6 +232,7 @@ More detail:
 * [`.eslintrc.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.eslintrc.yml)
 * [`.jscsrc`](https://github.com/dexteryy/static-app-starter/blob/master/.jscsrc)
 * [`.flowconfig`](https://github.com/dexteryy/static-app-starter/blob/master/.flowconfig)
+* [`.stylelintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.stylelintrc)
 * [`.sass-lint.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.sass-lint.yml)
 * [`.csscomb.json`](https://github.com/dexteryy/static-app-starter/blob/master/.csscomb.json)
 * [`.htmlhintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.htmlhintrc)
@@ -257,6 +258,9 @@ Recommended Settings for Atom (config.cson):
   esnext: true
   fixOnSave: true
   onlyConfig: true
+  preset: "<none>"
+"linter-stylelint":
+  disableWhenNoConfig: true
 "linter-sass-lint":
   noConfigDisable: true
 "language-babel":

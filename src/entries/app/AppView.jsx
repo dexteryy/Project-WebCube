@@ -3,7 +3,7 @@
 
 import 'normalize.css';
 import 'skeleton-css/css/skeleton.css';
-import styles from './index.scss';
+import styles from './index.css';
 import React, { Component } from 'react';
 import cssModules from 'react-css-modules';
 import WelcomeBox from '../../components/WelcomeBox';

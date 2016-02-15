@@ -1,6 +1,8 @@
 
-$text-color: #fff;
-$list-text-size: 1.2rem;
+:root {
+  --app-text-color: #fff;
+  --app-list-text-size: 1.2rem;
+}
 
 .app {
   min-width: 256px;
@@ -10,6 +12,6 @@ $list-text-size: 1.2rem;
 .list {
   composes: u-full-width from 'skeleton-css/css/skeleton.css';
   margin-top: 20px;
-  color: $text-color;
-  font-size: $list-text-size;
+  color: var(--app-text-color);
+  font-size: var(--app-list-text-size);
 }
