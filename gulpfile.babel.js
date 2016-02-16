@@ -196,6 +196,27 @@ function stopWebServer(done) {
   });
 }
 
+gulp.task('clean:empty', (done) => {
+  del([
+    'test/functionals/*',
+    'test/units/*',
+    'src/assets/*',
+    'src/components/*',
+    'src/entries/*',
+    'src/models/*',
+    'src/utils/*',
+    'data/*',
+    'containers/*',
+    'webpack.demo.config.babel.js',
+  ]).then(() => {
+    gulp.src(['webpack.config.babel.js'])
+      .pipe(replace(/\s*app:\s*\[.+?\],/, ''))
+      .pipe(gulp.dest('./'))
+      .on('end', () => done())
+      .on('error', (err) => done(err));
+  });
+});
+
 gulp.task('clean:app', (done) => {
   del([
     'build/public/static/js/**',

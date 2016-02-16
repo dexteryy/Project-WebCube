@@ -181,6 +181,12 @@ npm run building
 NODE_ENV=production npm run building
 ```
 
+#### Removing demo code
+
+```
+npm run empty
+```
+
 #### Micro-generator
 
 ```
