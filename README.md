@@ -42,6 +42,7 @@ Includes the following toolchains:
   - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
   - ...
 - **data/** - For testing or deployment
+- **configs/** - For configuration files that do not have to be placed in project root
 - **templates/** - Handlebar templates for Plop, see [Micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator) section
 - **test/** - See [Testing](https://github.com/dexteryy/static-app-starter#testing) section
   - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
@@ -75,8 +76,8 @@ Edit the [`webpack.config.babel.js`][webpack.config]:
 module.exports = {
   entry: {
     common: ['babel-polyfill', 'whatwg-fetch', 'react'], // optional
-    'demo-page1': ['babel-polyfill', 'entries/demo-page1'],
-    'demo-page2': ['babel-polyfill', 'entries/demo-page2'],
+    'demo-page1': ['babel-polyfill', './src/entries/demo-page1'],
+    'demo-page2': ['babel-polyfill', './src/entries/demo-page2'],
   },
   plugins: [
     // optional
@@ -130,7 +131,7 @@ NODE_ENV=production npm run build
 >
 > * [`package.json`][package.json]
 > * [`gulpfile.babel.js`][gulpfile]
-> * [`webpack.config.babel.js`][webpack.config]
+> * [`configs/webpack.config.babel.js`][webpack.config]
 
 Open in the browser
 
@@ -200,7 +201,7 @@ npm run new
 
 Generator scripts:
 
-* [`plopfile.babel.js`][plopfile]
+* [`configs/plopfile.babel.js`][plopfile]
 
 #### Testing
 
@@ -222,6 +223,10 @@ Unit tests + Functional tests:
     - ...
 
 > NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
+
+Karma configuration:
+
+* [`configs/karma.conf.babel.js`][karmaconf]
 
 #### Code Style
 
@@ -305,7 +310,8 @@ Deployment scripts:
 * [`gulpfile.babel.js`][gulpfile]
 
 [package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
-[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/webpack.config.babel.js
+[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.config.babel.js
 [gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js
-[plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/plopfile.babel.js
+[plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/plopfile.babel.js
+[karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/configs/karma.conf.babel.js
 [gitignore]: https://github.com/dexteryy/static-app-starter/blob/master/.gitignore
