@@ -3,7 +3,7 @@ node_modules/
 *.log
 *.pid
 .env
-rev-version.json
+configs/rev-version.json
 build/public/*
 !build/public/static/
 build/public/static/*

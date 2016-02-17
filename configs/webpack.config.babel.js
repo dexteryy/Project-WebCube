@@ -71,19 +71,19 @@ module.exports = {
     chunkFilename: isProductionEnv
       ? 'js/[hash]/[name].js'
       : 'js/[name].js',
-    path: path.join(__dirname, 'build/public/static/'),
+    path: path.join(__dirname, '..', 'build/public/static/'),
     publicPath: isProductionEnv
       ? process.env.MYAPP_CDN_PREFIX
       : '/static/',
   },
   resolve: {
     root: [
-      path.join(__dirname, 'src'),
-      path.join(__dirname, 'container'),
+      path.join(__dirname, '..', 'src'),
+      path.join(__dirname, '..', 'container'),
     ],
     alias: {
-      src: path.join(__dirname, 'src'), // only for outside or `src/`
-      data: path.join(__dirname, 'data'), // only for outside or `src/`
+      src: path.join(__dirname, '..', 'src'), // only for outside or `src/`
+      data: path.join(__dirname, '..', 'data'), // only for outside or `src/`
     },
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx'],
@@ -168,7 +168,7 @@ module.exports = {
     //   : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
-      filename: 'rev-version.json',
+      filename: 'configs/rev-version.json',
       fullPath: true,
       prettyPrint: true,
     }),

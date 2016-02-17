@@ -1,8 +1,14 @@
 {
   "name": "static-web-starter",
-  "description": "",
+  "description": "Static Web App Starter Kit",
   "author": "dexteryy <dexter.yy@gmail.com>",
-  "private": true,
+  "contributors": [
+  ],
+  "bugs": {
+    "url" : "https://github.com/dexteryy/static-app-starter/issues"
+  },
+  "homepage": "https://github.com/dexteryy/static-app-starter",
+  "repository": "https://github.com/dexteryy/static-app-starter",
   "version": "0.1.0",
   "license": "MIT",
   "main": "index.js",
@@ -14,13 +20,13 @@
     "unittest": "node ./node_modules/gulp/bin/gulp.js test:unit",
     "build": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build",
     "quickbuild": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build:html",
-    "new": "node ./node_modules/plop/plop.js",
+    "new": "node ./node_modules/plop/plop.js --plopfile=configs/plopfile.babel.js",
     "dev": "node ./node_modules/gulp/bin/gulp.js watch:dev",
     "testing": "node ./node_modules/gulp/bin/gulp.js watch:units",
     "building": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:build",
-    "startserver": "nohup node ./node_modules/gulp/bin/gulp.js server:start > webserver.log 2>&1 &",
+    "startserver": "nohup node ./node_modules/gulp/bin/gulp.js server:start > configs/webserver.log 2>&1 &",
     "stopserver": "node ./node_modules/gulp/bin/gulp.js server:stop",
-    "deploy": "NODE_ENV=production node ./node_modules/gulp/bin/gulp.js deploy"
+    "deploy": "NODE_ENV=production npm run startserver && NODE_ENV=production node ./node_modules/gulp/bin/gulp.js deploy"
   },
   "config": {
     "ghooks": {
@@ -132,7 +138,6 @@
     "postcss-cssnext": "^2.4.0",
     "postcss-loader": "^0.8.1",
     "postcss-reporter": "^1.3.1",
-    "ps-node": "0.0.5",
     "raw-loader": "^0.5.1",
     "react-css-modules": "^3.7.4",
     "react-transform-catch-errors": "^1.0.2",
@@ -145,5 +150,17 @@
     "webpack-hot-middleware": "^2.7.1",
     "webpack-stream": "^3.1.0"
   },
-  "keywords": []
+  "keywords": [
+    "boilerplate",
+    "starter",
+    "offline",
+    "offline-first",
+    "staticweb",
+    "react",
+    "react",
+    "gulp",
+    "webpack",
+    "babel",
+    "linter"
+  ]
 }

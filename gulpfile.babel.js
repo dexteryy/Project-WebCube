@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import dotenv from 'dotenv';
-import ps from 'ps-node';
 import running from 'is-running';
 import gulp from 'gulp';
 import del from 'del';
@@ -37,12 +36,12 @@ const isProductionEnv = process.env.NODE_ENV === 'production';
 const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
 const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
-const pidFile = path.join(__dirname, '.webserver.pid');
+const pidFile = path.join(__dirname, 'configs', '.webserver.pid');
 
 const compiler = webpack(getWebpackConfig());
 
 const devServerConfig = {
-  contentBase: 'containers',
+  contentBase: path.join('.', 'containers'),
   publicPath: isProductionEnv
     ? process.env.MYAPP_CDN_PREFIX
     : '/static/',
@@ -57,9 +56,9 @@ const devServerConfig = {
 
 function getWebpackConfig() {
   try {
-    return require('./webpack.demo.config.babel.js');
+    return require('./configs/webpack.demo.config.babel.js');
   } catch (ex) {
-    return require('./webpack.config.babel.js');
+    return require('./configs/webpack.config.babel.js');
   }
 }
 
@@ -90,7 +89,7 @@ function buildApp(myWebpackConfig) {
 }
 
 function buildHTML() {
-  const revData = JSON.parse(fs.readFileSync('rev-version.json'));
+  const revData = JSON.parse(fs.readFileSync('./configs/rev-version.json'));
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
   const RE_ADD_MIN = /^(.+?)\.(.+)$/;
@@ -100,6 +99,9 @@ function buildHTML() {
     filename.split('.').forEach(function (name) {
       res = typeof res === 'object' && res[name] || $2;
     });
+    if (!/\.(js|css)$/.test(res)) {
+      return $0;
+    }
     if (isProductionEnv) {
       res = res.replace(RE_ADD_MIN, '$1_min.$2');
     }
@@ -186,20 +188,17 @@ function stopWebServer(done) {
     } catch (ex) {
       return done();
     }
-    if (!isRunning) {
-      return done();
+    if (isRunning) {
+      process.kill(lastPid, 'SIGKILL');
     }
-    ps.kill(lastPid, function () {
-      done();
-    });
-    return '';
+    return done();
   });
 }
 
 gulp.task('clean:empty', (done) => {
   del([
     'test/functionals/*',
-    'test/units/*',
+    'test/units/!(defaults.spec.js)',
     'src/assets/*',
     'src/components/*',
     'src/entries/*',
@@ -207,9 +206,9 @@ gulp.task('clean:empty', (done) => {
     'src/utils/*',
     'data/*',
     'containers/*',
-    'webpack.demo.config.babel.js',
+    'configs/webpack.demo.config.babel.js',
   ]).then(() => {
-    gulp.src(['webpack.config.babel.js'])
+    gulp.src(['configs/webpack.config.babel.js'])
       .pipe(replace(/\s*app:\s*\[.+?\],/, ''))
       .pipe(gulp.dest('./'))
       .on('end', () => done())
@@ -254,7 +253,7 @@ gulp.task('check:css', [], () => {
 });
 
 gulp.task('check:js', [], () => {
-  return gulp.src(['src/**/*.@(js|jsx)', 'containers/**/*.@(js|jsx)'])
+  return gulp.src(['src/**/*.@(js|jsx)', 'containers/**/*.@(js|jsx)', 'configs/**/*.js'])
     .pipe(eslint())
     .pipe(eslint.format('stylish'))
     .pipe(eslint.failAfterError())
@@ -264,7 +263,7 @@ gulp.task('check:js', [], () => {
     .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
       all: false,
       weak: false,
-      declarations: './src/declarations',
+      declarations: 'src/declarations',
       killFlow: false,
       beep: true,
       abort: true,
@@ -281,7 +280,7 @@ gulp.task('check:all', ['check:js', 'check:scss', 'check:css', 'check:html'], ()
 
 gulp.task('test:unit', [], (done) => {
   new KarmaServer({
-    configFile: `${__dirname}/karma.conf.js`,
+    configFile: path.join(__dirname, 'configs', 'karma.conf.js'),
     singleRun: true,
   }, done).start();
 });

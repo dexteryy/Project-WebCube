@@ -4,32 +4,32 @@ module.exports = function (plop) {
 
   const addEntryActions = [{
     type: 'add',
-    path: 'src/entries/{{entryName}}/index.js',
-    templateFile: 'templates/src/entries/index.js',
+    path: '../src/entries/{{entryName}}/index.js',
+    templateFile: '../templates/src/entries/index.js',
   }, {
     type: 'add',
-    path: 'src/entries/{{entryName}}/index.scss',
-    templateFile: 'templates/src/entries/index.scss',
+    path: '../src/entries/{{entryName}}/index.scss',
+    templateFile: '../templates/src/entries/index.scss',
   }, {
     type: 'add',
-    path: 'src/entries/{{entryName}}/AppView.jsx',
-    templateFile: 'templates/src/entries/AppView.jsx',
+    path: '../src/entries/{{entryName}}/AppView.jsx',
+    templateFile: '../templates/src/entries/AppView.jsx',
   }, {
     type: 'add',
-    path: 'containers/{{entryName}}/index.html',
-    templateFile: 'templates/containers/index.html',
+    path: '../containers/{{entryName}}/index.html',
+    templateFile: '../templates/containers/index.html',
   }, {
     type: 'add',
-    path: 'containers/{{entryName}}/deploy.js',
-    templateFile: 'templates/containers/deploy.js',
+    path: '../containers/{{entryName}}/deploy.js',
+    templateFile: '../templates/containers/deploy.js',
   }, {
     type: 'add',
-    path: 'containers/{{entryName}}/deploy.scss',
-    templateFile: 'templates/containers/deploy.scss',
+    path: '../containers/{{entryName}}/deploy.scss',
+    templateFile: '../templates/containers/deploy.scss',
   }, {
     type: 'add',
-    path: 'test/functionals/{{entryName}}/index.spec.js',
-    templateFile: 'templates/test/functionals/spec.js',
+    path: '../test/functionals/{{entryName}}/index.spec.js',
+    templateFile: '../templates/test/functionals/spec.js',
   }];
 
   plop.setGenerator('entry', {
@@ -78,7 +78,7 @@ module.exports = function (plop) {
     actions: [{
       type: 'add',
       path: 'webpack.demo.config.babel.js',
-      templateFile: 'templates/tpl.webpack.demo.config.babel.js',
+      templateFile: '../templates/configs/webpack.demo.config.babel.js',
     }],
   });
 
@@ -92,16 +92,16 @@ module.exports = function (plop) {
     }],
     actions: [{
       type: 'add',
-      path: 'src/components/{{pascalCase componentName}}/index.jsx',
-      templateFile: 'templates/src/components/index.jsx',
+      path: '../src/components/{{pascalCase componentName}}/index.jsx',
+      templateFile: '../templates/src/components/index.jsx',
     }, {
       type: 'add',
-      path: 'src/components/{{pascalCase componentName}}/index.scss',
-      templateFile: 'templates/src/components/index.scss',
+      path: '../src/components/{{pascalCase componentName}}/index.scss',
+      templateFile: '../templates/src/components/index.scss',
     }, {
       type: 'add',
-      path: 'test/units/{{pascalCase componentName}}.spec.js',
-      templateFile: 'templates/test/units/component.spec.js',
+      path: '../test/units/{{pascalCase componentName}}.spec.js',
+      templateFile: '../templates/test/units/component.spec.js',
     }],
   });
 
