@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-import dotenv from 'dotenv';
 import running from 'is-running';
 import gulp from 'gulp';
 import del from 'del';
@@ -28,24 +27,23 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 // import express from 'express';
 
-dotenv.config({
-  path: path.join(__dirname, '.env'),
-});
-
-const isProductionEnv = process.env.NODE_ENV === 'production';
-const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
-const serverPort = process.env.APP_DEVSERVER_PORT || 8000;
-const serverHost = process.env.APP_DEVSERVER_HOST || 'localhost';
+const util = require('./utils');
 const pidFile = path.join(__dirname, 'configs', '.webserver.pid');
-
-const compiler = webpack(getWebpackConfig());
+let webpackConfig;
+try {
+  webpackConfig = require('./configs/webpack.demo.config.babel.js');
+} catch (ex) {
+  webpackConfig = require('./configs/webpack.default.config.babel.js');
+}
+const compiler = webpack(webpackConfig);
+const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
 
 const devServerConfig = {
   contentBase: path.join('.', 'containers'),
-  publicPath: isProductionEnv
-    ? process.env.APP_STATIC_ROOT
+  publicPath: util.isCloudEnv
+    ? process.env.APP_DEPLOY_STATIC_ROOT
     : '/static/',
-  hot: liveMode === 'hmr',
+  hot: util.liveMode === 'hmr',
   noInfo: true,
   stats: { colors: true },
   watchOptions: {
@@ -54,21 +52,13 @@ const devServerConfig = {
   },
 };
 
-function getWebpackConfig() {
-  try {
-    return require('./configs/webpack.demo.config.babel.js');
-  } catch (ex) {
-    return require('./configs/webpack.config.babel.js');
-  }
-}
-
 function buildApp(myWebpackConfig) {
   let stream = gulp.src(['src/**/*.js', 'containers/**/*.js'])
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('build/public/static/'));
-  if (isProductionEnv) {
+  if (util.isProductionEnv) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
     stream = stream.pipe(jsFilter)
@@ -92,7 +82,7 @@ function buildHTML() {
   const revData = JSON.parse(fs.readFileSync('./configs/rev-version.json'));
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
-  const RE_ADD_MIN = /^(.+?)\.(.+)$/;
+  const RE_ADD_MIN = /^(.+\/.+?)\.(.+)$/;
   function replaceRev($0, $1, $2) {
     const filename = $2.replace(/.*\//, '');
     let res = revData;
@@ -102,7 +92,7 @@ function buildHTML() {
     if (!/\.(js|css)$/.test(res)) {
       return $0;
     }
-    if (isProductionEnv) {
+    if (util.isProductionEnv) {
       res = res.replace(RE_ADD_MIN, '$1_min.$2');
     }
     return `${$1}"${res}"`;
@@ -113,7 +103,7 @@ function buildHTML() {
     .pipe(inlinesource({
       rootpath: path.join(__dirname, 'build/public'),
     }));
-  if (isProductionEnv) {
+  if (util.isProductionEnv) {
     stream = stream.pipe(htmlmin({ // https://github.com/kangax/html-minifier
       removeComments: true,
       collapseWhitespace: true,
@@ -154,24 +144,24 @@ function getDevServer() {
 // }
 
 function startDevServer() {
-  if (isProductionEnv) {
+  if (util.isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
-  // const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  // const server = util.liveMode === 'hmr' ? getHotDevServer() : getDevServer();
   const server = getDevServer();
-  server.listen(serverPort, serverHost, (err) => {
+  server.listen(util.serverPort, util.serverHost, (err) => {
     if (err) {
       throw err;
     }
-    console.log(`Listening at http://${serverHost}:${serverPort}`);
+    console.log(`Listening at http://${util.serverHost}:${util.serverPort}`);
   });
 }
 
 function startWebServer(stream, done) {
   fs.writeFileSync(pidFile, process.pid);
   stream.pipe(webserver({ // https://www.npmjs.com/package/gulp-webserver#options
-    port: serverPort,
-    host: serverHost,
+    port: util.serverPort,
+    host: util.serverHost,
   }));
   done();
 }
@@ -196,6 +186,17 @@ function stopWebServer(done) {
   });
 }
 
+function deployHTML() {
+  return gulp.src(['build/public/!(static)/**/*.html'])
+    .pipe(cloudAdapter.deployHTML());
+}
+
+function deployStatic() {
+  const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
+  return gulp.src(['build/public/static/**/*'])
+    .pipe(cloudAdapter.deployStatic());
+}
+
 gulp.task('clean:empty', (done) => {
   del([
     'test/functionals/*',
@@ -209,7 +210,7 @@ gulp.task('clean:empty', (done) => {
     'containers/*',
     'configs/webpack.demo.config.babel.js',
   ]).then(() => {
-    gulp.src(['configs/webpack.config.babel.js'])
+    gulp.src(['configs/webpack.default.config.babel.js'])
       .pipe(replace(/\s*app:\s*\[.+?\],/, ''))
       .pipe(gulp.dest('./'))
       .on('end', () => done())
@@ -291,11 +292,11 @@ gulp.task('test:functional', [], testFunctional);
 gulp.task('test:all', ['test:unit', 'test:functional'], () => {});
 
 gulp.task('update:app', ['clean:app'], () => {
-  return buildApp(getWebpackConfig());
+  return buildApp(webpackConfig);
 });
 
 gulp.task('build:app', ['clean:app', 'check:all'], () => {
-  return buildApp(getWebpackConfig());
+  return buildApp(webpackConfig);
 });
 
 gulp.task('update:html', ['clean:html'], buildHTML);
@@ -308,15 +309,29 @@ gulp.task('build', [
   'test:afterBuild',
 ]);
 
-gulp.task('deploy', [
-  'test:afterBuild',
-], () => {
-  const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
-  gulp.src(['build/public/!(static)/**'])
-    .pipe(cloudAdapter.deployHTML());
-  gulp.src(['build/public/static/**'])
-    .pipe(cloudAdapter.deployStatic());
-});
+gulp.task('deploy:html', [
+  'build:html',
+], deployHTML);
+
+gulp.task('deploy:static', [
+  'build:html',
+], deployStatic);
+
+gulp.task('redeploy:html', [
+], deployHTML);
+
+gulp.task('redeploy:static', [
+], deployStatic);
+
+gulp.task('deploy:all', [
+  'deploy:html',
+  'deploy:static',
+], () => {});
+
+gulp.task('redeploy:all', [
+  'redeploy:html',
+  'redeploy:static',
+], () => {});
 
 gulp.task('watch:dev', ['clean:html', 'server:stop'], startDevServer);
 
@@ -326,7 +341,7 @@ gulp.task('watch:units', () => {
 });
 
 gulp.task('watch:build', () => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!util.isProductionEnv) {
     gulp.watch(['src/**'], ['update:app']);
     gulp.watch(['containers/**/*.!(html)', 'data/**'], ['update:app']);
     gulp.watch(['containers/**/*.html'], ['update:html']);

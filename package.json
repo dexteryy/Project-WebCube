@@ -17,6 +17,7 @@
     "test": "node ./node_modules/gulp/bin/gulp.js test:all",
     "quicktest": "node ./node_modules/gulp/bin/gulp.js test:functional",
     "unittest": "node ./node_modules/gulp/bin/gulp.js test:unit",
+    "cloudtest": "NODE_ENV=cloud node ./node_modules/gulp/bin/gulp.js test:functional",
     "build": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build",
     "quickbuild": "npm run startserver && node ./node_modules/gulp/bin/gulp.js build:html",
     "new": "node ./node_modules/plop/plop.js --plopfile=configs/plopfile.babel.js",
@@ -25,7 +26,8 @@
     "building": "npm run startserver && node ./node_modules/gulp/bin/gulp.js watch:build",
     "startserver": "nohup node ./node_modules/gulp/bin/gulp.js server:start > configs/webserver.log 2>&1 &",
     "stopserver": "node ./node_modules/gulp/bin/gulp.js server:stop",
-    "deploy": "NODE_ENV=production npm run startserver && NODE_ENV=production node ./node_modules/gulp/bin/gulp.js deploy"
+    "deploy": "NODE_ENV=cloud node ./node_modules/gulp/bin/gulp.js deploy:all",
+    "redeploy": "NODE_ENV=cloud node ./node_modules/gulp/bin/gulp.js redeploy:all"
   },
   "config": {
     "ghooks": {
@@ -129,6 +131,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.24",
     "karma-webpack": "^1.7.0",
+    "mime-types": "^2.1.10",
     "mocha": "^2.4.5",
     "mocha-generators": "^1.2.0",
     "nightmare": "^2.1.6",
@@ -146,6 +149,7 @@
     "redbox-react": "^1.2.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
+    "through2": "^2.0.1",
     "url-loader": "^0.5.7",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-dev-server": "^1.14.1",

@@ -42,7 +42,7 @@ module.exports = function (plop) {
     }],
     actions: addEntryActions.concat([{
       type: 'modify',
-      path: 'webpack.config.babel.js',
+      path: 'webpack.default.config.babel.js',
       pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
       template: '$1\'{{entryName}}\': [\'./containers/{{entryName}}/deploy.js\'],\n$1$2',
     }]),

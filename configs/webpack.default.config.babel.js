@@ -6,10 +6,7 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 
-const isProductionEnv = process.env.NODE_ENV === 'production';
-const serverPort = process.env.APP_DEVSERVER_PORT || 8000;
-const serverHost = process.env.APP_DEVSERVER_HOST || 'localhost';
-const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
+const util = require('../utils');
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
@@ -20,12 +17,12 @@ const entries = {
 
 for (const entry in entries) {
   entries[entry].unshift('babel-polyfill');
-  if (liveMode === 'refresh') {
+  if (util.liveMode === 'refresh') {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
-    entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`);
-  } else if (liveMode === 'hmr') {
+    entries[entry].unshift(`webpack-dev-server/client?http://${util.serverHost}:${util.serverPort}`);
+  } else if (util.liveMode === 'hmr') {
     // https://webpack.github.io/docs/webpack-dev-server.html#hot-module-replacement
-    entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`, 'webpack/hot/dev-server');
+    entries[entry].unshift(`webpack-dev-server/client?http://${util.serverHost}:${util.serverPort}`, 'webpack/hot/dev-server');
     // https://www.npmjs.com/package/webpack-hot-middleware
     // entries[entry].unshift('webpack-hot-middleware/client');
   }
@@ -48,7 +45,7 @@ const reactTransformPlugins = ['react-transform', {
     // },
   ],
 }];
-if (!isProductionEnv && liveMode === 'hmr') {
+if (!util.isProductionEnv && util.liveMode === 'hmr') {
   babelLoaderPlugins.push(reactTransformPlugins);
 }
 
@@ -61,10 +58,10 @@ const cssLoaderConfig = JSON.stringify({
   modules: true,
   importLoaders: 1,
   localIdentName: '[name]__[local]___[hash:base64:5]',
-  sourceMap: !isProductionEnv,
+  sourceMap: !util.isProductionEnv,
   // https://github.com/webpack/css-loader#minification
   // https://github.com/webpack/css-loader/blob/master/lib/processCss.js
-  minimize: isProductionEnv,
+  minimize: util.isProductionEnv,
   // http://cssnano.co/options/
   // https://github.com/ben-eb/cssnano/blob/master/index.js
   // https://github.com/postcss/autoprefixer#options
@@ -88,15 +85,15 @@ const cssLoaderConfig = JSON.stringify({
 module.exports = {
   entry: entries,
   output: {
-    filename: isProductionEnv
-      ? 'js/[hash]/[name].js'
+    filename: util.isProductionEnv
+      ? 'js/[name]_[hash].js'
       : 'js/[name].js',
-    chunkFilename: isProductionEnv
-      ? 'js/[hash]/[name].js'
+    chunkFilename: util.isProductionEnv
+      ? 'js/[name]_[hash].js'
       : 'js/[name].js',
     path: path.join(__dirname, '..', 'build/public/static/'),
-    publicPath: isProductionEnv
-      ? process.env.APP_STATIC_ROOT
+    publicPath: util.isCloudEnv
+      ? process.env.APP_DEPLOY_STATIC_ROOT
       : '/static/',
   },
   resolve: {
@@ -140,15 +137,15 @@ module.exports = {
     }, {
       test: /\.json$/,
       // https://www.npmjs.com/package/file-loader
-      loader: isProductionEnv
-        ? 'file?name=data/[hash]/[name].[ext]'
+      loader: util.isProductionEnv
+        ? 'file?name=data/[name]_[hash].[ext]'
         : 'file?name=data/[name].[ext]',
     }, {
       test: /\.(gif|png|jpe?g|svg)$/i,
       loaders: [
         // https://www.npmjs.com/package/url-loader
-        isProductionEnv
-          ? 'url?limit=25000&name=assets/[hash]/[name].[ext]'
+        util.isProductionEnv
+          ? 'url?limit=25000&name=assets/[name]_[hash].[ext]'
           : 'url?limit=25000&name=assets/[name].[ext]',
         // https://www.npmjs.com/package/image-webpack-loader
         ((imageOpt) => {
@@ -165,8 +162,8 @@ module.exports = {
       ],
     }, {
       test: /\.(woff|woff2|ttf|eot)$/,
-      loader: isProductionEnv
-        ? 'url?limit=100000&name=assets/[hash]/[name].[ext]'
+      loader: util.isProductionEnv
+        ? 'url?limit=100000&name=assets/[name]_[hash].[ext]'
         : 'url?limit=100000&name=assets/[name].[ext]',
     }],
   },
@@ -192,8 +189,8 @@ module.exports = {
     //   name: 'common',
     // }),
     // https://www.npmjs.com/package/extract-text-webpack-plugin
-    // new ExtractTextPlugin(isProductionEnv
-    //   ? 'css/[contenthash]/[name].css'
+    // new ExtractTextPlugin(util.isProductionEnv
+    //   ? 'css/[name]_[contenthash].css'
     //   : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({

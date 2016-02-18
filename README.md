@@ -17,6 +17,7 @@ Includes the following toolchains:
   * [gulp-watch](https://www.npmjs.com/package/gulp-watch) + [gulp-webserver](https://www.npmjs.com/package/gulp-webserver)
 * [Karma](https://karma-runner.github.io/) ([PhantomJS](http://phantomjs.org/)) / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
+* [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 
 ## Structure
 
@@ -70,7 +71,7 @@ Add files:
 * `containers/demo-page1/index.html`
 * `containers/demo-page2/index.html`
 
-Edit the [`webpack.config.babel.js`][webpack.config]:
+Edit the [`webpack.default.config.babel.js`][webpack.config]:
 
 ```javascript
 module.exports = {
@@ -107,15 +108,23 @@ npm install
 
 ## Local Configuration
 
-Create a `.env` file in the root directory. For example:
+Before building, you must create a `.env` file in the root directory. For example:
 
 ```ini
 APP_DEVSERVER_HOST=localhost
 APP_DEVSERVER_PORT=8000
-APP_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
+APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 ```
 
-The complete template file for `.env`: [`.env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/.env_sample)
+> NOTE: [`.env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/.env_sample) is a complete template file for `.env`
+
+You can remove demo code and get a clean codebase:
+
+```
+npm run empty
+```
+
+But if this is the case, you must [generate an entry](https://github.com/dexteryy/static-app-starter#micro-generator) before building.
 
 ## Building
 
@@ -133,7 +142,7 @@ NODE_ENV=production npm run build
 >
 > * [`package.json`][package.json]
 > * [`gulpfile.babel.js`][gulpfile]
-> * [`configs/webpack.config.babel.js`][webpack.config]
+> * [`configs/webpack.default.config.babel.js`][webpack.config]
 
 Open in the browser
 
@@ -184,12 +193,6 @@ npm run building
 NODE_ENV=production npm run building
 ```
 
-#### Removing demo code
-
-```
-npm run empty
-```
-
 #### Micro-generator
 
 ```
@@ -207,10 +210,28 @@ Generator scripts:
 
 #### Testing
 
-Manually run all tests:
+Manually run unit tests and functional tests:
 
 ```
 npm run test
+```
+
+Manually run unit tests:
+
+```
+npm run unittest
+```
+
+Manually run functional tests (run automatically after building):
+
+```
+npm run quicktest
+```
+
+Manually run functional tests for web app in the cloud (after [deployment](https://github.com/dexteryy/static-app-starter#deployment)):
+
+```
+npm run cloudtest
 ```
 
 Unit tests + Functional tests:
@@ -303,16 +324,39 @@ git cz
 
 ## Deployment
 
+> NOTE: Currently, only Aliyun OSS is supported
+
+Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
+
 ```
 npm run deploy
 ```
 
-Deployment scripts:
+Just upload:
+
+```
+npm run redeploy
+```
+
+Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in `.env`.
+
+For example, you must choose a static cloud provider in `.env`:
+
+```ini
+APP_DEPLOY_STATIC_CLOUD=oss
+```
+
+```ini
+APP_DEPLOY_STATIC_CLOUD=s3
+```
+
+Deployment scripts and adapters:
 
 * [`gulpfile.babel.js`][gulpfile]
+* [`deploy/*.js`][https://github.com/dexteryy/static-app-starter/blob/master/deploy/]
 
 [package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
-[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.config.babel.js
+[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.default.config.babel.js
 [gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js
 [plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/plopfile.babel.js
 [karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/configs/karma.conf.babel.js

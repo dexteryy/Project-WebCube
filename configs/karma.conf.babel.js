@@ -2,7 +2,7 @@
 
 // import isparta from 'isparta'; // https://www.npmjs.com/package/isparta
 import _ from 'lodash';
-import webpackConfig from './webpack.config.babel';
+import webpackConfig from './webpack.default.config.babel';
 import AssetsPlugin from 'assets-webpack-plugin';
 const webpackConfigForKarma = _.cloneDeep(webpackConfig);
 _.remove(webpackConfigForKarma.plugins, function (i) {

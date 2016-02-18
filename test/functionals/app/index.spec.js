@@ -3,16 +3,17 @@ import chai from 'chai';
 import Nightmare from 'nightmare';
 // import Chance from 'chance';
 
+const util = require('../../../utils');
+
 mochaGenerators.install();
 chai.should();
 
 describe('app', function () {
-  const myhost = process.env.APP_DEVSERVER_HOST;
-  const myport = process.env.APP_DEVSERVER_PORT;
-  const url = `http://${myhost}:${myport}/app/`;
+  this.timeout(60000);
+  const rootUrl = util.getUrlRoot();
+  const url = `${rootUrl}/app/index.html`;
 
   describe('Start page', function () {
-    this.timeout(60000);
 
     let nightmare;
 
