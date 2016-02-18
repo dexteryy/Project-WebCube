@@ -34,8 +34,8 @@ dotenv.config({
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
-const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
-const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
+const serverPort = process.env.APP_DEVSERVER_PORT || 8000;
+const serverHost = process.env.APP_DEVSERVER_HOST || 'localhost';
 const pidFile = path.join(__dirname, 'configs', '.webserver.pid');
 
 const compiler = webpack(getWebpackConfig());
@@ -43,7 +43,7 @@ const compiler = webpack(getWebpackConfig());
 const devServerConfig = {
   contentBase: path.join('.', 'containers'),
   publicPath: isProductionEnv
-    ? process.env.MYAPP_CDN_PREFIX
+    ? process.env.APP_STATIC_ROOT
     : '/static/',
   hot: liveMode === 'hmr',
   noInfo: true,
@@ -309,11 +309,13 @@ gulp.task('build', [
 
 gulp.task('deploy', [
   'test:afterBuild',
-]);
-
-gulp.task('default', [
-  'build',
-]);
+], () => {
+  const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
+  gulp.src(['build/public/!(static)/**'])
+    .pipe(cloudAdapter.deployHTML());
+  gulp.src(['build/public/static/**'])
+    .pipe(cloudAdapter.deployStatic());
+});
 
 gulp.task('watch:dev', ['clean:html', 'server:stop'], startDevServer);
 
@@ -344,3 +346,7 @@ gulp.task('server:start', (done) => {
 gulp.task('server:stop', (done) => {
   stopWebServer(done);
 });
+
+gulp.task('default', [
+  'build',
+]);

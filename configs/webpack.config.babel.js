@@ -7,8 +7,8 @@ import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
-const serverPort = process.env.MYAPP_SERVER_PORT || 8000;
-const serverHost = process.env.MYAPP_SERVER_HOST || 'localhost';
+const serverPort = process.env.APP_DEVSERVER_PORT || 8000;
+const serverHost = process.env.APP_DEVSERVER_HOST || 'localhost';
 const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 
 const entries = {
@@ -27,6 +27,27 @@ for (const entry in entries) {
     // https://www.npmjs.com/package/webpack-hot-middleware
     entries[entry].unshift('webpack-hot-middleware/client');
   }
+}
+
+const babelLoaderPlugins = [];
+const reactTransformPlugins = ['react-transform', {
+  transforms: [
+    {
+      transform: 'react-transform-catch-errors',
+      imports: ['react', 'redbox-react'],
+    },
+    {
+      transform: 'react-transform-hmr',
+      imports: ['react'],
+      locals: ['module'],
+    },
+    // {
+    //   transform: 'react-transform-render-visualizer',
+    // },
+  ],
+}];
+if (!isProductionEnv && liveMode === 'hmr') {
+  babelLoaderPlugins.push(reactTransformPlugins);
 }
 
 // https://github.com/ai/browserslist#queries
@@ -73,7 +94,7 @@ module.exports = {
       : 'js/[name].js',
     path: path.join(__dirname, '..', 'build/public/static/'),
     publicPath: isProductionEnv
-      ? process.env.MYAPP_CDN_PREFIX
+      ? process.env.APP_STATIC_ROOT
       : '/static/',
   },
   resolve: {
@@ -94,6 +115,12 @@ module.exports = {
       test: /\.(js|jsx)$/,
       loader: 'babel',
       query: {
+        presets: [
+          'react',
+          'es2015',
+          'stage-1',
+        ],
+        plugins: babelLoaderPlugins,
         cacheDirectory: true,
       },
     }, {

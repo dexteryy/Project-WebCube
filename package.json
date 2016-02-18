@@ -2,10 +2,9 @@
   "name": "static-web-starter",
   "description": "Static Web App Starter Kit",
   "author": "dexteryy <dexter.yy@gmail.com>",
-  "contributors": [
-  ],
+  "contributors": [],
   "bugs": {
-    "url" : "https://github.com/dexteryy/static-app-starter/issues"
+    "url": "https://github.com/dexteryy/static-app-starter/issues"
   },
   "homepage": "https://github.com/dexteryy/static-app-starter",
   "repository": "https://github.com/dexteryy/static-app-starter",
@@ -30,7 +29,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint && npm run unittest",
+      "pre-commit": "npm run lint",
       "pre-push": "npm run build"
     },
     "commitizen": {
@@ -41,6 +40,7 @@
     "node": ">=5.5.0"
   },
   "dependencies": {
+    "aliyun-sdk": "^1.8.2",
     "animate.css": "^3.5.1",
     "babel-polyfill": "^6.5.0",
     "babel-runtime": "^6.5.0",
@@ -142,6 +142,8 @@
     "react-css-modules": "^3.7.4",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",
+    "react-transform-render-visualizer": "^0.4.0",
+    "redbox-react": "^1.2.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",

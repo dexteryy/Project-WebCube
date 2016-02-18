@@ -4,7 +4,7 @@
 Includes the following toolchains:
 
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/) + [React Transform Plugins](https://github.com/gaearon/babel-plugin-react-transform))
+  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
   * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [CSS Modules](https://github.com/css-modules/css-modules) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
@@ -107,13 +107,15 @@ npm install
 
 ## Local Configuration
 
-* Create a `.env` file in the root directory. For example:
+Create a `.env` file in the root directory. For example:
 
 ```ini
-MYAPP_SERVER_HOST=localhost
-MYAPP_SERVER_PORT=8000
-MYAPP_CDN_PREFIX=http://cdn.example.com/assets/
+APP_DEVSERVER_HOST=localhost
+APP_DEVSERVER_PORT=8000
+APP_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 ```
+
+The complete template file for `.env`: [`.env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/.env_sample)
 
 ## Building
 
@@ -287,7 +289,7 @@ Recommended Settings for Atom (config.cson):
 
 #### Git Hooks
 
-* pre-commit: `npm run lint && npm run unittest`
+* pre-commit: `npm run lint`
 * pre-push: `npm run build`
 
 #### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)

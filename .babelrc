@@ -1,28 +1,13 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "stage-1"
+    "react"
   ],
   "plugins": [
-  ],
-  "env": {
-    "dev": {
-      "plugins": [
-        ["react-transform", {
-          "transforms": [
-            {
-              "transform": "react-transform-catch-errors",
-              "imports": ["react", "redbox-react"]
-            },
-            {
-              "transform": "react-transform-hmr",
-              "imports": ["react"],
-              "locals": ["module"]
-            }
-          ]
-        }]
-      ]
-    }
-  }
+    "transform-es2015-modules-commonjs",
+    "babel-plugin-transform-es2015-parameters",
+    "transform-es2015-destructuring",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-async-to-generator"
+  ]
 }
