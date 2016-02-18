@@ -45,6 +45,9 @@ Includes the following toolchains:
 - **data/** - For testing or deployment
 - **configs/** - For configuration files that do not have to be placed in project root
 - **templates/** - Handlebar templates for Plop, see [Micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator) section
+- **utils/** - Reusable code for configuration files and scripts
+  - **deploy/** - Adapters for delopyment scripts
+    - `s3.js`, `oss.js`
 - **test/** - See [Testing](https://github.com/dexteryy/static-app-starter#testing) section
   - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
   - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
@@ -116,7 +119,7 @@ APP_DEVSERVER_PORT=8000
 APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 ```
 
-> NOTE: [`.env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/.env_sample) is a complete template file for `.env`
+> NOTE: [`configs/env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/configs/env_sample) is a complete template file for `.env`
 
 You can remove demo code and get a clean codebase:
 
@@ -353,7 +356,7 @@ APP_DEPLOY_STATIC_CLOUD=s3
 Deployment scripts and adapters:
 
 * [`gulpfile.babel.js`][gulpfile]
-* [`deploy/*.js`][https://github.com/dexteryy/static-app-starter/blob/master/deploy/]
+* [`utils/deploy/*.js`][https://github.com/dexteryy/static-app-starter/blob/master/utils/deploy/]
 
 [package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
 [webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.default.config.babel.js

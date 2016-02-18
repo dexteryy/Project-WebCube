@@ -36,7 +36,7 @@ try {
   webpackConfig = require('./configs/webpack.default.config.babel.js');
 }
 const compiler = webpack(webpackConfig);
-const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
+const cloudAdapter = require(`./utils/deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
 
 const devServerConfig = {
   contentBase: path.join('.', 'containers'),
@@ -192,7 +192,6 @@ function deployHTML() {
 }
 
 function deployStatic() {
-  const cloudAdapter = require(`./deploy/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
   return gulp.src(['build/public/static/**/*'])
     .pipe(cloudAdapter.deployStatic());
 }
