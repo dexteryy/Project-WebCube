@@ -24,8 +24,10 @@ for (const entry in entries) {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
     entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`);
   } else if (liveMode === 'hmr') {
+    // https://webpack.github.io/docs/webpack-dev-server.html#hot-module-replacement
+    entries[entry].unshift(`webpack-dev-server/client?http://${serverHost}:${serverPort}`, 'webpack/hot/dev-server');
     // https://www.npmjs.com/package/webpack-hot-middleware
-    entries[entry].unshift('webpack-hot-middleware/client');
+    // entries[entry].unshift('webpack-hot-middleware/client');
   }
 }
 

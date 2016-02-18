@@ -26,7 +26,7 @@ import mocha from 'gulp-mocha';
 import webserver from 'gulp-webserver';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import express from 'express';
+// import express from 'express';
 
 dotenv.config({
   path: path.join(__dirname, '.env'),
@@ -143,21 +143,22 @@ function getDevServer() {
   return new WebpackDevServer(compiler, devServerConfig);
 }
 
-function getHotDevServer() {
-  return express()
-    .use(require('webpack-dev-middleware')(compiler, devServerConfig))
-    .use(require('webpack-hot-middleware')(compiler))
-    .get('*', function (req, res) {
-      res.sendFile(path.join(__dirname,
-        'containers', req.params[0], 'index.html'));
-    });
-}
+// function getHotDevServer() {
+//   return express()
+//     .use(require('webpack-dev-middleware')(compiler, devServerConfig))
+//     .use(require('webpack-hot-middleware')(compiler))
+//     .get('*', function (req, res) {
+//       res.sendFile(path.join(__dirname,
+//         'containers', req.params[0], 'index.html'));
+//     });
+// }
 
 function startDevServer() {
   if (isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
-  const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  // const server = liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  const server = getDevServer();
   server.listen(serverPort, serverHost, (err) => {
     if (err) {
       throw err;
