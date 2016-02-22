@@ -1,7 +1,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
-// import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
@@ -10,7 +10,7 @@ const util = require('../utils');
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-  // common: ['whatwg-fetch', 'react'],
+  common: ['whatwg-fetch', 'react', 'react-dom', 'react-css-modules'],
   app: ['./containers/app/deploy.js'],
   /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
 };
@@ -125,14 +125,14 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loader: ((cssOpt) => {
-        return `style?singleton!css?${cssOpt}!postcss!sass`;
-        // return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`);
+        // return `style?singleton!css?${cssOpt}!postcss!sass`;
+        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`);
       })(cssLoaderConfig),
     }, {
       test: /\.css$/,
       loader: ((cssOpt) => {
-        return `style?singleton!css?${cssOpt}!postcss`;
-        // return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`);
+        // return `style?singleton!css?${cssOpt}!postcss`;
+        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`);
       })(cssLoaderConfig),
     }, {
       test: /\.json$/,
@@ -163,8 +163,8 @@ module.exports = {
     }, {
       test: /\.(woff|woff2|ttf|eot)$/,
       loader: util.isProductionEnv
-        ? 'url?limit=100000&name=assets/[name]_[hash].[ext]'
-        : 'url?limit=100000&name=assets/[name].[ext]',
+        ? 'url?limit=2500000&name=assets/[name]_[hash].[ext]'
+        : 'url?limit=2500000&name=assets/[name].[ext]',
     }],
   },
   // https://www.npmjs.com/package/postcss-loader
@@ -185,13 +185,18 @@ module.exports = {
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     }),
     // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common',
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      minChunks: Infinity,
+      // children: true, // Move common modules into the parent chunk
+      // async: true, // Create an async commons chunk
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    // new webpack.optimize.DedupePlugin(),
     // https://www.npmjs.com/package/extract-text-webpack-plugin
-    // new ExtractTextPlugin(util.isProductionEnv
-    //   ? 'css/[name]_[contenthash].css'
-    //   : 'css/[name].css', { allChunks: true }),
+    new ExtractTextPlugin(util.isProductionEnv
+      ? 'css/[name]_[contenthash].css'
+      : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
       filename: 'configs/rev-version.json',

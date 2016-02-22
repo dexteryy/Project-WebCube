@@ -5,6 +5,12 @@ import gutil from 'gulp-util';
 import mime from 'mime-types';
 import ALY from 'aliyun-sdk';
 
+const mimeOverride = {
+  // '.woff2': 'font/woff2',
+  // '.woff': 'font/woff',
+  // '.ttf': 'font/ttf',
+};
+
 const oss = new ALY.OSS({
   accessKeyId: process.env.APP_DEPLOY_OSS_ID,
   secretAccessKey: process.env.APP_DEPLOY_OSS_SECRET,
@@ -31,7 +37,11 @@ function deploy(opt) {
     }
     const key = path.join(opt.root || '', file.relative);
     const parsedPath = parsePath(key);
-    const contentType = mime.lookup(parsedPath.extname);
+    const contentType = mimeOverride[parsedPath.extname] || mime.lookup(parsedPath.extname);
+    let contentEncoding = opt.ContentEncoding;
+    if (!contentEncoding && contentEncoding !== '') {
+      contentEncoding = mime.charset(contentType) || '';
+    }
     gutil.log('uploading:', key);
     oss.putObject({
       Bucket: opt.bucket,
@@ -39,11 +49,11 @@ function deploy(opt) {
       Body: file.contents.toString(encoding),
       AccessControlAllowOrigin: '',
       ContentType: contentType,
-      CacheControl: opt.CacheControl,
+      CacheControl: opt.CacheControl || 'no-cache',
       // ContentDisposition: 'attachment; '
       //   + `filename="${parsedPath.basename}${parsedPath.extname}"`,
-      ContentEncoding: mime.charset(contentType) || '',
-      Expires: opt.Expires,
+      ContentEncoding: contentEncoding,
+      Expires: opt.Expires || null,
       // ServerSideEncryption: 'AES256',
       // 'x-oss-object-acl': 'public-read',
     }, function (err, data) {
@@ -60,8 +70,7 @@ function deploy(opt) {
 export function deployHTML() {
   return deploy({
     bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-    CacheControl: 'no-cache',
-    Expires: null,
+    ContentEncoding: '',
   });
 }
 
@@ -73,6 +82,7 @@ export function deployStatic() {
     bucket: process.env.APP_DEPLOY_OSS_BUCKET,
     root: 'static',
     CacheControl: `max-age=${yearToSeconds}, public`,
+    ContentEncoding: '', // enable CDN GZip
     Expires: d.getTime(),
   });
 }
