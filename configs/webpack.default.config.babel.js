@@ -163,8 +163,8 @@ module.exports = {
     }, {
       test: /\.(woff|woff2|ttf|eot)$/,
       loader: util.isProductionEnv
-        ? 'url?limit=2500000&name=assets/[name]_[hash].[ext]'
-        : 'url?limit=2500000&name=assets/[name].[ext]',
+        ? 'url?limit=25000&name=assets/[name]_[hash].[ext]'
+        : 'url?limit=25000&name=assets/[name].[ext]',
     }],
   },
   // https://www.npmjs.com/package/postcss-loader

@@ -6,9 +6,6 @@ import mime from 'mime-types';
 import ALY from 'aliyun-sdk';
 
 const mimeOverride = {
-  // '.woff2': 'font/woff2',
-  // '.woff': 'font/woff',
-  // '.ttf': 'font/ttf',
 };
 
 const oss = new ALY.OSS({
@@ -37,7 +34,8 @@ function deploy(opt) {
     }
     const key = path.join(opt.root || '', file.relative);
     const parsedPath = parsePath(key);
-    const contentType = mimeOverride[parsedPath.extname] || mime.lookup(parsedPath.extname);
+    const contentType = mimeOverride[parsedPath.extname]
+      || mime.lookup(parsedPath.extname);
     let contentEncoding = opt.ContentEncoding;
     if (!contentEncoding && contentEncoding !== '') {
       contentEncoding = mime.charset(contentType) || '';
@@ -46,7 +44,7 @@ function deploy(opt) {
     oss.putObject({
       Bucket: opt.bucket,
       Key: key,
-      Body: file.contents.toString(encoding),
+      Body: file.contents,
       AccessControlAllowOrigin: '',
       ContentType: contentType,
       CacheControl: opt.CacheControl || 'no-cache',
