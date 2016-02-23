@@ -79,29 +79,29 @@ class WelcomeBox extends Component {
       <div className="welcome-box" styleName={boxStyle} style={boxCustomStyles}>
         <div className="msg" styleName="msg">{this.props.message}</div>
         <button styleName="ok-pure"
-          onClick={this.triggerEffectRubberBand}
-        >purecss + rubberBand</button>
+          onClick={this.triggerEffectRubberBand}>
+          purecss + rubberBand
+        </button>
         <button styleName="ok-pure"
-          onClick={this.triggerEffectJello}
-        >purecss + jello</button>
+          onClick={this.triggerEffectJello}>
+          purecss + jello
+        </button>
         <button styleName="ok-pure"
-          onClick={this.triggerEffectWobble}
-        >purecss + wobble</button>
+          onClick={this.triggerEffectWobble}>
+          purecss + wobble
+        </button>
         <SemanticLabelButton
           {...babelButtonOpt}
           label="tada"
-          onClick={this.triggerEffectTada}
-        />
+          onClick={this.triggerEffectTada} />
         <SemanticLabelButton
           {...babelButtonOpt}
           label="swing"
-          onClick={this.triggerEffectSwing}
-        />
+          onClick={this.triggerEffectSwing} />
         <SemanticLabelButton
           {...babelButtonOpt}
           label="flash"
-          onClick={this.triggerEffectFlash}
-        />
+          onClick={this.triggerEffectFlash} />
       </div>
     );
   }
