@@ -161,10 +161,15 @@ module.exports = {
         })),
       ],
     }, {
-      test: /\.(woff|woff2|ttf|eot)$/,
+      test: /\.(woff|woff2)$/,
       loader: util.isProductionEnv
         ? 'url?limit=25000&name=assets/[name]_[hash].[ext]'
         : 'url?limit=25000&name=assets/[name].[ext]',
+    }, {
+      test: /\.(ttf|eot|wav|mp3)$/,
+      loader: util.isProductionEnv
+        ? 'file?name=assets/[name]_[hash].[ext]'
+        : 'file?name=assets/[name].[ext]',
     }],
   },
   // https://www.npmjs.com/package/postcss-loader

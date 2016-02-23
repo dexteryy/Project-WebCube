@@ -18,4 +18,9 @@ export default function run() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', run, false);
+if (['complete', 'loaded', 'interactive'].includes(document.readyState)
+    && document.body) {
+  run();
+} else {
+  document.addEventListener('DOMContentLoaded', run, false);
+}

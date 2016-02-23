@@ -19,4 +19,4 @@ test/demo-*
 test/units/demo-*
 test/units/Demo*
 test/functionals/demo-*
-webpack.demo.*
+configs/webpack.demo.*
