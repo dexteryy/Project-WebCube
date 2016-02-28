@@ -10,11 +10,9 @@ build/public/static/*
 !build/public/static/favicon.png
 coverage/
 src/entries/demo-*
-src/assets/demo-*
 src/data/demo-*
 src/components/Demo*
-src/models/demo-*
-containers/demo-*
+staticweb/demo-*
 test/demo-*
 test/units/demo-*
 test/units/Demo*

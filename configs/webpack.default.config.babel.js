@@ -11,7 +11,7 @@ const util = require('../utils');
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
   common: ['whatwg-fetch', 'react', 'react-dom', 'react-css-modules'],
-  app: ['./containers/app/deploy.js'],
+  app: ['./staticweb/app/deploy.js'],
   /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
 };
 

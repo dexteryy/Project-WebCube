@@ -1,6 +1,7 @@
 
 import path from 'path';
 import through from 'through2';
+import gulp from 'gulp';
 import gutil from 'gulp-util';
 import mime from 'mime-types';
 import ALY from 'aliyun-sdk';
@@ -65,22 +66,28 @@ function deploy(opt) {
   });
 }
 
-export function deployHTML() {
-  return deploy({
-    bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-    ContentEncoding: '',
-  });
+export function deployHTML(src) {
+  return function () {
+    return gulp.src(src)
+      .pipe(deploy({
+        bucket: process.env.APP_DEPLOY_OSS_BUCKET,
+        ContentEncoding: '',
+      }));
+  };
 }
 
-export function deployStatic() {
-  const yearToSeconds = 60 * 60 * 24 * 365;
-  const d = new Date();
-  d.setTime(d.getTime() + 1000 * yearToSeconds);
-  return deploy({
-    bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-    root: 'static',
-    CacheControl: `max-age=${yearToSeconds}, public`,
-    ContentEncoding: '', // enable CDN GZip
-    Expires: d.getTime(),
-  });
+export function deployStatic(src) {
+  return function () {
+    const yearToSeconds = 60 * 60 * 24 * 365;
+    const d = new Date();
+    d.setTime(d.getTime() + 1000 * yearToSeconds);
+    return gulp.src(src)
+      .pipe(deploy({
+        bucket: process.env.APP_DEPLOY_OSS_BUCKET,
+        root: 'static',
+        CacheControl: `max-age=${yearToSeconds}, public`,
+        ContentEncoding: '', // enable CDN GZip
+        Expires: d.getTime(),
+      }));
+  };
 }

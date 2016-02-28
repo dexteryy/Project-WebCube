@@ -629,7 +629,7 @@ rules:
 
   # Disallow double-slash comments (//...) which are not supported by CSS.
   # http://stylelint.io/user-guide/rules/no-invalid-double-slash-comments/
-  no-invalid-double-slash-comments: true
+  no-invalid-double-slash-comments: null
 
   # Disallow missing end-of-file newline.
   # http://stylelint.io/user-guide/rules/no-missing-eof-newline/

@@ -24,20 +24,23 @@ Includes the following toolchains:
 #### Directories and Sample Files
 
 - **src/** - All source code for runtime, including JS, CSS and images
-  - **assets/** - Shared assets
-    - _`swifticons/Browsertool.png`_
+  - **shared/**
+    - **assets/** - Shared images, fonts, audio, etc.
+      - _`swifticons/Browsertool.png`_
+    - **styles/** - Shared CSS/SCSS
   - **declarations/** - Flow Declarations
     - `global.js`, `node_modules.js`, `assets.js`, ...
-  - **components/** - React components, new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
+  - **components/** - [presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz), new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
     - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
-  - **models/**
-  - **utils/**
+  - **containers/** - [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
+  - **models/** - reducers / stores / models / ...
+  - **actions/**
   - **entries/** - Single/Multiple entry point, see [details](https://github.com/dexteryy/static-app-starter#multiple-entry-points-optional)
     - _**app/**_ - Main entry point, see [details](https://github.com/dexteryy/static-app-starter#main-entry-point)
       - `index.js`, `index.scss`, `AppView.jsx`
     - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
     - ...
-- **containers/** - For testing or deployment
+- **staticweb/** - For testing or deployment
   - _**app/**_ - For main entry point
     - `index.html`, `deploy.js`, `deploy.scss`
   - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
@@ -46,8 +49,8 @@ Includes the following toolchains:
 - **configs/** - For configuration files that do not have to be placed in project root
 - **templates/** - Handlebar templates for Plop, see [Micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator) section
 - **utils/** - Reusable code for configuration files and scripts
-  - **deploy/** - Adapters for delopyment scripts
-    - `s3.js`, `oss.js`
+  - **staticcloud/** - Adapters for delopyment scripts
+    - `s3.js`, `oss.js`, `firebase.js`, `heroku.js`, ...
 - **test/** - See [Testing](https://github.com/dexteryy/static-app-starter#testing) section
   - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
   - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
@@ -71,8 +74,8 @@ Add files:
 
 * `src/entries/demo-page1/index.js`
 * `src/entries/demo-page2/index.js`
-* `containers/demo-page1/index.html`
-* `containers/demo-page2/index.html`
+* `staticweb/demo-page1/index.html`
+* `staticweb/demo-page2/index.html`
 
 Edit the [`webpack.default.config.babel.js`][webpack.config]:
 
@@ -90,14 +93,14 @@ module.exports = {
     }),
 ```
 
-Edit the `containers/demo-page1/index.html`:
+Edit the `staticweb/demo-page1/index.html`:
 
 ```javascript
 <script src="/static/common.js"></script> <!-- optional -->
 <script src="/static/demo-page1.js"></script>
 ```
 
-> NOTE: To enable `common.js` and continue use [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator), you need to modify [templates/containers/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/containers/index.html)
+> NOTE: To enable `common.js` and continue use [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator), you need to modify [templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/staticweb/index.html)
 
 # Getting Started
 
@@ -153,11 +156,11 @@ Open in the browser
 open http://localhost:8000/app/
 ```
 
-Manually start/stop web server:
+Manually start/stop static web server:
 
 ```
-npm run startserver
-npm run stopserver
+npm run start:staticserver
+npm run stop:staticserver
 ```
 
 ## Development
@@ -222,19 +225,19 @@ npm run test
 Manually run unit tests:
 
 ```
-npm run unittest
+npm run test:unit
 ```
 
 Manually run functional tests (run automatically after building):
 
 ```
-npm run quicktest
+npm run test:quick
 ```
 
 Manually run functional tests for web app in the cloud (after [deployment](https://github.com/dexteryy/static-app-starter#deployment)):
 
 ```
-npm run cloudtest
+npm run test:cloud
 ```
 
 Unit tests + Functional tests:
@@ -332,13 +335,13 @@ git cz
 Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
 
 ```
-npm run deploy
+npm run deploy:staticweb
 ```
 
 Just upload:
 
 ```
-npm run redeploy
+npm run redeploy:staticweb
 ```
 
 Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in `.env`.

@@ -16,16 +16,16 @@ module.exports = function (plop) {
     templateFile: '../templates/src/entries/AppView.jsx',
   }, {
     type: 'add',
-    path: '../containers/{{entryName}}/index.html',
-    templateFile: '../templates/containers/index.html',
+    path: '../staticweb/{{entryName}}/index.html',
+    templateFile: '../templates/staticweb/index.html',
   }, {
     type: 'add',
-    path: '../containers/{{entryName}}/deploy.js',
-    templateFile: '../templates/containers/deploy.js',
+    path: '../staticweb/{{entryName}}/deploy.js',
+    templateFile: '../templates/staticweb/deploy.js',
   }, {
     type: 'add',
-    path: '../containers/{{entryName}}/deploy.scss',
-    templateFile: '../templates/containers/deploy.scss',
+    path: '../staticweb/{{entryName}}/deploy.scss',
+    templateFile: '../templates/staticweb/deploy.scss',
   }, {
     type: 'add',
     path: '../test/functionals/{{entryName}}/index.spec.js',
@@ -44,7 +44,7 @@ module.exports = function (plop) {
       type: 'modify',
       path: 'webpack.default.config.babel.js',
       pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
-      template: '$1\'{{entryName}}\': [\'./containers/{{entryName}}/deploy.js\'],\n$1$2',
+      template: '$1\'{{entryName}}\': [\'./staticweb/{{entryName}}/deploy.js\'],\n$1$2',
     }]),
   });
 
@@ -69,7 +69,7 @@ module.exports = function (plop) {
       type: 'modify',
       path: 'webpack.demo.config.babel.js',
       pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW DEMO WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
-      template: '$1\'{{entryName}}\': defaultCode.concat([\'./containers/{{entryName}}/deploy.js\']),\n$1$2',
+      template: '$1\'{{entryName}}\': defaultCode.concat([\'./staticweb/{{entryName}}/deploy.js\']),\n$1$2',
     }]),
   });
 
