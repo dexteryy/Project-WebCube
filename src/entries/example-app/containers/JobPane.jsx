@@ -1,4 +1,5 @@
 
+import paneStyles from '../styles/pane.scss';
 import styles from './JobPane.scss';
 import React, { Component } from 'react';
 import cssModules from 'react-css-modules';
@@ -13,7 +14,7 @@ import * as actionCreators from '../actions';
 
 @connect()
 @actionDispatcher(actionCreators, 'actions')
-@cssModules(styles)
+@cssModules(Object.assign(styles, paneStyles))
 @pureRender()
 export default class JobPane extends Component {
 

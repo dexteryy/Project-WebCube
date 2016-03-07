@@ -9,6 +9,7 @@ import {
 import { push } from 'react-router-redux';
 import TabView from '../../../components/TabView';
 import FlipboardLogo from '../../../components/FlipboardLogo';
+import { Link } from 'react-router';
 
 @connect()
 @actionDispatcher({ push }, 'actions')
@@ -17,22 +18,20 @@ export default class App extends Component {
 
   render() {
     const {
-      children, location, actions,
+      children,
+      // location, actions,
     } = this.props;
     const menu = [{
       path: '/pane/effects',
       text: 'Effects',
+      title: 'Effect Pane',
       icon: styles['icon-photo'],
-      active: false,
     }, {
       path: '/pane/jobs',
       text: 'Jobs',
+      title: 'Job Pane',
       icon: styles['icon-news'],
-      active: false,
     }];
-    menu.find((item) => {
-      return item.path === location.pathname;
-    }).active = true;
     return (
       <TabView
         id="exampleAppRoot"
@@ -41,7 +40,7 @@ export default class App extends Component {
         logoHeight={60}
         title1="EXAMPLE APP"
         title2="This is a demo"
-        handleMenuClick={actions.push}
+        MenuLink={Link}
         menu={menu}>
         {children}
       </TabView>

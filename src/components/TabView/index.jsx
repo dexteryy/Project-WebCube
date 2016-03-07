@@ -15,9 +15,9 @@ function TabView({
     key: 1,
     text: 'default',
     icon: '',
-    active: true,
   }],
-  handleMenuClick = () => {},
+  MenuLink,
+  handleMenuClick,
   children,
 }) {
   return (
@@ -35,16 +35,16 @@ function TabView({
       </div>
       <div styleName="menu">
         {menu.map((item) =>
-          <a
+          <MenuLink
             key={item.path}
-            href={item.path}
-            onClick={() => {
-              handleMenuClick(item.path);
-            }}
-            styleName={item.active ? 'item-active' : 'item'}>
+            to={item.path}
+            title={item.title}
+            className={styles['item']}
+            activeClassName={styles['item-active']}
+            onClick={handleMenuClick}>
             <i className={item.icon}></i>
             {item.text}
-          </a>
+          </MenuLink>
         )}
       </div>
       {children}

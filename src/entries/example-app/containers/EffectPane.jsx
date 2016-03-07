@@ -1,4 +1,5 @@
 
+import paneStyles from '../styles/pane.scss';
 import styles from './EffectPane.scss';
 import React, { Component } from 'react';
 import cssModules from 'react-css-modules';
@@ -19,7 +20,7 @@ import * as actionCreators from '../actions';
   triggers => ({ triggers })
 )
 @actionDispatcher(actionCreators, 'actions')
-@cssModules(styles)
+@cssModules(Object.assign(styles, paneStyles))
 @pureRender()
 export default class EffectPane extends Component {
 

@@ -442,7 +442,7 @@
 
   // Requires member expressions to use dot notation when possible
   // http://jscs.info/rule/requireDotNotation
-  "requireDotNotation": { "allExcept": ["keywords"] }, // { "allExcept": ["keywords", "snake_case"] },
+  // "requireDotNotation": { "allExcept": ["keywords"] },
 
   // Requires to return early in a function.
   // http://jscs.info/rule/requireEarlyReturn

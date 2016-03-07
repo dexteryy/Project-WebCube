@@ -233,7 +233,7 @@ rules:
   dot-location:                       [2, "property"]
   # encourages use of dot notation whenever possible
   # http://eslint.org/docs/rules/dot-notation
-  dot-notation:                       [2, { "allowKeywords": true }]
+  dot-notation:                       0 # [2, { "allowKeywords": true }]
   # require the use of === and !== (fixable)
   # http://eslint.org/docs/rules/eqeqeq
   eqeqeq:                             [2, "allow-null"]
