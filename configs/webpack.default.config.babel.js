@@ -10,12 +10,19 @@ const util = require('../utils');
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-  common: ['whatwg-fetch', 'react', 'react-dom', 'react-css-modules'],
-  app: ['./staticweb/app/deploy.js'],
+  common: [
+    'whatwg-fetch', 'react', 'react-dom', 'react-css-modules',
+    'redux', 'react-redux', 'redux-actions', 'reselect',
+    'react-router', 'react-router-redux',
+    'redux-thunk', 'react-helmet',
+    'classnames', 'eventemitter3',
+  ],
+  'example-app': ['./staticweb/example-app/deploy.js'],
   /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
 };
 
 for (const entry in entries) {
+  // TODO: temporarily use babel-polyfill until babel-runtime 5.x -> 6.3.19+
   entries[entry].unshift('babel-polyfill');
   if (util.liveMode === 'refresh') {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
@@ -28,7 +35,16 @@ for (const entry in entries) {
   }
 }
 
-const babelLoaderPlugins = [];
+const babelLoaderPlugins = [
+  // https://phabricator.babeljs.io/T2645
+  'transform-decorators-legacy',
+  // https://github.com/babel/babel-loader#babel-is-injecting-helpers-into-each-file-and-bloating-my-code
+  // https://medium.com/@jcse/clearing-up-the-babel-6-ecosystem-c7678a314bf3
+  // https://phabricator.babeljs.io/T6644
+  // https://github.com/babel/babel/pull/3142
+  // TODO: temporarily use babel-polyfill until babel-runtime 5.x -> 6.3.19+
+  // ['transform-runtime', { polyfill: true, regenerator: true }],
+];
 const reactTransformPlugins = ['react-transform', {
   transforms: [
     {
@@ -50,7 +66,17 @@ if (!util.isProductionEnv && util.liveMode === 'hmr') {
 }
 
 // https://github.com/ai/browserslist#queries
-const browsers = ['last 2 versions', 'ie 10'];
+const browsers = [
+  'Android 2.3',
+  'Android >= 4',
+  'Chrome >= 35',
+  'Firefox >= 31',
+  'Explorer >= 9',
+  'iOS >= 7',
+  'Opera >= 12',
+  'Safari >= 7.1',
+];
+// const browsers = ['last 2 versions', 'ie 10'];
 // const browsers = ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'];
 // const browsers = ['ie 6-8', 'opera 12.1', 'ios 6', 'android 4'];
 
@@ -99,7 +125,6 @@ module.exports = {
   resolve: {
     root: [
       path.join(__dirname, '..', 'src'),
-      path.join(__dirname, '..', 'container'),
     ],
     alias: {
       src: path.join(__dirname, '..', 'src'), // only for outside or `src/`
@@ -111,7 +136,7 @@ module.exports = {
   devtool: 'source-map',
   module: {
     loaders: [{
-      test: /\.(js|jsx)$/,
+      test: /\.jsx?$/,
       loader: 'babel',
       query: {
         presets: [
@@ -189,6 +214,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': util.isProductionEnv
+        ? '\'production\'' : '\'development\'',
+    }),
     // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
@@ -196,8 +225,6 @@ module.exports = {
       // children: true, // Move common modules into the parent chunk
       // async: true, // Create an async commons chunk
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.optimize.DedupePlugin(),
     // https://www.npmjs.com/package/extract-text-webpack-plugin
     new ExtractTextPlugin(util.isProductionEnv
       ? 'css/[name]_[contenthash].css'
@@ -208,9 +235,13 @@ module.exports = {
       fullPath: true,
       prettyPrint: true,
     }),
+    // https://github.com/webpack/docs/wiki/optimization
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+  ].concat(!util.isProductionEnv ? [
     // https://github.com/glenjamin/webpack-hot-middleware
-    // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+  ] : []).concat([
     new webpack.NoErrorsPlugin(),
-  ],
+  ]),
 };

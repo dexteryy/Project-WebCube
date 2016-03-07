@@ -8,12 +8,36 @@ module.exports = function (plop) {
     templateFile: '../templates/src/entries/index.js',
   }, {
     type: 'add',
-    path: '../src/entries/{{entryName}}/index.scss',
-    templateFile: '../templates/src/entries/index.scss',
+    path: '../src/entries/{{entryName}}/routes/index.jsx',
+    templateFile: '../templates/src/entries/routes/index.jsx',
   }, {
     type: 'add',
-    path: '../src/entries/{{entryName}}/AppView.jsx',
-    templateFile: '../templates/src/entries/AppView.jsx',
+    path: '../src/entries/{{entryName}}/reducers/index.js',
+    templateFile: '../templates/src/entries/reducers/index.js',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/actions/index.js',
+    templateFile: '../templates/src/entries/actions/index.js',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/containers/App.jsx',
+    templateFile: '../templates/src/entries/containers/App.jsx',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/containers/App.scss',
+    templateFile: '../templates/src/entries/containers/App.scss',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/containers/Home.jsx',
+    templateFile: '../templates/src/entries/containers/Home.jsx',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/containers/Home.scss',
+    templateFile: '../templates/src/entries/containers/Home.scss',
+  }, {
+    type: 'add',
+    path: '../src/entries/{{entryName}}/styles/_variables.scss',
+    templateFile: '../templates/src/entries/styles/_variables.scss',
   }, {
     type: 'add',
     path: '../staticweb/{{entryName}}/index.html',
@@ -79,29 +103,6 @@ module.exports = function (plop) {
       type: 'add',
       path: 'webpack.demo.config.babel.js',
       templateFile: '../templates/configs/webpack.demo.config.babel.js',
-    }],
-  });
-
-  plop.setGenerator('component', {
-    description: 'Add a new component',
-    prompts: [{
-      type: 'input',
-      name: 'componentName',
-      message: 'What is the name of new component? (hyphen-separated lowercase, i.e. "welcome-box")',
-      validate,
-    }],
-    actions: [{
-      type: 'add',
-      path: '../src/components/{{pascalCase componentName}}/index.jsx',
-      templateFile: '../templates/src/components/index.jsx',
-    }, {
-      type: 'add',
-      path: '../src/components/{{pascalCase componentName}}/index.scss',
-      templateFile: '../templates/src/components/index.scss',
-    }, {
-      type: 'add',
-      path: '../test/units/{{pascalCase componentName}}.spec.js',
-      templateFile: '../templates/test/units/component.spec.js',
     }],
   });
 

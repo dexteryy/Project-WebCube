@@ -10,7 +10,8 @@ chai.should();
 
 describe('{{entryName}}', function () {
   this.timeout(60000);
-  const url = `${util.getUrlRoot()}/{{entryName}}/index.html`;
+  const rootUrl = util.getUrlRoot();
+  const url = `${rootUrl}/{{entryName}}/index.html`;
 
   describe('Start page', function () {
 
@@ -26,7 +27,7 @@ describe('{{entryName}}', function () {
 
     it('should be mounted', function* () {
       const result = yield nightmare.goto(url).evaluate(function () {
-        return document.querySelectorAll('.{{entryName}}').length;
+        return document.querySelectorAll('#{{camelCase entryName}}Root').length;
       });
       result.should.equal(1);
     });

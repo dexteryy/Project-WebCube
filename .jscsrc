@@ -75,7 +75,8 @@
 
   // Disallows multiple indentation characters (tabs or spaces) between identifiers, keywords, and any other token
   // http://jscs.info/rule/disallowMultipleSpaces
-  "disallowMultipleSpaces": { "allowEOLComments": true },
+  // bug: {/* <DevTools /> */}
+  // "disallowMultipleSpaces": { "allowEOLComments": true },
 
   // Disallows multiple var declaration (except for-loop).
   // http://jscs.info/rule/disallowMultipleVarDecl
@@ -376,7 +377,16 @@
 
   // Enforces indentation of parameters in multiline functions
   // http://jscs.info/rule/requireAlignedMultilineParams
-  "requireAlignedMultilineParams": true,
+  // bug:
+  // function selector(state = {
+  //   effect: '',
+  //   style: '',
+  // }, action) {
+  // export function getActionsProp(
+  //   propName: string = 'actions',
+  //   actionCreators: Array<Object> = []
+  // ): Function {
+  // "requireAlignedMultilineParams": true,
 
   // Requires proper alignment in object literals.
   // http://jscs.info/rule/requireAlignedObjectValues
@@ -709,7 +719,12 @@
 
   // Validates proper alignment of function parameters.
   // http://jscs.info/rule/validateAlignedFunctionParameters
-  "validateAlignedFunctionParameters": true,
+  // bug:
+  // export function getActionsProp(
+  //   propName: string = 'actions',
+  //   actionCreators: Array<Object> = []
+  // ): Function {
+  // "validateAlignedFunctionParameters": true,
 
   // This rule is for validating the positioning of line comments. Block comments are ignored.
   // http://jscs.info/rule/validateCommentPosition
@@ -741,6 +756,7 @@
 
   // Requires all quote marks to be either the supplied value, or consistent if true
   // http://jscs.info/rule/validateQuoteMarks
-  "validateQuoteMarks": { "mark": "'", "escape": true, "ignoreJSX": true }
+  // "validateQuoteMarks": { "mark": "'", "escape": true, "ignoreJSX": true }
+  "validateQuoteMarks": false
 
 }

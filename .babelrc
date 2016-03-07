@@ -3,11 +3,20 @@
     "react"
   ],
   "plugins": [
+    // ["transform-runtime", {
+    //   "polyfill": true,
+    //   "regenerator": false,
+    // }],
     "transform-es2015-modules-commonjs",
-    "babel-plugin-transform-es2015-parameters",
+    "transform-es2015-parameters",
     "transform-es2015-destructuring",
+    "transform-es2015-sticky-regex",
+    "transform-es2015-unicode-regex",
+    "transform-strict-mode",
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-async-to-generator"
+    "transform-async-to-generator",
+    "syntax-async-functions",
+    "transform-decorators-legacy",
   ]
 }

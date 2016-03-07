@@ -1,0 +1,132 @@
+
+@import '../styles/variables';
+
+.box-bounce {
+  composes: bounce from 'animate.css';
+}
+
+.box-pulse {
+  composes: pulse from 'animate.css';
+}
+
+.box-headshake {
+  composes: headShake from 'animate.css';
+}
+
+.box-jello {
+  composes: jello from 'animate.css';
+}
+
+.box-wobble {
+  composes: wobble from 'animate.css';
+}
+
+.box-tada {
+  composes: tada from 'animate.css';
+}
+
+.box-flash {
+  composes: flash from 'animate.css';
+}
+
+.box-rubberband {
+  composes: rubberBand from 'animate.css';
+}
+
+.box-swing {
+  composes: swing from 'animate.css';
+}
+
+.cards {
+  composes: ui from 'semantic-ui-css/components/card.css';
+  composes: cards from 'semantic-ui-css/components/card.css';
+}
+
+.card {
+  composes: card from 'semantic-ui-css/components/card.css';
+  overflow: hidden;
+  width: auto !important;
+}
+
+.card-enter {
+  opacity: 0 !important;
+}
+
+.card-enter-active {
+  opacity: 1 !important;
+  transition: opacity 0.4s !important;
+}
+
+.card-leave {
+  opacity: 1 !important;
+}
+
+.card-leave-active {
+  opacity: 0 !important;
+  transition: opacity 0.4s !important;
+}
+
+.card-content {
+  composes: content from 'semantic-ui-css/components/card.css';
+}
+
+.card-header {
+  composes: header from 'semantic-ui-css/components/card.css';
+  text-align: left;
+}
+
+.card-extra {
+  composes: extra from 'semantic-ui-css/components/card.css';
+  composes: content from 'semantic-ui-css/components/card.css';
+  text-align: left;
+}
+
+.card-remove {
+  composes: ui from 'semantic-ui-css/components/button.css';
+  composes: transparent from 'semantic-ui-css/components/button.css';
+  composes: left from 'semantic-ui-css/components/button.css';
+  composes: icon from 'semantic-ui-css/components/button.css';
+  composes: input from 'semantic-ui-css/components/button.css';
+  cursor: pointer;
+}
+
+.card-remove-icon {
+  composes: remove from 'semantic-ui-css/components/icon.css';
+  composes: icon from 'semantic-ui-css/components/icon.css';
+}
+
+.btn {
+  margin: 10px !important;
+  color: $btn-text-color !important;
+  font-size: $btn-text-size !important;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
+
+  &:focus {
+    color: $btn-text-color !important;
+  }
+}
+
+.btn-pure {
+  composes: pure-button from 'purecss/build/buttons.css';
+  composes: pure-button-primary from 'purecss/build/buttons.css';
+  composes: btn;
+}
+
+.btn-semantic {
+  composes: btn;
+}
+
+.btn-semantic-main {
+  background-color: $btn-semantic-bgcolor !important;
+  color: $btn-text-color !important;
+  font-size: 1em !important;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
+}
+
+.btn-semantic-label {
+  border-color: $btn-semantic-bgcolor !important;
+  color: $btn-semantic-bgcolor !important;
+  text-transform: uppercase !important;
+}

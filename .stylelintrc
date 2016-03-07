@@ -585,8 +585,8 @@ rules:
   # http://stylelint.io/user-guide/rules/at-rule-empty-line-before/
   at-rule-empty-line-before:
     - "always"
-    - except: ["blockless-group", "all-nested"]
-    - ignore: ["after-comment"]
+    - except: ["blockless-group"]
+    - ignore: ["after-comment", "all-nested"]
 
   # Disallow vendor prefixes for @rules.
   # http://stylelint.io/user-guide/rules/at-rule-no-vendor-prefix/

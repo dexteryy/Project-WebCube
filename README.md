@@ -1,10 +1,11 @@
 
 # Static Web App Starter Kit
 
-Includes the following toolchains:
+Integrated with:
 
+* [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) + [Helmet](https://www.npmjs.com/package/react-helmet) + [CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...) + [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Logger](https://github.com/fcomb/redux-logger) + [DevTools](https://github.com/gaearon/redux-devtools) + ...)
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
+  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
   * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [CSS Modules](https://github.com/css-modules/css-modules) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
@@ -14,61 +15,78 @@ Includes the following toolchains:
   * [StyleLint](http://stylelint.io/) / [SASS-Lint](https://github.com/sasstools/sass-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
-  * [gulp-watch](https://www.npmjs.com/package/gulp-watch) + [gulp-webserver](https://www.npmjs.com/package/gulp-webserver)
 * [Karma](https://karma-runner.github.io/) ([PhantomJS](http://phantomjs.org/)) / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
+
+Boilerplate as library:
+
+- `AppSkeleton`
+- `stateSelector`
+- `actionDispatcher`
+- ...
 
 ## Structure
 
 #### Directories and Sample Files
 
-- **src/** - All source code for runtime, including JS, CSS and images
-  - **shared/**
+- **src/** - All source code for runtime (shared between client-side and server-side), including JS, CSS and assets
+  - **declarations/** - [Flow Declarations](http://flowtype.org/docs/declarations.html)
+    - `global.js`, `node_modules.js`, `assets.js`, ...
+  - **components/** - [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
+    - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
+  - **entries/** - Multiple entry points, see [details](#multiple-entry-points-optional)
+    - _**example-app/**_ - Entry point, see [details](#single-entry-point)
+      - **containers/** - [Container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
+        - `App.jsx`, `App.scss`, ...
+      - **reducers/** - [Redux Reducers](http://redux.js.org/docs/basics/Reducers.html)
+      - **actions/** - [Flux Standard Action](https://www.npmjs.com/package/redux-actions)
+      - **routes/** - [React Router](https://github.com/reactjs/react-router/)
+      - **styles/** - CSS/SCSS shared between container components
+        - _`variables.scss`_
+      - `index.js`
+    - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
+    - ...
+  - **middleware/** - [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html)
+  - **lib/** - Library code which haven't been published to npm
+    - **boilerplate/** - Boilerplate as library
+  - **shared/** - Application code shared between entry points
     - **assets/** - Shared images, fonts, audio, etc.
       - _`swifticons/Browsertool.png`_
-    - **styles/** - Shared CSS/SCSS
-  - **declarations/** - Flow Declarations
-    - `global.js`, `node_modules.js`, `assets.js`, ...
-  - **components/** - [presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz), new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
-    - _`WelcomeBox/index.jsx`_, _`WelcomeBox/index.scss`_
-  - **containers/** - [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
-  - **models/** - reducers / stores / models / ...
-  - **actions/**
-  - **entries/** - Single/Multiple entry point, see [details](https://github.com/dexteryy/static-app-starter#multiple-entry-points-optional)
-    - _**app/**_ - Main entry point, see [details](https://github.com/dexteryy/static-app-starter#main-entry-point)
-      - `index.js`, `index.scss`, `AppView.jsx`
-    - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
-    - ...
-- **staticweb/** - For testing or deployment
-  - _**app/**_ - For main entry point
+    - **styles/** - CSS/SCSS shared between entry points
+    - **containers/** - Shared [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
+      - `DevTools.jsx`
+    - **reducers/**
+    - **actions/**
+- **staticweb/** - For static web deployment or testing
+  - _**example-app/**_ - For entry point
     - `index.html`, `deploy.js`, `deploy.scss`
-  - _demo-page1/_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
+  - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
   - ...
 - **data/** - For testing or deployment
 - **configs/** - For configuration files that do not have to be placed in project root
-- **templates/** - Handlebar templates for Plop, see [Micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator) section
+- **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
 - **utils/** - Reusable code for configuration files and scripts
   - **staticcloud/** - Adapters for delopyment scripts
     - `s3.js`, `oss.js`, `firebase.js`, `heroku.js`, ...
-- **test/** - See [Testing](https://github.com/dexteryy/static-app-starter#testing) section
+- **test/** - See [Testing](#testing) section
   - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
   - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 - **build/**
   - **public/** - Generated by Gulp and Webpack, do not manually modify
 - ...
-- `index.js` - Imported by other projects, see [details](https://github.com/dexteryy/static-app-starter#main-entry-point)
+- `index.js` - Imported by other projects, see [details](#single-entry-point)
 - `package.json`
 
-#### Main Entry Point
+#### Single Entry Point
 
 > NOTE: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
 
-[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`src/entries/app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/app/index.js)
+[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`src/entries/example-app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/example-app/index.js)
 
 #### Multiple Entry Points (optional)
 
-> NOTE: New entry point can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
+> NOTE: New entry point can be automatically added by [micro-generator](#micro-generator)
 
 Add files:
 
@@ -100,7 +118,7 @@ Edit the `staticweb/demo-page1/index.html`:
 <script src="/static/demo-page1.js"></script>
 ```
 
-> NOTE: To enable `common.js` and continue use [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator), you need to modify [templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/staticweb/index.html)
+> NOTE: To enable `common.js` and continue use [micro-generator](#micro-generator), you need to modify [templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/staticweb/index.html)
 
 # Getting Started
 
@@ -130,7 +148,7 @@ You can remove demo code and get a clean codebase:
 npm run empty
 ```
 
-But if this is the case, you must [generate an entry](https://github.com/dexteryy/static-app-starter#micro-generator) before building.
+But if this is the case, you must [generate an entry](#micro-generator) before building.
 
 ## Building
 
@@ -208,7 +226,6 @@ npm run new
 * `npm run new entry` - Add a new entry point
 * `npm run new demo` - Add a new entry point for demo (run `npm run new initDemo` first), see [.gitignore][gitignore]
 * `npm run new initDemo` - Initialize config files for demo entries
-* `npm run new component` - Add a new component
 
 Generator scripts:
 
@@ -234,7 +251,7 @@ Manually run functional tests (run automatically after building):
 npm run test:quick
 ```
 
-Manually run functional tests for web app in the cloud (after [deployment](https://github.com/dexteryy/static-app-starter#deployment)):
+Manually run functional tests for web app in the cloud (after [deployment](#deployment)):
 
 ```
 npm run test:cloud
@@ -251,7 +268,7 @@ Unit tests + Functional tests:
     - _demo-page1/_
     - ...
 
-> NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](https://github.com/dexteryy/static-app-starter#micro-generator)
+> NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](#micro-generator)
 
 Karma configuration:
 

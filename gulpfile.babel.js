@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+// import 'babel-polyfill';
 import running from 'is-running';
 import gulp from 'gulp';
 import del from 'del';
@@ -12,7 +12,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
 import jscs from 'gulp-jscs';
-import flow from 'gulp-flowtype';
+// import flow from 'gulp-flowtype';
 import sassLint from 'gulp-sass-lint';
 import styleLint from 'gulp-stylelint';
 import styleLintFailReporter from 'gulp-stylelint-fail-reporter';
@@ -190,9 +190,9 @@ gulp.task('clean:empty', (done) => {
   del([
     'test/functionals/*',
     'test/units/!(defaults.spec.js)',
-    'src/shared/assets/*',
-    'src/components/*',
     'src/entries/*',
+    // 'src/components/*',
+    'src/shared/assets/*',
     'data/*',
     'staticweb/*',
     'configs/webpack.demo.config.babel.js',
@@ -248,15 +248,16 @@ gulp.task('check:js', [], () => {
     .pipe(eslint.failAfterError())
     .pipe(jscs())
     .pipe(jscs.reporter('console'))
-    .pipe(jscs.reporter('failImmediately'))
-    .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
-      all: false,
-      weak: false,
-      declarations: 'src/declarations',
-      killFlow: false,
-      beep: true,
-      abort: true,
-    }));
+    .pipe(jscs.reporter('failImmediately'));
+  // waiting for babel 6.6 upgrade
+  // .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
+  //   all: false,
+  //   weak: false,
+  //   declarations: 'src/declarations',
+  //   killFlow: false,
+  //   beep: true,
+  //   abort: true,
+  // }));
 });
 
 gulp.task('check:html', [], () => {

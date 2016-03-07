@@ -145,7 +145,7 @@ rules:
   no-extra-boolean-cast:              2
   # disallow unnecessary parentheses
   # http://eslint.org/docs/rules/no-extra-parens
-  no-extra-parens:                    2
+  no-extra-parens:                    [2, "functions"]
   # disallow unnecessary semicolons (recommended) (fixable)
   # http://eslint.org/docs/rules/no-extra-semi
   no-extra-semi:                      2
@@ -532,7 +532,7 @@ rules:
   max-statements:                     0
   # require a capital letter for constructors
   # http://eslint.org/docs/rules/new-cap
-  new-cap:                            2
+  new-cap:                            [2, { "newIsCap": true, "capIsNew": false }]
   # "babel/new-cap:               2
   # disallow the omission of parentheses when invoking a constructor with no arguments
   # http://eslint.org/docs/rules/new-parens
@@ -725,13 +725,13 @@ rules:
   # "babel/no-await-in-loop:      2
   # Prevent missing displayName in a React component definition
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
-  react/display-name:                 [2, { "acceptTranspilerName": true }]
+  react/display-name:                 [2, { "ignoreTranspilerName": false }]
   # Forbid certain propTypes
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md
   react/forbid-prop-types:            [2, { "forbid": ["any", "array", "object"] }]
   # Enforce boolean attributes notation in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
-  react/jsx-boolean-value:            [2, "always"]
+  react/jsx-boolean-value:            [2, "never"]
   # Validate closing bracket location in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md
   react/jsx-closing-bracket-location: [2, "after-props"]
