@@ -3,7 +3,8 @@ import styles from './index.scss';
 import React from 'react';
 import cssModules from 'react-css-modules';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import MessageBox from '../MessageBox';
+import MessageBoxWithStyle from '../MessageBoxWithStyle';
+import messageBoxStyles from '../MessageBoxWithStyle/index.scss';
 
 function SelectorBox({
   readme = 'Hi!',
@@ -23,11 +24,7 @@ function SelectorBox({
   });
   if (feedback) {
     feedbackBlock = (
-      <MessageBox
-        message={feedback}
-        titleStyle={styles['feedback-header']}
-        successStyle={styles['feedback-success']}
-        errorStyle={styles['feedback-error']} />
+      <MessageBoxWithStyle message={feedback} />
     );
   }
   if (handleSubmit) {
@@ -77,10 +74,10 @@ function SelectorBox({
         <ReactCSSTransitionGroup
           styleName="feedback"
           transitionName={{
-            enter: styles['feedback-enter'],
-            enterActive: styles['feedback-enter-active'],
-            leave: styles['feedback-leave'],
-            leaveActive: styles['feedback-leave-active'],
+            enter: messageBoxStyles['msg-enter'],
+            enterActive: messageBoxStyles['msg-enter-active'],
+            leave: messageBoxStyles['msg-leave'],
+            leaveActive: messageBoxStyles['msg-leave-active'],
           }}
           transitionEnterTimeout={400}
           transitionLeaveTimeout={400}>

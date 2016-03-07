@@ -22,42 +22,6 @@ $button-text-color: #fff;
   display: block;
 }
 
-.feedback-enter {
-  opacity: 0 !important;
-}
-
-.feedback-enter-active {
-  opacity: 1 !important;
-  transition: opacity 0.4s !important;
-}
-
-.feedback-leave {
-  opacity: 1 !important;
-}
-
-.feedback-leave-active {
-  opacity: 0 !important;
-  transition: opacity 0.4s !important;
-}
-
-.feedback-success {
-  composes: ui from 'semantic-ui-css/components/message.css';
-  composes: success from 'semantic-ui-css/components/message.css';
-  composes: message from 'semantic-ui-css/components/message.css';
-  margin-top: 1em !important;
-}
-
-.feedback-error {
-  composes: ui from 'semantic-ui-css/components/message.css';
-  composes: negative from 'semantic-ui-css/components/message.css';
-  composes: message from 'semantic-ui-css/components/message.css';
-  margin-top: 1em !important;
-}
-
-.feedback-header {
-  composes: header from 'semantic-ui-css/components/message.css';
-}
-
 .two-fields {
   composes: two from 'semantic-ui-css/components/form.css';
   composes: fields from 'semantic-ui-css/components/form.css';
