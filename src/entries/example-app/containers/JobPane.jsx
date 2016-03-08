@@ -11,6 +11,7 @@ import {
 } from '../../../lib/boilerplate';
 import Helmet from 'react-helmet';
 import * as actionCreators from '../actions';
+import * as constants from '../constants';
 
 @connect()
 @actionDispatcher(actionCreators, 'actions')
@@ -25,7 +26,7 @@ export default class JobPane extends Component {
     return (
       <div styleName="pane">
         <Helmet
-          title="Example App - Jobs"
+          title={`Jobs - ${constants.APP_TITLE}`}
           meta={[
             { name: 'description', content: 'demo' },
           ]} />

@@ -1,3 +1,5 @@
+# http://stylelint.io/CHANGELOG/
+
 rules:
 
   # Color
@@ -18,9 +20,9 @@ rules:
   # http://stylelint.io/user-guide/rules/color-no-invalid-hex/
   color-no-invalid-hex: true
 
-  # Disallow named colors.
-  # http://stylelint.io/user-guide/rules/color-no-named/
-  color-no-named: true
+  # Require (where possible) or disallow named colors.
+  # http://stylelint.io/user-guide/rules/color-named/
+  color-named: never
 
   # Font family
 
@@ -103,6 +105,10 @@ rules:
   number-zero-length-no-unit: true
 
   # String
+
+  # Disallow (unescaped) newlines in strings.
+  # http://stylelint.io/user-guide/rules/string-no-newline/
+  string-no-newline: true
 
   # Specify single or double quotes around strings.
   # http://stylelint.io/user-guide/rules/string-quotes/
@@ -216,9 +222,17 @@ rules:
 
   # Declaration block
 
-  # Disallow single-line declaration blocks.
-  # http://stylelint.io/user-guide/rules/declaration-block-no-single-line/
-  declaration-block-no-single-line: true
+  # Disallow duplicate properties within declaration blocks.
+  # http://stylelint.io/user-guide/rules/declaration-block-no-duplicate-properties/
+  # declaration-block-no-duplicate-properties: true
+
+  # Disallow shorthand properties that override related longhand properties.
+  # http://stylelint.io/user-guide/rules/declaration-block-no-shorthand-property-overrides/
+  declaration-block-no-shorthand-property-overrides: true
+
+  # Disallow single-line blocks.
+  # http://stylelint.io/user-guide/rules/block-no-single-line/
+  block-no-single-line: true
 
   # Require a newline or disallow whitespace after the semicolons of declaration blocks.
   # http://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after/
@@ -288,7 +302,10 @@ rules:
 
   # Specify a pattern for class selectors.
   # http://stylelint.io/user-guide/rules/selector-class-pattern/
-  selector-class-pattern: "^[a-z][a-z0-9-_]*$"
+  selector-class-pattern:
+    - "^[a-z][a-z0-9-_]*$"
+    -
+      resolveNestedSelectors: true
 
   # Require a single space or disallow whitespace after the combinators of selectors.
   # http://stylelint.io/user-guide/rules/selector-combinator-space-after/
@@ -301,6 +318,10 @@ rules:
   # Specify a pattern for id selectors.
   # http://stylelint.io/user-guide/rules/selector-id-pattern/
   # selector-id-pattern: /foo-[a-z]+/
+
+  # Limit the specificity of selectors.
+  # http://stylelint.io/user-guide/rules/selector-max-specificity/
+  # selector-max-specificity:
 
   # Disallow attribute selectors.
   # http://stylelint.io/user-guide/rules/selector-no-attribute/
@@ -375,9 +396,9 @@ rules:
     - "always"
     - ignore: ["after-comment"]
 
-  # Specify the order of properties within rules.
-  # http://stylelint.io/user-guide/rules/rule-properties-order/
-  rule-properties-order:
+  # Specify the order of properties within declaration blocks.
+  # http://stylelint.io/user-guide/rules/declaration-block-properties-order/
+  declaration-block-properties-order:
     - [
       "composes",
       "$include",
@@ -519,9 +540,9 @@ rules:
     -
       unspecified: "ignore"
 
-  # Require or disallow a trailing semicolon within rules.
-  # http://stylelint.io/user-guide/rules/rule-trailing-semicolon/
-  rule-trailing-semicolon: "always"
+  # Require or disallow a trailing semicolon within declaration blocks.
+  # http://stylelint.io/user-guide/rules/declaration-block-trailing-semicolon/
+  declaration-block-trailing-semicolon: "always"
 
   # Media feature
 
@@ -619,6 +640,18 @@ rules:
   # http://stylelint.io/user-guide/rules/max-line-length/
   # max-line-length: 20
 
+  # Limit the allowed nesting depth.
+  # http://stylelint.io/user-guide/rules/max-nesting-depth/
+  max-nesting-depth: 2
+
+  # Disallow browser hacks that are irrelevant to the browsers you are targeting.
+  # http://stylelint.io/user-guide/rules/no-browser-hacks/
+  # no-browser-hacks: true
+
+  # Disallow selectors of lower specificity from coming after overriding selectors of higher specificity.
+  # http://stylelint.io/user-guide/rules/no-descending-specificity/
+  no-descending-specificity: true
+
   # Disallow duplicate selectors.
   # http://stylelint.io/user-guide/rules/no-duplicate-selectors/
   no-duplicate-selectors: true
@@ -626,6 +659,10 @@ rules:
   # Disallow end-of-line whitespace.
   # http://stylelint.io/user-guide/rules/no-eol-whitespace/
   no-eol-whitespace: true
+
+  # Disallow colors that are suspiciously close to being identical.
+  # http://stylelint.io/user-guide/rules/no-indistinguishable-colors/
+  # no-indistinguishable-colors:
 
   # Disallow double-slash comments (//...) which are not supported by CSS.
   # http://stylelint.io/user-guide/rules/no-invalid-double-slash-comments/
@@ -638,3 +675,7 @@ rules:
   # Disallow animation names that do not correspond to a @keyframes declaration.
   # http://stylelint.io/user-guide/rules/no-unknown-animations/
   no-unknown-animations: true
+
+  #  Disallow features that are unsupported by the browsers that you are targeting.
+  # http://stylelint.io/user-guide/rules/
+  # no-unsupported-browser-features:

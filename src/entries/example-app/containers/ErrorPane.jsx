@@ -7,6 +7,7 @@ import {
 } from '../../../lib/boilerplate';
 import Helmet from 'react-helmet';
 import MessageBoxWithStyle from '../../../components/MessageBoxWithStyle';
+import * as constants from '../constants';
 
 @cssModules(paneStyles)
 @pureRender()
@@ -16,7 +17,7 @@ export default class ErrorPane extends Component {
     return (
       <div styleName="pane">
         <Helmet
-          title="Example App - Error Page"
+          title={`Error Page - ${constants.APP_TITLE}`}
           meta={[
             { name: 'description', content: 'demo' },
           ]} />

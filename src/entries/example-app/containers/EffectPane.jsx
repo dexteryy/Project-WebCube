@@ -13,6 +13,7 @@ import Helmet from 'react-helmet';
 import EffectBox from './EffectBox';
 import ResultBox from './ResultBox';
 import * as actionCreators from '../actions';
+import * as constants from '../constants';
 
 @connect()
 @stateSelector(
@@ -31,7 +32,7 @@ export default class EffectPane extends Component {
     return (
       <div styleName="pane">
         <Helmet
-          title="Example App - Effects"
+          title={`Effects - ${constants.APP_TITLE}`}
           meta={[
             { name: 'description', content: 'demo' },
           ]} />
