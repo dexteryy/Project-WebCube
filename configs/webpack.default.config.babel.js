@@ -11,11 +11,12 @@ const util = require('../utils');
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
   common: [
-    'whatwg-fetch', 'react', 'react-dom', 'react-css-modules',
-    'redux', 'react-redux', 'redux-actions', 'reselect',
+    'whatwg-fetch', 'react', 'react-dom', 'react-css-modules', 'radium',
+    'redux', 'react-redux', 'redux-actions', 'reselect', 'redux-thunk',
     'react-router', 'react-router-redux',
-    'redux-thunk', 'react-helmet',
-    'classnames', 'eventemitter3',
+    'react-helmet', 'react-tap-event-plugin', 'react-addons-shallow-compare',
+    'react-addons-css-transition-group',
+    'core-decorators', 'classnames', 'eventemitter3',
   ],
   'example-app': ['./staticweb/example-app/deploy.js'],
   /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */

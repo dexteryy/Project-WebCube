@@ -192,7 +192,7 @@ gulp.task('clean:empty', (done) => {
     'test/units/!(defaults.spec.js)',
     'src/entries/*',
     // 'src/components/*',
-    'src/shared/assets/*',
+    'src/assets/*',
     'data/*',
     'staticweb/*',
     'configs/webpack.demo.config.babel.js',

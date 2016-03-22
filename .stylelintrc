@@ -12,6 +12,10 @@ rules:
   # http://stylelint.io/user-guide/rules/color-hex-length
   color-hex-length: "short"
 
+  # Require (where possible) or disallow named colors.
+  # http://stylelint.io/user-guide/rules/color-named/
+  color-named: never
+
   # Disallow hex colors.
   # http://stylelint.io/user-guide/rules/color-no-hex/
   color-no-hex: null
@@ -19,10 +23,6 @@ rules:
   # Disallow invalid hex colors.
   # http://stylelint.io/user-guide/rules/color-no-invalid-hex/
   color-no-invalid-hex: true
-
-  # Require (where possible) or disallow named colors.
-  # http://stylelint.io/user-guide/rules/color-named/
-  color-named: never
 
   # Font family
 
@@ -224,15 +224,12 @@ rules:
 
   # Disallow duplicate properties within declaration blocks.
   # http://stylelint.io/user-guide/rules/declaration-block-no-duplicate-properties/
+  # bug: composes
   # declaration-block-no-duplicate-properties: true
 
   # Disallow shorthand properties that override related longhand properties.
   # http://stylelint.io/user-guide/rules/declaration-block-no-shorthand-property-overrides/
   declaration-block-no-shorthand-property-overrides: true
-
-  # Disallow single-line blocks.
-  # http://stylelint.io/user-guide/rules/block-no-single-line/
-  block-no-single-line: true
 
   # Require a newline or disallow whitespace after the semicolons of declaration blocks.
   # http://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after/
@@ -253,6 +250,10 @@ rules:
   # Limit the number of declaration within single line declaration blocks.
   # http://stylelint.io/user-guide/rules/declaration-block-single-line-max-declarations/
   # declaration-block-single-line-max-declarations: 1
+
+  # Require or disallow a trailing semicolon within declaration blocks.
+  # http://stylelint.io/user-guide/rules/declaration-block-trailing-semicolon/
+  declaration-block-trailing-semicolon: "always"
 
   # Block
 
@@ -275,6 +276,10 @@ rules:
   # Disallow empty blocks.
   # http://stylelint.io/user-guide/rules/block-no-empty/
   block-no-empty: null
+
+  # Disallow single-line blocks.
+  # http://stylelint.io/user-guide/rules/block-no-single-line/
+  block-no-single-line: true
 
   # Require a newline after the opening brace of blocks.
   # http://stylelint.io/user-guide/rules/block-opening-brace-newline-after/
@@ -380,15 +385,6 @@ rules:
   rule-nested-empty-line-before:
     - "always-multi-line"
     - ignore: ["after-comment"]
-
-  # Disallow duplicate properties within rules.
-  # http://stylelint.io/user-guide/rules/rule-no-duplicate-properties/
-  # TODO: composes
-  # rule-no-duplicate-properties: true
-
-  # Disallow shorthand properties that override related longhand properties.
-  # http://stylelint.io/user-guide/rules/rule-no-shorthand-property-overrides/
-  rule-no-shorthand-property-overrides: true
 
   # Require or disallow an empty line before non-nested rules.
   # http://stylelint.io/user-guide/rules/rule-non-nested-empty-line-before/
@@ -540,10 +536,6 @@ rules:
     -
       unspecified: "ignore"
 
-  # Require or disallow a trailing semicolon within declaration blocks.
-  # http://stylelint.io/user-guide/rules/declaration-block-trailing-semicolon/
-  declaration-block-trailing-semicolon: "always"
-
   # Media feature
 
   # Require a single space or disallow whitespace after the colon in media features.
@@ -654,15 +646,12 @@ rules:
 
   # Disallow duplicate selectors.
   # http://stylelint.io/user-guide/rules/no-duplicate-selectors/
-  no-duplicate-selectors: true
+  # bug
+  # no-duplicate-selectors: true
 
   # Disallow end-of-line whitespace.
   # http://stylelint.io/user-guide/rules/no-eol-whitespace/
   no-eol-whitespace: true
-
-  # Disallow colors that are suspiciously close to being identical.
-  # http://stylelint.io/user-guide/rules/no-indistinguishable-colors/
-  # no-indistinguishable-colors:
 
   # Disallow double-slash comments (//...) which are not supported by CSS.
   # http://stylelint.io/user-guide/rules/no-invalid-double-slash-comments/

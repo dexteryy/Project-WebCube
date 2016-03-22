@@ -3,7 +3,7 @@ import 'normalize.css';
 import './deploy.scss';
 import App from 'src/entries/{{entryName}}';
 // or import App from '../../';
-// import DevTools from 'src/shared/containers/DevTools';
+// import DevTools from 'src/containers/DevTools';
 
 const app = new App({
   isStaticWeb: true,

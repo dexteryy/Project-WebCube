@@ -15,6 +15,10 @@ import {
   syncHistoryWithStore, routerMiddleware, routerReducer,
 } from 'react-router-redux';
 
+const isProductionEnv = process.env.NODE_ENV === 'production';
+
+const fakeFn = () => {};
+
 const createRoot = (opt: Object): Function => {
   const initialState = opt.initialState;
   const logger = createLogger();
@@ -72,6 +76,7 @@ const createRoot = (opt: Object): Function => {
 
 type AppOpt = {
   isStaticWeb?: boolean,
+  enablePerf?: boolean,
 };
 
 type RootOpt = {
@@ -89,15 +94,28 @@ export class AppSkeleton {
   _node: HTMLElement;
   _root: React.Component | void;
   _Root: Object;
+  Perf: Object;
 
   opt: Object = {};
 
-  defaultOpt: Object = {
+  defaultOpt: AppOpt = {
     isStaticWeb: false,
+    enablePerf: true,
   };
 
   constructor(userOpt: AppOpt = {}) {
     this.initConfig(userOpt);
+    this.Perf = !isProductionEnv && this.opt.enablePerf
+      ? require('react-addons-perf')
+      : {
+        start: fakeFn,
+        stop: fakeFn,
+        printInclusive: fakeFn,
+        printExclusive: fakeFn,
+        printWasted: fakeFn,
+        printDOM: fakeFn,
+        getLastMeasurements: fakeFn,
+      };
   }
 
   initConfig(userOpt: AppOpt) {
@@ -106,14 +124,26 @@ export class AppSkeleton {
 
   initRoot(opt: RootOpt) {
     this._Root = createRoot({
-      isProductionEnv: process.env.NODE_ENV === 'production',
+      isProductionEnv,
       isStaticWeb: this.opt.isStaticWeb,
       ...opt,
     });
   }
 
-  mount(node: HTMLElement): AppSkeleton {
-    this._root = ReactDOM.render(React.createElement(this._Root), node);
+  mount(node: HTMLElement, cb: Function): AppSkeleton {
+    const { Perf } = this;
+    Perf.start();
+    this._root = ReactDOM.render(
+      React.createElement(this._Root),
+      node,
+      () => {
+        Perf.stop();
+        Perf.printInclusive();
+        Perf.printExclusive();
+        Perf.printWasted();
+        cb && cb();
+      },
+    );
     this._node = node;
     return this;
   }
@@ -124,8 +154,8 @@ export class AppSkeleton {
     return this;
   }
 
-  remount(): AppSkeleton {
-    return this.mount(this._node);
+  remount(cb: Function): AppSkeleton {
+    return this.mount(this._node, cb);
   }
 
 }

@@ -6,7 +6,7 @@ Integrated with:
 * [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) + [Helmet](https://www.npmjs.com/package/react-helmet) + [CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...) + [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Logger](https://github.com/fcomb/redux-logger) + [DevTools](https://github.com/gaearon/redux-devtools) + ...)
 * [Webpack](http://webpack.github.io/docs/)
   * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
-  * [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [CSS Modules](https://github.com/css-modules/css-modules) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
+  * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware)
@@ -41,23 +41,24 @@ Boilerplate as library:
         - `App.jsx`, `App.scss`, ...
       - **reducers/** - [Redux Reducers](http://redux.js.org/docs/basics/Reducers.html)
       - **actions/** - [Flux Standard Action](https://www.npmjs.com/package/redux-actions)
+      - **constants/**
       - **routes/** - [React Router](https://github.com/reactjs/react-router/)
-      - **styles/** - CSS/SCSS shared between container components
+      - **styles/** - CSS/SCSS/CSSInJS shared between container components
         - _`variables.scss`_
       - `index.js`
     - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
     - ...
-  - **middleware/** - [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html)
   - **lib/** - Library code which haven't been published to npm
     - **boilerplate/** - Boilerplate as library
-  - **shared/** - Application code shared between entry points
-    - **assets/** - Shared images, fonts, audio, etc.
-      - _`swifticons/Browsertool.png`_
-    - **styles/** - CSS/SCSS shared between entry points
-    - **containers/** - Shared [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
-      - `DevTools.jsx`
-    - **reducers/**
-    - **actions/**
+  - **assets/** - Shared images, fonts, audio, etc.
+    - _`swifticons/Browsertool.png`_
+  - **styles/** - CSS/SCSS/CSSInJS shared between entry points
+  - **containers/** - Shared [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
+    - `DevTools.jsx`
+  - **actions/**
+  - ...
+  - **mixins/**
+  - **middleware/** - [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html) shared between entry points
 - **staticweb/** - For static web deployment or testing
   - _**example-app/**_ - For entry point
     - `index.html`, `deploy.js`, `deploy.scss`
