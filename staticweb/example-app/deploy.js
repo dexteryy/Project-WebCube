@@ -1,5 +1,5 @@
 
-import 'normalize.css';
+import 'normalize.css/normalize.css';
 import './deploy.scss';
 import App from 'src/entries/example-app';
 // or import App from '../../';

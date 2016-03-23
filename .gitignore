@@ -18,3 +18,5 @@ test/units/demo*
 test/units/Demo*
 test/functionals/demo*
 configs/webpack.demo.*
+configs/webpack.nodejs.*
+server/

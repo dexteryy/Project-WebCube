@@ -15,8 +15,6 @@ import jscs from 'gulp-jscs';
 // import flow from 'gulp-flowtype';
 import sassLint from 'gulp-sass-lint';
 import styleLint from 'gulp-stylelint';
-import styleLintFailReporter from 'gulp-stylelint-fail-reporter';
-import styleLintConsoleReporter from 'gulp-stylelint-console-reporter';
 import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
@@ -198,8 +196,8 @@ gulp.task('clean:empty', (done) => {
     'configs/webpack.demo.config.babel.js',
   ]).then(() => {
     gulp.src(['configs/webpack.default.config.babel.js'])
-      .pipe(replace(/\s*app:\s*\[.+?\],/, ''))
-      .pipe(gulp.dest('./'))
+      .pipe(replace(/\s*'example-app':\s*\[.+?\],/, ''))
+      .pipe(gulp.dest('configs/'))
       .on('end', () => done())
       .on('error', (err) => done(err));
   });
@@ -224,9 +222,9 @@ gulp.task('check:scss', [], () => {
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
     .pipe(styleLint({
+      failAfterError: true,
       reporters: [
-        styleLintConsoleReporter(),
-        styleLintFailReporter(),
+         { formatter: 'string', console: true },
       ],
     }));
 });
@@ -234,9 +232,9 @@ gulp.task('check:scss', [], () => {
 gulp.task('check:css', [], () => {
   return gulp.src(['src/**/*.css', 'staticweb/**/*.css'])
     .pipe(styleLint({
+      failAfterError: true,
       reporters: [
-        styleLintConsoleReporter(),
-        styleLintFailReporter(),
+         { formatter: 'string', console: true },
       ],
     }));
 });

@@ -16,7 +16,7 @@ const entries = {
     'react-router', 'react-router-redux',
     'react-helmet', 'react-tap-event-plugin', 'react-addons-shallow-compare',
     'react-addons-css-transition-group',
-    'core-decorators', 'classnames', 'eventemitter3',
+    'core-decorators', 'classnames',
   ],
   'example-app': ['./staticweb/example-app/deploy.js'],
   /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
