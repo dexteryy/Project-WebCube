@@ -1,4 +1,4 @@
 
-import app from './src/entries/app';
+import app from './src/entries/example-app';
 
 export default app;
