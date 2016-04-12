@@ -1,8 +1,8 @@
 /* @flow */
 
-import { AppSkeleton, createRoot } from '../../lib/boilerplate';
-import routes from './routes';
-import reducers from './reducers/';
+import React from 'react';
+import AppSkeleton from '../../lib/boilerplate/AppSkeleton';
+import Provider from './containers/App';
 
 type AppOpt = {
   isStaticWeb?: boolean,
@@ -15,11 +15,12 @@ export default class App extends AppSkeleton {
 
   constructor(userOpt: AppOpt) {
     super(userOpt);
-    this.createRoot = createRoot;
-    this.initRoot({
-      routes,
-      reducers,
-    });
+    this.createRoot = () => {
+      return function Root() {
+        return React.createElement(Provider, {});
+      };
+    };
+    this.initRoot();
   }
 
   initConfig(userOpt: AppOpt) {

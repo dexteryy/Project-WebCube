@@ -19,11 +19,12 @@ Integrated with:
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 
-Boilerplate as library:
+Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/src/lib/boilerplate/AppSkeleton.js):
 
-- `AppSkeleton`
-- `stateSelector`
-- `actionDispatcher`
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
+- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/containers/Home.jsx)
 - ...
 
 ## Structure
@@ -166,7 +167,13 @@ If this is the case, you must create your own entry code in [`src/entries/`](htt
 You can [generate an entry](#micro-generator) with one command:
 
 ```
-npm run new entry
+npm run new entry:react
+```
+
+or
+
+```
+npm run new entry:redux
 ```
 
 ## Building
@@ -242,8 +249,10 @@ NODE_ENV=production npm run building
 npm run new
 ```
 
-* `npm run new entry` - Add a new entry point
-* `npm run new demo` - Add a new entry point for demo (run `npm run new initDemo` first), see [.gitignore][gitignore]
+* `npm run new entry:react` - Add a new entry point (with React)
+* `npm run new entry:redux` - Add a new entry point (with React + Redux)
+* `npm run new demo:react` - Add a new entry point for demo (with React) // NOTE: run `npm run new initDemo` first', see [.gitignore][gitignore]
+* `npm run new demo:redux` - Add a new entry point for demo (with React + Redux) // NOTE: run `npm run new initDemo` first', see [.gitignore][gitignore]
 * `npm run new initDemo` - Initialize config files for demo entries
 
 Generator scripts:

@@ -4,14 +4,9 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 
 const assign: Function = Object.assign;
 
-export function isReactComponent(maybeReactComponent: any): boolean {
-  return 'prototype' in maybeReactComponent
-   && isFunction(maybeReactComponent.prototype.render);
-}
-
-export function wrapComponent(start: Function, end: Function): Function {
+function wrapComponent(start: Function, end: Function): Function {
   return (Component) => {
-    if (isReactComponent(Component)) {
+    if (wrapComponent.isReactComponent(Component)) {
       class WrappedComponent extends Component {
         render() {
           start(this, this.props);
@@ -29,3 +24,10 @@ export function wrapComponent(start: Function, end: Function): Function {
     return assign(WrappedComponent, Component);
   };
 }
+
+wrapComponent.isReactComponent = (maybeReactComponent: any): boolean => {
+  return 'prototype' in maybeReactComponent
+   && isFunction(maybeReactComponent.prototype.render);
+};
+
+export default wrapComponent;

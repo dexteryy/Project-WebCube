@@ -1,21 +1,21 @@
 /* @flow */
 
-import { AppSkeleton } from '../../lib/boilerplate';
+import { AppSkeleton, createRoot } from '../../lib/boilerplate';
 import routes from './routes';
 import reducers from './reducers/';
 
 type AppOpt = {
   isStaticWeb?: boolean,
+  enablePerf?: boolean,
 }
 
 export default class App extends AppSkeleton {
 
-  myDefaultOpt: Object = {
-
-  };
+  myDefaultOpt: Object = {};
 
   constructor(userOpt: AppOpt) {
     super(userOpt);
+    this.createRoot = createRoot;
     this.initRoot({
       routes,
       reducers,
