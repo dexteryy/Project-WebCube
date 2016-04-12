@@ -124,17 +124,11 @@ Edit the `staticweb/demo-page1/index.html`:
 
 # Getting Started
 
-## Installing Dependencies
+## Setup
 
-> NOTE: Remove redundant packages from [`package.json`][package.json]'s `dependencies`
+#### Step 1
 
-```bash
-npm install
-```
-
-## Local Configuration
-
-Before building, you must create a `.env` file in the root directory. For example:
+First of all, you must create a `.env` file in the root directory. For example:
 
 ```ini
 APP_DEVSERVER_HOST=localhost
@@ -144,13 +138,36 @@ APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 
 > NOTE: [`configs/env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/configs/env_sample) is a complete template file for `.env`
 
+#### Step 2 (optional)
+
+If you don't want to build default demo ([`src/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/src/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
+
+* [`package.json`][package.json]'s `dependencies`
+* [`configs/webpack.default.config.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.default.config.babel.js#L13)'s `entries.common`
+
+#### Step 3
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+#### Step 4 (optional)
+
 You can remove demo code and get a clean codebase:
 
 ```
 npm run empty
 ```
 
-But if this is the case, you must [generate an entry](#micro-generator) before building.
+If this is the case, you must create your own entry code in [`src/entries/`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/) before building.
+
+You can [generate an entry](#micro-generator) with one command:
+
+```
+npm run new entry
+```
 
 ## Building
 
