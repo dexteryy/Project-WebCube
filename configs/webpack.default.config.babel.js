@@ -225,6 +225,8 @@ module.exports = {
       'process.env.NODE_ENV': util.isProductionEnv
         ? '\'production\'' : '\'development\'',
     }),
+    // https://github.com/webpack/webpack/issues/198
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
