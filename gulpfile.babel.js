@@ -82,6 +82,9 @@ function buildHTML() {
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
   const RE_ADD_MIN = /^(.+\/.+?)\.(.+)$/;
   function replaceRev($0, $1, $2) {
+    if (!/^\//.test($2)) {
+      return $0;
+    }
     const filename = $2.replace(/.*\//, '');
     let res = revData;
     filename.split('.').forEach(function (name) {
