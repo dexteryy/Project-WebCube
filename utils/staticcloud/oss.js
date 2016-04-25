@@ -52,7 +52,7 @@ function deploy(opt) {
       // ContentDisposition: 'attachment; '
       //   + `filename="${parsedPath.basename}${parsedPath.extname}"`,
       ContentEncoding: contentEncoding,
-      Expires: opt.Expires || null,
+      Expires: null,
       // ServerSideEncryption: 'AES256',
       // 'x-oss-object-acl': 'public-read',
     }, function (err, data) {
@@ -67,10 +67,12 @@ function deploy(opt) {
 }
 
 export function deployHTML(src) {
+  const seconds = 60;
   return function () {
     return gulp.src(src)
       .pipe(deploy({
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
+        CacheControl: `max-age=${seconds}, public`,
         ContentEncoding: '',
       }));
   };
@@ -87,7 +89,6 @@ export function deployStatic(src) {
         root: 'static',
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip
-        Expires: d.getTime(),
       }));
   };
 }
