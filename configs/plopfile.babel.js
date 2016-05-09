@@ -90,7 +90,7 @@ module.exports = function (plop) {
     templateFile: '../templates/test/functionals/spec.js',
   }];
 
-  const getEntryOpt = (opt) => {
+  const getEntryOpt = opt => {
     return {
       description: opt.description,
       prompts: [{
@@ -99,12 +99,16 @@ module.exports = function (plop) {
         message: 'What is the name of new entry point? (hyphen-separated lowercase, i.e. "about-page")',
         validate,
       }],
-      actions: opt.actions.concat([{
-        type: 'modify',
-        path: 'webpack.default.config.babel.js',
-        pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
-        template: '$1\'{{entryName}}\': [\'./staticweb/{{entryName}}/deploy.js\'],\n$1$2',
-      }]),
+      actions: data => {
+        const entryNameKey = /^\w+$/.test(data.entryName)
+          ? '{{entryName}}' : '\'{{entryName}}\'';
+        return opt.actions.concat([{
+          type: 'modify',
+          path: 'webpack.default.config.babel.js',
+          pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
+          template: `$1${entryNameKey}: [\'./staticweb/{{entryName}}/deploy.js\'],\n$1$2`,
+        }]);
+      },
     };
   };
 
@@ -118,7 +122,7 @@ module.exports = function (plop) {
     actions: addReduxEntryActions,
   }));
 
-  const getDemoOpt = (opt) => {
+  const getDemoOpt = opt => {
     return {
       description: opt.description,
       prompts: [{
