@@ -7,12 +7,16 @@ import App from 'src/entries/{{entryName}}';
 
 const app = new App({
   isStaticWeb: true,
-  // TODO: wait for babel v5 -> v6
-  // devTools: DevTools.instrument(),
+  // DevTools,
 });
 
 export default function run() {
-  app.mount(document.getElementById('{{camelCase entryName}}'));
+  if (window.innerWidth && window.innerHeight
+      && screen.availWidth && screen.availHeight) {
+    app.mount(document.getElementById('{{camelCase entryName}}'));
+  } else {
+    setTimeout(run, 30);
+  }
 }
 
 if (['complete', 'loaded', 'interactive'].includes(document.readyState)

@@ -7,6 +7,7 @@ import reducers from './reducers/';
 type AppOpt = {
   isStaticWeb?: boolean,
   enablePerf?: boolean,
+  DevTools?: Object,
 }
 
 export default class App extends AppSkeleton {
