@@ -124,7 +124,7 @@ Edit the `staticweb/demo-page1/index.html`:
 
 #### Step 1
 
-First of all, you must create a `.env` file in the root directory. For example:
+First of all, you must create a `env.config` file in the root directory. For example:
 
 ```ini
 APP_DEVSERVER_HOST=localhost
@@ -132,7 +132,7 @@ APP_DEVSERVER_PORT=8000
 APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 ```
 
-> NOTE: [`configs/env_sample`](https://github.com/dexteryy/static-app-starter/blob/master/configs/env_sample) is a complete template file for `.env`
+> NOTE: [`configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/configs/env.sample.config) is a complete template file for `env.config`
 
 #### Step 2 (optional)
 
@@ -384,9 +384,9 @@ Just upload:
 npm run redeploy:staticweb
 ```
 
-Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in `.env`.
+Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in `env.config`.
 
-For example, you must choose a static cloud provider in `.env`:
+For example, you must choose a static cloud provider in `env.config`:
 
 ```ini
 APP_DEPLOY_STATIC_CLOUD=oss

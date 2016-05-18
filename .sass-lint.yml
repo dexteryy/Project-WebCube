@@ -96,7 +96,7 @@ rules:
     - 2
     - max-depth: 2
   # enforce the use of hexadecimal color values rather than literals
-  no-color-keyword: 2
+  no-color-keywords: 2
   # disallow the use of color literals and basic color functions in any declarations other than variables or maps/lists
   no-color-literals:
     - 2

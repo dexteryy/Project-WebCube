@@ -16,6 +16,7 @@ injectTapEventPlugin();
 type AppOpt = {
   isStaticWeb?: boolean,
   enablePerf?: boolean,
+  DevTools?: Object,
 };
 
 type RootOpt = {
@@ -64,6 +65,7 @@ export default class AppSkeleton {
     this._Root = this.createRoot({
       isProductionEnv,
       isStaticWeb: this.opt.isStaticWeb,
+      DevTools: this.opt.DevTools,
       ...opt,
     });
   }

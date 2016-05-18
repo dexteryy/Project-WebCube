@@ -5,8 +5,9 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
+import * as util from '../utils';
 
-const util = require('../utils');
+const rootPath = path.join(process.cwd(), '..');
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
@@ -29,8 +30,8 @@ const entries = {
 };
 
 for (const entry in entries) {
-  // TODO: temporarily use babel-polyfill until babel-runtime 5.x -> 6.3.19+
-  entries[entry].unshift('babel-polyfill');
+  // or babel-runtime
+  // entries[entry].unshift('babel-polyfill');
   if (util.liveMode === 'refresh') {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
     entries[entry].unshift(`webpack-dev-server/client?http://${util.serverHost}:${util.serverPort}`);
@@ -45,12 +46,8 @@ for (const entry in entries) {
 const babelLoaderPlugins = [
   // https://phabricator.babeljs.io/T2645
   'transform-decorators-legacy',
-  // https://github.com/babel/babel-loader#babel-is-injecting-helpers-into-each-file-and-bloating-my-code
-  // https://medium.com/@jcse/clearing-up-the-babel-6-ecosystem-c7678a314bf3
-  // https://phabricator.babeljs.io/T6644
-  // https://github.com/babel/babel/pull/3142
-  // TODO: temporarily use babel-polyfill until babel-runtime 5.x -> 6.3.19+
-  // ['transform-runtime', { polyfill: true, regenerator: true }],
+  // or babel-polyfill
+  ['transform-runtime', { polyfill: true, regenerator: true }],
 ];
 const reactTransformPlugins = ['react-transform', {
   transforms: [
@@ -116,6 +113,7 @@ const cssLoaderConfig = JSON.stringify({
 });
 
 module.exports = {
+  context: rootPath,
   entry: entries,
   output: {
     filename: util.isProductionEnv
@@ -124,20 +122,20 @@ module.exports = {
     chunkFilename: util.isProductionEnv
       ? 'js/[name]_[hash].js'
       : 'js/[name].js',
-    path: path.join(__dirname, '..', 'build/public/static/'),
+    path: path.join(rootPath, 'build/public/static/'),
     publicPath: util.isCloudEnv
       ? process.env.APP_DEPLOY_STATIC_ROOT
       : '/static/',
   },
   resolve: {
     root: [
-      path.join(__dirname, '..', 'src'),
+      path.join(rootPath, 'src'),
     ],
     alias: {
-      src: path.join(__dirname, '..', 'src'), // only for outside or `src/`
-      data: path.join(__dirname, '..', 'data'), // only for outside or `src/`
+      src: path.join(rootPath, 'src'), // only for outside or `src/`
+      data: path.join(rootPath, 'data'), // only for outside or `src/`
     },
-    modulesDirectories: ['node_modules'],
+    modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
     extensions: ['', '.js', '.jsx'],
   },
   devtool: 'source-map',
@@ -145,6 +143,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       loader: 'babel',
+      exclude: /node_modules/,
       query: {
         presets: [
           'react',
@@ -218,9 +217,10 @@ module.exports = {
   },
   plugins: [
     // http://mts.io/2015/04/08/webpack-shims-polyfills/
-    new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-    }),
+    // bug: configs/gulpfile + sourcemap
+    // new webpack.ProvidePlugin({
+    //   fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': util.isProductionEnv
         ? '\'production\'' : '\'development\'',
@@ -240,7 +240,8 @@ module.exports = {
       : 'css/[name].css', { allChunks: true }),
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
-      filename: 'configs/rev-version.json',
+      filename: 'rev-version.json',
+      path: path.join(rootPath, 'configs'),
       fullPath: true,
       prettyPrint: true,
     }),

@@ -66,10 +66,10 @@ function deploy(opt) {
   });
 }
 
-export function deployHTML(src) {
+export function deployHTML(src, opt) {
   const seconds = 60;
   return function () {
-    return gulp.src(src)
+    return gulp.src(src, opt)
       .pipe(deploy({
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
         CacheControl: `max-age=${seconds}, public`,
@@ -78,12 +78,12 @@ export function deployHTML(src) {
   };
 }
 
-export function deployStatic(src) {
+export function deployStatic(src, opt) {
   return function () {
     const yearToSeconds = 60 * 60 * 24 * 365;
     const d = new Date();
     d.setTime(d.getTime() + 1000 * yearToSeconds);
-    return gulp.src(src)
+    return gulp.src(src, opt)
       .pipe(deploy({
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
         root: 'static',

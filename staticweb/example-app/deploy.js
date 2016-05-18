@@ -7,12 +7,16 @@ import App from 'src/entries/example-app';
 
 const app = new App({
   isStaticWeb: true,
-  // TODO: wait for babel v5 -> v6
-  // devTools: DevTools.instrument(),
+  // DevTools,
 });
 
 export default function run() {
-  app.mount(document.getElementById('exampleApp'));
+  if (window.innerWidth && window.innerHeight
+    && screen.availWidth && screen.availHeight) {
+    app.mount(document.getElementById('exampleApp'));
+  } else {
+    setTimeout(run, 30);
+  }
 }
 
 if (['complete', 'loaded', 'interactive'].includes(document.readyState)

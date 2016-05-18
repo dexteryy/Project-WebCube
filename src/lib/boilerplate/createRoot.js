@@ -19,12 +19,11 @@ export default function createRoot(opt: Object): Function {
   const logger = createLogger();
   const devTools = [];
   if (!opt.isProductionEnv) {
-    if (typeof window === 'object'
+    if (opt.DevTools) {
+      devTools.push(opt.DevTools.instrument());
+    } else if (typeof window === 'object'
         && typeof window.devToolsExtension !== 'undefined') {
       devTools.push(window.devToolsExtension());
-    }
-    if (opt.devTools) {
-      devTools.push(opt.devTools);
     }
   }
   let history = opt.isStaticWeb ? hashHistory : browserHistory;
@@ -47,17 +46,19 @@ export default function createRoot(opt: Object): Function {
   );
   history = syncHistoryWithStore(history, store);
   return function Root() {
-    // if (!opt.isProductionEnv) {
-    //   return React.createElement(Provider, {
-    //     store,
-    //   },
-    //     React.createElement(Router, {
-    //       history,
-    //       routes: opt.routes,
-    //     }),
-    //     React.createElement(DevTools),
-    //   );
-    // }
+    if (!opt.isProductionEnv && opt.DevTools) {
+      return React.createElement(Provider, {
+        store,
+      },
+        React.createElement('div', null,
+          React.createElement(Router, {
+            history,
+            routes: opt.routes,
+          }),
+          React.createElement(opt.DevTools),
+        )
+      );
+    }
     return React.createElement(Provider, {
       store,
     },
