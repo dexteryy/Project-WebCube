@@ -3,15 +3,15 @@ import chai from 'chai';
 import Nightmare from 'nightmare';
 // import Chance from 'chance';
 
-const util = require('../../../utils');
+const util = require('internals/utils');
 
 mochaGenerators.install();
 chai.should();
 
-describe('example-app', function () {
+describe('{{entryName}}', function () {
   this.timeout(60000);
   const rootUrl = util.getUrlRoot();
-  const url = `${rootUrl}/example-app/index.html`;
+  const url = `${rootUrl}/{{entryName}}/index.html`;
 
   describe('Start page', function () {
 
@@ -27,7 +27,7 @@ describe('example-app', function () {
 
     it('should be mounted', function* () {
       const result = yield nightmare.goto(url).evaluate(function () {
-        return document.querySelectorAll('#exampleAppRoot').length;
+        return document.querySelectorAll('#{{camelCase entryName}}Root').length;
       });
       result.should.equal(1);
     });

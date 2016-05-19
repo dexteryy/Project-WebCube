@@ -1,6 +1,6 @@
 /* @flow */
 
-import { AppSkeleton, createRoot } from '../../lib/boilerplate';
+import { AppSkeleton, createRoot } from 'internals/lib/boilerplate';
 import routes from './routes';
 import reducers from './reducers/';
 

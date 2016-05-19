@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import AppSkeleton from '../../lib/boilerplate/AppSkeleton';
+import AppSkeleton from 'internals/lib/boilerplate/AppSkeleton';
 import Provider from './containers/App';
 
 type AppOpt = {

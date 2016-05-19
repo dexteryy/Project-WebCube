@@ -7,7 +7,7 @@ import {
   connect,
   stateSelector,
   actionDispatcher,
-} from '../../../lib/boilerplate';
+} from 'internals/lib/boilerplate';
 import Helmet from 'react-helmet';
 import * as actionCreators from '../actions';
 

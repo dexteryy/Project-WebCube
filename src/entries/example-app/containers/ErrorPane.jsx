@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import cssModules from 'react-css-modules';
 import {
   pureRender,
-} from '../../../lib/boilerplate';
+} from 'internals/lib/boilerplate';
 import Helmet from 'react-helmet';
 import MessageBoxWithStyle from '../../../components/MessageBoxWithStyle';
 import * as constants from '../constants';

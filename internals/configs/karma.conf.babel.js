@@ -1,18 +1,26 @@
 // https://karma-runner.github.io/0.13/config/configuration-file.html
 
 // import isparta from 'isparta'; // https://www.npmjs.com/package/isparta
+import path from 'path';
 import _ from 'lodash';
 import webpackConfig from './webpack.default.config.babel';
+import webpack from 'webpack';
+// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 const webpackConfigForKarma = _.cloneDeep(webpackConfig);
 _.remove(webpackConfigForKarma.plugins, function (i) {
-  return i instanceof AssetsPlugin;
+  return i instanceof AssetsPlugin
+    || i instanceof webpack.optimize.CommonsChunkPlugin;
+  // || i instanceof ExtractTextPlugin;
 });
+webpackConfigForKarma.entry = {};
+
+const rootPath = path.join(__dirname, '../..');
 
 module.exports = function (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
-    basePath: '',
+    basePath: rootPath,
     // can either be a string (module name), which will be required by Karma, or an object (inlined plugin)
     plugins: [
       // https://www.npmjs.com/package/karma-webpack
@@ -28,10 +36,13 @@ module.exports = function (config) {
       // 'karma-coverage',
       // https://www.npmjs.com/package/karma-spec-reporter
       'karma-spec-reporter',
+    ].concat(process.env.ENABLE_PHANTOM__FOR_KARMA ? [
       // https://www.npmjs.com/package/karma-phantomjs-launcher
       'karma-phantomjs-launcher',
-      // 'karma-chrome-launcher',
-    ],
+    ] : []).concat(process.env.ENABLE_CHROME_FOR_KARMA ? [
+      // https://www.npmjs.com/package/karma-chrome-launcher
+      'karma-chrome-launcher',
+    ] : []),
     frameworks: [
       'mocha',
       'chai',
@@ -42,12 +53,12 @@ module.exports = function (config) {
       // 'chai-things',
     ],
     preprocessors: {
-      '../test/units.entry.js': ['webpack', 'sourcemap'],
+      'src/**/*.test.js': ['webpack', 'sourcemap'],
       // '../src/**/*.(js|jsx)': ['coverage'],
     },
     // list of files / patterns to load in the browser
     files: [
-      '../test/units.entry.js',
+      'src/**/*.test.js',
     ],
     // list of files to exclude
     exclude: [
@@ -59,9 +70,11 @@ module.exports = function (config) {
       // 'coverage',
     ],
     browsers: [
+    ].concat(process.env.ENABLE_PHANTOM__FOR_KARMA ? [
       'PhantomJS',
-      // 'Chrome',
-    ],
+    ] : []).concat(process.env.ENABLE_CHROME_FOR_KARMA ? [
+      'Chrome',
+    ] : []),
     webpack: webpackConfigForKarma,
     webpackMiddleware: {
       noInfo: true,

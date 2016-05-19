@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {
   pureRender,
-} from '../../../lib/boilerplate';
+} from 'internals/lib/boilerplate';
 import toLower from 'lodash/toLower';
 import SelectorBox from '../../../components/SelectorBox';
 import {

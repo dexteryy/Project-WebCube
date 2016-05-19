@@ -1,6 +1,7 @@
 // import 'babel-polyfill';
 import running from 'is-running';
 import gulp from 'gulp';
+import gulpif from 'gulp-if';
 import del from 'del';
 import fs from 'fs';
 import path from 'path';
@@ -26,8 +27,8 @@ import WebpackDevServer from 'webpack-dev-server';
 // import express from 'express';
 import * as util from '../utils';
 
-const rootPath = path.join(__dirname, '..');
-const pidFile = path.join(rootPath, 'configs/.webserver.pid');
+const rootPath = path.join(__dirname, '../..');
+const pidFile = path.join(rootPath, 'internals/configs/.webserver.pid');
 let webpackConfig;
 try {
   webpackConfig = require('./webpack.demo.config.babel.js');
@@ -81,7 +82,11 @@ function buildApp(myWebpackConfig) {
 }
 
 function buildHTML() {
-  const revData = JSON.parse(fs.readFileSync(path.join(rootPath, 'configs/rev-version.json')));
+  const revData = JSON.parse(
+    fs.readFileSync(
+      path.join(rootPath, 'internals/configs/rev-version.json')
+    )
+  );
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
   const RE_ADD_MIN = /^(.+\/.+?)\.(.+)$/;
@@ -126,12 +131,22 @@ function buildHTML() {
 }
 
 function testFunctional() {
-  return gulp.src(['test/functionals/**/*.js'], { cwd: rootPath, read: false })
+  return gulp.src([
+    'src/**/*.spec.js',
+    'server/**/*.spec.js',
+  ], { cwd: rootPath, read: false })
     // Gulp-mocha needs filepaths so you can't have any plugins before it
     .pipe(mocha({ // https://www.npmjs.com/package/gulp-mocha
       reporter: 'spec',
       globals: [],
     }));
+}
+
+function testUnit(done) {
+  new KarmaServer({
+    configFile: path.join(rootPath, 'internals', 'configs', 'karma.conf.js'),
+    singleRun: true,
+  }, done).start();
 }
 
 function getDevServer() {
@@ -152,7 +167,8 @@ function startDevServer() {
   if (util.isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
-  // const server = util.liveMode === 'hmr' ? getHotDevServer() : getDevServer();
+  // const server = util.liveMode === 'hmr'
+  //   ? getHotDevServer() : getDevServer();
   const server = getDevServer();
   server.listen(util.serverPort, util.serverHost, (err) => {
     if (err) {
@@ -164,7 +180,8 @@ function startDevServer() {
 
 function startStaticWebServer(stream, done) {
   fs.writeFileSync(pidFile, process.pid);
-  stream.pipe(staticWebServer({ // https://www.npmjs.com/package/gulp-webserver#options
+  stream.pipe(staticWebServer({
+    // https://www.npmjs.com/package/gulp-webserver#options
     port: util.serverPort,
     host: util.serverHost,
   }));
@@ -193,18 +210,17 @@ function stopStaticWebServer(done) {
 
 gulp.task('clean:empty', (done) => {
   del([
-    'test/functionals/*',
-    'test/units/!(defaults.spec.js)',
     'src/entries/*',
     // 'src/components/*',
     'src/assets/*',
-    'data/*',
     'staticweb/*',
-    'configs/webpack.demo.config.babel.js',
+    'internals/configs/webpack.demo.config.babel.js',
   ], { cwd: rootPath }).then(() => {
-    gulp.src(['configs/webpack.default.config.babel.js'], { cwd: rootPath })
+    gulp.src([
+      'internals/configs/webpack.default.config.babel.js',
+    ], { cwd: rootPath })
       .pipe(replace(/\s*'example-app':\s*\[.+?\],/, ''))
-      .pipe(gulp.dest('configs/', { cwd: rootPath }))
+      .pipe(gulp.dest('internals/configs/', { cwd: rootPath }))
       .on('end', () => done())
       .on('error', (err) => done(err));
   });
@@ -220,52 +236,88 @@ gulp.task('clean:app', (done) => {
 });
 
 gulp.task('clean:html', (done) => {
-  del(['build/public/!(static)/**'], { cwd: rootPath }).then(() => done());
+  del([
+    'build/public/!(static)/**',
+  ], { cwd: rootPath }).then(() => done());
 });
 
 gulp.task('check:scss', [], () => {
-  return gulp.src(['src/**/*.scss', 'staticweb/**/*.scss'], { cwd: rootPath })
-    .pipe(sassLint({
-      configFile: path.join(rootPath, '.sass-lint.yml'),
-    }))
-    .pipe(sassLint.format())
-    .pipe(sassLint.failOnError())
-    .pipe(styleLint({
-      failAfterError: true,
-      reporters: [
-         { formatter: 'string', console: true },
-      ],
-    }));
+  return gulp.src([
+    'src/**/*.scss',
+    'staticweb/**/*.scss',
+  ], { cwd: rootPath })
+    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+      sassLint({
+        configFile: path.join(rootPath, '.sass-lint.yml'),
+      })
+    ))
+    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+      sassLint.format()
+    ))
+    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+      sassLint.failOnError()
+    ))
+    .pipe(gulpif(!process.env.DISABLE_STYLELINT,
+      styleLint({
+        configFile: path.join(rootPath, '.stylelintrc'),
+        failAfterError: true,
+        reporters: [
+           { formatter: 'string', console: true },
+        ],
+      })
+    ));
 });
 
 gulp.task('check:css', [], () => {
-  return gulp.src(['src/**/*.css', 'staticweb/**/*.css'], { cwd: rootPath })
-    .pipe(styleLint({
-      configFile: path.join(rootPath, '.stylelintrc'),
-      failAfterError: true,
-      reporters: [
-         { formatter: 'string', console: true },
-      ],
-    }));
+  return gulp.src([
+    'src/**/*.css',
+    'staticweb/**/*.css',
+  ], { cwd: rootPath })
+    .pipe(gulpif(!process.env.DISABLE_STYLELINT,
+      styleLint({
+        configFile: path.join(rootPath, '.stylelintrc'),
+        failAfterError: true,
+        reporters: [
+           { formatter: 'string', console: true },
+        ],
+      })
+    ));
 });
 
 gulp.task('check:js', [], () => {
-  return gulp.src(['src/**/*.@(js|jsx)', 'staticweb/**/*.@(js|jsx)', 'configs/**/*.js'], { cwd: rootPath })
-    .pipe(eslint({
-      configFile: path.join(rootPath, '.eslintrc.yml'),
-    }))
-    .pipe(eslint.format('stylish'))
-    .pipe(eslint.failAfterError())
-    .pipe(jscs({
-      configFile: path.join(rootPath, '.jscsrc'),
-    }))
-    .pipe(jscs.reporter('console'))
-    .pipe(jscs.reporter('failImmediately'));
+  return gulp.src([
+    'src/**/*.@(js|jsx)',
+    'staticweb/**/*.@(js|jsx)',
+    'internals/lib/**/*.js',
+    'internals/utils/**/*.js',
+    'internals/configs/**/*.js',
+  ], { cwd: rootPath })
+    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+      eslint({
+        configFile: path.join(rootPath, '.eslintrc.yml'),
+      })
+    ))
+    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+      eslint.format('stylish')
+    ))
+    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+      eslint.failAfterError()
+    ))
+    .pipe(gulpif(!process.env.DISABLE_JSCS,
+      jscs({
+        configFile: path.join(rootPath, '.jscsrc'),
+      })
+    ))
+    .pipe(gulpif(!process.env.DISABLE_JSCS,
+      jscs.reporter('console')
+    ))
+    .pipe(gulpif(!process.env.DISABLE_JSCS,
+      jscs.reporter('failImmediately')
+    ));
   // waiting for babel 6.6 upgrade
   // .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
   //   all: false,
   //   weak: false,
-  //   declarations: 'src/declarations',
   //   killFlow: false,
   //   beep: true,
   //   abort: true,
@@ -274,25 +326,29 @@ gulp.task('check:js', [], () => {
 
 gulp.task('check:html', [], () => {
   return gulp.src('staticweb/**/*.html', { cwd: rootPath })
-    .pipe(htmlhint({
-      // https://github.com/yaniswang/HTMLHint/wiki/Rules
-      htmlhintrc: path.join(rootPath, '.htmlhintrc'),
-    }))
-    .pipe(htmlhint.failReporter());
+    .pipe(gulpif(!process.env.DISABLE_HTMLHINT,
+      htmlhint({
+        // https://github.com/yaniswang/HTMLHint/wiki/Rules
+        htmlhintrc: path.join(rootPath, '.htmlhintrc'),
+      })
+    ))
+    .pipe(gulpif(!process.env.DISABLE_HTMLHINT,
+      htmlhint.failReporter()
+    ));
 });
 
-gulp.task('check:all', ['check:js', 'check:scss', 'check:css', 'check:html'], () => {});
+gulp.task('check:all', [
+  'check:js',
+  'check:scss',
+  'check:css',
+  'check:html',
+], () => {});
 
-gulp.task('test:unit', [], (done) => {
-  new KarmaServer({
-    configFile: path.join(rootPath, 'configs', 'karma.conf.js'),
-    singleRun: true,
-  }, done).start();
-});
+gulp.task('test:unit', [], testUnit);
 
 gulp.task('test:functional', [], testFunctional);
 
-gulp.task('test:all', ['test:unit', 'test:functional'], () => {});
+gulp.task('test:all', ['test:functional', 'test:unit'], () => {});
 
 gulp.task('update:app', ['clean:app'], () => {
   return buildApp(webpackConfig);
@@ -314,17 +370,25 @@ gulp.task('build', [
 
 gulp.task('deploy:html', [
   'build:html',
-], cloudAdapter.deployHTML(['build/public/!(static)/**/*.html'], { cwd: rootPath }));
+], cloudAdapter.deployHTML([
+  'build/public/!(static)/**/*.html',
+], { cwd: rootPath }));
 
 gulp.task('deploy:static', [
   'build:html',
-], cloudAdapter.deployStatic(['build/public/static/**/*'], { cwd: rootPath }));
+], cloudAdapter.deployStatic([
+  'build/public/static/**/*',
+], { cwd: rootPath }));
 
 gulp.task('redeploy:html', [
-], cloudAdapter.deployHTML(['build/public/!(static)/**/*.html'], { cwd: rootPath }));
+], cloudAdapter.deployHTML([
+  'build/public/!(static)/**/*.html',
+], { cwd: rootPath }));
 
 gulp.task('redeploy:static', [
-], cloudAdapter.deployStatic(['build/public/static/**/*'], { cwd: rootPath }));
+], cloudAdapter.deployStatic([
+  'build/public/static/**/*',
+], { cwd: rootPath }));
 
 gulp.task('deploy:staticweb', [
   'deploy:html',
@@ -337,23 +401,6 @@ gulp.task('redeploy:staticweb', [
 ], () => {});
 
 gulp.task('watch:dev', ['clean:html', 'stop:staticserver'], startDevServer);
-
-gulp.task('watch:units', () => {
-  gulp.watch(['src/**'], { cwd: rootPath }, ['test:unit']);
-  gulp.watch(['test/units/**'], { cwd: rootPath }, ['test:unit']);
-});
-
-gulp.task('watch:build', () => {
-  if (!util.isProductionEnv) {
-    gulp.watch(['src/**'], { cwd: rootPath }, ['update:app']);
-    gulp.watch(['staticweb/**/*.!(html)', 'data/**'], { cwd: rootPath }, ['update:app']);
-    gulp.watch(['staticweb/**/*.html'], { cwd: rootPath }, ['update:html']);
-  } else {
-    gulp.watch(['src/**'], { cwd: rootPath }, ['test:afterBuild']);
-    gulp.watch(['staticweb/**'], { cwd: rootPath }, ['test:afterBuild']);
-  }
-  gulp.watch(['test/functionals/**'], { cwd: rootPath }, ['test:functional']);
-});
 
 gulp.task('start:staticserver', (done) => {
   const stream = gulp.src('build/public', { cwd: rootPath });

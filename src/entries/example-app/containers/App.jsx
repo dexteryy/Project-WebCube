@@ -5,7 +5,7 @@ import cssModules from 'react-css-modules';
 import {
   connect,
   actionDispatcher,
-} from '../../../lib/boilerplate';
+} from 'internals/lib/boilerplate';
 import { push } from 'react-router-redux';
 import TabView from '../../../components/TabView';
 import FlipboardLogo from '../../../components/FlipboardLogo';

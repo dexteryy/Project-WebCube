@@ -1,12 +1,13 @@
 [ignore]
 .*/build/.*
 .*/node_modules/.*
-.*/templates/.*
-.*/test/.*
+.*/internals/.*
+.*\.spec\.js
 
 [include]
 
 [libs]
+internals/declarations/
 src/declarations/
 
 [options]

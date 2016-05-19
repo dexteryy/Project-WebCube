@@ -8,7 +8,7 @@ import {
   connect,
   stateSelector,
   actionDispatcher,
-} from '../../../lib/boilerplate';
+} from 'internals/lib/boilerplate';
 import Helmet from 'react-helmet';
 import EffectBox from './EffectBox';
 import ResultBox from './ResultBox';

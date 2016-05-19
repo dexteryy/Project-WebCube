@@ -3,7 +3,7 @@ node_modules/
 *.log
 *.pid
 env.config
-configs/rev-version.json
+rev-version.json
 build/public/*
 !build/public/static/
 build/public/static/*
@@ -13,10 +13,7 @@ src/entries/demo*
 src/data/demo*
 src/components/Demo*
 staticweb/demo*
-test/demo*
-test/units/demo*
-test/units/Demo*
-test/functionals/demo*
-configs/webpack.demo.*
-configs/webpack.nodejs.*
-server/
+demo*.spec.js
+Demo*.spec.js
+internals/configs/webpack.demo.*
+internals/configs/webpack.nodejs.*

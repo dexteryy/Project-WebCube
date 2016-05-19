@@ -1,7 +1,11 @@
 
 # Static Web App Starter Kit
 
-Integrated with:
+## Features
+
+* TODO
+
+## Integration
 
 * [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) + [Helmet](https://www.npmjs.com/package/react-helmet) + [CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...) + [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Logger](https://github.com/fcomb/redux-logger) + [DevTools](https://github.com/gaearon/redux-devtools) + ...)
 * [Webpack](http://webpack.github.io/docs/)
@@ -19,20 +23,28 @@ Integrated with:
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 
-Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/src/lib/boilerplate/AppSkeleton.js):
+Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/internals/lib/boilerplate/AppSkeleton.js):
 
-- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
-- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/containers/Home.jsx)
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
+- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/containers/Home.jsx)
 - ...
 
 ## Structure
 
 #### Directories and Sample Files
 
-- **src/** - All source code for runtime (shared between client-side and server-side), including JS, CSS and assets
+- **internals/** - Boilerplate scripts, configure files, templates and libraries
+  - **configs/** - Configuration files and build scripts
+  - **utils/** - Reusable code for configuration files and scripts
+    - **staticcloud/** - Adapters for delopyment scripts
+      - `s3.js`, `oss.js`, `firebase.js`, `heroku.js`, ...
+  - **lib/**
+    - **boilerplate/** - Boilerplate code for app
+  - **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
   - **declarations/** - [Flow Declarations](http://flowtype.org/docs/declarations.html)
+- **src/** - All source code for runtime (shared between client-side and server-side), including JS, CSS and assets
   - **components/** - [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
   - **entries/** - Multiple entry points, see [details](#multiple-entry-points-optional)
     - _**example-app/**_ - Entry point, see [details](#single-entry-point)
@@ -43,17 +55,16 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
       - **constants/**
       - **routes/** - [React Router](https://github.com/reactjs/react-router/)
       - **styles/** - CSS/SCSS/CSSInJS shared between container components
+      - **tests/** - See [Testing](#testing) section
       - `index.js`
     - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
     - ...
   - **lib/** - Library code which haven't been published to npm
-    - **boilerplate/** - Boilerplate as library
+  - **data/** - Shared data files
   - **assets/** - Shared images, fonts, audio, etc.
   - **styles/** - CSS/SCSS/CSSInJS shared between entry points
   - **containers/** - Shared [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
     - `DevTools.jsx`
-  - **decorators/** - Shared [Higher-order Components](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750)
-  - **actions/** - Shared [Flux Standard Action](https://www.npmjs.com/package/redux-actions)
   - ...
   - **middleware/** - [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html) shared between entry points
 - **staticweb/** - For static web deployment or testing
@@ -61,20 +72,14 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
     - `index.html`, `deploy.js`, `deploy.scss`
   - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
   - ...
-- **data/** - For testing or deployment
-- **configs/** - For configuration files that do not have to be placed in project root
-- **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
-- **utils/** - Reusable code for configuration files and scripts
-  - **staticcloud/** - Adapters for delopyment scripts
-    - `s3.js`, `oss.js`, `firebase.js`, `heroku.js`, ...
-- **test/** - See [Testing](#testing) section
-  - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
-  - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
+- **server/** - [TODO] A thin backend layer for universal web app and graphql-like api
+- **runtime/** - [TODO] For Electron or Cordova
 - **build/**
   - **public/** - Generated by Gulp and Webpack, do not manually modify
 - ...
 - `index.js` - Imported by other projects, see [details](#single-entry-point)
 - `package.json`
+- `env.config` - See [Setup - Step 1](#step-1)
 
 #### Single Entry Point
 
@@ -116,7 +121,7 @@ Edit the `staticweb/demo-page1/index.html`:
 <script src="/static/demo-page1.js"></script>
 ```
 
-> NOTE: To enable `common.js` and continue use [micro-generator](#micro-generator), you need to modify [templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/templates/staticweb/index.html)
+> NOTE: To enable `common.js` and continue use [micro-generator](#micro-generator), you need to modify [internals/templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/staticweb/index.html)
 
 # Getting Started
 
@@ -132,14 +137,14 @@ APP_DEVSERVER_PORT=8000
 APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
 ```
 
-> NOTE: [`configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/configs/env.sample.config) is a complete template file for `env.config`
+> NOTE: [`internals/configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config) is a complete template file for `env.config`
 
 #### Step 2 (optional)
 
 If you don't want to build default demo ([`src/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/src/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
 
 * [`package.json`][package.json]'s `dependencies`
-* [`configs/webpack.default.config.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.default.config.babel.js#L13)'s `entries.common`
+* [`internals/configs/webpack.default.config.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/webpack.default.config.babel.js#L13)'s `entries.common`
 
 #### Step 3
 
@@ -186,8 +191,8 @@ NODE_ENV=production npm run build
 > Build scripts and config files:
 >
 > * [`package.json`][package.json]
-> * [`gulpfile.babel.js`][gulpfile]
-> * [`configs/webpack.default.config.babel.js`][webpack.config]
+> * [`internals/configs/gulpfile.babel.js`][gulpfile]
+> * [`internals/configs/webpack.default.config.babel.js`][webpack.config]
 
 Open in the browser
 
@@ -222,22 +227,6 @@ Enable HMR (Hot Module Replacement):
 LIVE_MODE=hmr npm run dev
 ```
 
-For automatic running unit tests (no web server):
-
-```
-npm run testing
-```
-
-For automatic building, running all tests:
-
-```
-npm run building
-```
-
-```
-NODE_ENV=production npm run building
-```
-
 #### Micro-generator
 
 ```
@@ -252,14 +241,26 @@ npm run new
 
 Generator scripts:
 
-* [`configs/plopfile.babel.js`][plopfile]
+* [`internals/configs/plopfile.babel.js`][plopfile]
 
 #### Testing
 
-Manually run unit tests and functional tests:
+Functional tests:
+
+* NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
+* Naming convention: `**/*.spec.js`
+* Example: [src/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/example-app/tests/index.spec.js)
+
+Unit tests:
+
+* [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
+* Naming convention: `**/*.test.js`
+* Example: [src/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/static-app-starter/blob/master/src/components/WelcomeBox/tests/index.test.js)
+
+Manually run functional tests (run automatically after building):
 
 ```
-npm run test
+npm run test:quick
 ```
 
 Manually run unit tests:
@@ -268,10 +269,10 @@ Manually run unit tests:
 npm run test:unit
 ```
 
-Manually run functional tests (run automatically after building):
+Manually run unit tests and functional tests:
 
 ```
-npm run test:quick
+npm run test
 ```
 
 Manually run functional tests for web app in the cloud (after [deployment](#deployment)):
@@ -280,22 +281,12 @@ Manually run functional tests for web app in the cloud (after [deployment](#depl
 npm run test:cloud
 ```
 
-Unit tests + Functional tests:
-
-- **test/**
-  - **units/** - [Karma](https://karma-runner.github.io/) + [Mocha](http://mochajs.org/)
-    - `WelcomeBox.spec.js`, ...
-  - **functionals/** - [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
-    - _**app/**_
-      - `index.spec.js`, ...
-    - _demo-page1/_
-    - ...
 
 > NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](#micro-generator)
 
 Karma configuration:
 
-* [`configs/karma.conf.babel.js`][karmaconf]
+* [`internals/configs/karma.conf.babel.js`][karmaconf]
 
 #### Code Style
 
@@ -398,12 +389,12 @@ APP_DEPLOY_STATIC_CLOUD=s3
 
 Deployment scripts and adapters:
 
-* [`gulpfile.babel.js`][gulpfile]
-* [`utils/deploy/*.js`][https://github.com/dexteryy/static-app-starter/blob/master/utils/deploy/]
+* [`internals/configs/gulpfile.babel.js`][gulpfile]
+* [`internals/utils/deploy/*.js`](https://github.com/dexteryy/static-app-starter/blob/master/internals/utils/deploy/)
 
 [package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
-[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.default.config.babel.js
-[gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/gulpfile.babel.js
-[plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/plopfile.babel.js
-[karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/configs/karma.conf.babel.js
+[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/webpack.default.config.babel.js
+[gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/gulpfile.babel.js
+[plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/plopfile.babel.js
+[karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/karma.conf.babel.js
 [gitignore]: https://github.com/dexteryy/static-app-starter/blob/master/.gitignore

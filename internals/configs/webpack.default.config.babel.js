@@ -7,7 +7,7 @@ import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 import * as util from '../utils';
 
-const rootPath = path.join(process.cwd(), '..');
+const rootPath = path.join(process.cwd(), '../..');
 
 const entries = {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
@@ -132,8 +132,8 @@ module.exports = {
       path.join(rootPath, 'src'),
     ],
     alias: {
-      src: path.join(rootPath, 'src'), // only for outside or `src/`
-      data: path.join(rootPath, 'data'), // only for outside or `src/`
+      src: path.join(rootPath, 'src'),
+      internals: path.join(rootPath, 'internals'),
     },
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
     extensions: ['', '.js', '.jsx'],
@@ -217,7 +217,7 @@ module.exports = {
   },
   plugins: [
     // http://mts.io/2015/04/08/webpack-shims-polyfills/
-    // bug: configs/gulpfile + sourcemap
+    // bug: internals/configs/gulpfile + sourcemap
     // new webpack.ProvidePlugin({
     //   fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     // }),
@@ -241,7 +241,7 @@ module.exports = {
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
       filename: 'rev-version.json',
-      path: path.join(rootPath, 'configs'),
+      path: path.join(rootPath, 'internals', 'configs'),
       fullPath: true,
       prettyPrint: true,
     }),
