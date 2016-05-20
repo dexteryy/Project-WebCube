@@ -6,28 +6,30 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 import * as util from '../utils';
+import kebabCase from 'lodash/kebabCase';
 
 const rootPath = path.join(process.cwd(), '../..');
 
-const entries = {
+const mutiplEntries = {};
+for (const name in process.env) {
+  const entryName = (/APP_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
+  if (entryName) {
+    mutiplEntries[kebabCase(entryName)] = process.env[name];
+  }
+  const demoName = (/APP_(DEMO_[A-Z_]+)/.exec(name) || [])[1];
+  if (demoName) {
+    mutiplEntries[kebabCase(demoName)] = process.env[name];
+  }
+}
+
+const entries = Object.assign({
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
-  common: [
-    'whatwg-fetch',
-    'react', 'react-dom',
-    'react-tap-event-plugin',
-    'react-addons-shallow-compare',
-    'redux', 'react-redux', 'redux-actions', 'reselect', 'redux-thunk',
-    'react-router', 'react-router-redux', 'react-helmet',
-    'react-css-modules',
-    // NOTE: Above packages are depended by boilerplate and template code for `npm run new entry`
-    'radium',
-    'classnames',
-    'core-decorators',
-    'react-addons-css-transition-group',
-  ],
-  'example-app': ['./staticweb/example-app/deploy.js'],
-  /* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE */
-};
+  common: (
+    process.env.APP_ENABLE_COMMON_CHUNK
+      && JSON.parse(process.env.APP_COMMON_CORE_MODULES || null)
+      || []
+  ).concat(JSON.parse(process.env.APP_COMMON_APP_MODULES || null) || []),
+}, mutiplEntries);
 
 for (const entry in entries) {
   // or babel-runtime
@@ -70,19 +72,7 @@ if (!util.isProductionEnv && util.liveMode === 'hmr') {
 }
 
 // https://github.com/ai/browserslist#queries
-const browsers = [
-  'Android 2.3',
-  'Android >= 4',
-  'Chrome >= 35',
-  'Firefox >= 31',
-  'Explorer >= 9',
-  'iOS >= 7',
-  'Opera >= 12',
-  'Safari >= 7.1',
-];
-// const browsers = ['last 2 versions', 'ie 10'];
-// const browsers = ['> 5%', 'last 2 versions', 'Firefox ESR', 'not ie <= 8'];
-// const browsers = ['ie 6-8', 'opera 12.1', 'ios 6', 'android 4'];
+const browsers = JSON.parse(process.env.APP_BROWSERS || null) || [];
 
 const cssLoaderConfig = JSON.stringify({
   modules: true,
@@ -156,14 +146,16 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loader: ((cssOpt) => {
-        // return `style?singleton!css?${cssOpt}!postcss!sass`;
-        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`);
+        return process.env.APP_ENABLE_EXTRACT_CSS
+          ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`)
+          : `style?singleton!css?${cssOpt}!postcss!sass`;
       })(cssLoaderConfig),
     }, {
       test: /\.css$/,
       loader: ((cssOpt) => {
-        // return `style?singleton!css?${cssOpt}!postcss`;
-        return ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`);
+        return process.env.APP_ENABLE_EXTRACT_CSS
+          ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`)
+          : `style?singleton!css?${cssOpt}!postcss`;
       })(cssLoaderConfig),
     }, {
       test: /\.json$/,
@@ -227,6 +219,7 @@ module.exports = {
     }),
     // https://github.com/webpack/webpack/issues/198
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+  ].concat(process.env.APP_ENABLE_COMMON_CHUNK ? [
     // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
@@ -234,10 +227,12 @@ module.exports = {
       // children: true, // Move common modules into the parent chunk
       // async: true, // Create an async commons chunk
     }),
+  ] : []).concat(process.env.APP_ENABLE_EXTRACT_CSS ? [
     // https://www.npmjs.com/package/extract-text-webpack-plugin
     new ExtractTextPlugin(util.isProductionEnv
       ? 'css/[name]_[contenthash].css'
       : 'css/[name].css', { allChunks: true }),
+  ] : []).concat([
     // https://www.npmjs.com/package/assets-webpack-plugin
     new AssetsPlugin({
       filename: 'rev-version.json',
@@ -248,7 +243,7 @@ module.exports = {
     // https://github.com/webpack/docs/wiki/optimization
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-  ].concat(!util.isProductionEnv ? [
+  ]).concat(!util.isProductionEnv ? [
     // https://github.com/glenjamin/webpack-hot-middleware
     new webpack.HotModuleReplacementPlugin(),
   ] : []).concat([

@@ -29,12 +29,7 @@ import * as util from '../utils';
 
 const rootPath = path.join(__dirname, '../..');
 const pidFile = path.join(rootPath, 'internals/configs/.webserver.pid');
-let webpackConfig;
-try {
-  webpackConfig = require('./webpack.demo.config.babel.js');
-} catch (ex) {
-  webpackConfig = require('./webpack.default.config.babel.js');
-}
+const webpackConfig = require('./webpack.default.config.babel.js');
 const compiler = webpack(webpackConfig);
 const cloudAdapter = require(`../utils/staticcloud/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
 
@@ -211,16 +206,16 @@ function stopStaticWebServer(done) {
 gulp.task('clean:empty', (done) => {
   del([
     'src/entries/*',
-    // 'src/components/*',
+    'src/components/*',
+    'src/data/*',
     'src/assets/*',
     'staticweb/*',
-    'internals/configs/webpack.demo.config.babel.js',
   ], { cwd: rootPath }).then(() => {
     gulp.src([
-      'internals/configs/webpack.default.config.babel.js',
+      'env.config',
     ], { cwd: rootPath })
-      .pipe(replace(/\s*'example-app':\s*\[.+?\],/, ''))
-      .pipe(gulp.dest('internals/configs/', { cwd: rootPath }))
+      .pipe(replace(/^APP_ENTRY_EXAMPLE_APP=.*$/, ''))
+      .pipe(gulp.dest('./', { cwd: rootPath }))
       .on('end', () => done())
       .on('error', (err) => done(err));
   });
@@ -246,18 +241,18 @@ gulp.task('check:scss', [], () => {
     'src/**/*.scss',
     'staticweb/**/*.scss',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
       sassLint({
         configFile: path.join(rootPath, '.sass-lint.yml'),
       })
     ))
-    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
       sassLint.format()
     ))
-    .pipe(gulpif(!process.env.DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
       sassLint.failOnError()
     ))
-    .pipe(gulpif(!process.env.DISABLE_STYLELINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_STYLELINT,
       styleLint({
         configFile: path.join(rootPath, '.stylelintrc'),
         failAfterError: true,
@@ -273,7 +268,7 @@ gulp.task('check:css', [], () => {
     'src/**/*.css',
     'staticweb/**/*.css',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.DISABLE_STYLELINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_STYLELINT,
       styleLint({
         configFile: path.join(rootPath, '.stylelintrc'),
         failAfterError: true,
@@ -292,26 +287,26 @@ gulp.task('check:js', [], () => {
     'internals/utils/**/*.js',
     'internals/configs/**/*.js',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
       eslint({
         configFile: path.join(rootPath, '.eslintrc.yml'),
       })
     ))
-    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
       eslint.format('stylish')
     ))
-    .pipe(gulpif(!process.env.DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
       eslint.failAfterError()
     ))
-    .pipe(gulpif(!process.env.DISABLE_JSCS,
+    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
       jscs({
         configFile: path.join(rootPath, '.jscsrc'),
       })
     ))
-    .pipe(gulpif(!process.env.DISABLE_JSCS,
+    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
       jscs.reporter('console')
     ))
-    .pipe(gulpif(!process.env.DISABLE_JSCS,
+    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
       jscs.reporter('failImmediately')
     ));
   // waiting for babel 6.6 upgrade
@@ -326,13 +321,13 @@ gulp.task('check:js', [], () => {
 
 gulp.task('check:html', [], () => {
   return gulp.src('staticweb/**/*.html', { cwd: rootPath })
-    .pipe(gulpif(!process.env.DISABLE_HTMLHINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_HTMLHINT,
       htmlhint({
         // https://github.com/yaniswang/HTMLHint/wiki/Rules
         htmlhintrc: path.join(rootPath, '.htmlhintrc'),
       })
     ))
-    .pipe(gulpif(!process.env.DISABLE_HTMLHINT,
+    .pipe(gulpif(!process.env.APP_DISABLE_HTMLHINT,
       htmlhint.failReporter()
     ));
 });

@@ -57,7 +57,8 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
       - **styles/** - CSS/SCSS/CSSInJS shared between container components
       - **tests/** - See [Testing](#testing) section
       - `index.js`
-    - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
+    - _**page2/**_ - See 'entry' generator in [plopfile.babel.js][plopfile]
+    - _**demo-page2/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
     - ...
   - **lib/** - Library code which haven't been published to npm
   - **data/** - Shared data files
@@ -70,7 +71,8 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
 - **staticweb/** - For static web deployment or testing
   - _**example-app/**_ - For entry point
     - `index.html`, `deploy.js`, `deploy.scss`
-  - _**demo-page1/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
+  - _**page2/**_ - See 'entry' generator in [plopfile.babel.js][plopfile]
+  - _**demo-page2/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
   - ...
 - **server/** - [TODO] A thin backend layer for universal web app and graphql-like api
 - **runtime/** - [TODO] For Electron or Cordova
@@ -89,39 +91,31 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
 
 #### Multiple Entry Points (optional)
 
-> NOTE: New entry point can be automatically added by [micro-generator](#micro-generator)
-
 Add files:
 
-* `src/entries/demo-page1/index.js`
+* `src/entries/page1/index.js`
+* `src/entries/page2/index.js`
 * `src/entries/demo-page2/index.js`
-* `staticweb/demo-page1/index.html`
+* `staticweb/page1/index.html`
+* `staticweb/page2/index.html`
 * `staticweb/demo-page2/index.html`
 
-Edit the [`webpack.default.config.babel.js`][webpack.config]:
+Edit the [`env.config`](#step-1):
 
-```javascript
-module.exports = {
-  entry: {
-    common: ['babel-polyfill', 'whatwg-fetch', 'react'], // optional
-    'demo-page1': ['babel-polyfill', './src/entries/demo-page1'],
-    'demo-page2': ['babel-polyfill', './src/entries/demo-page2'],
-  },
-  plugins: [
-    // optional
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-    }),
+```ini
+APP_ENTRY_PAGE1="./src/entries/page1"
+APP_ENTRY_PAGE2="./src/entries/page2"
+APP_DEMO_PAGE2="./src/entries/demo-page2"
 ```
 
-Edit the `staticweb/demo-page1/index.html`:
+Edit the `staticweb/page1/index.html`:
 
-```javascript
+```html
 <script src="/static/common.js"></script> <!-- optional -->
-<script src="/static/demo-page1.js"></script>
+<script src="/static/page1.js"></script>
 ```
 
-> NOTE: To enable `common.js` and continue use [micro-generator](#micro-generator), you need to modify [internals/templates/staticweb/index.html](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/staticweb/index.html)
+> NOTE: New entry point or demo can be automatically added by [micro-generator](#micro-generator)
 
 # Getting Started
 
@@ -129,22 +123,13 @@ Edit the `staticweb/demo-page1/index.html`:
 
 #### Step 1
 
-First of all, you must create a `env.config` file in the root directory. For example:
-
-```ini
-APP_DEVSERVER_HOST=localhost
-APP_DEVSERVER_PORT=8000
-APP_DEPLOY_STATIC_ROOT=http://mybucket.oss-cn-hangzhou.aliyuncs.com/static/
-```
-
-> NOTE: [`internals/configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config) is a complete template file for `env.config`
+First of all, you must create a `env.config` file in the root directory. [`internals/configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config) is a complete template file for `env.config`
 
 #### Step 2 (optional)
 
-If you don't want to build default demo ([`src/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/src/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
+If you don't want to build default example ([`src/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/src/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
 
 * [`package.json`][package.json]'s `dependencies`
-* [`internals/configs/webpack.default.config.babel.js`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/webpack.default.config.babel.js#L13)'s `entries.common`
 
 #### Step 3
 
@@ -156,7 +141,7 @@ npm install
 
 #### Step 4 (optional)
 
-You can remove demo code and get a clean codebase:
+You can remove example code and get a clean codebase:
 
 ```
 npm run empty
@@ -235,9 +220,8 @@ npm run new
 
 * `npm run new entry:react` - Add a new entry point (with React)
 * `npm run new entry:redux` - Add a new entry point (with React + Redux)
-* `npm run new demo:react` - Add a new entry point for demo (with React) // NOTE: run `npm run new initDemo` first', see [.gitignore][gitignore]
-* `npm run new demo:redux` - Add a new entry point for demo (with React + Redux) // NOTE: run `npm run new initDemo` first', see [.gitignore][gitignore]
-* `npm run new initDemo` - Initialize config files for demo entries
+* `npm run new demo:react` - Add a new entry point for demo (with React)
+* `npm run new demo:redux` - Add a new entry point for demo (with React + Redux)
 
 Generator scripts:
 
@@ -375,9 +359,9 @@ Just upload:
 npm run redeploy:staticweb
 ```
 
-Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in `env.config`.
+Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in [`env.config`](#step-1).
 
-For example, you must choose a static cloud provider in `env.config`:
+For example, you must choose a static cloud provider in [`env.config`](#step-1):
 
 ```ini
 APP_DEPLOY_STATIC_CLOUD=oss

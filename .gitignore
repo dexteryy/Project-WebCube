@@ -15,5 +15,4 @@ src/components/Demo*
 staticweb/demo*
 demo*.spec.js
 Demo*.spec.js
-internals/configs/webpack.demo.*
 internals/configs/webpack.nodejs.*

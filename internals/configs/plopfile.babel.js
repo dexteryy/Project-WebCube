@@ -102,14 +102,12 @@ module.exports = function (plop) {
         message: 'What is the name of new entry point? (hyphen-separated lowercase, i.e. "about-page")',
         validate,
       }],
-      actions: data => {
-        const entryNameKey = /^\w+$/.test(data.entryName)
-          ? '{{entryName}}' : '\'{{entryName}}\'';
+      actions: () => {
         return opt.actions.concat([{
           type: 'modify',
-          path: 'webpack.default.config.babel.js',
-          pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW ENTRY WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
-          template: `$1${entryNameKey}: [\'./staticweb/{{entryName}}/deploy.js\'],\n$1$2`,
+          path: 'env.config',
+          pattern: /([.\n\r]*)/,
+          template: `$1\n\nAPP_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
         }]);
       },
     };
@@ -143,33 +141,26 @@ module.exports = function (plop) {
           return 'Wrong, a demo entry\'s name must begin with "demo-", i.e. "demo-app"';
         },
       }],
-      actions: opt.actions.concat([{
-        type: 'modify',
-        path: 'webpack.demo.config.babel.js',
-        pattern: /^(\s*)(\/\* DO NOT MODIFY THIS! NEW DEMO WILL BE AUTOMATICALLY APPENDED TO HERE \*\/)/m,
-        template: '$1\'{{entryName}}\': defaultCode.concat([\'./staticweb/{{entryName}}/deploy.js\']),\n$1$2',
-      }]),
+      actions: () => {
+        return opt.actions.concat([{
+          type: 'modify',
+          path: 'env.config',
+          pattern: /([.\n\r]*)/,
+          template: `$1\n\nAPP_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
+        }]);
+      },
     };
   };
 
   plop.setGenerator('demo:react', getDemoOpt({
-    description: 'Add a new entry point for demo (with React) // NOTE: run `npm run new initDemo` first',
+    description: 'Add a new entry point for demo (with React)',
     actions: addReactEntryActions,
   }));
 
   plop.setGenerator('demo:redux', getDemoOpt({
-    description: 'Add a new entry point for demo (with React + Redux) // NOTE: run `npm run new initDemo` first',
+    description: 'Add a new entry point for demo (with React + Redux)',
     actions: addReduxEntryActions,
   }));
-
-  plop.setGenerator('initDemo', {
-    description: 'Initialize config files for demo entries',
-    actions: [{
-      type: 'add',
-      path: 'webpack.demo.config.babel.js',
-      templateFile: '../templates/configs/webpack.demo.config.babel.js',
-    }],
-  });
 
 };
 
