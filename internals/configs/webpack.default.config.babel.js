@@ -119,10 +119,10 @@ module.exports = {
   },
   resolve: {
     root: [
-      path.join(rootPath, 'src'),
+      path.join(rootPath, 'app'),
     ],
     alias: {
-      src: path.join(rootPath, 'src'),
+      app: path.join(rootPath, 'app'),
       internals: path.join(rootPath, 'internals'),
     },
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],

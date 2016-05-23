@@ -7,20 +7,20 @@ module.exports = function (plop) {
 
   const addReactEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/index.js'),
-    templateFile: '../templates/src/entries/react/index.js',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    templateFile: '../templates/app/entries/react/index.js',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: '../templates/src/entries/react/containers/App.jsx',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
+    templateFile: '../templates/app/entries/react/containers/App.jsx',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/App.scss'),
-    templateFile: '../templates/src/entries/react/containers/App.scss',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
+    templateFile: '../templates/app/entries/react/containers/App.scss',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: '../templates/src/entries/react/styles/_variables.scss',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
+    templateFile: '../templates/app/entries/react/styles/_variables.scss',
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -35,46 +35,46 @@ module.exports = function (plop) {
     templateFile: '../templates/staticweb/deploy.scss',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/tests/index.spec.js'),
+    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
     templateFile: '../templates/test/functionals/entry.spec.js',
   }];
 
   const addReduxEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/index.js'),
-    templateFile: '../templates/src/entries/react-redux/index.js',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    templateFile: '../templates/app/entries/react-redux/index.js',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/routes/index.jsx'),
-    templateFile: '../templates/src/entries/react-redux/routes/index.jsx',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
+    templateFile: '../templates/app/entries/react-redux/routes/index.jsx',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/reducers/index.js'),
-    templateFile: '../templates/src/entries/react-redux/reducers/index.js',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/reducers/index.js'),
+    templateFile: '../templates/app/entries/react-redux/reducers/index.js',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/actions/index.js'),
-    templateFile: '../templates/src/entries/react-redux/actions/index.js',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/actions/index.js'),
+    templateFile: '../templates/app/entries/react-redux/actions/index.js',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: '../templates/src/entries/react-redux/containers/App.jsx',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
+    templateFile: '../templates/app/entries/react-redux/containers/App.jsx',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/App.scss'),
-    templateFile: '../templates/src/entries/react-redux/containers/App.scss',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
+    templateFile: '../templates/app/entries/react-redux/containers/App.scss',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/Home.jsx'),
-    templateFile: '../templates/src/entries/react-redux/containers/Home.jsx',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.jsx'),
+    templateFile: '../templates/app/entries/react-redux/containers/Home.jsx',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/containers/Home.scss'),
-    templateFile: '../templates/src/entries/react-redux/containers/Home.scss',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.scss'),
+    templateFile: '../templates/app/entries/react-redux/containers/Home.scss',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: '../templates/src/entries/react-redux/styles/_variables.scss',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
+    templateFile: '../templates/app/entries/react-redux/styles/_variables.scss',
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -89,7 +89,7 @@ module.exports = function (plop) {
     templateFile: '../templates/staticweb/deploy.scss',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'src/entries/{{entryName}}/tests/index.spec.js'),
+    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
     templateFile: '../templates/test/functionals/entry.spec.js',
   }];
 

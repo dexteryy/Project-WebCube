@@ -1,4 +1,4 @@
 
-import app from './src/entries/example-app';
+import app from './app/entries/floducer';
 
 export default app;

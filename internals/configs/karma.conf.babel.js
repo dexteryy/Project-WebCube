@@ -53,12 +53,12 @@ module.exports = function (config) {
       // 'chai-things',
     ],
     preprocessors: {
-      'src/**/*.test.js': ['webpack', 'sourcemap'],
-      // '../src/**/*.(js|jsx)': ['coverage'],
+      'app/**/*.test.js': ['webpack', 'sourcemap'],
+      // 'app/**/*.(js|jsx)': ['coverage'],
     },
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*.test.js',
+      'app/**/*.test.js',
     ],
     // list of files to exclude
     exclude: [

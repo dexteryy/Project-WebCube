@@ -9,9 +9,9 @@ build/public/*
 build/public/static/*
 !build/public/static/favicon.png
 coverage/
-src/entries/demo*
-src/data/demo*
-src/components/Demo*
+app/entries/demo*
+app/data/demo*
+app/components/Demo*
 staticweb/demo*
 demo*.spec.js
 Demo*.spec.js

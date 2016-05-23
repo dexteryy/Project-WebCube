@@ -25,10 +25,10 @@
 
 Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/internals/lib/boilerplate/AppSkeleton.js):
 
-- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/src/entries/react-redux/index.js)
-- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/src/entries/react-redux/containers/Home.jsx)
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/app/entries/react-redux/index.js)
+- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
 - ...
 
 ## Structure
@@ -44,7 +44,7 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
     - **boilerplate/** - Boilerplate code for app
   - **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
   - **declarations/** - [Flow Declarations](http://flowtype.org/docs/declarations.html)
-- **src/** - All source code for runtime (shared between client-side and server-side), including JS, CSS and assets
+- **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
   - **components/** - [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
   - **entries/** - Multiple entry points, see [details](#multiple-entry-points-optional)
     - _**example-app/**_ - Entry point, see [details](#single-entry-point)
@@ -87,15 +87,15 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
 
 > NOTE: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
 
-[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`src/entries/example-app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/example-app/index.js)
+[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`app/entries/example-app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/example-app/index.js)
 
 #### Multiple Entry Points (optional)
 
 Add files:
 
-* `src/entries/page1/index.js`
-* `src/entries/page2/index.js`
-* `src/entries/demo-page2/index.js`
+* `app/entries/page1/index.js`
+* `app/entries/page2/index.js`
+* `app/entries/demo-page2/index.js`
 * `staticweb/page1/index.html`
 * `staticweb/page2/index.html`
 * `staticweb/demo-page2/index.html`
@@ -103,9 +103,9 @@ Add files:
 Edit the [`env.config`](#step-1):
 
 ```ini
-APP_ENTRY_PAGE1="./src/entries/page1"
-APP_ENTRY_PAGE2="./src/entries/page2"
-APP_DEMO_PAGE2="./src/entries/demo-page2"
+APP_ENTRY_PAGE1="./app/entries/page1"
+APP_ENTRY_PAGE2="./app/entries/page2"
+APP_DEMO_PAGE2="./app/entries/demo-page2"
 ```
 
 Edit the `staticweb/page1/index.html`:
@@ -127,7 +127,7 @@ First of all, you must create a `env.config` file in the root directory. [`inter
 
 #### Step 2 (optional)
 
-If you don't want to build default example ([`src/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/src/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
+If you don't want to build default example ([`app/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/app/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
 
 * [`package.json`][package.json]'s `dependencies`
 
@@ -147,7 +147,7 @@ You can remove example code and get a clean codebase:
 npm run empty
 ```
 
-If this is the case, you must create your own entry code in [`src/entries/`](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/) before building.
+If this is the case, you must create your own entry code in [`app/entries/`](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/) before building.
 
 You can [generate an entry](#micro-generator) with one command:
 
@@ -233,13 +233,13 @@ Functional tests:
 
 * NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 * Naming convention: `**/*.spec.js`
-* Example: [src/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/static-app-starter/blob/master/src/entries/example-app/tests/index.spec.js)
+* Example: [app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/example-app/tests/index.spec.js)
 
 Unit tests:
 
 * [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
 * Naming convention: `**/*.test.js`
-* Example: [src/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/static-app-starter/blob/master/src/components/WelcomeBox/tests/index.test.js)
+* Example: [app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/static-app-starter/blob/master/app/components/WelcomeBox/tests/index.test.js)
 
 Manually run functional tests (run automatically after building):
 

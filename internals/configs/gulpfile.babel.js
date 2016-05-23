@@ -49,7 +49,7 @@ const devServerConfig = {
 
 function buildApp(myWebpackConfig) {
   let stream = gulp.src([
-    'src/**/*.js',
+    'app/**/*.js',
     'staticweb/**/*.js',
   ], { cwd: rootPath })
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -127,7 +127,7 @@ function buildHTML() {
 
 function testFunctional() {
   return gulp.src([
-    'src/**/*.spec.js',
+    'app/**/*.spec.js',
     'server/**/*.spec.js',
   ], { cwd: rootPath, read: false })
     // Gulp-mocha needs filepaths so you can't have any plugins before it
@@ -205,10 +205,10 @@ function stopStaticWebServer(done) {
 
 gulp.task('clean:empty', (done) => {
   del([
-    'src/entries/*',
-    'src/components/*',
-    'src/data/*',
-    'src/assets/*',
+    'app/entries/*',
+    'app/components/*',
+    'app/data/*',
+    'app/assets/*',
     'staticweb/*',
   ], { cwd: rootPath }).then(() => {
     gulp.src([
@@ -238,7 +238,7 @@ gulp.task('clean:html', (done) => {
 
 gulp.task('check:scss', [], () => {
   return gulp.src([
-    'src/**/*.scss',
+    'app/**/*.scss',
     'staticweb/**/*.scss',
   ], { cwd: rootPath })
     .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
@@ -265,7 +265,7 @@ gulp.task('check:scss', [], () => {
 
 gulp.task('check:css', [], () => {
   return gulp.src([
-    'src/**/*.css',
+    'app/**/*.css',
     'staticweb/**/*.css',
   ], { cwd: rootPath })
     .pipe(gulpif(!process.env.APP_DISABLE_STYLELINT,
@@ -281,7 +281,7 @@ gulp.task('check:css', [], () => {
 
 gulp.task('check:js', [], () => {
   return gulp.src([
-    'src/**/*.@(js|jsx)',
+    'app/**/*.@(js|jsx)',
     'staticweb/**/*.@(js|jsx)',
     'internals/lib/**/*.js',
     'internals/utils/**/*.js',
