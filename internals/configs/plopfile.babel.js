@@ -105,8 +105,8 @@ module.exports = function (plop) {
       actions: () => {
         return opt.actions.concat([{
           type: 'modify',
-          path: 'env.config',
-          pattern: /([.\n\r]*)/,
+          path: path.join(rootPath, 'env.config'),
+          pattern: /([\s\S]*)/,
           template: `$1\n\nAPP_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
         }]);
       },
@@ -144,8 +144,8 @@ module.exports = function (plop) {
       actions: () => {
         return opt.actions.concat([{
           type: 'modify',
-          path: 'env.config',
-          pattern: /([.\n\r]*)/,
+          path: path.join(rootPath, 'env.config'),
+          pattern: /([\s\S]*)/,
           template: `$1\n\nAPP_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
         }]);
       },
