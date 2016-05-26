@@ -36,6 +36,8 @@
     "float",
     "clear",
     "overflow",
+    "overflow-x",
+    "overflow-y",
     "z-index",
 
     "flex",
@@ -95,6 +97,7 @@
     "border-left-color",
     "border-collapse",
     "border-spacing",
+    "box-sizing",
     "box-shadow",
     "outline",
     "outline-color",

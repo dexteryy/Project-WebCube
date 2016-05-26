@@ -14,11 +14,11 @@ const mutiplEntries = {};
 for (const name in process.env) {
   const entryName = (/APP_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
   if (entryName) {
-    mutiplEntries[kebabCase(entryName)] = process.env[name];
+    mutiplEntries[kebabCase(entryName)] = [process.env[name]];
   }
   const demoName = (/APP_(DEMO_[A-Z_]+)/.exec(name) || [])[1];
   if (demoName) {
-    mutiplEntries[kebabCase(demoName)] = process.env[name];
+    mutiplEntries[kebabCase(demoName)] = [process.env[name]];
   }
 }
 
@@ -44,6 +44,19 @@ for (const entry in entries) {
     // entries[entry].unshift('webpack-hot-middleware/client');
   }
 }
+
+// bug: internals/configs/gulpfile + sourcemap
+// new webpack.ProvidePlugin({
+//   fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+// }),
+const definePluginOpt = {
+  'process.env.NODE_ENV': util.isProductionEnv
+    ? '\'production\'' : '\'development\'',
+};
+const runtimeVars = JSON.parse(process.env.RUNTIME_ENV_VARS || null) || [];
+runtimeVars.forEach(name => {
+  definePluginOpt[`process.env.${name}`] = `'${process.env[name] || ''}'`;
+});
 
 const babelLoaderPlugins = [
   // https://phabricator.babeljs.io/T2645
@@ -209,14 +222,7 @@ module.exports = {
   },
   plugins: [
     // http://mts.io/2015/04/08/webpack-shims-polyfills/
-    // bug: internals/configs/gulpfile + sourcemap
-    // new webpack.ProvidePlugin({
-    //   fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-    // }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': util.isProductionEnv
-        ? '\'production\'' : '\'development\'',
-    }),
+    new webpack.DefinePlugin(definePluginOpt),
     // https://github.com/webpack/webpack/issues/198
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   ].concat(process.env.APP_ENABLE_COMMON_CHUNK ? [
