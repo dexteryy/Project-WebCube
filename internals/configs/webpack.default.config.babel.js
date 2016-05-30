@@ -33,7 +33,9 @@ const entries = Object.assign({
 
 for (const entry in entries) {
   // or babel-runtime
-  // entries[entry].unshift('babel-polyfill');
+  if (process.env.APP_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
+    entries[entry].unshift('babel-polyfill');
+  }
   if (util.liveMode === 'refresh') {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
     entries[entry].unshift(`webpack-dev-server/client?http://${util.serverHost}:${util.serverPort}`);
@@ -61,9 +63,13 @@ runtimeVars.forEach(name => {
 const babelLoaderPlugins = [
   // https://phabricator.babeljs.io/T2645
   'transform-decorators-legacy',
-  // or babel-polyfill
-  ['transform-runtime', { polyfill: true, regenerator: true }],
 ];
+if (!process.env.APP_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
+  // bug: ReferenceError: Can't find variable: Symbol
+  //      https://github.com/gajus/react-css-modules/issues/66
+  babelLoaderPlugins.push(['transform-runtime', { polyfill: true, regenerator: true }]);
+}
+
 const reactTransformPlugins = ['react-transform', {
   transforms: [
     {
@@ -219,6 +225,9 @@ module.exports = {
       }),
       postcssReporter(),
     ];
+  },
+  sassLoader: {
+    includePaths: [path.join(rootPath, 'node_modules')],
   },
   plugins: [
     // http://mts.io/2015/04/08/webpack-shims-polyfills/

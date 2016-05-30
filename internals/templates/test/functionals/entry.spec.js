@@ -3,7 +3,7 @@ import chai from 'chai';
 import Nightmare from 'nightmare';
 // import Chance from 'chance';
 
-const util = require('internals/utils');
+const util = require('../../../../internals/utils');
 
 mochaGenerators.install();
 chai.should();

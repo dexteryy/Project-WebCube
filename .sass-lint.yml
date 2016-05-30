@@ -129,6 +129,7 @@ rules:
     -
       extra-properties:
         - composes
+        - touch-callout
   # enforce that selectors are not allowed to have qualifying elements
   no-qualifying-elements:
     - 2
@@ -142,7 +143,7 @@ rules:
   no-url-protocols: 2
   # enforce that vendor prefixes are not allowed to be used
   no-vendor-prefixes:
-    - 2
+    - 0
     - additional-identifiers: []
       excluded-identifiers: []
   # enforce that @warn statements are not allowed to be used
@@ -164,6 +165,7 @@ rules:
       order:
         - all
         - composes
+        - appearance
         - display
         - position
         - top
@@ -288,6 +290,15 @@ rules:
         - transition-duration
         - transition-property
         - transition-timing-function
+        - animation
+        - animation-duration
+        - animation-timing-function
+        - animation-delay
+        - animation-iteration-count
+        - animation-direction
+        - animation-fill-mode
+        - animation-play-state
+        - animation-name
         - content
         - quotes
         - cursor

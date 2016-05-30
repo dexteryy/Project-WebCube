@@ -400,6 +400,7 @@ rules:
       "$include",
       "$variable",
 
+      "appearance",
       "display",
       "position",
       "top",
@@ -530,6 +531,15 @@ rules:
       "transition-duration",
       "transition-property",
       "transition-timing-function",
+      "animation",
+      "animation-duration",
+      "animation-timing-function",
+      "animation-delay",
+      "animation-iteration-count",
+      "animation-direction",
+      "animation-fill-mode",
+      "animation-play-state",
+      "animation-name",
 
       "content",
       "quotes",
@@ -601,7 +611,7 @@ rules:
   # http://stylelint.io/user-guide/rules/at-rule-empty-line-before/
   at-rule-empty-line-before:
     - "always"
-    - except: ["blockless-group"]
+    - except: ["blockless-group", "first-nested"]
     - ignore: ["after-comment", "all-nested"]
 
   # Disallow vendor prefixes for @rules.

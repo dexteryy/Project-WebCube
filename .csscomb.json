@@ -23,10 +23,10 @@
   "unitless-zero": true,
   "sort-order-fallback": "",
   "sort-order": [
-    "...",
     "$include",
     "$variable",
 
+    "appearance",
     "display",
     "position",
     "top",
@@ -157,10 +157,21 @@
     "transition-duration",
     "transition-property",
     "transition-timing-function",
+    "animation",
+    "animation-duration",
+    "animation-timing-function",
+    "animation-delay",
+    "animation-iteration-count",
+    "animation-direction",
+    "animation-fill-mode",
+    "animation-play-state",
+    "animation-name",
 
     "content",
     "quotes",
     "cursor",
-    "speak"
+    "speak",
+
+    "..."
   ]
 }
