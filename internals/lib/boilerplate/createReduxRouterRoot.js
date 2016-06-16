@@ -14,7 +14,7 @@ import {
   syncHistoryWithStore, routerMiddleware, routerReducer,
 } from 'react-router-redux';
 
-export default function createRoot(opt: Object): Function {
+export default function createReduxRouterRoot(opt: Object): Function {
   const initialState = opt.initialState;
   const logger = createLogger();
   const devTools = [];

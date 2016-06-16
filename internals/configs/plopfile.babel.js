@@ -39,7 +39,45 @@ module.exports = function (plop) {
     templateFile: '../templates/test/functionals/entry.spec.js',
   }];
 
-  const addReduxEntryActions = [{
+  const addReactRouterEntryActions = [{
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    templateFile: '../templates/app/entries/react-router/index.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
+    templateFile: '../templates/app/entries/react-router/containers/App.jsx',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
+    templateFile: '../templates/app/entries/react-router/containers/App.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
+    templateFile: '../templates/app/entries/react-router/routes/index.jsx',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
+    templateFile: '../templates/app/entries/react-router/styles/_variables.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+    templateFile: '../templates/staticweb/index.html',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+    templateFile: '../templates/staticweb/deploy.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
+    templateFile: '../templates/staticweb/deploy.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
+    templateFile: '../templates/test/functionals/entry.spec.js',
+  }];
+
+  const addReactReduxEntryActions = [{
     type: 'add',
     path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
     templateFile: '../templates/app/entries/react-redux/index.js',
@@ -118,9 +156,14 @@ module.exports = function (plop) {
     actions: addReactEntryActions,
   }));
 
-  plop.setGenerator('entry:redux', getEntryOpt({
-    description: 'Add a new entry point (with React + Redux)',
-    actions: addReduxEntryActions,
+  plop.setGenerator('entry:react-router', getEntryOpt({
+    description: 'Add a new entry point (with React + Router)',
+    actions: addReactRouterEntryActions,
+  }));
+
+  plop.setGenerator('entry:react-redux', getEntryOpt({
+    description: 'Add a new entry point (with React + Redux + Router)',
+    actions: addReactReduxEntryActions,
   }));
 
   const getDemoOpt = opt => {
@@ -157,9 +200,14 @@ module.exports = function (plop) {
     actions: addReactEntryActions,
   }));
 
-  plop.setGenerator('demo:redux', getDemoOpt({
-    description: 'Add a new entry point for demo (with React + Redux)',
-    actions: addReduxEntryActions,
+  plop.setGenerator('demo:react-router', getDemoOpt({
+    description: 'Add a new entry point for demo (with React + Router)',
+    actions: addReactRouterEntryActions,
+  }));
+
+  plop.setGenerator('demo:react-redux', getDemoOpt({
+    description: 'Add a new entry point for demo (with React + Redux + Router)',
+    actions: addReactReduxEntryActions,
   }));
 
 };

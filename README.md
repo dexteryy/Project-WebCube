@@ -26,7 +26,8 @@
 Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/internals/lib/boilerplate/AppSkeleton.js):
 
 - `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/app/entries/react-redux/index.js)
-- `createRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
+- `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-router/index.js)
+- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
 - `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
 - `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
 - ...

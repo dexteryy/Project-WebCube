@@ -1,13 +1,11 @@
 /* @flow */
 
-import { AppSkeleton, createReduxRouterRoot } from 'internals/lib/boilerplate';
+import { AppSkeleton, createReactRouterRoot } from 'internals/lib/boilerplate';
 import routes from './routes';
-import reducers from './reducers/';
 
 type AppOpt = {
   isStaticWeb?: boolean,
   enablePerf?: boolean,
-  DevTools?: Object,
 }
 
 export default class App extends AppSkeleton {
@@ -16,10 +14,9 @@ export default class App extends AppSkeleton {
 
   constructor(userOpt: AppOpt) {
     super(userOpt);
-    this.createRoot = createReduxRouterRoot;
+    this.createRoot = createReactRouterRoot;
     this.initRoot({
       routes,
-      reducers,
     });
   }
 
