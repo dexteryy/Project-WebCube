@@ -62,7 +62,7 @@ export default class ResultBox extends Component {
     };
     return (
       <WelcomeBox
-        { ...{ message, bgColor, boxStyle } }>
+        {...{ message, bgColor, boxStyle }}>
         <ReactCSSTransitionGroup
           styleName="cards"
           transitionName={{

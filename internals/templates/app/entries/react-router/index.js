@@ -1,6 +1,7 @@
 /* @flow */
 
-import { AppSkeleton, createReactRouterRoot } from 'internals/lib/boilerplate';
+import AppSkeleton from 'internals/lib/boilerplate/AppSkeleton';
+import createReactRouterRoot from 'internals/lib/boilerplate/createReactRouterRoot';
 import routes from './routes';
 
 type AppOpt = {

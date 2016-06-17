@@ -28,7 +28,7 @@ rules:
 
   # Specify whether or not quotation marks should be used around font family names, and whether single or double.
   # http://stylelint.io/user-guide/rules/font-family-name-quotes/
-  font-family-name-quotes: "single-unless-keyword"
+  font-family-name-quotes: "always-unless-keyword"
 
   # Font weight
 
@@ -76,7 +76,7 @@ rules:
 
   # Specify single, double or no quotes for urls.
   # http://stylelint.io/user-guide/rules/function-url-quotes/
-  function-url-quotes: "single"
+  function-url-quotes: "always"
 
   # Specify a whitelist of only allowed functions.
   # http://stylelint.io/user-guide/rules/function-whitelist/
@@ -101,8 +101,8 @@ rules:
   number-no-trailing-zeros: null
 
   # Disallow units for zero lengths.
-  # http://stylelint.io/user-guide/rules/number-zero-length-no-unit/
-  number-zero-length-no-unit: true
+  # http://stylelint.io/user-guide/rules/length-zero-no-unit/
+  length-zero-no-unit: true
 
   # String
 

@@ -34,7 +34,7 @@ function FlipboardLogo({
   const col = getColors(colors);
   return (
     <svg
-      { ...{ width, height } }
+      {...{ width, height }}
       viewBox="0 0 500 500">
       <g
         style={{

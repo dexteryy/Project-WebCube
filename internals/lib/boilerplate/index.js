@@ -1,22 +1,19 @@
 
 import AppSkeleton from './AppSkeleton';
-import createReactRouterRoot from './createReactRouterRoot';
 import createReduxRouterRoot from './createReduxRouterRoot';
 import pureRender from './pureRender';
 import connect from './connect';
-import { deprecate } from 'core-decorators';
 
-const createRoot = deprecate(createReduxRouterRoot);
+const createRoot = createReduxRouterRoot;
+const stateSelector = connect.stateSelector;
+const actionDispatcher = connect.actionDispatcher;
 
 export {
   AppSkeleton,
-  createReactRouterRoot,
   createReduxRouterRoot,
   createRoot,
   pureRender,
   connect,
+  stateSelector,
+  actionDispatcher,
 };
-
-export const stateSelector = connect.stateSelector;
-
-export const actionDispatcher = connect.actionDispatcher;

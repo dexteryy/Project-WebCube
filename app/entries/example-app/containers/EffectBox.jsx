@@ -96,7 +96,7 @@ export default class EffectBox extends Component {
       handleSubmit: this.handleSubmit,
     };
     return (
-      <SelectorBox { ...opt } />
+      <SelectorBox {...opt} />
     );
   }
 

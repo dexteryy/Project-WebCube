@@ -63,7 +63,7 @@
     "flux-standard-action": "^0.6.1",
     "font-awesome": "^4.6.3",
     "hint.css": "^2.3.1",
-    "history": "^3.0.0",
+    "history": "2.1.2",
     "hoist-non-react-statics": "^1.1.0",
     "hover.css": "^2.0.2",
     "immutable": "^3.8.1",
