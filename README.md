@@ -25,11 +25,12 @@
 
 Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/internals/lib/boilerplate/AppSkeleton.js):
 
-- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/app/entries/react-redux/index.js)
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/app/entries/react-redux-router/index.js)
 - `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-router/index.js)
-- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/containers/Home.jsx)
+- `createReduxRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
+- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/containers/Home.jsx)
 - ...
 
 ## Structure
@@ -152,15 +153,10 @@ If this is the case, you must create your own entry code in [`app/entries/`](htt
 
 You can [generate an entry](#micro-generator) with one command:
 
-```
-npm run new entry:react
-```
-
-or
-
-```
-npm run new entry:redux
-```
+* `npm run new entry:react`
+* `npm run new entry:react-router`
+* `npm run new entry:react-redux`
+* `npm run new entry:react-redux-router`
 
 ## Building
 
@@ -220,9 +216,13 @@ npm run new
 ```
 
 * `npm run new entry:react` - Add a new entry point (with React)
-* `npm run new entry:redux` - Add a new entry point (with React + Redux)
+* `npm run new entry:react-router` - Add a new entry point (with React + Router)
+* `npm run new entry:react-redux` - Add a new entry point (with React + Redux)
+* `npm run new entry:react-redux-router` - Add a new entry point (with React + Redux + Router)
 * `npm run new demo:react` - Add a new entry point for demo (with React)
-* `npm run new demo:redux` - Add a new entry point for demo (with React + Redux)
+* `npm run new demo:react-router` - Add a new entry point for demo (with React + Router)
+* `npm run new demo:react-redux` - Add a new entry point for demo (with React + Redux)
+* `npm run new demo:react-redux-router` - Add a new entry point for demo (with React + Redux + Router)
 
 Generator scripts:
 

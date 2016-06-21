@@ -1,7 +1,8 @@
 /* @flow */
 
-import { AppSkeleton, createReduxRouterRoot } from 'internals/lib/boilerplate';
-import routes from './routes';
+import AppSkeleton from 'internals/lib/boilerplate/AppSkeleton';
+import createReduxRoot from 'internals/lib/boilerplate/createReduxRoot';
+import AppRoot from './containers/App';
 import reducers from './reducers/';
 
 type AppOpt = {
@@ -16,9 +17,9 @@ export default class App extends AppSkeleton {
 
   constructor(userOpt: AppOpt) {
     super(userOpt);
-    this.createRoot = createReduxRouterRoot;
+    this.createRoot = createReduxRoot;
     this.initRoot({
-      routes,
+      root: AppRoot,
       reducers,
     });
   }

@@ -83,10 +83,6 @@ module.exports = function (plop) {
     templateFile: '../templates/app/entries/react-redux/index.js',
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
-    templateFile: '../templates/app/entries/react-redux/routes/index.jsx',
-  }, {
-    type: 'add',
     path: path.join(rootPath, 'app/entries/{{entryName}}/reducers/index.js'),
     templateFile: '../templates/app/entries/react-redux/reducers/index.js',
   }, {
@@ -113,6 +109,60 @@ module.exports = function (plop) {
     type: 'add',
     path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
     templateFile: '../templates/app/entries/react-redux/styles/_variables.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+    templateFile: '../templates/staticweb/index.html',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+    templateFile: '../templates/staticweb/deploy.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
+    templateFile: '../templates/staticweb/deploy.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
+    templateFile: '../templates/test/functionals/entry.spec.js',
+  }];
+
+  const addReactReduxRouterEntryActions = [{
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    templateFile: '../templates/app/entries/react-redux-router/index.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
+    templateFile: '../templates/app/entries/react-redux-router/routes/index.jsx',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/reducers/index.js'),
+    templateFile: '../templates/app/entries/react-redux-router/reducers/index.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/actions/index.js'),
+    templateFile: '../templates/app/entries/react-redux-router/actions/index.js',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
+    templateFile: '../templates/app/entries/react-redux-router/containers/App.jsx',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
+    templateFile: '../templates/app/entries/react-redux-router/containers/App.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.jsx'),
+    templateFile: '../templates/app/entries/react-redux-router/containers/Home.jsx',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.scss'),
+    templateFile: '../templates/app/entries/react-redux-router/containers/Home.scss',
+  }, {
+    type: 'add',
+    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
+    templateFile: '../templates/app/entries/react-redux-router/styles/_variables.scss',
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -162,8 +212,13 @@ module.exports = function (plop) {
   }));
 
   plop.setGenerator('entry:react-redux', getEntryOpt({
-    description: 'Add a new entry point (with React + Redux + Router)',
+    description: 'Add a new entry point (with React + Redux)',
     actions: addReactReduxEntryActions,
+  }));
+
+  plop.setGenerator('entry:react-redux-router', getEntryOpt({
+    description: 'Add a new entry point (with React + Redux + Router)',
+    actions: addReactReduxRouterEntryActions,
   }));
 
   const getDemoOpt = opt => {
@@ -206,8 +261,13 @@ module.exports = function (plop) {
   }));
 
   plop.setGenerator('demo:react-redux', getDemoOpt({
-    description: 'Add a new entry point for demo (with React + Redux + Router)',
+    description: 'Add a new entry point for demo (with React + Redux)',
     actions: addReactReduxEntryActions,
+  }));
+
+  plop.setGenerator('demo:react-redux-router', getDemoOpt({
+    description: 'Add a new entry point for demo (with React + Redux + Router)',
+    actions: addReactReduxRouterEntryActions,
   }));
 
 };

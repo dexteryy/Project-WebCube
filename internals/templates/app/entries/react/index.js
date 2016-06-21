@@ -2,7 +2,7 @@
 
 import React from 'react';
 import AppSkeleton from 'internals/lib/boilerplate/AppSkeleton';
-import Provider from './containers/App';
+import AppRoot from './containers/App';
 
 type AppOpt = {
   isStaticWeb?: boolean,
@@ -17,7 +17,7 @@ export default class App extends AppSkeleton {
     super(userOpt);
     this.createRoot = () => {
       return function Root() {
-        return React.createElement(Provider, {});
+        return React.createElement(AppRoot, {});
       };
     };
     this.initRoot();
