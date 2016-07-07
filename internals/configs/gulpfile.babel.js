@@ -37,7 +37,7 @@ const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
   publicPath: util.isCloudEnv
     ? process.env.APP_DEPLOY_STATIC_ROOT
-    : '/static/',
+    : `/${process.env.APP_STATIC_ROOT}/`,
   hot: util.liveMode === 'hmr',
   noInfo: true,
   stats: { colors: true },
@@ -55,7 +55,7 @@ function buildApp(myWebpackConfig) {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/public/static/', { cwd: rootPath }));
+    .pipe(gulp.dest(`build/public/${process.env.APP_STATIC_ROOT}/`, { cwd: rootPath }));
   if (util.isProductionEnv) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
@@ -64,13 +64,13 @@ function buildApp(myWebpackConfig) {
       .pipe(rename({
         suffix: '_min',
       }))
-      .pipe(gulp.dest('build/public/static/', { cwd: rootPath }))
+      .pipe(gulp.dest(`build/public/${process.env.APP_STATIC_ROOT}/`, { cwd: rootPath }))
       .pipe(jsFilter.restore)
       .pipe(cssFilter)
       .pipe(rename({
         suffix: '_min',
       }))
-      .pipe(gulp.dest('build/public/static/', { cwd: rootPath }))
+      .pipe(gulp.dest(`build/public/${process.env.APP_STATIC_ROOT}/`, { cwd: rootPath }))
       .pipe(cssFilter.restore);
   }
   return stream;
@@ -223,16 +223,16 @@ gulp.task('clean:empty', (done) => {
 
 gulp.task('clean:app', (done) => {
   del([
-    'build/public/static/js/**',
-    'build/public/static/css/**',
-    'build/public/static/assets/**',
-    'build/public/static/data/**',
+    `build/public/${process.env.APP_STATIC_ROOT}/js/**`,
+    `build/public/${process.env.APP_STATIC_ROOT}/css/**`,
+    `build/public/${process.env.APP_STATIC_ROOT}/assets/**`,
+    `build/public/${process.env.APP_STATIC_ROOT}/data/**`,
   ], { cwd: rootPath }).then(() => done());
 });
 
 gulp.task('clean:html', (done) => {
   del([
-    'build/public/!(static)/**',
+    `build/public/!(${process.env.APP_STATIC_ROOT})/**`,
   ], { cwd: rootPath }).then(() => done());
 });
 
@@ -366,23 +366,23 @@ gulp.task('build', [
 gulp.task('deploy:html', [
   'build:html',
 ], cloudAdapter.deployHTML([
-  'build/public/!(static)/**/*.html',
+  `build/public/!(${process.env.APP_STATIC_ROOT})/**/*.html`,
 ], { cwd: rootPath }));
 
 gulp.task('deploy:static', [
   'build:html',
 ], cloudAdapter.deployStatic([
-  'build/public/static/**/*',
+  `build/public/${process.env.APP_STATIC_ROOT}/**/*`,
 ], { cwd: rootPath }));
 
 gulp.task('redeploy:html', [
 ], cloudAdapter.deployHTML([
-  'build/public/!(static)/**/*.html',
+  `build/public/!(${process.env.APP_STATIC_ROOT})/**/*.html`,
 ], { cwd: rootPath }));
 
 gulp.task('redeploy:static', [
 ], cloudAdapter.deployStatic([
-  'build/public/static/**/*',
+  `build/public/${process.env.APP_STATIC_ROOT}/**/*`,
 ], { cwd: rootPath }));
 
 gulp.task('deploy:staticweb', [

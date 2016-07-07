@@ -131,10 +131,10 @@ module.exports = {
     chunkFilename: util.isProductionEnv
       ? 'js/[name]_[hash].js'
       : 'js/[name].js',
-    path: path.join(rootPath, 'build/public/static/'),
+    path: path.join(rootPath, `build/public/${process.env.APP_STATIC_ROOT}/`),
     publicPath: util.isCloudEnv
       ? process.env.APP_DEPLOY_STATIC_ROOT
-      : '/static/',
+      : `/${process.env.APP_STATIC_ROOT}/`,
   },
   resolve: {
     root: [

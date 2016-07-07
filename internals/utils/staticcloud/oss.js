@@ -6,15 +6,15 @@ import gutil from 'gulp-util';
 import mime from 'mime-types';
 import ALY from 'aliyun-sdk';
 
-const mimeOverride = {
-};
-
 const oss = new ALY.OSS({
   accessKeyId: process.env.APP_DEPLOY_OSS_ID,
   secretAccessKey: process.env.APP_DEPLOY_OSS_SECRET,
   endpoint: process.env.APP_DEPLOY_OSS_ENDPOINT,
   apiVersion: '2013-10-15',
 });
+
+const mimeOverride = {
+};
 
 function parsePath(strPath) {
   const extname = path.extname(strPath);
@@ -49,12 +49,8 @@ function deploy(opt) {
       AccessControlAllowOrigin: '',
       ContentType: contentType,
       CacheControl: opt.CacheControl || 'no-cache',
-      // ContentDisposition: 'attachment; '
-      //   + `filename="${parsedPath.basename}${parsedPath.extname}"`,
       ContentEncoding: contentEncoding,
       Expires: null,
-      // ServerSideEncryption: 'AES256',
-      // 'x-oss-object-acl': 'public-read',
     }, function (err, data) {
       if (err) {
         gutil.log('error:', err.code, err.message);
@@ -86,7 +82,7 @@ export function deployStatic(src, opt) {
     return gulp.src(src, opt)
       .pipe(deploy({
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-        root: 'static',
+        root: process.env.APP_STATIC_ROOT,
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }));

@@ -346,7 +346,6 @@ git cz
 
 ## Deployment
 
-> NOTE: Currently, only Aliyun OSS is supported
 
 Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
 
