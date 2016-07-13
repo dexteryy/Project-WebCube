@@ -15,7 +15,7 @@
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware)
 * [Gulp](http://gulpjs.com/)
-  * [Flow](flowtype.org) + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [JSCS](http://jscs.info/)
+  * [Flow](flowtype.org) + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react))
   * [StyleLint](http://stylelint.io/) / [SASS-Lint](https://github.com/sasstools/sass-lint) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
@@ -286,7 +286,6 @@ Similiar to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
 More detail:
 
 * [`.eslintrc.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.eslintrc.yml)
-* [`.jscsrc`](https://github.com/dexteryy/static-app-starter/blob/master/.jscsrc)
 * [`.flowconfig`](https://github.com/dexteryy/static-app-starter/blob/master/.flowconfig)
 * [`.stylelintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.stylelintrc)
 * [`.sass-lint.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.sass-lint.yml)
@@ -297,7 +296,7 @@ More detail:
 
 * [Atom](atom.io/) + following plugins:
   * [language-babel](https://atom.io/packages/language-babel)
-  * [linter](https://atom.io/packages/linter) + [linter-eslint](https://atom.io/packages/linter-eslint) + [linter-jscs](https://atom.io/packages/linter-jscs) + [linter-flow](https://atom.io/packages/linter-flow) + [linter-sass-lint](https://atom.io/packages/linter-sass-lint) + [linter-htmlhint](https://atom.io/packages/linter-htmlhint)
+  * [linter](https://atom.io/packages/linter) + [linter-eslint](https://atom.io/packages/linter-eslint) + [linter-flow](https://atom.io/packages/linter-flow) + [linter-sass-lint](https://atom.io/packages/linter-sass-lint) + [linter-htmlhint](https://atom.io/packages/linter-htmlhint)
   * [editorconfig](https://atom.io/packages/editorconfig)
   * [toggle-quotes](https://atom.io/packages/toggle-quotes) + [vim-surround](https://atom.io/packages/vim-surround)
   * [auto-detect-indentation](https://atom.io/packages/auto-detect-indentation) + [resize-indent](https://atom.io/packages/resize-indent)
@@ -309,12 +308,6 @@ Recommended Settings for Atom (config.cson):
 "linter":
   ignoreVCSIgnoredFiles: false
   lintOnFly: false
-"linter-jscs":
-  displayAs: "jscs Warning"
-  esnext: true
-  fixOnSave: true
-  onlyConfig: true
-  preset: "<none>"
 "linter-stylelint":
   disableWhenNoConfig: true
 "linter-sass-lint":

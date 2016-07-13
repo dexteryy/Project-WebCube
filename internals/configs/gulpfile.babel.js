@@ -12,7 +12,6 @@ import webpackStream from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
-import jscs from 'gulp-jscs';
 // import flow from 'gulp-flowtype';
 import sassLint from 'gulp-sass-lint';
 import styleLint from 'gulp-stylelint';
@@ -299,17 +298,6 @@ gulp.task('check:js', [], () => {
     ))
     .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
       eslint.failAfterError()
-    ))
-    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
-      jscs({
-        configFile: path.join(rootPath, '.jscsrc'),
-      })
-    ))
-    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
-      jscs.reporter('console')
-    ))
-    .pipe(gulpif(!process.env.APP_DISABLE_JSCS,
-      jscs.reporter('failImmediately')
     ));
   // waiting for babel 6.6 upgrade
   // .pipe(flow({ // https://www.npmjs.com/package/gulp-flowtype#options
