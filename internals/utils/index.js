@@ -11,6 +11,11 @@ export const isProductionEnv = isCloudEnv || process.env.NODE_ENV === 'productio
 export const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 export const serverPort = process.env.APP_DEVSERVER_PORT || 8000;
 export const serverHost = process.env.APP_DEVSERVER_HOST || 'localhost';
+export const rootPath = path.join(__dirname, '../..');
+export const staticRoot = isProductionEnv
+  ? process.env.APP_STATIC_ROOT
+  : 'static-for-dev';
+export const cloudAdapter = require(`./staticcloud/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
 
 export function getUrlRoot() {
   const isCloudEnv = process.env.NODE_ENV === 'cloud';

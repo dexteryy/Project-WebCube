@@ -46,6 +46,7 @@ Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/mas
     - **boilerplate/** - Boilerplate code for app
   - **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
   - **declarations/** - [Flow Declarations](http://flowtype.org/docs/declarations.html)
+- **configs/** - Project-defined configuration files and build scripts
 - **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
   - **components/** - [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
   - **entries/** - Multiple entry points, see [details](#multiple-entry-points-optional)
@@ -125,7 +126,9 @@ Edit the `staticweb/page1/index.html`:
 
 #### Step 1
 
-First of all, you must create a `env.config` file in the root directory. [`internals/configs/env.sample.config`](https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config) is a complete template file for `env.config`
+First of all, you must create a `env.config` file in the root directory. [`configs/env.sample.config`][custom.env.sample.config] is a complete template file for `env.config`
+
+> NOTE: [`internals/configs/env.sample.config`][env.sample.config] is a template file for project-defined [`configs/env.sample.config`][custom.env.sample.config]
 
 #### Step 2 (optional)
 
@@ -170,9 +173,14 @@ or
 NODE_ENV=production npm run build
 ```
 
-> Build scripts and config files:
+> Project-defined build scripts and config files:
 >
 > * [`package.json`][package.json]
+> * [`configs/gulpfile.babel.js`][custom.gulpfile]
+> * [`configs/webpack.default.config.babel.js`][custom.webpack.config]
+
+> Underlying build scripts and config files:
+>
 > * [`internals/configs/gulpfile.babel.js`][gulpfile]
 > * [`internals/configs/webpack.default.config.babel.js`][webpack.config]
 
@@ -224,7 +232,11 @@ npm run new
 * `npm run new demo:react-redux` - Add a new entry point for demo (with React + Redux)
 * `npm run new demo:react-redux-router` - Add a new entry point for demo (with React + Redux + Router)
 
-Generator scripts:
+Project-defined generator scripts:
+
+* [`configs/plopfile.babel.js`][custom.plopfile]
+
+Underlying generator scripts:
 
 * [`internals/configs/plopfile.babel.js`][plopfile]
 
@@ -364,14 +376,19 @@ APP_DEPLOY_STATIC_CLOUD=oss
 APP_DEPLOY_STATIC_CLOUD=s3
 ```
 
-Deployment scripts and adapters:
+Underlying deployment scripts and adapters:
 
 * [`internals/configs/gulpfile.babel.js`][gulpfile]
 * [`internals/utils/deploy/*.js`](https://github.com/dexteryy/static-app-starter/blob/master/internals/utils/deploy/)
 
 [package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
+[env.sample.config]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config
+[custom.env.sample.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/env.sample.config
 [webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/webpack.default.config.babel.js
+[custom.webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.config.babel.js
 [gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/gulpfile.babel.js
+[custom.gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/gulpfile.babel.js
 [plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/plopfile.babel.js
+[custom.plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/plopfile.babel.js
 [karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/karma.conf.babel.js
 [gitignore]: https://github.com/dexteryy/static-app-starter/blob/master/.gitignore

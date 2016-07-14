@@ -24,24 +24,34 @@ import staticWebServer from 'gulp-webserver';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 // import express from 'express';
-import * as util from '../utils';
+import {
+  isCloudEnv,
+  isProductionEnv,
+  liveMode,
+  serverPort,
+  serverHost,
+  rootPath,
+  staticRoot,
+  cloudAdapter,
+} from '../utils';
 
-const rootPath = path.join(__dirname, '../..');
 const pidFile = path.join(rootPath, 'internals/configs/.webserver.pid');
 const webpackConfig = require('./webpack.default.config.babel.js');
 const compiler = webpack(webpackConfig);
-const cloudAdapter = require(`../utils/staticcloud/${process.env.APP_DEPLOY_STATIC_CLOUD}`);
 
-const staticRoot = util.isProductionEnv
-  ? process.env.APP_STATIC_ROOT
-  : 'static-for-dev';
+try {
+  require(path.join(rootPath,
+    `${process.env.APP_CUSTOM_CONFIG_ROOT}/gulpfile.babel.js`));
+} catch (ex) {
+  console.log('No custom gulpfile');
+}
 
 const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
-  publicPath: util.isCloudEnv
+  publicPath: isCloudEnv
     ? process.env.APP_DEPLOY_STATIC_ROOT
     : `/${staticRoot}/`,
-  hot: util.liveMode === 'hmr',
+  hot: liveMode === 'hmr',
   noInfo: true,
   stats: { colors: true },
   watchOptions: {
@@ -59,7 +69,7 @@ function buildApp(myWebpackConfig) {
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: rootPath }));
-  if (util.isProductionEnv) {
+  if (isProductionEnv) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
     stream = stream.pipe(jsFilter)
@@ -100,7 +110,7 @@ function buildHTML() {
     if (!/\.(js|css)$/.test(res)) {
       return $0;
     }
-    if (util.isProductionEnv) {
+    if (isProductionEnv) {
       res = res.replace(RE_ADD_MIN, '$1_min.$2');
     }
     return `${$1}"${res}"`;
@@ -111,7 +121,8 @@ function buildHTML() {
     .pipe(inlinesource({
       rootpath: path.join(rootPath, 'build/public'),
     }));
-  if (util.isProductionEnv) {
+  if (isProductionEnv
+      && !process.env.APP_DISABLE_HTMLMIN) {
     stream = stream.pipe(htmlmin({ // https://github.com/kangax/html-minifier
       removeComments: true,
       collapseWhitespace: true,
@@ -162,17 +173,17 @@ function getDevServer() {
 // }
 
 function startDevServer() {
-  if (util.isProductionEnv) {
+  if (isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
-  // const server = util.liveMode === 'hmr'
+  // const server = liveMode === 'hmr'
   //   ? getHotDevServer() : getDevServer();
   const server = getDevServer();
-  server.listen(util.serverPort, util.serverHost, (err) => {
+  server.listen(serverPort, serverHost, (err) => {
     if (err) {
       throw err;
     }
-    console.log(`Listening at http://${util.serverHost}:${util.serverPort}`);
+    console.log(`Listening at http://${serverHost}:${serverPort}`);
   });
 }
 
@@ -180,8 +191,8 @@ function startStaticWebServer(stream, done) {
   fs.writeFileSync(pidFile, process.pid);
   stream.pipe(staticWebServer({
     // https://www.npmjs.com/package/gulp-webserver#options
-    port: util.serverPort,
-    host: util.serverHost,
+    port: serverPort,
+    host: serverHost,
   }));
   done();
 }

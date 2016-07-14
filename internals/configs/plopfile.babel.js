@@ -1,9 +1,23 @@
 // https://github.com/amwmedia/plop
 
-const path = require('path');
-const rootPath = path.join(__dirname, '../..');
+import path from 'path';
+import {
+  rootPath,
+} from '../utils';
+
+let customPlopfile;
+try {
+  customPlopfile = require(path.join(rootPath,
+    `${process.env.APP_CUSTOM_CONFIG_ROOT}/plopfile.babel.js`));
+} catch (ex) {
+  console.log('No custom plopfile');
+}
 
 module.exports = function (plop) {
+
+  if (customPlopfile) {
+    customPlopfile(plop);
+  }
 
   const addReactEntryActions = [{
     type: 'add',

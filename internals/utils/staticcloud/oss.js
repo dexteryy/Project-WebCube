@@ -6,13 +6,6 @@ import gutil from 'gulp-util';
 import mime from 'mime-types';
 import ALY from 'aliyun-sdk';
 
-const oss = new ALY.OSS({
-  accessKeyId: process.env.APP_DEPLOY_OSS_ID,
-  secretAccessKey: process.env.APP_DEPLOY_OSS_SECRET,
-  endpoint: process.env.APP_DEPLOY_OSS_ENDPOINT,
-  apiVersion: '2013-10-15',
-});
-
 const mimeOverride = {
 };
 
@@ -25,7 +18,7 @@ function parsePath(strPath) {
   };
 }
 
-function deploy(opt) {
+export function deploy(opt) {
   return through({
     objectMode: true,
   }, function (file, encoding, callback) {
@@ -42,7 +35,16 @@ function deploy(opt) {
       contentEncoding = mime.charset(contentType) || '';
     }
     gutil.log('uploading:', key);
-    oss.putObject({
+    new ALY.OSS({
+      accessKeyId: opt.accessKeyId
+        || process.env.APP_DEPLOY_OSS_ID,
+      secretAccessKey: opt.secretAccessKey
+        || process.env.APP_DEPLOY_OSS_SECRET,
+      endpoint: opt.endpoint
+        || process.env.APP_DEPLOY_OSS_ENDPOINT,
+      apiVersion: opt.apiVersion
+        || '2013-10-15',
+    }).putObject({
       Bucket: opt.bucket,
       Key: key,
       Body: file.contents,
@@ -65,12 +67,12 @@ function deploy(opt) {
 export function deployHTML(src, opt) {
   const seconds = 60;
   return function () {
-    return gulp.src(src, opt)
-      .pipe(deploy({
+    return gulp.src(src, { cwd: opt.cwd })
+      .pipe(deploy(Object.assign({}, {
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-        CacheControl: `max-age=${seconds}, public`,
-        ContentEncoding: '',
-      }));
+        CacheControl: `mmax-age=${seconds}, public`,
+        ContentEncoding: '', // enable CDN GZip
+      }, opt)));
   };
 }
 
@@ -79,12 +81,12 @@ export function deployStatic(src, opt) {
     const yearToSeconds = 60 * 60 * 24 * 365;
     const d = new Date();
     d.setTime(d.getTime() + 1000 * yearToSeconds);
-    return gulp.src(src, opt)
-      .pipe(deploy({
+    return gulp.src(src, { cwd: opt.cwd })
+      .pipe(deploy(Object.assign({}, {
         bucket: process.env.APP_DEPLOY_OSS_BUCKET,
         root: process.env.APP_STATIC_ROOT,
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip
-      }));
+      }, opt)));
   };
 }
