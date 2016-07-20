@@ -3,6 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 import {
@@ -122,13 +123,7 @@ const cssLoaderConfig = JSON.stringify({
   // http://cssnano.co/options/
   // https://github.com/ben-eb/cssnano/blob/master/index.js
   // https://github.com/postcss/autoprefixer#options
-  autoprefixer: {
-    browsers,
-    // https://github.com/postcss/autoprefixer#outdated-prefixes
-    remove: false,
-    add: true,
-    cascade: false,
-  },
+  autoprefixer: false,
   discardComments: {
     removeAll: true,
   },
@@ -240,10 +235,16 @@ module.exports = Object.assign({
   postcss() {
     return [
       cssnext({
-        browsers,
         features: {
           autoprefixer: false,
         },
+      }),
+      autoprefixer({
+        browsers,
+        // https://github.com/postcss/autoprefixer#outdated-prefixes
+        remove: false,
+        add: true,
+        cascade: false,
       }),
       postcssReporter(),
     ];

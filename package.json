@@ -142,6 +142,7 @@
   "devDependencies": {
     "aliyun-sdk": "^1.9.2",
     "assets-webpack-plugin": "^3.4.0",
+    "autoprefixer": "^6.3.7",
     "aws-sdk": "^2.4.6",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
