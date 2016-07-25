@@ -175,20 +175,20 @@ rules:
   property-no-vendor-prefix: true
 
   # Specify a blacklist of disallowed units for specific properties.
-  # http://stylelint.io/user-guide/rules/property-unit-blacklist/
-  # property-unit-blacklist: { "unprefixed-property-name": [] }
+  # http://stylelint.io/user-guide/rules/declaration-property-unit-blacklist/
+  # declaration-property-unit-blacklist: { "unprefixed-property-name": [] }
 
   # Specify a whitelist of disallowed units for specific properties.
-  # http://stylelint.io/user-guide/rules/property-unit-whitelist/
-  # property-unit-whitelist: { "unprefixed-property-name": ["array", "of", "units"] }
+  # http://stylelint.io/user-guide/rules/declaration-property-unit-whitelist/
+  # declaration-property-unit-whitelist: { "unprefixed-property-name": ["array", "of", "units"] }
 
   # Specify a blacklist of disallowed property-value pairs.
-  # http://stylelint.io/user-guide/rules/property-value-blacklist/
-  # property-value-blacklist: { "unprefixed-property-name": ["array", "of", "values"], "unprefixed-property-name": ["/regex/", "non-regex"] }
+  # http://stylelint.io/user-guide/rules/declaration-property-value-blacklist/
+  # declaration-property-value-blacklist: { "unprefixed-property-name": ["array", "of", "values"], "unprefixed-property-name": ["/regex/", "non-regex"] }
 
   # Specify a whitelist of allowed property-value pairs.
-  # http://stylelint.io/user-guide/rules/property-value-whitelist/
-  # property-value-whitelist: { "unprefixed-property-name": ["array", "of", "values"], "unprefixed-property-name": ["/regex/", "non-regex"] }
+  # http://stylelint.io/user-guide/rules/declaration-property-value-whitelist/
+  # declaration-property-value-whitelist: { "unprefixed-property-name": ["array", "of", "values"], "unprefixed-property-name": ["/regex/", "non-regex"] }
 
   # Specify a whitelist of allowed properties.
   # http://stylelint.io/user-guide/rules/property-whitelist/
@@ -584,8 +584,8 @@ rules:
   # Media query
 
   # Require a single space or disallow whitespace on the inside of the parentheses within media queries.
-  # http://stylelint.io/user-guide/rules/media-query-parentheses-space-inside/
-  media-query-parentheses-space-inside: "never"
+  # http://stylelint.io/user-guide/rules/media-feature-parentheses-space-inside/
+  media-feature-parentheses-space-inside: "never"
 
   # Media query list
 
@@ -671,8 +671,8 @@ rules:
   no-invalid-double-slash-comments: null
 
   # Disallow missing end-of-file newline.
-  # http://stylelint.io/user-guide/rules/no-missing-eof-newline/
-  no-missing-eof-newline: true
+  # http://stylelint.io/user-guide/rules/no-missing-end-of-source-newline/
+  no-missing-end-of-source-newline: true
 
   # Disallow animation names that do not correspond to a @keyframes declaration.
   # http://stylelint.io/user-guide/rules/no-unknown-animations/
