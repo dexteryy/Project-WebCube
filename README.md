@@ -1,5 +1,10 @@
 
-# Static Web App Starter Kit
+# WebCube
+
+Out-of-the-box configuration and toolkits for Static/Universal Web App (ES6 + React + Redux + ...)
+
+> * webcube-cli: TODO
+> * Example App: https://github.com/dexteryy/webcube-example/
 
 ## Features
 
@@ -9,7 +14,7 @@
 
 * [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) + [Helmet](https://www.npmjs.com/package/react-helmet) + [CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...) + [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Logger](https://github.com/fcomb/redux-logger) + [DevTools](https://github.com/gaearon/redux-devtools) + ...)
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015](https://babeljs.io/docs/learn-es2015/) + [Stage-1](http://babeljs.io/docs/plugins/preset-stage-1/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
+  * [Babel v6](babeljs.io) ([ES2015 + ES2016](https://babeljs.io/docs/learn-es2015/) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [async/await to Promise](https://github.com/marten-de-vries/kneden) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
   * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [jpegtran](https://github.com/kevva/imagemin-jpegtran) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
@@ -23,120 +28,31 @@
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 
-Boilerplate as [library](https://github.com/dexteryy/static-app-starter/blob/master/internals/lib/boilerplate/AppSkeleton.js):
+Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boilerplate/AppSkeleton.js):
 
-- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/static-app-starter/blob/master/templates/app/entries/react-redux-router/index.js)
-- `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-router/index.js)
-- `createReduxRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux/index.js)
-- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/static-app-starter/blob/master/internals/templates/app/entries/react-redux-router/containers/Home.jsx)
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/webcube-example/blob/master/templates/app/entries/react-redux-router/index.js)
+- `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-router/index.js)
+- `createReduxRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux/index.js)
+- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/containers/Home.jsx)
 - ...
 
-## Structure
-
-#### Directories and Sample Files
-
-- **internals/** - Boilerplate scripts, configure files, templates and libraries
-  - **configs/** - Configuration files and build scripts
-  - **utils/** - Reusable code for configuration files and scripts
-    - **staticcloud/** - Adapters for delopyment scripts
-      - `s3.js`, `oss.js`, `firebase.js`, `heroku.js`, ...
-  - **lib/**
-    - **boilerplate/** - Boilerplate code for app
-  - **templates/** - Handlebar templates for Plop, see [Micro-generator](#micro-generator) section
-  - **declarations/** - [Flow Declarations](http://flowtype.org/docs/declarations.html)
-- **configs/** - Project-defined configuration files and build scripts
-- **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
-  - **components/** - [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
-  - **entries/** - Multiple entry points, see [details](#multiple-entry-points-optional)
-    - _**example-app/**_ - Entry point, see [details](#single-entry-point)
-      - **containers/** - [Container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
-      - **decorators/** - [Higher-order Components](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750)
-      - **reducers/** - [Redux Reducers](http://redux.js.org/docs/basics/Reducers.html)
-      - **actions/** - [Flux Standard Action](https://www.npmjs.com/package/redux-actions)
-      - **constants/**
-      - **routes/** - [React Router](https://github.com/reactjs/react-router/)
-      - **styles/** - CSS/SCSS/CSSInJS shared between container components
-      - **tests/** - See [Testing](#testing) section
-      - `index.js`
-    - _**page2/**_ - See 'entry' generator in [plopfile.babel.js][plopfile]
-    - _**demo-page2/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
-    - ...
-  - **lib/** - Library code which haven't been published to npm
-  - **data/** - Shared data files
-  - **assets/** - Shared images, fonts, audio, etc.
-  - **styles/** - CSS/SCSS/CSSInJS shared between entry points
-  - **containers/** - Shared [container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.3o294zvoz)
-    - `DevTools.jsx`
-  - ...
-  - **middleware/** - [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html) shared between entry points
-- **staticweb/** - For static web deployment or testing
-  - _**example-app/**_ - For entry point
-    - `index.html`, `deploy.js`, `deploy.scss`
-  - _**page2/**_ - See 'entry' generator in [plopfile.babel.js][plopfile]
-  - _**demo-page2/**_ - See [.gitignore][gitignore] and 'demo' generator in [plopfile.babel.js][plopfile]
-  - ...
-- **server/** - [TODO] A thin backend layer for universal web app and graphql-like api
-- **runtime/** - [TODO] For Electron or Cordova
-- **build/**
-  - **public/** - Generated by Gulp and Webpack, do not manually modify
-- ...
-- `index.js` - Imported by other projects, see [details](#single-entry-point)
-- `package.json`
-- `env.config` - See [Setup - Step 1](#step-1)
-
-#### Single Entry Point
-
-> NOTE: For Single Page App or being imported by other projects (i.e. [Electron](http://electron.atom.io/) app or [Cordova](http://cordova.apache.org/) app)
-
-[`index.js`](https://github.com/dexteryy/static-app-starter/blob/master/index.js) -> [`app/entries/example-app/index.js`](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/example-app/index.js)
-
-#### Multiple Entry Points (optional)
-
-Add files:
-
-* `app/entries/page1/index.js`
-* `app/entries/page2/index.js`
-* `app/entries/demo-page2/index.js`
-* `staticweb/page1/index.html`
-* `staticweb/page2/index.html`
-* `staticweb/demo-page2/index.html`
-
-Edit the [`env.config`](#step-1):
-
-```ini
-APP_ENTRY_PAGE1="./app/entries/page1"
-APP_ENTRY_PAGE2="./app/entries/page2"
-APP_DEMO_PAGE2="./app/entries/demo-page2"
-```
-
-Edit the `staticweb/page1/index.html`:
-
-```html
-<script src="/static/common.js"></script> <!-- optional -->
-<script src="/static/page1.js"></script>
-```
-
-> NOTE: New entry point or demo can be automatically added by [micro-generator](#micro-generator)
-
-# Getting Started
-
-## Setup
+## How to Create a New App
 
 #### Step 1
 
-First of all, you must create a `env.config` file in the root directory. [`configs/env.sample.config`][custom.env.sample.config] is a complete template file for `env.config`
+Use webcube-cli (TODO) or imitate the [example app](https://github.com/dexteryy/webcube-example/) to create the minimal structure and configure files:
 
-> NOTE: [`internals/configs/env.sample.config`][env.sample.config] is a template file for project-defined [`configs/env.sample.config`][custom.env.sample.config]
+- **configs/** - Project-defined configuration files and build scripts
+  - `env.sample.config` - Project-defined template file for [env.config](custom.env.sample.config)
+- **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
+  - **entries/** - Multiple entry points
+- **staticweb/** - For static web deployment or testing
+- `package.json` - Minimal dependencies and npm scripts, see [webcube-example's package.json](https://github.com/dexteryy/webcube-example/blob/master/package.json)
+- `env.config` - Project-defined configuration options for webcube and custom scripts
 
-#### Step 2 (optional)
-
-If you don't want to build default example ([`app/entries/example-app/`](https://github.com/dexteryy/static-app-starter/tree/master/app/entries/example-app)), but instead a clean codebase, you can remove redundant packages from:
-
-* [`package.json`][package.json]'s `dependencies`
-
-#### Step 3
+#### Step 2
 
 Install dependencies:
 
@@ -144,24 +60,37 @@ Install dependencies:
 npm install
 ```
 
-#### Step 4 (optional)
+For users living in China:
 
-You can remove example code and get a clean codebase:
+Use `cnpm install`
 
+```bash
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+--cache=$HOME/.npm/.cache/cnpm \
+--disturl=https://npm.taobao.org/dist \
+--userconfig=$HOME/.cnpmrc"
 ```
-npm run empty
+
+Use mirrors:
+
+```bash
+export NVM_NODEJS_ORG_MIRROR="http://npm.taobao.org/mirrors/node"
+export SASS_BINARY_SITE="https://npm.taobao.org/mirrors/node-sass"
+export PHANTOMJS_CDNURL="http://npm.taobao.org/mirrors/phantomjs"
+export ELECTRON_MIRROR="https://npm.taobao.org/mirrors/electron/"
+export CHROMEDRIVER_CDNURL="http://npm.taobao.org/mirrors/chromedriver"
 ```
 
-If this is the case, you must create your own entry code in [`app/entries/`](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/) before building.
+#### Step 3
 
-You can [generate an entry](#micro-generator) with one command:
+Create an entry point with one command:
 
 * `npm run new entry:react`
 * `npm run new entry:react-router`
 * `npm run new entry:react-redux`
 * `npm run new entry:react-redux-router`
 
-## Building
+## How to Build
 
 ```
 npm run build
@@ -181,8 +110,8 @@ NODE_ENV=production npm run build
 
 > Underlying build scripts and config files:
 >
-> * [`internals/configs/gulpfile.babel.js`][gulpfile]
-> * [`internals/configs/webpack.default.config.babel.js`][webpack.config]
+> * [`webcube/src/configs/gulpfile.babel.js`][gulpfile]
+> * [`webcube/src/configs/webpack.default.config.babel.js`][webpack.config]
 
 Open in the browser
 
@@ -197,7 +126,7 @@ npm run start:staticserver
 npm run stop:staticserver
 ```
 
-## Development
+## How to Develop
 
 For faster recompiling ([webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)):
 
@@ -217,7 +146,9 @@ Enable HMR (Hot Module Replacement):
 LIVE_MODE=hmr npm run dev
 ```
 
-#### Micro-generator
+## How to Generate New Code
+
+Use micro-generator:
 
 ```
 npm run new
@@ -238,21 +169,21 @@ Project-defined generator scripts:
 
 Underlying generator scripts:
 
-* [`internals/configs/plopfile.babel.js`][plopfile]
+* [`webcube/src/configs/plopfile.babel.js`][plopfile]
 
-#### Testing
+#### How to Test
 
 Functional tests:
 
 * NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 * Naming convention: `**/*.spec.js`
-* Example: [app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/static-app-starter/blob/master/app/entries/example-app/tests/index.spec.js)
+* Example: [app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/webcube-example/blob/master/app/entries/example-app/tests/index.spec.js)
 
 Unit tests:
 
 * [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
 * Naming convention: `**/*.test.js`
-* Example: [app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/static-app-starter/blob/master/app/components/WelcomeBox/tests/index.test.js)
+* Example: [app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/components/WelcomeBox/tests/index.test.js)
 
 Manually run functional tests (run automatically after building):
 
@@ -283,7 +214,7 @@ npm run test:cloud
 
 Karma configuration:
 
-* [`internals/configs/karma.conf.babel.js`][karmaconf]
+* [`webcube/src/configs/karma.conf.babel.js`][karmaconf]
 
 #### Code Style
 
@@ -293,64 +224,9 @@ Manually run static checking:
 npm run lint
 ```
 
-Similiar to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript), [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
+See the [example configuration](https://github.com/dexteryy/webcube-example/#code-style)
 
-More detail:
-
-* [`.eslintrc.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.eslintrc.yml)
-* [`.flowconfig`](https://github.com/dexteryy/static-app-starter/blob/master/.flowconfig)
-* [`.stylelintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.stylelintrc)
-* [`.sass-lint.yml`](https://github.com/dexteryy/static-app-starter/blob/master/.sass-lint.yml)
-* [`.csscomb.json`](https://github.com/dexteryy/static-app-starter/blob/master/.csscomb.json)
-* [`.htmlhintrc`](https://github.com/dexteryy/static-app-starter/blob/master/.htmlhintrc)
-
-#### Recommended Editor/IDE
-
-* [Atom](atom.io/) + following plugins:
-  * [language-babel](https://atom.io/packages/language-babel)
-  * [linter](https://atom.io/packages/linter) + [linter-eslint](https://atom.io/packages/linter-eslint) + [linter-flow](https://atom.io/packages/linter-flow) + [linter-sass-lint](https://atom.io/packages/linter-sass-lint) + [linter-htmlhint](https://atom.io/packages/linter-htmlhint)
-  * [editorconfig](https://atom.io/packages/editorconfig)
-  * [toggle-quotes](https://atom.io/packages/toggle-quotes) + [vim-surround](https://atom.io/packages/vim-surround)
-  * [auto-detect-indentation](https://atom.io/packages/auto-detect-indentation) + [resize-indent](https://atom.io/packages/resize-indent)
-  * [atom-css-comb](https://atom.io/packages/atom-css-comb)
-
-Recommended Settings for Atom (config.cson):
-
-```json
-"linter":
-  ignoreVCSIgnoredFiles: false
-  lintOnFly: false
-"linter-stylelint":
-  disableWhenNoConfig: true
-"linter-sass-lint":
-  noConfigDisable: true
-"language-babel":
-  transpileOnSave: false
-"atom-css-comb":
-  projectConfigs: ".csscomb"
-  readyMadeConfigs: "csscomb"
-"whitespace":
-  ignoreWhitespaceOnCurrentLine: false
-"trailing-spaces":
-  enableForCursorLines: true
-```
-
-#### Git Hooks
-
-* pre-commit: `npm run lint`
-* pre-push: `npm run build`
-
-#### Committing Changes with [Commitizen](https://www.npmjs.com/package/commitizen)
-
-> NOTE: Need `npm install commitizen -g`
-
-```
-git add .
-git cz
-```
-
-## Deployment
-
+## How to Deploy
 
 Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
 
@@ -378,17 +254,17 @@ APP_DEPLOY_STATIC_CLOUD=s3
 
 Underlying deployment scripts and adapters:
 
-* [`internals/configs/gulpfile.babel.js`][gulpfile]
-* [`internals/utils/deploy/*.js`](https://github.com/dexteryy/static-app-starter/blob/master/internals/utils/deploy/)
+* [`webcube/src/configs/gulpfile.babel.js`][gulpfile]
+* [`webcube/src/utils/deploy/*.js`](https://github.com/dexteryy/webcube/blob/master/src/utils/deploy/)
 
-[package.json]: https://github.com/dexteryy/static-app-starter/blob/master/package.json
-[env.sample.config]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/env.sample.config
-[custom.env.sample.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/env.sample.config
-[webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/webpack.default.config.babel.js
-[custom.webpack.config]: https://github.com/dexteryy/static-app-starter/blob/master/configs/webpack.config.babel.js
-[gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/gulpfile.babel.js
-[custom.gulpfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/gulpfile.babel.js
-[plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/plopfile.babel.js
-[custom.plopfile]: https://github.com/dexteryy/static-app-starter/blob/master/configs/plopfile.babel.js
-[karmaconf]: https://github.com/dexteryy/static-app-starter/blob/master/internals/configs/karma.conf.babel.js
-[gitignore]: https://github.com/dexteryy/static-app-starter/blob/master/.gitignore
+[package.json]: https://github.com/dexteryy/webcube-example/blob/master/package.json
+[env.sample.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/env.sample.config
+[custom.env.sample.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/env.sample.config
+[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.default.config.babel.js
+[custom.webpack.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/webpack.config.babel.js
+[gulpfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/gulpfile.babel.js
+[custom.gulpfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/gulpfile.babel.js
+[plopfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/plopfile.babel.js
+[custom.plopfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/plopfile.babel.js
+[karmaconf]: https://github.com/dexteryy/webcube/blob/master/src/configs/karma.conf.babel.js
+[gitignore]: https://github.com/dexteryy/webcube-example/blob/master/.gitignore

@@ -1,8 +1,0 @@
-
-module.exports = {
-
-  plugins: [],
-
-  customFields: [],
-
-};
