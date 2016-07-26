@@ -45,11 +45,11 @@ Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boi
 Use webcube-cli (TODO) or imitate the [example app](https://github.com/dexteryy/webcube-example/) to create the minimal structure and configure files:
 
 - **configs/** - Project-defined configuration files and build scripts
-  - `env.sample.config` - Project-defined template file for [env.config](custom.env.sample.config)
+  - `env.sample.config` - Project-defined template file for [env.config][custom.env.sample.config]
 - **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
   - **entries/** - Multiple entry points
 - **staticweb/** - For static web deployment or testing
-- `package.json` - Minimal dependencies and npm scripts, see [webcube-example's package.json](https://github.com/dexteryy/webcube-example/blob/master/package.json)
+- `package.json` - Minimal dependencies and npm scripts based on webcube, see [webcube-example's package.json](https://github.com/dexteryy/webcube-example/blob/master/package.json)
 - `env.config` - Project-defined configuration options for webcube and custom scripts
 
 #### Step 2
@@ -83,7 +83,7 @@ export CHROMEDRIVER_CDNURL="http://npm.taobao.org/mirrors/chromedriver"
 
 #### Step 3
 
-Create an entry point with one command:
+Create an entry point with [one command](#how-to-generate-new-code):
 
 * `npm run new entry:react`
 * `npm run new entry:react-router`
@@ -104,9 +104,9 @@ NODE_ENV=production npm run build
 
 > Project-defined build scripts and config files:
 >
-> * [`package.json`][package.json]
-> * [`configs/gulpfile.babel.js`][custom.gulpfile]
-> * [`configs/webpack.default.config.babel.js`][custom.webpack.config]
+> * [`webcube-example/package.json`][package.json]
+> * [`webcube-example/configs/gulpfile.babel.js`][custom.gulpfile]
+> * [`webcube-example/configs/webpack.config.babel.js`][custom.webpack.config]
 
 > Underlying build scripts and config files:
 >
@@ -165,25 +165,25 @@ npm run new
 
 Project-defined generator scripts:
 
-* [`configs/plopfile.babel.js`][custom.plopfile]
+* [`webcube-example/configs/plopfile.babel.js`][custom.plopfile]
 
 Underlying generator scripts:
 
 * [`webcube/src/configs/plopfile.babel.js`][plopfile]
 
-#### How to Test
+## How to Test
 
 Functional tests:
 
 * NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 * Naming convention: `**/*.spec.js`
-* Example: [app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/webcube-example/blob/master/app/entries/example-app/tests/index.spec.js)
+* Example: [webcube-example/app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/webcube-example/blob/master/app/entries/example-app/tests/index.spec.js)
 
 Unit tests:
 
 * [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
 * Naming convention: `**/*.test.js`
-* Example: [app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/components/WelcomeBox/tests/index.test.js)
+* Example: [webcube-example/app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/components/WelcomeBox/tests/index.test.js)
 
 Manually run functional tests (run automatically after building):
 
@@ -203,14 +203,14 @@ Manually run unit tests and functional tests:
 npm run test
 ```
 
-Manually run functional tests for web app in the cloud (after [deployment](#deployment)):
+Manually run functional tests for web app in the cloud (after [deployment](#how-to-deploy)):
 
 ```
 npm run test:cloud
 ```
 
 
-> NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](#micro-generator)
+> NOTE: Spec file of new entry point or new component can be automatically added by [micro-generator](#how-to-generate-new-code)
 
 Karma configuration:
 
@@ -240,9 +240,9 @@ Just upload:
 npm run redeploy:staticweb
 ```
 
-Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in [`env.config`](#step-1).
+Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in [`env.config`][custom.env.sample.config].
 
-For example, you must choose a static cloud provider in [`env.config`](#step-1):
+For example, you must choose a static cloud provider in [`env.config`][custom.env.sample.config]:
 
 ```ini
 APP_DEPLOY_STATIC_CLOUD=oss
