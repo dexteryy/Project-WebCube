@@ -37,11 +37,11 @@ export function deploy(opt) {
     gutil.log('uploading:', key);
     new AWS.S3({
       accessKeyId: opt.accessKeyId
-        || process.env.APP_DEPLOY_S3_ID,
+        || process.env.WEBCUBE_DEPLOY_S3_ID,
       secretAccessKey: opt.secretAccessKey
-        || process.env.APP_DEPLOY_S3_SECRET,
+        || process.env.WEBCUBE_DEPLOY_S3_SECRET,
       endpoint: opt.endpoint
-        || process.env.APP_DEPLOY_S3_ENDPOINT,
+        || process.env.WEBCUBE_DEPLOY_S3_ENDPOINT,
       apiVersion: opt.apiVersion
         || '2006-03-01',
     }).putObject({
@@ -68,7 +68,7 @@ export function deployHTML(src, opt) {
   return function () {
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.APP_DEPLOY_S3_BUCKET,
+        bucket: process.env.WEBCUBE_DEPLOY_S3_BUCKET,
         CacheControl: `mmax-age=${seconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));
@@ -82,8 +82,8 @@ export function deployStatic(src, opt) {
     d.setTime(d.getTime() + 1000 * yearToSeconds);
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.APP_DEPLOY_S3_BUCKET,
-        root: process.env.APP_STATIC_ROOT,
+        bucket: process.env.WEBCUBE_DEPLOY_S3_BUCKET,
+        root: process.env.WEBCUBE_STATIC_ROOT,
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));

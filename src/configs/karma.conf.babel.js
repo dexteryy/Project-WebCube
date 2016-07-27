@@ -36,10 +36,10 @@ module.exports = function (config) {
       // 'karma-coverage',
       // https://www.npmjs.com/package/karma-spec-reporter
       'karma-spec-reporter',
-    ].concat(process.env.APP_ENABLE_PHANTOM_FOR_KARMA ? [
+    ].concat(process.env.WEBCUBE_ENABLE_PHANTOM_FOR_KARMA ? [
       // https://www.npmjs.com/package/karma-phantomjs-launcher
       'karma-phantomjs-launcher',
-    ] : []).concat(process.env.APP_ENABLE_CHROME_FOR_KARMA ? [
+    ] : []).concat(process.env.WEBCUBE_ENABLE_CHROME_FOR_KARMA ? [
       // https://www.npmjs.com/package/karma-chrome-launcher
       'karma-chrome-launcher',
     ] : []),
@@ -70,9 +70,9 @@ module.exports = function (config) {
       // 'coverage',
     ],
     browsers: [
-    ].concat(process.env.APP_ENABLE_PHANTOM_FOR_KARMA ? [
+    ].concat(process.env.WEBCUBE_ENABLE_PHANTOM_FOR_KARMA ? [
       'PhantomJS',
-    ] : []).concat(process.env.APP_ENABLE_CHROME_FOR_KARMA ? [
+    ] : []).concat(process.env.WEBCUBE_ENABLE_CHROME_FOR_KARMA ? [
       'Chrome',
     ] : []),
     webpack: webpackConfigForKarma,

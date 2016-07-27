@@ -9,7 +9,7 @@ import {
 let customPlopfile;
 try {
   customPlopfile = require(path.join(rootPath,
-    `${process.env.APP_CUSTOM_CONFIG_ROOT}/plopfile.babel.js`));
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/plopfile.babel.js`));
 } catch (ex) {
   console.log('No custom plopfile');
 }
@@ -200,7 +200,7 @@ module.exports = function (plop) {
     const updateEnvConfig = {
       type: 'modify',
       pattern: /([\s\S]*)/,
-      template: `$1\n\nAPP_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
+      template: `$1\n\nWEBCUBE_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
     };
     return {
       description: opt.description,
@@ -247,7 +247,7 @@ module.exports = function (plop) {
     const updateEnvConfig = {
       type: 'modify',
       pattern: /([\s\S]*)/,
-      template: `$1\n\nAPP_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
+      template: `$1\n\nWEBCUBE_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
     };
     return {
       description: opt.description,

@@ -37,11 +37,11 @@ export function deploy(opt) {
     gutil.log('uploading:', key);
     new ALY.OSS({
       accessKeyId: opt.accessKeyId
-        || process.env.APP_DEPLOY_OSS_ID,
+        || process.env.WEBCUBE_DEPLOY_OSS_ID,
       secretAccessKey: opt.secretAccessKey
-        || process.env.APP_DEPLOY_OSS_SECRET,
+        || process.env.WEBCUBE_DEPLOY_OSS_SECRET,
       endpoint: opt.endpoint
-        || process.env.APP_DEPLOY_OSS_ENDPOINT,
+        || process.env.WEBCUBE_DEPLOY_OSS_ENDPOINT,
       apiVersion: opt.apiVersion
         || '2013-10-15',
     }).putObject({
@@ -69,7 +69,7 @@ export function deployHTML(src, opt) {
   return function () {
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.APP_DEPLOY_OSS_BUCKET,
+        bucket: process.env.WEBCUBE_DEPLOY_OSS_BUCKET,
         CacheControl: `mmax-age=${seconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));
@@ -83,8 +83,8 @@ export function deployStatic(src, opt) {
     d.setTime(d.getTime() + 1000 * yearToSeconds);
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.APP_DEPLOY_OSS_BUCKET,
-        root: process.env.APP_STATIC_ROOT,
+        bucket: process.env.WEBCUBE_DEPLOY_OSS_BUCKET,
+        root: process.env.WEBCUBE_STATIC_ROOT,
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));

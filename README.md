@@ -38,7 +38,7 @@ Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boi
 - `actionDispatcher` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/containers/Home.jsx)
 - ...
 
-## How to Create a New App
+## How to Create a New Web App
 
 #### Step 1
 
@@ -90,7 +90,7 @@ Create an entry point with [one command](#how-to-generate-new-code):
 * `npm run new entry:react-redux`
 * `npm run new entry:react-redux-router`
 
-## How to Build
+## How to Build the Web App
 
 ```
 npm run build
@@ -126,7 +126,7 @@ npm run start:staticserver
 npm run stop:staticserver
 ```
 
-## How to Develop
+## How to Develop the Web App
 
 For faster recompiling ([webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)):
 
@@ -171,7 +171,7 @@ Underlying generator scripts:
 
 * [`webcube/src/configs/plopfile.babel.js`][plopfile]
 
-## How to Test
+## How to Test the Web App
 
 Functional tests:
 
@@ -203,7 +203,7 @@ Manually run unit tests and functional tests:
 npm run test
 ```
 
-Manually run functional tests for web app in the cloud (after [deployment](#how-to-deploy)):
+Manually run functional tests for web app in the cloud (after [deployment](#how-to-deploy-the-web-app)):
 
 ```
 npm run test:cloud
@@ -226,7 +226,7 @@ npm run lint
 
 See the [example configuration](https://github.com/dexteryy/webcube-example/#code-style)
 
-## How to Deploy
+## How to Deploy the Web App
 
 Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
 
@@ -240,16 +240,16 @@ Just upload:
 npm run redeploy:staticweb
 ```
 
-Before deployment, all environment variables that names begin with `APP_DEPLOY_STATIC_` must be configured in [`env.config`][custom.env.sample.config].
+Before deployment, all environment variables that names begin with `WEBCUBE_DEPLOY_STATIC_` must be configured in [`env.config`][custom.env.sample.config].
 
 For example, you must choose a static cloud provider in [`env.config`][custom.env.sample.config]:
 
 ```ini
-APP_DEPLOY_STATIC_CLOUD=oss
+WEBCUBE_DEPLOY_STATIC_CLOUD=oss
 ```
 
 ```ini
-APP_DEPLOY_STATIC_CLOUD=s3
+WEBCUBE_DEPLOY_STATIC_CLOUD=s3
 ```
 
 Underlying deployment scripts and adapters:

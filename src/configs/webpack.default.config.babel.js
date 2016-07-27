@@ -20,7 +20,7 @@ let customConfig;
 const customFields = {};
 try {
   customConfig = require(path.join(rootPath,
-    `${process.env.APP_CUSTOM_CONFIG_ROOT}/webpack.config.babel.js`));
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.babel.js`));
   (customConfig.customFields || []).forEach(field => {
     customFields[field] = customConfig[field];
   });
@@ -31,28 +31,28 @@ try {
 
 const mutiplEntries = {};
 for (const name in process.env) {
-  const entryName = (/APP_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
+  const entryName = (/WEBCUBE_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
   if (entryName) {
     mutiplEntries[kebabCase(entryName)] = [process.env[name]];
   }
-  const demoName = (/APP_(DEMO_[A-Z_]+)/.exec(name) || [])[1];
+  const demoName = (/WEBCUBE_(DEMO_[A-Z_]+)/.exec(name) || [])[1];
   if (demoName) {
     mutiplEntries[kebabCase(demoName)] = [process.env[name]];
   }
 }
 
-const entries = Object.assign(process.env.APP_ENABLE_COMMON_CHUNK ? {
+const entries = Object.assign(process.env.WEBCUBE_ENABLE_COMMON_CHUNK ? {
   // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
   common: (
-    process.env.APP_ENABLE_COMMON_CHUNK
-      && JSON.parse(process.env.APP_COMMON_CORE_MODULES || null)
+    process.env.WEBCUBE_ENABLE_COMMON_CHUNK
+      && JSON.parse(process.env.WEBCUBE_COMMON_CORE_MODULES || null)
       || []
-  ).concat(JSON.parse(process.env.APP_COMMON_APP_MODULES || null) || []),
+  ).concat(JSON.parse(process.env.WEBCUBE_COMMON_PROJECT_MODULES || null) || []),
 } : {}, mutiplEntries);
 
 for (const entry in entries) {
   // or babel-runtime
-  if (process.env.APP_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
+  if (process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
     entries[entry].unshift('babel-polyfill');
   }
   if (liveMode === 'refresh') {
@@ -74,7 +74,7 @@ const definePluginOpt = {
   'process.env.NODE_ENV': isProductionEnv
     ? '\'production\'' : '\'development\'',
 };
-const runtimeVars = JSON.parse(process.env.RUNTIME_ENV_VARS || null) || [];
+const runtimeVars = JSON.parse(process.env.WEBCUBE_CLIENT_ENV_VARS || null) || [];
 runtimeVars.forEach(name => {
   definePluginOpt[`process.env.${name}`] = `'${process.env[name] || ''}'`;
 });
@@ -89,7 +89,7 @@ const babelLoaderPlugins = [
   // https://github.com/marten-de-vries/kneden
   'async-to-promises',
 ];
-if (!process.env.APP_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
+if (!process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
   // bug: ReferenceError: Can't find variable: Symbol
   //      https://github.com/gajus/react-css-modules/issues/66
   babelLoaderPlugins.push(['transform-runtime', { polyfill: true, regenerator: true }]);
@@ -116,7 +116,7 @@ if (!isProductionEnv && liveMode === 'hmr') {
 }
 
 // https://github.com/ai/browserslist#queries
-const browsers = JSON.parse(process.env.APP_BROWSERS || null) || [];
+const browsers = JSON.parse(process.env.WEBCUBE_BROWSERS || null) || [];
 
 const cssLoaderConfig = JSON.stringify({
   modules: true,
@@ -151,12 +151,12 @@ module.exports = Object.assign({
       ? 'js/[name]_[hash].js'
       : 'js/[name].js',
     path: isProductionEnv
-      ? path.join(rootPath, `build/public/${process.env.APP_STATIC_ROOT}/`)
+      ? path.join(rootPath, `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`)
       : path.join(rootPath, 'build/public/static-for-dev/'),
     publicPath: isCloudEnv
-        && process.env.APP_DEPLOY_STATIC_ROOT
+        && process.env.WEBCUBE_DEPLOY_STATIC_ROOT
       || isProductionEnv
-        && `/${process.env.APP_STATIC_ROOT}/`
+        && `/${process.env.WEBCUBE_STATIC_ROOT}/`
       || '/static-for-dev/',
   },
   resolve: {
@@ -187,14 +187,14 @@ module.exports = Object.assign({
     }, {
       test: /\.scss$/,
       loader: ((cssOpt) => {
-        return process.env.APP_ENABLE_EXTRACT_CSS
+        return process.env.WEBCUBE_ENABLE_EXTRACT_CSS
           ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`)
           : `style?singleton!css?${cssOpt}!postcss!sass`;
       })(cssLoaderConfig),
     }, {
       test: /\.css$/,
       loader: ((cssOpt) => {
-        return process.env.APP_ENABLE_EXTRACT_CSS
+        return process.env.WEBCUBE_ENABLE_EXTRACT_CSS
           ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`)
           : `style?singleton!css?${cssOpt}!postcss`;
       })(cssLoaderConfig),
@@ -209,8 +209,8 @@ module.exports = Object.assign({
       loaders: [
         // https://www.npmjs.com/package/url-loader
         isProductionEnv
-          ? `url?limit=${process.env.APP_DATAURL_IMAGES_LIMIT}&name=assets/[name]_[hash].[ext]`
-          : `url?limit=${process.env.APP_DATAURL_IMAGES_LIMIT}&name=assets/[name].[ext]`,
+          ? `url?limit=${process.env.WEBCUBE_DATAURL_IMAGES_LIMIT}&name=assets/[name]_[hash].[ext]`
+          : `url?limit=${process.env.WEBCUBE_DATAURL_IMAGES_LIMIT}&name=assets/[name].[ext]`,
         // https://www.npmjs.com/package/image-webpack-loader
         ((imageOpt) => {
           return `image-webpack?${imageOpt}`;
@@ -227,8 +227,8 @@ module.exports = Object.assign({
     }, {
       test: /\.(woff|woff2)$/,
       loader: isProductionEnv
-        ? `url?limit=${process.env.APP_DATAURL_FONT_LIMIT}&name=assets/[name]_[hash].[ext]`
-        : `url?limit=${process.env.APP_DATAURL_FONT_LIMIT}&name=assets/[name].[ext]`,
+        ? `url?limit=${process.env.WEBCUBE_DATAURL_FONT_LIMIT}&name=assets/[name]_[hash].[ext]`
+        : `url?limit=${process.env.WEBCUBE_DATAURL_FONT_LIMIT}&name=assets/[name].[ext]`,
     }, {
       test: /\.(ttf|eot|wav|mp3)$/,
       loader: isProductionEnv
@@ -262,7 +262,7 @@ module.exports = Object.assign({
     new webpack.DefinePlugin(definePluginOpt),
     // https://github.com/webpack/webpack/issues/198
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-  ].concat(process.env.APP_ENABLE_COMMON_CHUNK ? [
+  ].concat(process.env.WEBCUBE_ENABLE_COMMON_CHUNK ? [
     // http://christianalfoni.github.io/react-webpack-cookbook/Split-app-and-vendors.html
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
@@ -270,7 +270,7 @@ module.exports = Object.assign({
       // children: true, // Move common modules into the parent chunk
       // async: true, // Create an async commons chunk
     }),
-  ] : []).concat(process.env.APP_ENABLE_EXTRACT_CSS ? [
+  ] : []).concat(process.env.WEBCUBE_ENABLE_EXTRACT_CSS ? [
     // https://www.npmjs.com/package/extract-text-webpack-plugin
     new ExtractTextPlugin(isProductionEnv
       ? 'css/[name]_[contenthash].css'

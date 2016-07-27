@@ -42,7 +42,7 @@ const compiler = webpack(webpackConfig);
 
 try {
   require(path.join(rootPath,
-    `${process.env.APP_CUSTOM_CONFIG_ROOT}/gulpfile.babel.js`));
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.babel.js`));
 } catch (ex) {
   console.log('No custom gulpfile');
 }
@@ -50,7 +50,7 @@ try {
 const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
   publicPath: isCloudEnv
-    ? process.env.APP_DEPLOY_STATIC_ROOT
+    ? process.env.WEBCUBE_DEPLOY_STATIC_ROOT
     : `/${staticRoot}/`,
   hot: liveMode === 'hmr',
   noInfo: true,
@@ -123,7 +123,7 @@ function buildHTML() {
       rootpath: path.join(rootPath, 'build/public'),
     }));
   if (isProductionEnv
-      && !process.env.APP_DISABLE_HTMLMIN) {
+      && !process.env.WEBCUBE_DISABLE_HTMLMIN) {
     stream = stream.pipe(htmlmin({ // https://github.com/kangax/html-minifier
       removeComments: true,
       collapseWhitespace: true,
@@ -236,18 +236,18 @@ gulp.task('check:scss', [], () => {
     'app/**/*.scss',
     'staticweb/**/*.scss',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
       sassLint({
         configFile: path.join(rootPath, '.sass-lint.yml'),
       })
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
       sassLint.format()
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_SASSLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
       sassLint.failOnError()
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_STYLELINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_STYLELINT,
       styleLint({
         configFile: path.join(rootPath, '.stylelintrc'),
         failAfterError: true,
@@ -263,7 +263,7 @@ gulp.task('check:css', [], () => {
     'app/**/*.css',
     'staticweb/**/*.css',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.APP_DISABLE_STYLELINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_STYLELINT,
       styleLint({
         configFile: path.join(rootPath, '.stylelintrc'),
         failAfterError: true,
@@ -279,15 +279,15 @@ gulp.task('check:js', [], () => {
     'app/**/*.@(js|jsx)',
     'staticweb/**/*.@(js|jsx)',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_ESLINT,
       eslint({
         configFile: path.join(rootPath, '.eslintrc.yml'),
       })
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_ESLINT,
       eslint.format('stylish')
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_ESLINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_ESLINT,
       eslint.failAfterError()
     ));
   // waiting for babel 6.6 upgrade
@@ -302,13 +302,13 @@ gulp.task('check:js', [], () => {
 
 gulp.task('check:html', [], () => {
   return gulp.src('staticweb/**/*.html', { cwd: rootPath })
-    .pipe(gulpif(!process.env.APP_DISABLE_HTMLHINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_HTMLHINT,
       htmlhint({
         // https://github.com/yaniswang/HTMLHint/wiki/Rules
         htmlhintrc: path.join(rootPath, '.htmlhintrc'),
       })
     ))
-    .pipe(gulpif(!process.env.APP_DISABLE_HTMLHINT,
+    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_HTMLHINT,
       htmlhint.failReporter()
     ));
 });
