@@ -173,7 +173,7 @@ function getDevServer() {
 //     });
 // }
 
-function startDevServer() {
+function startDevServer(done) {
   if (isProductionEnv) {
     throw new Error('Don\'t use webpack-dev-server for production env');
   }
@@ -185,6 +185,7 @@ function startDevServer() {
       throw err;
     }
     console.log(`Listening at http://${serverHost}:${serverPort}`);
+    done();
   });
 }
 
@@ -376,7 +377,11 @@ gulp.task('redeploy:staticweb', [
   'redeploy:static',
 ], () => {});
 
-gulp.task('watch:dev', ['clean:html', 'stop:staticserver'], startDevServer);
+gulp.task('watch:dev', ['clean:html', 'stop:staticserver'], (done) => {
+  stopStaticWebServer(function () {
+    startDevServer(done);
+  });
+});
 
 gulp.task('start:staticserver', (done) => {
   const stream = gulp.src('build/public', { cwd: rootPath });
