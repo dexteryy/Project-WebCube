@@ -69,7 +69,7 @@ export function deployHTML(src, opt) {
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
         bucket: process.env.WEBCUBE_DEPLOY_S3_BUCKET,
-        CacheControl: `mmax-age=${seconds}, public`,
+        CacheControl: `max-age=${seconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));
   };

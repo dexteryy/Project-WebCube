@@ -723,12 +723,79 @@ rules:
   # guard against awaiting async functions inside of a loop
   # https://www.npmjs.com/package/eslint-plugin-babel
   # "babel/no-await-in-loop:      2
+
   # Prevent missing displayName in a React component definition
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
   react/display-name:                 [2, { "ignoreTranspilerName": false }]
   # Forbid certain propTypes
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md
   react/forbid-prop-types:            [2, { "forbid": ["any", "array", "object"] }]
+  # Prevent usage of dangerous JSX properties
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger.md
+  react/no-danger:                    0
+  # Prevent usage of deprecated methods
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-deprecated.md
+  react/no-deprecated:                2
+  # Prevent usage of setState in componentDidMount
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md
+  react/no-did-mount-set-state:       2
+  # Prevent usage of setState in componentDidUpdate
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
+  react/no-did-update-set-state:      2
+  # Prevent direct mutation of this.state
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md
+  react/no-direct-mutation-state:     2
+  # Prevent usage of findDOMNode
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md
+  react/no-find-dom-node:             2
+  # Prevent usage of isMounted
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md
+  react/no-is-mounted:                2
+  # Prevent multiple component definition per file
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md
+  react/no-multi-comp:                [2, { "ignoreStateless": true }]
+  # Prevent usage of the return value of React.render
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-render-return-value.md
+  react/no-render-return-value:       2
+  #  Prevent usage of setState
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-set-state.md
+  react/no-set-state:                 0
+  # Prevent using string references in ref attribute.
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
+  react/no-string-refs:               2
+  # Prevent usage of unknown DOM property (fixable)
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md
+  react/no-unknown-property:          2
+  # Enforce ES5 or ES6 class for React Components
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md
+  react/prefer-es6-class:             [2, "always"]
+  # Enforce stateless React Components to be written as a pure function
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
+  react/prefer-stateless-function:    0
+  # Prevent missing props validation in a React component definition
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
+  # TODO
+  react/prop-types:                   0
+  # Prevent missing React when using JSX
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
+  react/react-in-jsx-scope:           2
+  # Enforce React components to have a shouldComponentUpdate method
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-optimization.md
+  react/require-optimization:         [0, { "allowDecorators": ["pureRender", "pureRender()"] }]
+  # Enforce ES5 or ES6 class for returning value in render function
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md
+  react/require-render-return:        2
+  # Prevent extra closing tags for components without children
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
+  react/self-closing-comp:            [2, { "component": true, "html": false }]
+  # Enforce component methods order
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md
+  react/sort-comp:                    2
+  # Enforce propTypes declarations alphabetical sorting
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-prop-types.md
+  react/sort-prop-types:              0
+
+
   # Enforce boolean attributes notation in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
   react/jsx-boolean-value:            [2, "never"]
@@ -738,6 +805,15 @@ rules:
   # Enforce or disallow spaces inside of curly braces in JSX attributes
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
   react/jsx-curly-spacing:            [2, "never"]
+  # Enforce or disallow spaces around equal signs in JSX attributes (fixable)
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
+  react/jsx-equals-spacing:           [2, "never"]
+  # Restrict file extensions that may contain JSX
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
+  react/jsx-filename-extension:       2
+  # Enforce position of the first prop in JSX
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
+  react/jsx-first-prop-new-line:      [2, "multiline"]
   # Enforce event handler naming conventions in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-handler-names.md
   react/jsx-handler-names:            0
@@ -756,85 +832,41 @@ rules:
   # No .bind() or Arrow Functions in JSX Props
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md
   react/jsx-no-bind:                  0 # [2, { "ignoreRefs: true }]
+  # Prevent comments from being inserted as text nodes
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md
+  react/jsx-no-comment-textnodes:     2
   # Prevent duplicate properties in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md
   react/jsx-no-duplicate-props:       2
   # Prevent usage of unwrapped JSX strings
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-literals.md
   react/jsx-no-literals:              0
+  # Prevent usage of unsafe target='_blank'
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md
+  # TODO
+  react/jsx-no-target-blank:          0
   # Disallow undeclared variables in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-undef.md
   react/jsx-no-undef:                 2
   # Enforce PasalCase for user-defined JSX components
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
   react/jsx-pascal-case:              2
-  # Deprecation notice: This rule is deprecated and has been replaced by the ESLint jsx-quotes rule added in ESLint v1.4.0.
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-quotes.md
-  react/jsx-quotes:                   0
-  # Enforce propTypes declarations alphabetical sorting
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-sort-prop-types.md
-  react/jsx-sort-prop-types:          0
   # Enforce props alphabetical sorting
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md
   react/jsx-sort-props:               0
+  # Validate spacing before closing bracket in JSX (fixable)
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md
+  react/jsx-space-before-closing:     [2, "always"]
   # Prevent React to be incorrectly marked as unused
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-react.md
   react/jsx-uses-react:               2
   # Prevent variables used in JSX to be incorrectly marked as unused
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md
   react/jsx-uses-vars:                2
-  # Prevent usage of dangerous JSX properties
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger.md
-  react/no-danger:                    0
-  # Prevent usage of deprecated methods
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-deprecated.md
-  react/no-deprecated:                2
-  # Prevent usage of setState in componentDidMount
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md
-  react/no-did-mount-set-state:       [2, "allow-in-func"]
-  # Prevent usage of setState in componentDidUpdate
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
-  react/no-did-update-set-state:      [2, "allow-in-func"]
-  # Prevent direct mutation of this.state
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md
-  react/no-direct-mutation-state:     2
-  # Prevent usage of isMounted
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md
-  react/no-is-mounted:                2
-  # Prevent multiple component definition per file
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md
-  react/no-multi-comp:                [2, { "ignoreStateless": true }]
-  # Prevent usage of setState
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-set-state.md
-  react/no-set-state:                 0
-  # Prevent using string references
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
-  react/no-string-refs:               0
-  # Prevent usage of unknown DOM property
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md
-  react/no-unknown-property:          2
-  # Enforce ES5 or ES6 class for React Components
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md
-  react/prefer-es6-class:             [2, "always"]
-  # Prevent missing props validation in a React component definition
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
-  # use flow
-  react/prop-types:                   0
-  # Prevent missing React when using JSX
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
-  react/react-in-jsx-scope:           2
-  # Restrict file extensions that may be required
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-extension.md
-  react/require-extension:            2
-  # Prevent extra closing tags for components without children
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
-  react/self-closing-comp:            0
-  # Enforce component methods order
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md
-  react/sort-comp:                    2
   # Prevent missing parentheses around multiline JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/wrap-multilines.md
   react/wrap-multilines:              2
+
   # https://github.com/zertosh/eslint-plugin-flow-vars
   flow-vars/define-flow-type:         2
   flow-vars/use-flow-type:            2
