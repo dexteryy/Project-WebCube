@@ -813,7 +813,7 @@ rules:
   react/jsx-filename-extension:       2
   # Enforce position of the first prop in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
-  react/jsx-first-prop-new-line:      [2, "multiline"]
+  react/jsx-first-prop-new-line:      0
   # Enforce event handler naming conventions in JSX
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-handler-names.md
   react/jsx-handler-names:            0
@@ -864,8 +864,8 @@ rules:
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md
   react/jsx-uses-vars:                2
   # Prevent missing parentheses around multiline JSX
-  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/wrap-multilines.md
-  react/wrap-multilines:              2
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md
+  react/jsx-wrap-multilines:          2
 
   # https://github.com/zertosh/eslint-plugin-flow-vars
   flow-vars/define-flow-type:         2

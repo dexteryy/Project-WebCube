@@ -5,6 +5,7 @@ import createReactRouterRoot from 'webcube/boilerplate/createReactRouterRoot';
 import routes from './routes';
 
 type AppOpt = {
+  appStateSample: String,
   isStaticWeb?: boolean,
   enablePerf?: boolean,
 }
@@ -18,6 +19,9 @@ export default class App extends AppSkeleton {
     this.createRoot = createReactRouterRoot;
     this.initRoot({
       routes,
+      rootProps: {
+        appStateSample: userOpt.appStateSample,
+      },
     });
   }
 

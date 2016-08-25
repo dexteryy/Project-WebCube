@@ -6,6 +6,7 @@ import AppRoot from './containers/App';
 import reducers from './reducers/';
 
 type AppOpt = {
+  appStateSample: String,
   isStaticWeb?: boolean,
   enablePerf?: boolean,
   DevTools?: Object,
@@ -20,6 +21,9 @@ export default class App extends AppSkeleton {
     this.createRoot = createReduxRoot;
     this.initRoot({
       root: AppRoot,
+      rootProps: {
+        appStateSample: userOpt.appStateSample,
+      },
       reducers,
     });
   }

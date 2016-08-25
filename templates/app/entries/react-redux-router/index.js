@@ -6,6 +6,7 @@ import routes from './routes';
 import reducers from './reducers/';
 
 type AppOpt = {
+  appStateSample: String,
   isStaticWeb?: boolean,
   enablePerf?: boolean,
   DevTools?: Object,
@@ -20,6 +21,9 @@ export default class App extends AppSkeleton {
     this.createRoot = createReduxRouterRoot;
     this.initRoot({
       routes,
+      rootProps: {
+        appStateSample: userOpt.appStateSample,
+      },
       reducers,
     });
   }

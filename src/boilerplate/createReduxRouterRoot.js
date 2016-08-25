@@ -45,6 +45,17 @@ export default function createReduxRouterRoot(opt: Object): Function {
     )
   );
   history = syncHistoryWithStore(history, store);
+  let routes = opt.routes;
+  if (!React.isValidElement(routes)) {
+    const rootComponent = routes.component;
+    routes = Object.assign({}, routes, {
+      component: (props) => {
+        const newProps = Object.assign({}, opt.rootProps, props);
+        delete newProps.children;
+        return React.createElement(rootComponent, newProps, props.children);
+      },
+    });
+  }
   return function Root() {
     if (!opt.isProductionEnv && opt.DevTools) {
       return React.createElement(Provider, {
@@ -53,7 +64,7 @@ export default function createReduxRouterRoot(opt: Object): Function {
         React.createElement('div', null,
           React.createElement(Router, {
             history,
-            routes: opt.routes,
+            routes,
           }),
           React.createElement(opt.DevTools),
         )
@@ -64,7 +75,7 @@ export default function createReduxRouterRoot(opt: Object): Function {
     },
       React.createElement(Router, {
         history,
-        routes: opt.routes,
+        routes,
       }),
     );
   };

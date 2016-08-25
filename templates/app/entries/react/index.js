@@ -5,6 +5,7 @@ import AppSkeleton from 'webcube/boilerplate/AppSkeleton';
 import AppRoot from './containers/App';
 
 type AppOpt = {
+  appStateSample: String,
   isStaticWeb?: boolean,
   enablePerf?: boolean,
 }
@@ -17,7 +18,9 @@ export default class App extends AppSkeleton {
     super(userOpt);
     this.createRoot = () => {
       return function Root() {
-        return React.createElement(AppRoot, {});
+        return React.createElement(AppRoot, {
+          appStateSample: userOpt.appStateSample,
+        });
       };
     };
     this.initRoot();

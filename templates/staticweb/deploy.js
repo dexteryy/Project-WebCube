@@ -6,6 +6,7 @@ import App from 'app/entries/{{entryName}}';
 // import DevTools from 'app/containers/DevTools';
 
 const app = new App({
+  appStateSample: 'sample',
   isStaticWeb: true,
   // DevTools,
 });

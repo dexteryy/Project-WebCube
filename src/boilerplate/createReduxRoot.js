@@ -42,7 +42,7 @@ export default function createReduxRouterRoot(opt: Object): Function {
         store,
       },
         React.createElement('div', null,
-          React.createElement(opt.root, {}),
+          React.createElement(opt.root, opt.rootProps || {}),
           React.createElement(opt.DevTools),
         )
       );
@@ -50,7 +50,7 @@ export default function createReduxRouterRoot(opt: Object): Function {
     return React.createElement(Provider, {
       store,
     },
-      React.createElement(opt.root, {}),
+      React.createElement(opt.root, opt.rootProps || {}),
     );
   };
 }
