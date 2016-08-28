@@ -176,7 +176,7 @@ module.exports = Object.assign({
       react: 'preact-compat',
       'react-dom': 'preact-compat',
       'react-addons-shallow-compare': 'preact-shallow-compare',
-      'react-addons-css-transition-group': 'rc-css-transition-group',
+      'react-addons-css-transition-group': 'preact-css-transition-group',
     } : {}),
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
     extensions: ['', '.js', '.jsx'],

@@ -7,9 +7,9 @@ import perfAddon from 'react-addons-perf';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
-// Needed for onTouchTap. Can go away when react 1.0 release
+// https://github.com/facebook/react/issues/436
 // https://github.com/zilverline/react-tap-event-plugin
-if (!process.env.WEBCUBE_DISABLE_TAP_EVENT
+if (!process.env.WEBCUBE_DISABLE_TAP_EVENT_ADDON
     && !process.env.WEBCUBE_USE_PREACT) {
   require('react-tap-event-plugin')();
 }
