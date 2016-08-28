@@ -116,7 +116,7 @@
     "phantomjs-prebuilt": "^2.1.10",
     "plop": "^1.5.0",
     "postcss-cssnext": "^2.7.0",
-    "postcss-loader": "^0.10.1",
+    "postcss-loader": "^0.11.0",
     "postcss-reporter": "^1.4.1",
     "radium": "^0.18.1",
     "raw-loader": "^0.5.1",
@@ -152,6 +152,7 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.2",
+    "webpack-md5-hash": "0.0.5",
     "webpack-stream": "^3.2.0",
     "whatwg-fetch": "^1.0.0"
   },

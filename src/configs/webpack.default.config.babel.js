@@ -6,6 +6,7 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
+import WebpackMd5Hash from 'webpack-md5-hash';
 import {
   isCloudEnv,
   isProductionEnv,
@@ -145,10 +146,10 @@ module.exports = Object.assign({
   entry: entries,
   output: {
     filename: isProductionEnv
-      ? 'js/[name]_[hash].js'
+      ? 'js/[name]_[chunkhash].js'
       : 'js/[name].js',
     chunkFilename: isProductionEnv
-      ? 'js/[name]_[hash].js'
+      ? 'js/[name]_[chunkhash].js'
       : 'js/[name].js',
     path: isProductionEnv
       ? path.join(rootPath, `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`)
@@ -283,6 +284,8 @@ module.exports = Object.assign({
       fullPath: true,
       prettyPrint: true,
     }),
+    // https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95
+    new WebpackMd5Hash(),
     // https://github.com/webpack/docs/wiki/optimization
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
