@@ -21,13 +21,8 @@ import htmlmin from 'gulp-htmlmin';
 import { Server as KarmaServer } from 'karma';
 import mocha from 'gulp-mocha';
 import staticWebServer from 'gulp-webserver';
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-// import express from 'express';
 import {
-  isCloudEnv,
   isProductionEnv,
-  liveMode,
   serverPort,
   serverHost,
   rootPath,
@@ -38,7 +33,6 @@ import {
 
 const pidFile = path.join(rootPath, '.webserver.pid');
 const webpackConfig = require('./webpack.default.config.babel.js');
-const compiler = webpack(webpackConfig);
 
 try {
   require(path.join(rootPath,
@@ -46,20 +40,6 @@ try {
 } catch (ex) {
   console.log('No custom gulpfile');
 }
-
-const devServerConfig = {
-  contentBase: path.join(rootPath, 'staticweb'),
-  publicPath: isCloudEnv
-    ? process.env.WEBCUBE_DEPLOY_STATIC_ROOT
-    : `/${staticRoot}/`,
-  hot: liveMode === 'hmr',
-  noInfo: true,
-  stats: { colors: true },
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true,
-  },
-};
 
 function buildApp(myWebpackConfig) {
   let stream = gulp.src([
@@ -157,36 +137,6 @@ function testUnit(done) {
     configFile: path.join(buildPath, 'configs/karma.conf.js'),
     singleRun: true,
   }, done).start();
-}
-
-function getDevServer() {
-  return new WebpackDevServer(compiler, devServerConfig);
-}
-
-// function getHotDevServer() {
-//   return express()
-//     .use(require('webpack-dev-middleware')(compiler, devServerConfig))
-//     .use(require('webpack-hot-middleware')(compiler))
-//     .get('*', function (req, res) {
-//       res.sendFile(path.join(__dirname,
-//         'staticweb', req.params[0], 'index.html'));
-//     });
-// }
-
-function startDevServer(done) {
-  if (isProductionEnv) {
-    throw new Error('Don\'t use webpack-dev-server for production env');
-  }
-  // const server = liveMode === 'hmr'
-  //   ? getHotDevServer() : getDevServer();
-  const server = getDevServer();
-  server.listen(serverPort, serverHost, (err) => {
-    if (err) {
-      throw err;
-    }
-    console.log(`Listening at http://${serverHost}:${serverPort}`);
-    done();
-  });
 }
 
 function startStaticWebServer(stream, done) {
@@ -376,12 +326,6 @@ gulp.task('redeploy:staticweb', [
   'redeploy:html',
   'redeploy:static',
 ], () => {});
-
-gulp.task('watch:dev', ['clean:html', 'stop:staticserver'], (done) => {
-  stopStaticWebServer(function () {
-    startDevServer(done);
-  });
-});
 
 gulp.task('start:staticserver', (done) => {
   const stream = gulp.src('build/public', { cwd: rootPath });
