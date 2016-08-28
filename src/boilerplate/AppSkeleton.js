@@ -3,19 +3,19 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import perfAddon from 'react-addons-perf';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
-const fakeFn = () => {};
-
 // Needed for onTouchTap. Can go away when react 1.0 release
 // https://github.com/zilverline/react-tap-event-plugin
-injectTapEventPlugin();
+if (!process.env.WEBCUBE_DISABLE_TAP_EVENT
+    && !process.env.WEBCUBE_USE_PREACT) {
+  require('react-tap-event-plugin')();
+}
 
 type AppOpt = {
   isStaticWeb?: boolean,
-  enablePerf?: boolean,
   DevTools?: Object,
 };
 
@@ -39,22 +39,10 @@ export default class AppSkeleton {
 
   defaultOpt: AppOpt = {
     isStaticWeb: false,
-    enablePerf: true,
   };
 
   constructor(userOpt: AppOpt = {}) {
     this.initConfig(userOpt);
-    this.Perf = !isProductionEnv && this.opt.enablePerf
-      ? require('react-addons-perf')
-      : {
-        start: fakeFn,
-        stop: fakeFn,
-        printInclusive: fakeFn,
-        printExclusive: fakeFn,
-        printWasted: fakeFn,
-        printDOM: fakeFn,
-        getLastMeasurements: fakeFn,
-      };
   }
 
   initConfig(userOpt: AppOpt) {
@@ -71,16 +59,15 @@ export default class AppSkeleton {
   }
 
   mount(node: HTMLElement, cb: Function): AppSkeleton {
-    const { Perf } = this;
-    Perf.start();
+    perfAddon.start();
     this._root = ReactDOM.render(
       React.createElement(this._Root),
       node,
       () => {
-        Perf.stop();
-        Perf.printInclusive();
-        Perf.printExclusive();
-        Perf.printWasted();
+        perfAddon.stop();
+        perfAddon.printInclusive();
+        perfAddon.printExclusive();
+        perfAddon.printWasted();
         cb && cb();
       },
     );

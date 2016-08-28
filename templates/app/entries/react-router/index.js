@@ -7,7 +7,6 @@ import routes from './routes';
 type AppOpt = {
   appStateSample: String,
   isStaticWeb?: boolean,
-  enablePerf?: boolean,
 }
 
 export default class App extends AppSkeleton {

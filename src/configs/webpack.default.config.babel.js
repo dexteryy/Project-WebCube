@@ -164,9 +164,20 @@ module.exports = Object.assign({
     root: [
       path.join(rootPath, 'app'),
     ],
-    alias: {
+    alias: Object.assign({
       app: path.join(rootPath, 'app'),
-    },
+    }, (
+      isProductionEnv
+        || process.env.WEBCUBE_DISABLE_PERF_ADDON
+        || process.env.WEBCUBE_USE_PREACT
+    ) ? {
+      'react-addons-perf': 'webcube/boilerplate/fakePerfAddon',
+    } : {}, process.env.WEBCUBE_USE_PREACT ? {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat',
+      'react-addons-shallow-compare': 'preact-shallow-compare',
+      'react-addons-css-transition-group': 'rc-css-transition-group',
+    } : {}),
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
     extensions: ['', '.js', '.jsx'],
   },
