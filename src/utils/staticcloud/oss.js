@@ -35,6 +35,16 @@ export function deploy(opt) {
       contentEncoding = mime.charset(contentType) || '';
     }
     gutil.log('uploading:', key);
+    const config = {
+      Bucket: opt.bucket,
+      Key: key,
+      Body: file.contents,
+      AccessControlAllowOrigin: '',
+      ContentType: contentType,
+      CacheControl: opt.CacheControl || 'no-cache',
+      ContentEncoding: contentEncoding,
+      Expires: null,
+    };
     new ALY.OSS({
       accessKeyId: opt.accessKeyId
         || process.env.WEBCUBE_DEPLOY_OSS_ID,
@@ -44,16 +54,7 @@ export function deploy(opt) {
         || process.env.WEBCUBE_DEPLOY_OSS_ENDPOINT,
       apiVersion: opt.apiVersion
         || '2013-10-15',
-    }).putObject({
-      Bucket: opt.bucket,
-      Key: key,
-      Body: file.contents,
-      AccessControlAllowOrigin: '',
-      ContentType: contentType,
-      CacheControl: opt.CacheControl || 'no-cache',
-      ContentEncoding: contentEncoding,
-      Expires: null,
-    }, function (err, data) {
+    }).putObject(config, function (err, data) {
       if (err) {
         gutil.log('error:', err.code, err.message);
         return;

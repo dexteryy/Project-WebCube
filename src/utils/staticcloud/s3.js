@@ -35,6 +35,17 @@ export function deploy(opt) {
       contentEncoding = mime.charset(contentType) || '';
     }
     gutil.log('uploading:', key);
+    const config = {
+      ACL: 'public-read',
+      Bucket: opt.bucket,
+      Key: key,
+      Body: file.contents,
+      ContentType: contentType,
+      CacheControl: opt.CacheControl || 'no-cache',
+    };
+    if (contentEncoding) {
+      config.ContentEncoding = contentEncoding;
+    }
     new AWS.S3({
       accessKeyId: opt.accessKeyId
         || process.env.WEBCUBE_DEPLOY_S3_ID,
@@ -44,15 +55,7 @@ export function deploy(opt) {
         || process.env.WEBCUBE_DEPLOY_S3_ENDPOINT,
       apiVersion: opt.apiVersion
         || '2006-03-01',
-    }).putObject({
-      ACL: 'public-read',
-      Bucket: opt.bucket,
-      Key: key,
-      Body: file.contents,
-      ContentType: contentType,
-      CacheControl: opt.CacheControl || 'no-cache',
-      ContentEncoding: contentEncoding,
-    }, function (err, data) {
+    }).putObject(config, function (err, data) {
       if (err) {
         gutil.log('error:', err.code, err.message);
         return;
