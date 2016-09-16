@@ -8,8 +8,8 @@ import cssnext from 'postcss-cssnext';
 import postcssReporter from 'postcss-reporter';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import {
-  isCloudEnv,
   isProductionEnv,
+  deployMode,
   liveMode,
   serverPort,
   serverHost,
@@ -154,7 +154,7 @@ module.exports = Object.assign({
     path: isProductionEnv
       ? path.join(rootPath, `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`)
       : path.join(rootPath, 'build/public/static-for-dev/'),
-    publicPath: isCloudEnv
+    publicPath: deployMode === 'staticweb'
         && process.env.WEBCUBE_DEPLOY_STATIC_ROOT
       || isProductionEnv
         && `/${process.env.WEBCUBE_STATIC_ROOT}/`

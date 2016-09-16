@@ -14,8 +14,9 @@ dotenv.config({
   path: path.join(rootPath, 'env.config'),
 });
 
-export const isCloudEnv = process.env.NODE_ENV === 'cloud';
-export const isProductionEnv = isCloudEnv || process.env.NODE_ENV === 'production';
+export const isCloudEnv = process.env.NODE_ENV === 'cloud'; // deprecated
+export const isProductionEnv = process.env.NODE_ENV === 'production' || isCloudEnv;
+export const deployMode = process.env.DEPLOY_MODE || isCloudEnv && 'staticweb';
 export const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 export const serverPort = process.env.WEBCUBE_DEVSERVER_PORT || 8000;
 export const serverHost = process.env.WEBCUBE_DEVSERVER_HOST || 'localhost';
@@ -25,10 +26,9 @@ export const staticRoot = isProductionEnv
 export const cloudAdapter = require(`./staticcloud/${process.env.WEBCUBE_DEPLOY_STATIC_CLOUD}`);
 
 export function getUrlRoot() {
-  const isCloudEnv = process.env.NODE_ENV === 'cloud';
   const myhost = process.env.WEBCUBE_DEVSERVER_HOST;
   const myport = process.env.WEBCUBE_DEVSERVER_PORT;
-  return isCloudEnv
+  return deployMode === 'staticweb'
     ? process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT.replace(/\/+$/, '')
     : `http://${myhost}:${myport}`;
 }

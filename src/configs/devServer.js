@@ -6,8 +6,8 @@ import WebpackDevServer from 'webpack-dev-server';
 // import express from 'express';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import {
-  isCloudEnv,
   isProductionEnv,
+  deployMode,
   liveMode,
   serverPort,
   serverHost,
@@ -28,7 +28,7 @@ if (isProductionEnv) {
 const compiler = webpack(webpackConfig);
 const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
-  publicPath: isCloudEnv
+  publicPath: deployMode === 'staticweb'
     ? process.env.WEBCUBE_DEPLOY_STATIC_ROOT
     : `/${staticRoot}/`,
   hot: liveMode === 'hmr',

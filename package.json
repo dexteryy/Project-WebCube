@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/webcube",
   "repository": "https://github.com/dexteryy/webcube",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
