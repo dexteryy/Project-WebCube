@@ -16,19 +16,23 @@ import {
   rootPath,
 } from '../utils';
 import kebabCase from 'lodash/kebabCase';
+import defaults from 'lodash/defaults';
 
 let customConfig;
-const customFields = {};
 try {
   customConfig = require(path.join(rootPath,
     `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.babel.js`));
-  (customConfig.customFields || []).forEach(field => {
-    customFields[field] = customConfig[field];
-  });
 } catch (ex) {
-  customConfig = null;
   console.log('No custom webpack configs');
 }
+customConfig = defaults(customConfig || {}, {
+  resolveAlias: {},
+  babelLoaderPresets: presets => presets,
+  babelLoaderPlugins: plugins => plugins,
+  postcssPlugins: [],
+  plugins: [],
+  customFields: {},
+});
 
 const mutiplEntries = {};
 for (const name in process.env) {
@@ -172,12 +176,12 @@ module.exports = Object.assign({
         || process.env.WEBCUBE_USE_PREACT
     ) ? {
       'react-addons-perf': 'webcube/boilerplate/fakePerfAddon',
-    } : {}, process.env.WEBCUBE_USE_PREACT ? {
+    } : null, process.env.WEBCUBE_USE_PREACT ? {
       react: 'preact-compat',
       'react-dom': 'preact-compat',
       'react-addons-shallow-compare': 'preact-shallow-compare',
       'react-addons-css-transition-group': 'preact-css-transition-group',
-    } : {}),
+    } : null, customConfig.resolveAlias),
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
     extensions: ['', '.js', '.jsx'],
   },
@@ -188,12 +192,12 @@ module.exports = Object.assign({
       loader: 'babel',
       exclude: /node_modules/,
       query: {
-        presets: [
+        presets: customConfig.babelLoaderPresets([
           'react',
           'es2015',
           'es2016',
-        ],
-        plugins: babelLoaderPlugins,
+        ]),
+        plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
         cacheDirectory: true,
       },
     }, {
@@ -264,7 +268,7 @@ module.exports = Object.assign({
         cascade: false,
       }),
       postcssReporter(),
-    ];
+    ].concat(customConfig.postcssPlugins);
   },
   sassLoader: {
     includePaths: [path.join(rootPath, 'node_modules')],
@@ -305,7 +309,5 @@ module.exports = Object.assign({
     new webpack.HotModuleReplacementPlugin(),
   ] : []).concat([
     new webpack.NoErrorsPlugin(),
-  ]).concat(customConfig
-    && customConfig.plugins
-    || []),
-}, customConfig && customFields || {});
+  ]).concat(customConfig.plugins),
+}, customConfig.customFields);
