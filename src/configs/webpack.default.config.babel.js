@@ -9,6 +9,7 @@ import postcssReporter from 'postcss-reporter';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import {
   isProductionEnv,
+  isStagingEnv,
   deployMode,
   liveMode,
   serverPort,
@@ -29,6 +30,7 @@ customConfig = defaults(customConfig || {}, {
   resolveAlias: {},
   babelLoaderPresets: presets => presets,
   babelLoaderPlugins: plugins => plugins,
+  loaders: [],
   postcssPlugins: [],
   plugins: [],
   customFields: {},
@@ -159,7 +161,9 @@ module.exports = Object.assign({
       ? path.join(rootPath, `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`)
       : path.join(rootPath, 'build/public/static-for-dev/'),
     publicPath: deployMode === 'staticweb'
-        && process.env.WEBCUBE_DEPLOY_STATIC_ROOT
+        && (isStagingEnv
+          && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT
+          || process.env.WEBCUBE_DEPLOY_STATIC_ROOT)
       || isProductionEnv
         && `/${process.env.WEBCUBE_STATIC_ROOT}/`
       || '/static-for-dev/',
@@ -250,7 +254,7 @@ module.exports = Object.assign({
       loader: isProductionEnv
         ? 'file?name=assets/[name]_[hash].[ext]'
         : 'file?name=assets/[name].[ext]',
-    }],
+    }].concat(customConfig.loaders),
   },
   // https://www.npmjs.com/package/postcss-loader
   postcss() {
