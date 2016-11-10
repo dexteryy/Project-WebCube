@@ -238,10 +238,10 @@ Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [
 npm run deploy:staticweb
 ```
 
-Just upload:
+For staging environment:
 
 ```
-npm run redeploy:staticweb
+npm run deploy:staging:staticweb
 ```
 
 Before deployment, all environment variables that names begin with `WEBCUBE_DEPLOY_STATIC_` must be configured in [`env.config`][custom.env.sample.config].

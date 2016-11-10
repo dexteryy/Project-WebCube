@@ -16,6 +16,7 @@ dotenv.config({
 
 export const isCloudEnv = process.env.NODE_ENV === 'cloud'; // deprecated
 export const isProductionEnv = process.env.NODE_ENV === 'production' || isCloudEnv;
+export const isStagingEnv = process.env.DEPLOY_ENV === 'staging';
 export const deployMode = process.env.DEPLOY_MODE || isCloudEnv && 'staticweb';
 export const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 export const serverPort = process.env.WEBCUBE_DEVSERVER_PORT || 8000;
@@ -29,6 +30,8 @@ export function getUrlRoot() {
   const myhost = process.env.WEBCUBE_DEVSERVER_HOST;
   const myport = process.env.WEBCUBE_DEVSERVER_PORT;
   return deployMode === 'staticweb'
-    ? process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT.replace(/\/+$/, '')
+    ? (isStagingEnv
+      ? process.env.WEBCUBE_DEPLOY_STAGING_STATIC_HTML_ROOT
+      : process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT).replace(/\/+$/, '')
     : `http://${myhost}:${myport}`;
 }

@@ -5,6 +5,9 @@ import gulp from 'gulp';
 import gutil from 'gulp-util';
 import mime from 'mime-types';
 import AWS from 'aws-sdk';
+import {
+  isStagingEnv,
+} from '../';
 
 const mimeOverride = {
 };
@@ -71,7 +74,9 @@ export function deployHTML(src, opt) {
   return function () {
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.WEBCUBE_DEPLOY_S3_BUCKET,
+        bucket: isStagingEnv
+          ? process.env.WEBCUBE_DEPLOY_STAGING_S3_BUCKET
+          : process.env.WEBCUBE_DEPLOY_S3_BUCKET,
         CacheControl: `max-age=${seconds}, public`,
         ContentEncoding: '', // enable CDN GZip
       }, opt)));
@@ -85,7 +90,9 @@ export function deployStatic(src, opt) {
     d.setTime(d.getTime() + 1000 * yearToSeconds);
     return gulp.src(src, { cwd: opt.cwd })
       .pipe(deploy(Object.assign({}, {
-        bucket: process.env.WEBCUBE_DEPLOY_S3_BUCKET,
+        bucket: isStagingEnv
+          ? process.env.WEBCUBE_DEPLOY_STAGING_S3_BUCKET
+          : process.env.WEBCUBE_DEPLOY_S3_BUCKET,
         root: process.env.WEBCUBE_STATIC_ROOT,
         CacheControl: `max-age=${yearToSeconds}, public`,
         ContentEncoding: '', // enable CDN GZip

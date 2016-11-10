@@ -307,24 +307,9 @@ gulp.task('deploy:static', [
   `build/public/${staticRoot}/**/*`,
 ], { cwd: rootPath }));
 
-gulp.task('redeploy:html', [
-], cloudAdapter.deployHTML([
-  `build/public/!(${staticRoot})/**/*.html`,
-], { cwd: rootPath }));
-
-gulp.task('redeploy:static', [
-], cloudAdapter.deployStatic([
-  `build/public/${staticRoot}/**/*`,
-], { cwd: rootPath }));
-
 gulp.task('deploy:staticweb', [
   'deploy:html',
   'deploy:static',
-], () => {});
-
-gulp.task('redeploy:staticweb', [
-  'redeploy:html',
-  'redeploy:static',
 ], () => {});
 
 gulp.task('start:staticserver', (done) => {
