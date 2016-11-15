@@ -822,7 +822,7 @@ rules:
   react/jsx-indent-props:             [2, 2]
   # Validate JSX indentation
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md
-  react/jsx-indent:                   [2, 2]
+  react/jsx-indent:                   0 #[2, 2]
   # Validate JSX has key prop when in array or iterator
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
   react/jsx-key:                      2
