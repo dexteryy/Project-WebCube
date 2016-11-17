@@ -242,6 +242,9 @@ module.exports = Object.assign({
             quality: '65-90',
             speed: 4,
           },
+          mozjpeg: {
+            quality: 65,
+          },
         })),
       ],
     }, {
