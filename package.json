@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/webcube",
   "repository": "https://github.com/dexteryy/webcube",
-  "version": "0.5.14",
+  "version": "0.5.17",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     }
   },
   "engines": {
-    "node": ">=6.3.0"
+    "node": ">=6.9.0"
   },
   "dependencies": {
     "aliyun-sdk": "^1.9.9",

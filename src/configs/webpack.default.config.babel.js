@@ -46,6 +46,12 @@ for (const name in process.env) {
   if (demoName) {
     mutiplEntries[kebabCase(demoName)] = [process.env[name]];
   }
+  if (!isProductionEnv) {
+    const devEntryName = (/WEBCUBE_DEV_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
+    if (devEntryName) {
+      mutiplEntries[kebabCase(devEntryName)] = [process.env[name]];
+    }
+  }
 }
 
 const entries = Object.assign(process.env.WEBCUBE_ENABLE_COMMON_CHUNK ? {

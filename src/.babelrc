@@ -1,23 +1,12 @@
 {
   "presets": [
-    "react",
-    "es2016",
+    "react"
   ],
   "plugins": [
-    // ["transform-runtime", {
-    //   "polyfill": true,
-    //   "regenerator": false,
-    // }],
-    // "transform-strict-mode",
-    // "transform-es2015-parameters",
-    // "transform-es2015-destructuring",
-    // "transform-es2015-sticky-regex",
-    // "transform-es2015-unicode-regex",
-    "transform-es2015-modules-commonjs",
+    "syntax-trailing-function-commas",
     "transform-object-rest-spread",
+    "transform-es2015-modules-commonjs",
     "transform-class-properties",
-    "transform-decorators-legacy",
-    "syntax-async-functions",
-    "async-to-promises",
+    "transform-decorators-legacy"
   ]
 }
