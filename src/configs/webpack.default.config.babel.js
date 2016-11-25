@@ -316,8 +316,9 @@ module.exports = Object.assign({
     new WebpackMd5Hash(),
     // https://github.com/webpack/docs/wiki/optimization
     new webpack.optimize.OccurenceOrderPlugin(),
+  ]).concat(process.env.WEBCUBE_ENABLE_DEDUPE_PLUGIN ? [
     new webpack.optimize.DedupePlugin(),
-  ]).concat(!isProductionEnv ? [
+  ] : []).concat(!isProductionEnv ? [
     // https://github.com/glenjamin/webpack-hot-middleware
     new webpack.HotModuleReplacementPlugin(),
   ] : []).concat([
