@@ -15,53 +15,58 @@ if (!process.env.WEBCUBE_DISABLE_TAP_EVENT_ADDON
 }
 
 type AppOpt = {
-  isStaticWeb?: boolean,
-  DevTools?: Object,
-};
-
-type RootOpt = {
-  routes?: Object,
-  reducers?: Object,
-  initialState?: Object,
-  moreMiddleware?: Array<Function>,
-  moreEnhancers?: Array<Function>,
+  isStaticWeb: ?boolean,
+  DevTools: ?Object,
 };
 
 export default class AppSkeleton {
 
-  _node: HTMLElement;
-  _root: React.Component | void;
-  _Root: Object;
-  Perf: Object;
+  defaultOptions: Object = {};
   createRoot: Function;
+  Root: React.Component;
+  // @TODO react-router v4: start
+  routes: ?Object;
+  rootProps: ?Object;
+  // @TODO react-router v4: end
+  reducers: ?Object;
+  initialState: ?Object;
+  moreMiddleware: ?Array<Function>;
+  moreEnhancers: ?Array<Function>;
 
+  builtinOptions: AppOpt = {
+    isStaticWeb: false,
+    DevTools: null,
+  };
   opt: Object = {};
 
-  defaultOpt: AppOpt = {
-    isStaticWeb: false,
-  };
+  _node: HTMLElement;
+  _root: React.Component | void;
 
-  constructor(userOpt: AppOpt = {}) {
-    this.initConfig(userOpt);
+  constructor(userOpt: Object = {}) {
+    this.config(userOpt);
   }
 
-  initConfig(userOpt: AppOpt) {
-    Object.assign(this.opt, this.defaultOpt, userOpt);
-  }
-
-  initRoot(opt: RootOpt = {}) {
-    this._Root = this.createRoot({
-      isProductionEnv,
-      isStaticWeb: this.opt.isStaticWeb,
-      DevTools: this.opt.DevTools,
-      ...opt,
-    });
+  config(userOpt: AppOpt) {
+    Object.assign(this.opt, this.builtinOptions, this.defaultOptions, userOpt);
   }
 
   mount(node: HTMLElement, cb: Function): AppSkeleton {
+    const Root = this.createRoot({
+      isProductionEnv,
+      AppRoot: this.Root,
+      // @TODO react-router v4: start
+      routes: this.routes,
+      rootProps: this.rootProps,
+      // @TODO react-router v4: end
+      reducers: this.reducers,
+      initialState: this.initialState,
+      moreMiddleware: this.moreMiddleware,
+      moreEnhancers: this.moreEnhancers,
+      options: this.opt,
+    });
     perfAddon.start();
     this._root = ReactDOM.render(
-      React.createElement(this._Root),
+      React.createElement(Root),
       node,
       () => {
         perfAddon.stop();
@@ -77,7 +82,6 @@ export default class AppSkeleton {
 
   unmount(): AppSkeleton {
     ReactDOM.unmountComponentAtNode(this._node);
-    delete this._root;
     return this;
   }
 

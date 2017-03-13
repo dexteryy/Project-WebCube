@@ -1,35 +1,18 @@
-/* @flow */
 
 import AppSkeleton from 'webcube/boilerplate/AppSkeleton';
 import createReduxRouterRoot from 'webcube/boilerplate/createReduxRouterRoot';
+// @TODO react-router v4
+// import AppRoot from './containers/App';
 import routes from './routes';
 import reducers from './reducers/';
 
-type AppOpt = {
-  appStateSample: String,
-  isStaticWeb?: boolean,
-  DevTools?: Object,
-}
-
 export default class App extends AppSkeleton {
 
-  myDefaultOpt: Object = {};
-
-  constructor(userOpt: AppOpt) {
-    super(userOpt);
-    this.createRoot = createReduxRouterRoot;
-    this.initRoot({
-      routes,
-      rootProps: {
-        appStateSample: userOpt.appStateSample,
-      },
-      reducers,
-    });
-  }
-
-  initConfig(userOpt: AppOpt) {
-    this.defaultOpt = Object.assign({}, this.defaultOpt, this.myDefaultOpt);
-    super.initConfig(userOpt);
-  }
+  defaultOptions = {};
+  createRoot = createReduxRouterRoot;
+  // @TODO react-router v4
+  // Root = AppRoot;
+  routes = routes;
+  reducers = reducers;
 
 }

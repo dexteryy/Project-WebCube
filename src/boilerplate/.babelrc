@@ -1,18 +1,31 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "es2016"
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "> 5%"],
+        "ios": 7,
+        "android": 4,
+        "node": 7.7,
+        "ie": 11
+      },
+      "include": [],
+      "exclude": [
+        "transform-async-to-generator"
+      ],
+      "uglify": true,
+      "useBuiltIns": true,
+      "loose": false,
+      "debug": false
+    }],
+    "react"
   ],
   "plugins": [
-    ["transform-runtime", {
-      "polyfill": true,
-      "regenerator": false,
-    }],
-    "syntax-trailing-function-commas",
-    "transform-object-rest-spread",
+    "add-module-exports",
     "transform-es2015-modules-commonjs",
+    "fast-async",
+    "transform-function-bind",
     "transform-class-properties",
+    "transform-object-rest-spread",
     "transform-decorators-legacy"
   ]
 }

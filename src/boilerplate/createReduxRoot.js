@@ -1,4 +1,3 @@
-/* @flow */
 
 import React from 'react';
 import {
@@ -9,13 +8,23 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 
-export default function createReduxRouterRoot(opt: Object): Function {
-  const initialState = opt.initialState;
+export default function createReduxRoot({
+  isProductionEnv,
+  AppRoot,
+  reducers,
+  initialState,
+  moreMiddleware,
+  moreEnhancers,
+  options,
+}) {
+  const {
+    DevTools,
+  } = options;
   const logger = createLogger();
   const devTools = [];
-  if (!opt.isProductionEnv) {
-    if (opt.DevTools) {
-      devTools.push(opt.DevTools.instrument());
+  if (!isProductionEnv) {
+    if (DevTools) {
+      devTools.push(DevTools.instrument());
     } else if (typeof window === 'object'
         && typeof window.devToolsExtension !== 'undefined') {
       devTools.push(window.devToolsExtension());
@@ -23,34 +32,34 @@ export default function createReduxRouterRoot(opt: Object): Function {
   }
   const store = createStore(
     combineReducers({
-      ...opt.reducers,
+      ...reducers,
     }),
     initialState,
     compose(
       applyMiddleware(
         thunk,
-        ...opt.moreMiddleware || [],
-        ...(opt.isProductionEnv ? [] : [logger])
+        ...moreMiddleware || [],
+        ...(isProductionEnv ? [] : [logger])
       ),
-      ...opt.moreEnhancers || [],
+      ...moreEnhancers || [],
       ...devTools,
     )
   );
   return function Root() {
-    if (!opt.isProductionEnv && opt.DevTools) {
+    if (!isProductionEnv && DevTools) {
       return React.createElement(Provider, {
         store,
       },
         React.createElement('div', null,
-          React.createElement(opt.root, opt.rootProps || {}),
-          React.createElement(opt.DevTools),
+          React.createElement(AppRoot, options),
+          React.createElement(DevTools),
         )
       );
     }
     return React.createElement(Provider, {
       store,
     },
-      React.createElement(opt.root, opt.rootProps || {}),
+      React.createElement(AppRoot, options),
     );
   };
 }

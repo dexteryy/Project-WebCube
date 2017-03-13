@@ -13,7 +13,6 @@ import sourcemaps from 'gulp-sourcemaps';
 import inlinesource from 'gulp-inline-source';
 import eslint from 'gulp-eslint';
 // import flow from 'gulp-flowtype';
-import sassLint from 'gulp-sass-lint';
 import styleLint from 'gulp-stylelint';
 import htmlhint from 'gulp-htmlhint';
 import uglify from 'gulp-uglify';
@@ -128,7 +127,8 @@ function testFunctional() {
     // Gulp-mocha needs filepaths so you can't have any plugins before it
     .pipe(mocha({ // https://www.npmjs.com/package/gulp-mocha
       reporter: 'spec',
-      globals: [],
+      // compilers: 'js:babel-core/register',
+      globals: ['*'],
     }));
 }
 
@@ -187,17 +187,6 @@ gulp.task('check:scss', [], () => {
     'app/**/*.scss',
     'staticweb/**/*.scss',
   ], { cwd: rootPath })
-    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
-      sassLint({
-        configFile: path.join(rootPath, '.sass-lint.yml'),
-      })
-    ))
-    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
-      sassLint.format()
-    ))
-    .pipe(gulpif(!process.env.WEBCUBE_DISABLE_SASSLINT,
-      sassLint.failOnError()
-    ))
     .pipe(gulpif(!process.env.WEBCUBE_DISABLE_STYLELINT,
       styleLint({
         configFile: path.join(rootPath, '.stylelintrc'),

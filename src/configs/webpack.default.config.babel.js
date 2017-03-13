@@ -93,14 +93,14 @@ runtimeVars.forEach(name => {
 });
 
 const babelLoaderPlugins = [
-  'syntax-trailing-function-commas',
-  'transform-object-rest-spread',
+  'add-module-exports',
+  'transform-es2015-modules-commonjs',
+  'fast-async',
+  'transform-function-bind',
   'transform-class-properties',
+  'transform-object-rest-spread',
   // https://phabricator.babeljs.io/T2645
   'transform-decorators-legacy',
-  'syntax-async-functions',
-  // https://github.com/marten-de-vries/kneden
-  'async-to-promises',
 ];
 if (!process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
   // bug: ReferenceError: Can't find variable: Symbol
@@ -189,7 +189,7 @@ module.exports = Object.assign({
     } : null, process.env.WEBCUBE_USE_PREACT ? {
       react: 'preact-compat',
       'react-dom': 'preact-compat',
-      'react-addons-shallow-compare': 'preact-shallow-compare',
+      'react-addons-shallow-compare': 'shallow-compare',
       'react-addons-css-transition-group': 'preact-css-transition-group',
     } : null, customConfig.resolveAlias),
     modulesDirectories: [path.join(rootPath, 'node_modules')], // ['node_modules'],
@@ -203,9 +203,24 @@ module.exports = Object.assign({
       exclude: /node_modules/,
       query: {
         presets: customConfig.babelLoaderPresets([
+          ['env', {
+            targets: {
+              browsers: ['last 2 versions', '> 5%'],
+              ios: 7,
+              android: 4,
+              node: 7.7,
+              ie: 11,
+            },
+            include: [],
+            exclude: [
+              'transform-async-to-generator',
+            ],
+            uglify: true,
+            useBuiltIns: true,
+            loose: false,
+            debug: false,
+          }],
           'react',
-          'es2015',
-          'es2016',
         ]),
         plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
         cacheDirectory: true,
@@ -242,11 +257,15 @@ module.exports = Object.assign({
           return `image-webpack?${imageOpt}`;
         })(JSON.stringify({
           progressive: true,
-          optimizationLevel: 7,
-          interlaced: false,
+          gifsicle: {
+            interlaced: false,
+          },
           pngquant: {
             quality: '65-90',
             speed: 4,
+          },
+          optipng: {
+            optimizationLevel: 7,
           },
           mozjpeg: {
             quality: 65,
