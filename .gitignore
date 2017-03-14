@@ -3,8 +3,8 @@ node_modules/
 *.log
 *.pid
 configs/*
-utils/*
-boilerplate/*
 !src/configs/
+tools/*
+!src/tools/
+utils/*
 !src/utils/
-!src/boilerplate/

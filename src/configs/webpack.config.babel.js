@@ -30,6 +30,7 @@ customConfig = defaults(customConfig || {}, {
   resolveAlias: {},
   babelLoaderPresets: presets => presets,
   babelLoaderPlugins: plugins => plugins,
+  babelLoaderInclude: [],
   loaders: [],
   postcssPlugins: [],
   plugins: [],
@@ -200,7 +201,13 @@ module.exports = Object.assign({
     loaders: [{
       test: /\.jsx?$/,
       loader: 'babel',
-      exclude: /node_modules/,
+      include: [
+        path.join(rootPath, 'app'),
+        path.join(rootPath, 'src'),
+        path.join(rootPath, 'staticweb'),
+        path.join(rootPath, 'node_modules/webcube'),
+      ].concat(customConfig.babelLoaderInclude),
+      // exclude: /node_modules/,
       query: {
         presets: customConfig.babelLoaderPresets([
           ['env', {

@@ -112,7 +112,7 @@ NODE_ENV=production npm run build
 > Underlying build scripts and config files:
 >
 > * [`webcube/src/configs/gulpfile.babel.js`][gulpfile]
-> * [`webcube/src/configs/webpack.default.config.babel.js`][webpack.config]
+> * [`webcube/src/configs/webpack.config.babel.js`][webpack.config]
 
 Open in the browser
 
@@ -265,7 +265,7 @@ Underlying deployment scripts and adapters:
 [package.json]: https://github.com/dexteryy/webcube-example/blob/master/package.json
 [env.sample.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/env.sample.config
 [custom.env.sample.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/env.sample.config
-[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.default.config.babel.js
+[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.config.babel.js
 [custom.webpack.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/webpack.config.babel.js
 [gulpfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/gulpfile.babel.js
 [custom.gulpfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/gulpfile.babel.js

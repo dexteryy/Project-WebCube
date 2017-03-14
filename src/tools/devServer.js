@@ -15,7 +15,7 @@ import {
   rootPath,
   staticRoot,
 } from '../utils';
-import webpackConfig from './webpack.default.config.babel.js';
+import webpackConfig from '../configs/webpack.config.babel.js';
 
 // https://github.com/FormidableLabs/webpack-dashboard
 webpackConfig.plugins.push(
@@ -27,6 +27,7 @@ if (isProductionEnv) {
 }
 
 const compiler = webpack(webpackConfig);
+// compiler.apply(new DashboardPlugin({ port: process.env.WEBCUBE_DEVSERVER_DASHBOARD_PORT }));
 const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
   publicPath: deployMode === 'staticweb'

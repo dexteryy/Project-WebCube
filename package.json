@@ -8,16 +8,16 @@
   },
   "homepage": "https://github.com/dexteryy/webcube",
   "repository": "https://github.com/dexteryy/webcube",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run clear && npm run build",
-    "clear": "rm -rf ./configs ./utils ./boilerplate",
-    "build": "npm run build:configs && npm run build:utils && npm run build:boilerplate",
+    "clear": "rm -rf ./configs ./tools ./utils",
+    "build": "npm run build:configs && npm run build:tools && npm run build:utils",
     "build:configs": "babel src/configs --out-dir ./configs/ --source-maps",
+    "build:tools": "babel src/tools --out-dir ./tools/ --source-maps",
     "build:utils": "babel src/utils --out-dir ./utils/ --source-maps",
-    "build:boilerplate": "babel src/boilerplate --out-dir ./boilerplate/ --source-maps",
     "lint": "eslint src/**"
   },
   "config": {

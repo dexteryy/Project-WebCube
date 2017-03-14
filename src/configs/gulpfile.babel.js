@@ -31,7 +31,7 @@ import {
 } from '../utils';
 
 const pidFile = path.join(rootPath, '.webserver.pid');
-const webpackConfig = require('./webpack.default.config.babel.js');
+const webpackConfig = require('./webpack.config.babel.js');
 
 try {
   require(path.join(rootPath,
