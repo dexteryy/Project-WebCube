@@ -22,20 +22,12 @@ module.exports = function (plop) {
 
   const addReactEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/index.js'),
     templateFile: path.join(modulePath, 'templates/app/entries/react/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react/containers/App.jsx'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react/containers/App.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react/styles/_variables.scss'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/App.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react/main/containers/App.jsx'),
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -48,32 +40,20 @@ module.exports = function (plop) {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
     templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
-    templateFile: path.join(modulePath, 'templates/test/functionals/entry.spec.js'),
   }];
 
   const addReactRouterEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/index.js'),
     templateFile: path.join(modulePath, 'templates/app/entries/react-router/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-router/containers/App.jsx'),
+    path: path.join(rootPath, 'app/{{entryName}}/routes.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-router/routes.jsx'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-router/containers/App.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-router/routes/index.jsx'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-router/styles/_variables.scss'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/App.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-router/main/containers/App.jsx'),
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -86,44 +66,28 @@ module.exports = function (plop) {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
     templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
-    templateFile: path.join(modulePath, 'templates/test/functionals/entry.spec.js'),
   }];
 
   const addReactReduxEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/index.js'),
     templateFile: path.join(modulePath, 'templates/app/entries/react-redux/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/reducers/index.js'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/reducers/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/reducers/index.js'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/main/reducers/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/actions/index.js'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/actions/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/actions/index.js'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/main/actions/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/containers/App.jsx'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/App.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/main/containers/App.jsx'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/containers/App.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/containers/Home.jsx'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/containers/Home.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/styles/_variables.scss'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/Home.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux/main/containers/Home.jsx'),
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -136,48 +100,32 @@ module.exports = function (plop) {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
     templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
-    templateFile: path.join(modulePath, 'templates/test/functionals/entry.spec.js'),
   }];
 
   const addReactReduxRouterEntryActions = [{
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/index.js'),
     templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/routes/index.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/routes/index.jsx'),
+    path: path.join(rootPath, 'app/{{entryName}}/routes.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/routes.jsx'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/reducers/index.js'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/reducers/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/reducers/index.js'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/main/reducers/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/actions/index.js'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/actions/index.js'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/actions/index.js'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/main/actions/index.js'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/containers/App.jsx'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/App.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/main/containers/App.jsx'),
   }, {
     type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/App.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/containers/App.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.jsx'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/containers/Home.jsx'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/containers/Home.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/containers/Home.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/styles/_variables.scss'),
-    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/styles/_variables.scss'),
+    path: path.join(rootPath, 'app/{{entryName}}/main/containers/Home.jsx'),
+    templateFile: path.join(modulePath, 'templates/app/entries/react-redux-router/main/containers/Home.jsx'),
   }, {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
@@ -190,17 +138,13 @@ module.exports = function (plop) {
     type: 'add',
     path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
     templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
-  }, {
-    type: 'add',
-    path: path.join(rootPath, 'app/entries/{{entryName}}/tests/index.spec.js'),
-    templateFile: path.join(modulePath, 'templates/test/functionals/entry.spec.js'),
   }];
 
   const getEntryOpt = opt => {
     const updateEnvConfig = {
       type: 'modify',
       pattern: /([\s\S]*)/,
-      template: `$1\n\nWEBCUBE_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
+      template: '$1\n\nWEBCUBE_ENTRY_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"',
     };
     return {
       description: opt.description,
@@ -247,7 +191,7 @@ module.exports = function (plop) {
     const updateEnvConfig = {
       type: 'modify',
       pattern: /([\s\S]*)/,
-      template: `$1\n\nWEBCUBE_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"`,
+      template: '$1\n\nWEBCUBE_{{constantCase entryName}}=\"./staticweb/{{entryName}}/deploy.js\"',
     };
     return {
       description: opt.description,

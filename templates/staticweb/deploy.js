@@ -1,9 +1,8 @@
 
 import 'normalize.css/normalize.css';
 import './deploy.scss';
-import App from 'app/entries/{{entryName}}';
-// or import App from '../../';
-// import DevTools from 'app/containers/DevTools';
+import App from 'app/{{entryName}}';
+// import DevTools from 'app/common/containers/DevTools';
 
 const app = new App({
   appStateSample: 'sample',

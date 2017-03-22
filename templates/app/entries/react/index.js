@@ -1,7 +1,7 @@
 
 import AppSkeleton from 'webcube/boilerplate/AppSkeleton';
 import createReactRoot from 'webcube/boilerplate/createReactRoot';
-import AppRoot from './containers/App';
+import AppRoot from './main/containers/App';
 
 export default class App extends AppSkeleton {
 

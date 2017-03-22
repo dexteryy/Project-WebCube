@@ -1,10 +1,8 @@
 
 import AppSkeleton from 'webcube/boilerplate/AppSkeleton';
 import createReduxRouterRoot from 'webcube/boilerplate/createReduxRouterRoot';
-// @TODO react-router v4
-// import AppRoot from './containers/App';
 import routes from './routes';
-import reducers from './reducers/';
+import homeModel from './main/reducers';
 
 export default class App extends AppSkeleton {
 
@@ -13,6 +11,8 @@ export default class App extends AppSkeleton {
   // @TODO react-router v4
   // Root = AppRoot;
   routes = routes;
-  reducers = reducers;
+  reducers = {
+    homeModel,
+  };
 
 }

@@ -781,7 +781,7 @@ rules:
   react/react-in-jsx-scope:           2
   # Enforce React components to have a shouldComponentUpdate method
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-optimization.md
-  react/require-optimization:         [0, { "allowDecorators": ["pureRender", "pureRender()"] }]
+  react/require-optimization:         [0]
   # Enforce ES5 or ES6 class for returning value in render function
   # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md
   react/require-render-return:        2

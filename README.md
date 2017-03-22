@@ -35,8 +35,8 @@ Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boi
 - `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-router/index.js)
 - `createReduxRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux/index.js)
 - `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/containers/Home.jsx)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/main/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/main/containers/Home.jsx)
 - ...
 
 ## How to Create a New Web App
@@ -48,7 +48,13 @@ Use webcube-cli (TODO) or imitate the [example app](https://github.com/dexteryy/
 - **configs/** - Project-defined configuration files and build scripts
   - `env.sample.config` - Project-defined template file for [env.config][custom.env.sample.config]
 - **app/** - All source code for web app (shared between client-side and server-side), including JS, CSS and assets
-  - **entries/** - Multiple entry points
+  - **common/** - Reusable code shared between entry points
+  - **entrypoint1/** - Multiple entry points
+    - **common/** - Reusable code shared between feature sets
+    - **main/** - The default/global feature set
+    - **feature1/** - A feature set
+    - **feature2/** - A feature set
+  - **entrypoint2/**
 - **staticweb/** - For static web deployment or testing
 - `package.json` - Minimal dependencies and npm scripts based on webcube, see [webcube-example's package.json](https://github.com/dexteryy/webcube-example/blob/master/package.json)
 - `env.config` - Project-defined configuration options for webcube and custom scripts
@@ -182,13 +188,13 @@ Functional tests:
 
 * NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 * Naming convention: `**/*.spec.js`
-* Example: [webcube-example/app/entries/example-app/tests/index.spec.js](https://github.com/dexteryy/webcube-example/blob/master/app/entries/example-app/tests/index.spec.js)
+* Example: [webcube-example/app/example-app/main/tests/index.spec.js](https://github.com/dexteryy/webcube-example/blob/master/app/example-app/main/tests/index.spec.js)
 
 Unit tests:
 
 * [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
 * Naming convention: `**/*.test.js`
-* Example: [webcube-example/app/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/components/WelcomeBox/tests/index.test.js)
+* Example: [webcube-example/app/example-app/effects/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/example-app/effects/components/WelcomeBox/tests/index.test.js)
 
 Manually run functional tests (run automatically after building):
 
