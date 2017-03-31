@@ -4,7 +4,7 @@
 Webcube is a batch of continuously updated base code and configurations for modern static/isomorphic web app. It simplifies the integration with the latest cutting-edge JS technology and tools, automatically provides the modern software engineering environment, architecture, workflow and best practices. It also can lower the barrier of starting a new web app project.
 
 > * webcube-cli: TODO
-> * Example App: https://github.com/dexteryy/webcube-example/
+> * Boilerplate + demo: https://github.com/dexteryy/webcube-example/
 
 ## Features
 
@@ -14,7 +14,7 @@ Webcube is a batch of continuously updated base code and configurations for mode
 
 * [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) + [Helmet](https://www.npmjs.com/package/react-helmet) + [CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...) + [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Logger](https://github.com/fcomb/redux-logger) + [DevTools](https://github.com/gaearon/redux-devtools) + ...)
 * [Webpack](http://webpack.github.io/docs/)
-  * [Babel v6](babeljs.io) ([ES2015 + ES2016](https://babeljs.io/docs/learn-es2015/) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [async/await to Promise](https://github.com/marten-de-vries/kneden) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
+  * [Babel v6](babeljs.io) ([babel-preset-env](https://github.com/babel/babel-preset-env) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [fast-async](https://github.com/MatAtBread/fast-async) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
   * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [mozjpeg](https://github.com/imagemin/imagemin-mozjpeg) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
@@ -25,10 +25,10 @@ Webcube is a batch of continuously updated base code and configurations for mode
   * [webpack-stream](https://www.npmjs.com/package/webpack-stream/) + [UglifyJS2](https://github.com/mishoo/UglifyJS2)
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
 * [Karma](https://karma-runner.github.io/) ([PhantomJS](http://phantomjs.org/)) / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)) + [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/)
-* [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Ghooks](https://www.npmjs.com/package/ghooks) + [EditorConfig](http://editorconfig.org/)
+* [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Husky](https://github.com/typicode/husky) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 
-Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boilerplate/AppSkeleton.js):
+Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boilerplate/):
 
 - `AppSkeleton` - [exmaple A](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/webcube-example/blob/master/templates/app/entries/react-redux-router/index.js)
 - `createReactRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react/index.js)
