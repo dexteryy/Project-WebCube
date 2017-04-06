@@ -12,24 +12,23 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run clear && npm run build",
+    "prepare": "npm run lint && npm run build",
+    "precommit": "npm run lint && npm run test",
     "clear": "rm -rf ./configs ./tools ./utils",
     "build": "npm run build:configs && npm run build:tools && npm run build:utils",
     "build:configs": "babel src/configs --out-dir ./configs/ --source-maps",
     "build:tools": "babel src/tools --out-dir ./tools/ --source-maps",
     "build:utils": "babel src/utils --out-dir ./utils/ --source-maps",
+    "test": "npm run build",
     "lint": "eslint src/**"
   },
   "config": {
-    "ghooks": {
-      "pre-commit": "npm run lint && npm run build"
-    },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=7.7.4"
   },
   "dependencies": {
     "aliyun-sdk": "^1.9.21",
@@ -67,7 +66,6 @@
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "fast-async": "^6.2.1",
-    "fbjs": "^0.8.9",
     "file-loader": "^0.10.1",
     "flux-standard-action": "^1.2.0",
     "gulp": "^3.9.1",
