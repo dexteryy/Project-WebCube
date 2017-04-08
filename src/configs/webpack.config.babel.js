@@ -215,7 +215,7 @@ module.exports = Object.assign({
               browsers: ['last 2 versions', '> 5%'],
               ios: 7,
               android: 4,
-              node: 7.7,
+              node: 6,
               ie: 11,
             },
             include: [],

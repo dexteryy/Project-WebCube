@@ -1,6 +1,6 @@
 {
   "name": "webcube",
-  "description": "Webcube is a batch of continuously updated base code and configurations for modern static/isomorphic web app",
+  "description": "webcube is a batch of continuously updated base code and configurations for modern static/isomorphic web app",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/webcube",
   "repository": "https://github.com/dexteryy/webcube",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     }
   },
   "engines": {
-    "node": ">=7.7.4"
+    "node": ">=6"
   },
   "dependencies": {
     "aliyun-sdk": "^1.9.21",
@@ -158,18 +158,24 @@
   },
   "devDependencies": {},
   "keywords": [
-    "boilerplate",
-    "starter",
-    "isomorphic",
-    "offline",
-    "offline-first",
-    "staticweb",
     "react",
-    "redux",
-    "gulp",
     "webpack",
-    "es2015",
+    "redux",
+    "babel",
+    "gulpfile",
+    "boilerplate",
+    "starter-kit",
+    "generator",
+    "static-website",
+    "universal-app",
     "es6",
-    "babel"
+    "es2015",
+    "css-modules",
+    "eslint",
+    "isomorphic",
+    "zero-configuration",
+    "react-router",
+    "offline-first",
+    "server-side-rendering"
   ]
 }
