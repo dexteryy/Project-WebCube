@@ -7,7 +7,18 @@ import App from 'app/{{entryName}}';
 const app = new App({
   appStateSample: 'sample',
   isStaticWeb: true,
-  // DevTools,
+  // enableGoogleAnalytics: true,
+  // googleAnalyticsTrackingId: 'UA-XXXXX-Y',
+  // enableGoogleTagManager: false,
+  // googleTagManagerContainerId: 'GTM-XXXX',
+  // enableBaiduTongji: true,
+  // baiduTongjiId: 'XXXXXX',
+  // enableWechatSdk: true,
+  // wechatSignatureApi: WECHAT_SIGNATURE_API,
+  // wechatDebug: false,
+  // wechatShare: {
+  //   imgUrl: '',
+  // },
 });
 
 export default function run() {
