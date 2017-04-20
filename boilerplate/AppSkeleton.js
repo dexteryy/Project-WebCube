@@ -42,6 +42,8 @@ export default class AppSkeleton {
     baiduTongjiId: '',
     enableGrowingIo: false,
     growingIoAccountId: '',
+    enableZhugeIo: false,
+    zhugeIoAppKey: '',
     enableWechatSdk: false,
     wechatScript: 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js',
     wechatSignatureApi: '',
@@ -115,6 +117,7 @@ export default class AppSkeleton {
       enableGoogleAnalytics,
       enableBaiduTongji,
       enableGrowingIo,
+      enableZhugeIo,
       enableWechatSdk,
     } = this.opt;
     if (enableGoogleTagManager) {
@@ -128,6 +131,9 @@ export default class AppSkeleton {
     }
     if (enableGrowingIo) {
       this.loadGrowingIoScripts();
+    }
+    if (enableZhugeIo) {
+      this.loadZhugeIoScripts();
     }
     const isWechat = /micromessenger/.test(window.navigator.userAgent.toLowerCase());
     if (enableWechatSdk && isWechat) {
@@ -209,6 +215,52 @@ export default class AppSkeleton {
     vds.src = `${protocol}dn-growing.qbox.me/vds.js`;
     const s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(vds, s);
+  }
+
+  loadZhugeIoScripts() {
+    const {
+      zhugeIoAppKey,
+    } = this.opt;
+    window.zhuge = window.zhuge || [];
+    window.zhuge.methods = '_init debug identify track trackLink trackForm page'.split(' ');
+    window.zhuge.factory = function (b) {
+      return function (...args) {
+        const a = Array.prototype.slice.call(args);
+        a.unshift(b);
+        window.zhuge.push(a);
+        return window.zhuge;
+      };
+    };
+    for (let i = 0; i < window.zhuge.methods.length; i++) {
+      const key = window.zhuge.methods[i];
+      window.zhuge[key] = window.zhuge.factory(key);
+    }
+    window.zhuge.load = function (b, x) {
+      if (!document.getElementById('zhuge-js')) {
+        const a = document.createElement('script');
+        const verDate = new Date();
+        const verStr = verDate.getFullYear().toString()
+          + verDate.getMonth().toString()
+          + verDate.getDate().toString();
+        a.type = 'text/javascript';
+        a.id = 'zhuge-js';
+        a.async = !0;
+        a.src = (location.protocol === 'http:'
+          ? 'http://sdk.zhugeio.com/zhuge.min.js?v='
+          : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
+        a.onerror = function () {
+          window.zhuge.identify = window.zhuge.track = function (ename, props, callback) {
+            if (callback && Object.prototype.toString.call(callback) === '[object Function]') {
+              callback();
+            }
+          };
+        };
+        const c = document.getElementsByTagName('script')[0];
+        c.parentNode.insertBefore(a, c);
+        window.zhuge._init(b, x);
+      }
+    };
+    window.zhuge.load(zhugeIoAppKey);
   }
 
   // http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html
