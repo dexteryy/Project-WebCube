@@ -33,7 +33,8 @@ export default class AppSkeleton {
     DevTools: null,
     enableGoogleAnalytics: false,
     googleAnalyticsTrackingId: '',
-    googleAnalyticsInit: () => {},
+    googleOptimizeId: '',
+    googleAnalyticsInit: null,
     enableGoogleTagManager: false,
     googleTagManagerContainerId: '',
     enableBaiduTongji: false,
@@ -133,6 +134,7 @@ export default class AppSkeleton {
     const {
       googleAnalyticsInit,
       googleAnalyticsTrackingId,
+      googleOptimizeId,
     } = this.opt;
     window['GoogleAnalyticsObject'] = 'ga';
     window['ga'] = window['ga'] || function (...args) {
@@ -145,9 +147,15 @@ export default class AppSkeleton {
     const point = document.getElementsByTagName('script')[0];
     point.parentNode.insertBefore(gaScript, point);
     const ga = window['ga'];
-    ga('create', googleAnalyticsTrackingId, 'auto');
-    ga('send', 'pageview');
-    googleAnalyticsInit(ga);
+    if (googleAnalyticsInit) {
+      googleAnalyticsInit(ga);
+    } else {
+      ga('create', googleAnalyticsTrackingId, 'auto');
+      if (googleOptimizeId) {
+        ga('require', googleOptimizeId);
+      }
+      ga('send', 'pageview');
+    }
   }
 
   // https://developers.google.com/tag-manager/quickstart

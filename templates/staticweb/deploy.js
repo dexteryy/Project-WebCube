@@ -7,10 +7,12 @@ import App from 'app/{{entryName}}';
 const app = new App({
   appStateSample: 'sample',
   isStaticWeb: true,
-  // enableGoogleAnalytics: true,
-  // googleAnalyticsTrackingId: 'UA-XXXXX-Y',
   // enableGoogleTagManager: false,
   // googleTagManagerContainerId: 'GTM-XXXX',
+  // enableGoogleAnalytics: true,
+  // googleAnalyticsTrackingId: 'UA-XXXXX-Y',
+  // googleOptimizeId: 'GTM-XXXXXXX'
+  // googleAnalyticsInit: null,
   // enableBaiduTongji: true,
   // baiduTongjiId: 'XXXXXX',
   // enableWechatSdk: true,
