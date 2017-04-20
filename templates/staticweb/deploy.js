@@ -7,7 +7,7 @@ import App from 'app/{{entryName}}';
 const app = new App({
   appStateSample: 'sample',
   isStaticWeb: true,
-  // enableGoogleTagManager: false,
+  // enableGoogleTagManager: true,
   // googleTagManagerContainerId: 'GTM-XXXX',
   // enableGoogleAnalytics: true,
   // googleAnalyticsTrackingId: 'UA-XXXXX-Y',
@@ -15,6 +15,8 @@ const app = new App({
   // googleAnalyticsInit: null,
   // enableBaiduTongji: true,
   // baiduTongjiId: 'XXXXXX',
+  // enableGrowingIo: true,
+  // growingIoAccountId: 'XXXXXXX',
   // enableWechatSdk: true,
   // wechatSignatureApi: WECHAT_SIGNATURE_API,
   // wechatDebug: false,

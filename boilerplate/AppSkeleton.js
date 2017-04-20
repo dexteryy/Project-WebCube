@@ -31,15 +31,17 @@ export default class AppSkeleton {
   builtinOptions: AppOpt = {
     isStaticWeb: false,
     DevTools: null,
+    enableGoogleTagManager: false,
+    googleTagManagerContainerId: '',
     enableGoogleAnalytics: false,
     googleAnalyticsTrackingId: '',
     googleOptimizeId: '',
     googleAnalyticsInit: null,
-    enableGoogleTagManager: false,
-    googleTagManagerContainerId: '',
     enableBaiduTongji: false,
     baiduTongjiScript: '',
     baiduTongjiId: '',
+    enableGrowingIo: false,
+    growingIoAccountId: '',
     enableWechatSdk: false,
     wechatScript: 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js',
     wechatSignatureApi: '',
@@ -109,19 +111,23 @@ export default class AppSkeleton {
 
   loadExternalScripts() {
     const {
-      enableGoogleAnalytics,
       enableGoogleTagManager,
+      enableGoogleAnalytics,
       enableBaiduTongji,
+      enableGrowingIo,
       enableWechatSdk,
     } = this.opt;
-    if (enableGoogleAnalytics) {
-      this.loadGoogleAnalyticsScripts();
-    }
     if (enableGoogleTagManager) {
       this.loadGoogleTagManagerScripts();
     }
+    if (enableGoogleAnalytics) {
+      this.loadGoogleAnalyticsScripts();
+    }
     if (enableBaiduTongji) {
       this.loadBaiduTongjiScripts();
+    }
+    if (enableGrowingIo) {
+      this.loadGrowingIoScripts();
     }
     const isWechat = /micromessenger/.test(window.navigator.userAgent.toLowerCase());
     if (enableWechatSdk && isWechat) {
@@ -187,6 +193,22 @@ export default class AppSkeleton {
     const point = document.getElementsByTagName('script')[0];
     baiduScript.src = baiduTongjiScript || `https://hm.baidu.com/hm.js?${baiduTongjiId}`;
     point.parentNode.insertBefore(baiduScript, point);
+  }
+
+  loadGrowingIoScripts() {
+    const {
+      growingIoAccountId,
+    } = this.opt;
+    const _vds = window._vds || [];
+    window._vds = _vds;
+    _vds.push(['setAccountId', growingIoAccountId]);
+    const vds = document.createElement('script');
+    vds.type = 'text/javascript';
+    vds.async = true;
+    const protocol = 'https:' === document.location.protocol ? 'https://' : 'http://';
+    vds.src = `${protocol}dn-growing.qbox.me/vds.js`;
+    const s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(vds, s);
   }
 
   // http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html
