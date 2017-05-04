@@ -5,7 +5,7 @@ import {
   createStore, applyMiddleware, compose,
 } from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import { Provider } from 'react-redux';
 // @TODO react-router v4: start
 // import createBrowserHistory from 'history/createBrowserHistory';
