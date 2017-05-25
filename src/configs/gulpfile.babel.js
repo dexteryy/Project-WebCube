@@ -19,7 +19,8 @@ import uglify from 'gulp-uglify';
 import htmlmin from 'gulp-htmlmin';
 import { Server as KarmaServer } from 'karma';
 import mocha from 'gulp-mocha';
-import staticWebServer from 'gulp-webserver';
+import staticWebServer from 'superstatic';
+import jsonfile from 'jsonfile';
 import {
   isProductionEnv,
   serverPort,
@@ -139,20 +140,34 @@ function testUnit(done) {
   }, done).start();
 }
 
-function startStaticWebServer(stream, done) {
+function startStaticWebServer(done) {
   fs.writeFileSync(pidFile, process.pid);
-  stream.pipe(staticWebServer({
-    // https://www.npmjs.com/package/gulp-webserver#options
+  const config = jsonfile.readFileSync(path.join(buildPath, 'configs/superstatic.json'));
+  let customConfig;
+  try {
+    customConfig = jsonfile.readFileSync(path.join(buildPath, '../../configs/static.json'));
+    delete customConfig.public;
+  } catch (e) {
+    //
+  }
+  staticWebServer.server({
     port: serverPort,
     host: serverHost,
-  }));
-  done();
+    cwd: buildPath,
+    config: Object.assign({}, config, customConfig),
+    errorPage: process.env.WEBCUBE_STATIC_SERVER_ERROR_PAGE || path.join(buildPath, 'configs/404.html'),
+    debug: !!process.env.WEBCUBE_STATIC_SERVER_ENABLE_DEBUG,
+    gzip: !!process.env.WEBCUBE_STATIC_SERVER_ENABLE_GZIP,
+  }).listen(function () {
+    done();
+  });
 }
 
 function stopStaticWebServer(done) {
   fs.stat(pidFile, function (err) {
     if (err) {
-      return done();
+      done();
+      return;
     }
     let lastPid, isRunning;
     try {
@@ -160,12 +175,19 @@ function stopStaticWebServer(done) {
       fs.unlinkSync(pidFile);
       isRunning = lastPid && running(lastPid);
     } catch (ex) {
-      return done();
+      console.info(ex.message);
+      done();
+      return;
     }
     if (isRunning) {
-      process.kill(lastPid, 'SIGKILL');
+      console.info('Stopping static server...');
+      process.kill(lastPid);
+    } else {
+      console.info('No static server');
     }
-    return done();
+    setTimeout(() => {
+      done();
+    }, 300);
   });
 }
 
@@ -302,9 +324,8 @@ gulp.task('deploy:staticweb', [
 ], () => {});
 
 gulp.task('start:staticserver', (done) => {
-  const stream = gulp.src('build/public', { cwd: rootPath });
   stopStaticWebServer(function () {
-    startStaticWebServer(stream, done);
+    startStaticWebServer(done);
   });
 });
 

@@ -102,6 +102,7 @@ const babelLoaderPlugins = [
   'transform-object-rest-spread',
   // https://phabricator.babeljs.io/T2645
   'transform-decorators-legacy',
+  ['lodash', { id: ['lodash', 'recompose'] }],
 ];
 if (!process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
   // bug: ReferenceError: Can't find variable: Symbol

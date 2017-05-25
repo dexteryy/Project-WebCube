@@ -1,0 +1,8 @@
+node_modules/
+.npm
+*.log
+*.pid
+env.config
+log/
+build/*
+coverage/

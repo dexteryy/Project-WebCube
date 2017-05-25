@@ -1,0 +1,22 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": 7.8
+      },
+      "include": [],
+      "useBuiltIns": true,
+      "loose": false,
+      "debug": false
+    }],
+    "react"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-es2015-modules-commonjs",
+    "transform-function-bind",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-decorators-legacy"
+  ]
+}

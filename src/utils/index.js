@@ -29,9 +29,12 @@ export const cloudAdapter = require(`./staticcloud/${process.env.WEBCUBE_DEPLOY_
 export function getUrlRoot() {
   const myhost = process.env.WEBCUBE_DEVSERVER_HOST;
   const myport = process.env.WEBCUBE_DEVSERVER_PORT;
-  return deployMode === 'staticweb'
-    ? (isStagingEnv
-      ? process.env.WEBCUBE_DEPLOY_STAGING_STATIC_HTML_ROOT
-      : process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT).replace(/\/+$/, '')
-    : `http://${myhost}:${myport}`;
+  const deployRoot = (
+    isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_HTML_ROOT
+    || isProductionEnv && process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT
+    || ''
+  ).replace(/\/+$/, '');
+  return (deployMode === 'staticweb' || deployMode === 'staticserver')
+    && deployRoot
+    || `http://${myhost}:${myport}`;
 }
