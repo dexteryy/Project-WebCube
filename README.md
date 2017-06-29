@@ -291,8 +291,6 @@ See the [example configuration](https://github.com/dexteryy/webcube-example/#cod
 
 ### Static Web Mode
 
-The Deployment scripts should be executed on the local development environments.
-
 Build for static cloud environment (e.g. [AWS S3](https://aws.amazon.com/s3/), [Aliyun OSS](https://www.aliyun.com/product/oss/), CDN), than upload `build/public/` to the cloud:
 
 ```
@@ -319,10 +317,8 @@ WEBCUBE_DEPLOY_STATIC_CLOUD=s3
 
 ### Static Server Mode
 
-The deployment scripts should be executed on the server (in a container)
-
 ```
-npm run build:production
+npm run deploy:staticserver
 ```
 
 Underlying deployment scripts and adapters:
