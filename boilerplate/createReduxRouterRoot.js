@@ -35,7 +35,7 @@ export default function createReduxRouterRoot({
   options,
 }) {
   const {
-    isStaticWeb,
+    disableHashRouter,
     DevTools,
   } = options;
   const logger = createLogger();
@@ -49,9 +49,9 @@ export default function createReduxRouterRoot({
     }
   }
   // @TODO react-router v4: start
-  // const history = isStaticWeb
-  //   ? createHashHistory() : createBrowserHistory();
-  let history = isStaticWeb ? hashHistory : browserHistory;
+  // const history = disableHashRouter
+  //   ? createBrowserHistory() : createHashHistory();
+  let history = disableHashRouter ? browserHistory : hashHistory;
   // @TODO react-router v4: end
   const store = createStore(
     combineReducers({

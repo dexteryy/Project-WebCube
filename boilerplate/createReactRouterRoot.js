@@ -21,12 +21,12 @@ export default function createReactRouterRoot({
   options,
 }) {
   const {
-    isStaticWeb,
+    disableHashRouter,
   } = options;
   // @TODO react-router v4: start
-  // const Router = isStaticWeb ? HashRouter : BrowserRouter;
+  // const Router = disableHashRouter ? BrowserRouter : HashRouter;
   let routes = originalRoutes;
-  const history = isStaticWeb ? hashHistory : browserHistory;
+  const history = disableHashRouter ? browserHistory : hashHistory;
   if (!React.isValidElement(originalRoutes)) {
     const rootComponent = originalRoutes.component;
     routes = Object.assign({}, originalRoutes, {

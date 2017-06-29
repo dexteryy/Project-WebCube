@@ -1,5 +1,5 @@
 
-FROM node:7.8
+FROM node:8.1.2
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -32,4 +32,4 @@ RUN ln -s /tmp/service/node_modules
 COPY . /ebsa/service
 
 EXPOSE 80
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "staticserver"]

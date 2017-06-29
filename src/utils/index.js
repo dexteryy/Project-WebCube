@@ -34,7 +34,7 @@ export function getUrlRoot() {
     || isProductionEnv && process.env.WEBCUBE_DEPLOY_STATIC_HTML_ROOT
     || ''
   ).replace(/\/+$/, '');
-  return (deployMode === 'staticweb' || deployMode === 'staticserver')
-    && deployRoot
-    || `http://${myhost}:${myport}`;
+  return deployMode === 'staticweb'
+    ? deployRoot
+    : `http://${myhost}:${myport}`;
 }

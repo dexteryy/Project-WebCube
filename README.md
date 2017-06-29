@@ -160,12 +160,6 @@ Create an entry point with [one command](#how-to-generate-new-code):
 npm run build
 ```
 
-or
-
-```
-DEPLOY_MODE=staticserver npm run build
-```
-
 > Project-defined build scripts and config files:
 >
 > * [`webcube-example/package.json`][package.json]

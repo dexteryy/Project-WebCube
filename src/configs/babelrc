@@ -2,7 +2,7 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": 7.8
+        "node": "8.1.2"
       },
       "include": [],
       "useBuiltIns": true,

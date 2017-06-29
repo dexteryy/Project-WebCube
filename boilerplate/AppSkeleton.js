@@ -29,7 +29,7 @@ export default class AppSkeleton {
   moreEnhancers: ?Array<Function>;
 
   builtinOptions: AppOpt = {
-    isStaticWeb: process.env.DEPLOY_MODE !== 'staticserver',
+    disableHashRouter: false,
     DevTools: null,
     enableGoogleTagManager: false,
     googleTagManagerContainerId: '',
