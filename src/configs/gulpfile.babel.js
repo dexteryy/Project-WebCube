@@ -286,8 +286,6 @@ gulp.task('test:unit', [], testUnit);
 
 gulp.task('test:functional', [], testFunctional);
 
-gulp.task('test:all', ['test:functional', 'test:unit'], () => {});
-
 gulp.task('update:app', ['clean:app'], () => {
   return buildApp(webpackConfig);
 });
@@ -296,32 +294,17 @@ gulp.task('build:app', ['clean:app', 'check:all'], () => {
   return buildApp(webpackConfig);
 });
 
-gulp.task('update:html', ['clean:html'], buildHTML);
+gulp.task('build:html', ['clean:html'], buildHTML);
 
-gulp.task('build:html', ['clean:html', 'build:app'], buildHTML);
+gulp.task('build:staticweb', ['clean:html', 'build:app'], buildHTML);
 
-gulp.task('test:afterBuild', ['build:html'], testFunctional);
-
-gulp.task('build', [
-  'test:afterBuild',
-]);
-
-gulp.task('deploy:html', [
-  'build:html',
-], cloudAdapter.deployHTML([
+gulp.task('deploy:staticweb:html', [], cloudAdapter.deployHTML([
   `build/public/!(${staticRoot})/**/*.html`,
 ], { cwd: rootPath }));
 
-gulp.task('deploy:static', [
-  'build:html',
-], cloudAdapter.deployStatic([
+gulp.task('deploy:staticweb:assets', [], cloudAdapter.deployStatic([
   `build/public/${staticRoot}/**/*`,
 ], { cwd: rootPath }));
-
-gulp.task('deploy:staticweb', [
-  'deploy:html',
-  'deploy:static',
-], () => {});
 
 gulp.task('start:staticserver', (done) => {
   stopStaticWebServer(function () {
@@ -334,5 +317,5 @@ gulp.task('stop:staticserver', (done) => {
 });
 
 gulp.task('default', [
-  'build',
+  'build:staticweb',
 ]);

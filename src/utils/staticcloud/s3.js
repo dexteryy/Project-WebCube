@@ -60,7 +60,7 @@ export function deploy(opt) {
         || '2006-03-01',
     }).putObject(config, function (err, data) {
       if (err) {
-        gutil.log('error:', err.code, err.message);
+        callback(new Error(`Failed: [${err.code}] ${err.message}`), file);
         return;
       }
       gutil.log('success:', key, data);

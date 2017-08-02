@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/webcube",
   "repository": "https://github.com/dexteryy/webcube",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
@@ -85,7 +85,7 @@
     "gulp-stylelint-console-reporter": "^0.1.1",
     "gulp-stylelint-fail-reporter": "^0.0.3",
     "gulp-uglify": "^3.0.0",
-    "hifetch": "^2.0.2",
+    "hifetch": "^2.1.0",
     "hoist-non-react-statics": "^2.0.0",
     "husky": "^0.14.1",
     "image-webpack-loader": "^3.3.1",

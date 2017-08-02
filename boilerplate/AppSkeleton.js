@@ -94,11 +94,12 @@ export default class AppSkeleton {
       },
     );
     this._node = node;
-    setTimeout(() => {
-      this.wechatReady(() => {
-        this.configWechatShare();
-      });
-    }, 0);
+    const {
+      wechatShare,
+    } = this.opt;
+    if (wechatShare) {
+      this.configWechatShare(wechatShare);
+    }
     return this;
   }
 
@@ -329,13 +330,7 @@ export default class AppSkeleton {
     });
   }
 
-  configWechatShare() {
-    const {
-      wechatShare,
-    } = this.opt;
-    if (!wechatShare) {
-      return;
-    }
+  configWechatShare(wechatShare) {
     const {
       title: customTitle,
       link: customLink,
