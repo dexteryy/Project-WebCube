@@ -1,21 +1,21 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import perfAddon from 'react-addons-perf';
 import hifetch from 'hifetch';
 import union from 'lodash/union';
 
-const isProductionEnv = process.env.NODE_ENV === 'production';
-
 // https://github.com/facebook/react/issues/436
 // https://github.com/zilverline/react-tap-event-plugin
-if (!process.env.WEBCUBE_DISABLE_TAP_EVENT_ADDON
-    && !process.env.WEBCUBE_USE_PREACT) {
-  require('react-tap-event-plugin')();
+if (
+  !process.env.WEBCUBE_DISABLE_TAP_EVENT_ADDON &&
+  !process.env.WEBCUBE_USE_PREACT
+) {
+  import('react-tap-event-plugin')();
 }
 
-export default class AppSkeleton {
+const isProductionEnv = process.env.NODE_ENV === 'production';
 
+export default class AppSkeleton {
   defaultOptions: Object = {};
   createRoot: Function;
   Root: React.Component;
@@ -28,7 +28,7 @@ export default class AppSkeleton {
   moreMiddleware: ?Array<Function>;
   moreEnhancers: ?Array<Function>;
 
-  builtinOptions: AppOpt = {
+  builtinOptions = {
     disableHashRouter: false,
     DevTools: null,
     enableGoogleTagManager: false,
@@ -63,7 +63,7 @@ export default class AppSkeleton {
     }
   }
 
-  config(userOpt: AppOpt) {
+  config(userOpt) {
     Object.assign(this.opt, this.builtinOptions, this.defaultOptions, userOpt);
   }
 
@@ -82,21 +82,18 @@ export default class AppSkeleton {
       options: this.opt,
     });
     perfAddon.start();
-    this._root = ReactDOM.render(
-      React.createElement(Root),
-      node,
-      () => {
-        perfAddon.stop();
-        perfAddon.printInclusive();
-        perfAddon.printExclusive();
-        perfAddon.printWasted();
-        cb && cb();
-      },
-    );
+    this._root = ReactDOM.render(React.createElement(Root), node, () => {
+      perfAddon.stop();
+      perfAddon.printInclusive();
+      perfAddon.printExclusive();
+      perfAddon.printWasted();
+      if (cb) {
+        return cb();
+      }
+      return null;
+    });
     this._node = node;
-    const {
-      wechatShare,
-    } = this.opt;
+    const { wechatShare } = this.opt;
     if (wechatShare) {
       this.configWechatShare(wechatShare);
     }
@@ -136,7 +133,9 @@ export default class AppSkeleton {
     if (enableZhugeIo) {
       this.loadZhugeIoScripts();
     }
-    const isWechat = /micromessenger/.test(window.navigator.userAgent.toLowerCase());
+    const isWechat = /micromessenger/.test(
+      window.navigator.userAgent.toLowerCase(),
+    );
     if (enableWechatSdk && isWechat) {
       this.loadWechatSdkScripts();
     }
@@ -149,17 +148,19 @@ export default class AppSkeleton {
       googleAnalyticsTrackingId,
       googleOptimizeId,
     } = this.opt;
-    window['GoogleAnalyticsObject'] = 'ga';
-    window['ga'] = window['ga'] || function (...args) {
-      (window['ga'].q = window['ga'].q || []).push(args);
-    };
-    window['ga'].l = new Date().getTime();
+    window.GoogleAnalyticsObject = 'ga';
+    window.ga =
+      window.ga ||
+      function(...args) {
+        (window.ga.q = window.ga.q || []).push(args);
+      };
+    window.ga.l = new Date().getTime();
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = 'https://www.google-analytics.com/analytics.js';
     const point = document.getElementsByTagName('script')[0];
     point.parentNode.insertBefore(gaScript, point);
-    const ga = window['ga'];
+    const { ga } = window;
     if (googleAnalyticsInit) {
       googleAnalyticsInit(ga);
     } else {
@@ -173,11 +174,9 @@ export default class AppSkeleton {
 
   // https://developers.google.com/tag-manager/quickstart
   loadGoogleTagManagerScripts() {
-    const {
-      googleTagManagerContainerId,
-    } = this.opt;
-    window['dataLayer'] = window['dataLayer'] || [];
-    window['dataLayer'].push({
+    const { googleTagManagerContainerId } = this.opt;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
       'gtm.start': new Date().getTime(),
       event: 'gtm.js',
     });
@@ -190,42 +189,44 @@ export default class AppSkeleton {
 
   // http://tongji.baidu.com/web/help/article?id=174&type=0
   loadBaiduTongjiScripts() {
-    const {
-      baiduTongjiScript,
-      baiduTongjiId,
-    } = this.opt;
-    window['_hmt'] = window['_hmt'] || [];
+    /* eslint-disable no-underscore-dangle */
+    const { baiduTongjiScript, baiduTongjiId } = this.opt;
+    window._hmt = window._hmt || [];
     const baiduScript = document.createElement('script');
     baiduScript.async = true;
     const point = document.getElementsByTagName('script')[0];
-    baiduScript.src = baiduTongjiScript || `https://hm.baidu.com/hm.js?${baiduTongjiId}`;
+    baiduScript.src =
+      baiduTongjiScript || `https://hm.baidu.com/hm.js?${baiduTongjiId}`;
     point.parentNode.insertBefore(baiduScript, point);
+    /* eslint-enable no-underscore-dangle */
   }
 
   loadGrowingIoScripts() {
-    const {
-      growingIoAccountId,
-    } = this.opt;
+    /* eslint-disable no-underscore-dangle */
+    const { growingIoAccountId } = this.opt;
     const _vds = window._vds || [];
     window._vds = _vds;
     _vds.push(['setAccountId', growingIoAccountId]);
     const vds = document.createElement('script');
     vds.type = 'text/javascript';
     vds.async = true;
-    const protocol = 'https:' === document.location.protocol ? 'https://' : 'http://';
+    const protocol =
+      'https:' === document.location.protocol ? 'https://' : 'http://';
     vds.src = `${protocol}dn-growing.qbox.me/vds.js`;
     const s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(vds, s);
+    /* eslint-enable no-underscore-dangle */
   }
 
   loadZhugeIoScripts() {
-    const {
-      zhugeIoAppKey,
-    } = this.opt;
+    /* eslint-disable no-underscore-dangle */
+    const { zhugeIoAppKey } = this.opt;
     window.zhuge = window.zhuge || [];
-    window.zhuge.methods = '_init debug identify track trackLink trackForm page'.split(' ');
-    window.zhuge.factory = function (b) {
-      return function (...args) {
+    window.zhuge.methods = '_init debug identify track trackLink trackForm page'.split(
+      ' ',
+    );
+    window.zhuge.factory = function(b) {
+      return function(...args) {
         const a = Array.prototype.slice.call(args);
         a.unshift(b);
         window.zhuge.push(a);
@@ -236,25 +237,33 @@ export default class AppSkeleton {
       const key = window.zhuge.methods[i];
       window.zhuge[key] = window.zhuge.factory(key);
     }
-    window.zhuge.load = function (b, x) {
+    window.zhuge.load = function(b, x) {
       if (!document.getElementById('zhuge-js')) {
         const a = document.createElement('script');
         const verDate = new Date();
-        const verStr = verDate.getFullYear().toString()
-          + verDate.getMonth().toString()
-          + verDate.getDate().toString();
+        const verStr =
+          verDate.getFullYear().toString() +
+          verDate.getMonth().toString() +
+          verDate.getDate().toString();
         a.type = 'text/javascript';
         a.id = 'zhuge-js';
         a.async = !0;
-        a.src = (location.protocol === 'http:'
-          ? 'http://sdk.zhugeio.com/zhuge.min.js?v='
-          : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
-        a.onerror = function () {
-          window.zhuge.identify = window.zhuge.track = function (ename, props, callback) {
-            if (callback && Object.prototype.toString.call(callback) === '[object Function]') {
-              callback();
+        a.src =
+          (location.protocol === 'http:'
+            ? 'http://sdk.zhugeio.com/zhuge.min.js?v='
+            : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
+        a.onerror = function() {
+          const track = function(ename, props, callback) {
+            if (
+              callback &&
+              Object.prototype.toString.call(callback) === '[object Function]'
+            ) {
+              return callback();
             }
+            return null;
           };
+          window.zhuge.identify = track;
+          window.zhuge.track = track;
         };
         const c = document.getElementsByTagName('script')[0];
         c.parentNode.insertBefore(a, c);
@@ -262,6 +271,7 @@ export default class AppSkeleton {
       }
     };
     window.zhuge.load(zhugeIoAppKey);
+    /* eslint-enable no-underscore-dangle */
   }
 
   // http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html
@@ -276,7 +286,7 @@ export default class AppSkeleton {
     wxScript.async = true;
     wxScript.src = wechatScript;
     const loadWxScript = new Promise(resolve => {
-      wxScript.onload = function () {
+      wxScript.onload = function() {
         resolve(window.wx);
       };
     });
@@ -291,33 +301,30 @@ export default class AppSkeleton {
             url: window.location.href.replace(/#.*/, ''),
           },
         }).send(),
-      ]).then(([wx, json]) => {
-        const {
-          appId,
-          timestamp,
-          nonceStr,
-          signature,
-        } = json;
-        wx.config({
-          debug: wechatDebug,
-          appId,
-          timestamp,
-          nonceStr,
-          signature,
-          jsApiList: union(wechatApiList, [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareQZone',
-          ]),
+      ])
+        .then(([wx, json]) => {
+          const { appId, timestamp, nonceStr, signature } = json;
+          wx.config({
+            debug: wechatDebug,
+            appId,
+            timestamp,
+            nonceStr,
+            signature,
+            jsApiList: union(wechatApiList, [
+              'onMenuShareTimeline',
+              'onMenuShareAppMessage',
+              'onMenuShareQQ',
+              'onMenuShareQZone',
+            ]),
+          });
+          wx.ready(() => {
+            resolve(wx);
+          });
+          wx.error(reject);
+        })
+        .catch(err => {
+          console.warn(`WECHAT JS API LOADING FAILED: ${err.message}`);
         });
-        wx.ready(() => {
-          resolve(wx);
-        });
-        wx.error(reject);
-      }).catch(err => {
-        console.warn(`WECHAT JS API LOADING FAILED: ${err.message}`);
-      });
     });
   }
 
@@ -336,12 +343,15 @@ export default class AppSkeleton {
       link: customLink,
       imgUrl: customImgUrl,
       desc: customDesc,
-      success = () => {},
-      cancel = () => {},
+      success = () => {
+        // placeholder
+      },
+      cancel = () => {
+        // placeholder
+      },
     } = wechatShare;
     this.wechatReady(wx => {
-      const link = customLink
-        || window.location.href;
+      const link = customLink || window.location.href;
       let title = customTitle;
       if (!customLink) {
         title = document.querySelector('title');
@@ -392,5 +402,4 @@ export default class AppSkeleton {
       });
     });
   }
-
 }

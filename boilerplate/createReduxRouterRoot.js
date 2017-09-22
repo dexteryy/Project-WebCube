@@ -1,9 +1,5 @@
-
 import React from 'react';
-import {
-  combineReducers,
-  createStore, applyMiddleware, compose,
-} from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { Provider } from 'react-redux';
@@ -17,7 +13,9 @@ import { Provider } from 'react-redux';
 // } from 'react-router-redux/es';
 import { Router, browserHistory, hashHistory } from 'react-router';
 import {
-  syncHistoryWithStore, routerMiddleware, routerReducer,
+  syncHistoryWithStore,
+  routerMiddleware,
+  routerReducer,
 } from 'react-router-redux';
 // @TODO react-router v4: end
 
@@ -34,17 +32,16 @@ export default function createReduxRouterRoot({
   moreEnhancers,
   options,
 }) {
-  const {
-    disableHashRouter,
-    DevTools,
-  } = options;
+  const { disableHashRouter, DevTools } = options;
   const logger = createLogger();
   const devTools = [];
   if (!isProductionEnv) {
     if (DevTools) {
       devTools.push(DevTools.instrument());
-    } else if (typeof window === 'object'
-        && typeof window.devToolsExtension !== 'undefined') {
+    } else if (
+      typeof window === 'object' &&
+      typeof window.devToolsExtension !== 'undefined'
+    ) {
       devTools.push(window.devToolsExtension());
     }
   }
@@ -66,12 +63,12 @@ export default function createReduxRouterRoot({
       applyMiddleware(
         thunk,
         routerMiddleware(history),
-        ...moreMiddleware || [],
-        ...(isProductionEnv ? [] : [logger])
+        ...(moreMiddleware || []),
+        ...(isProductionEnv ? [] : [logger]),
       ),
-      ...moreEnhancers || [],
+      ...(moreEnhancers || []),
       ...devTools,
-    )
+    ),
   );
   // @TODO react-router v4: start
   history = syncHistoryWithStore(history, store);
@@ -79,7 +76,7 @@ export default function createReduxRouterRoot({
   if (!React.isValidElement(originalRoutes)) {
     const rootComponent = originalRoutes.component;
     routes = Object.assign({}, originalRoutes, {
-      component: (props) => {
+      component: props => {
         const newProps = Object.assign({}, rootProps, props);
         delete newProps.children;
         return React.createElement(rootComponent, newProps, props.children);
@@ -89,10 +86,14 @@ export default function createReduxRouterRoot({
   // @TODO react-router v4: end
   return function Root() {
     if (!isProductionEnv && DevTools) {
-      return React.createElement(Provider, {
-        store,
-      },
-        React.createElement('div', null,
+      return React.createElement(
+        Provider,
+        {
+          store,
+        },
+        React.createElement(
+          'div',
+          null,
           // @TODO react-router v4: start
           // React.createElement(ConnectedRouter, {
           //   history,
@@ -103,12 +104,14 @@ export default function createReduxRouterRoot({
           }),
           // @TODO react-router v4: end
           React.createElement(DevTools),
-        )
+        ),
       );
     }
-    return React.createElement(Provider, {
-      store,
-    },
+    return React.createElement(
+      Provider,
+      {
+        store,
+      },
       // @TODO react-router v4: start
       // React.createElement(ConnectedRouter, {
       //   history,

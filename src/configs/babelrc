@@ -1,14 +1,17 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "node": "8.1.2"
-      },
-      "include": [],
-      "useBuiltIns": true,
-      "loose": false,
-      "debug": false
-    }],
+    [
+      "env",
+      {
+        "targets": {
+          "node": 6
+        },
+        "include": [],
+        "useBuiltIns": true,
+        "loose": false,
+        "debug": false
+      }
+    ],
     "react"
   ],
   "plugins": [
@@ -17,6 +20,7 @@
     "transform-function-bind",
     "transform-class-properties",
     "transform-object-rest-spread",
-    "transform-decorators-legacy"
+    "syntax-optional-chaining",
+    "transform-decorators"
   ]
 }

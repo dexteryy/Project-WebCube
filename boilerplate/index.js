@@ -1,13 +1,7 @@
-
 import AppSkeleton from './AppSkeleton';
 import connect from './connect';
 
-const stateSelector = connect.stateSelector;
-const actionDispatcher = connect.actionDispatcher;
+const { stateSelector } = connect;
+const { actionDispatcher } = connect;
 
-export {
-  AppSkeleton,
-  connect,
-  stateSelector,
-  actionDispatcher,
-};
+export { AppSkeleton, connect, stateSelector, actionDispatcher };

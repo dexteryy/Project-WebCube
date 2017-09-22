@@ -1,11 +1,11 @@
 /* eslint no-undefined: 0 */
 
-import path from 'path';
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+const path = require('path');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 // import express from 'express';
-import DashboardPlugin from 'webpack-dashboard/plugin';
-import {
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const {
   isProductionEnv,
   isStagingEnv,
   deployMode,
@@ -14,8 +14,8 @@ import {
   serverHost,
   rootPath,
   staticRoot,
-} from '../utils';
-import webpackConfig from '../configs/webpack.config.babel.js';
+} = require('../utils');
+const webpackConfig = require('../configs/webpack.config.babel');
 
 // https://github.com/FormidableLabs/webpack-dashboard
 webpackConfig.plugins.push(
@@ -23,23 +23,25 @@ webpackConfig.plugins.push(
 );
 
 if (isProductionEnv) {
-  throw new Error('Don\'t use webpack-dev-server for production env');
+  throw new Error("Don't use webpack-dev-server for production env");
 }
 
 const compiler = webpack(webpackConfig);
 // compiler.apply(new DashboardPlugin({ port: process.env.WEBCUBE_DEVSERVER_DASHBOARD_PORT }));
+const DEFAULT_TIMEOUT = 300;
 const devServerConfig = {
   contentBase: path.join(rootPath, 'staticweb'),
-  publicPath: deployMode === 'staticweb'
-    ? (isStagingEnv
-      && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT
-      || process.env.WEBCUBE_DEPLOY_STATIC_ROOT)
-    : `/${staticRoot}/`,
+  publicPath:
+    deployMode === 'staticweb'
+      ? (isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT) ||
+        process.env.WEBCUBE_DEPLOY_STATIC_ROOT
+      : `/${staticRoot}/`,
   hot: liveMode === 'hmr',
   historyApiFallback: process.env.WEBCUBE_DEVSERVER_HISTORYAPI === '1',
   noInfo: process.env.WEBCUBE_DEVSERVER_NOINFO === '1',
   watchOptions: {
-    aggregateTimeout: process.env.WEBCUBE_DEVSERVER_WATCH_TIMEOUT || 300,
+    aggregateTimeout:
+      process.env.WEBCUBE_DEVSERVER_WATCH_TIMEOUT || DEFAULT_TIMEOUT,
     poll: process.env.WEBCUBE_DEVSERVER_WATCH_POLL || undefined,
   },
   stats: {
@@ -66,9 +68,9 @@ function getDevServer() {
 
 const server = getDevServer();
 
-server.listen(serverPort, serverHost, (err) => {
+server.listen(serverPort, serverHost, err => {
   if (err) {
     throw err;
   }
-  console.log(`Listening at http://${serverHost}:${serverPort}`);
+  console.info(`Listening at http://${serverHost}:${serverPort}`);
 });

@@ -1,5 +1,6 @@
-
-const fakeFn = function fakeFn() {};
+const fakeFn = function fakeFn() {
+  //
+};
 
 const fakePerfAddon = {
   start: fakeFn,

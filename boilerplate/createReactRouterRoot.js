@@ -1,15 +1,10 @@
-
 import React from 'react';
 // @TODO react-router v4: start
 // import {
 //   BrowserRouter,
 //   HashRouter,
 // } from 'react-router-dom';
-import {
-  Router,
-  browserHistory,
-  hashHistory,
-} from 'react-router';
+import { Router, browserHistory, hashHistory } from 'react-router';
 // @TODO react-router v4: end
 
 export default function createReactRouterRoot({
@@ -20,9 +15,7 @@ export default function createReactRouterRoot({
   // @TODO react-router v4: end
   options,
 }) {
-  const {
-    disableHashRouter,
-  } = options;
+  const { disableHashRouter } = options;
   // @TODO react-router v4: start
   // const Router = disableHashRouter ? BrowserRouter : HashRouter;
   let routes = originalRoutes;
@@ -30,7 +23,7 @@ export default function createReactRouterRoot({
   if (!React.isValidElement(originalRoutes)) {
     const rootComponent = originalRoutes.component;
     routes = Object.assign({}, originalRoutes, {
-      component: (props) => {
+      component: props => {
         const newProps = Object.assign({}, rootProps, props);
         delete newProps.children;
         return React.createElement(rootComponent, newProps, props.children);

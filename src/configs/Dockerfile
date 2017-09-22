@@ -1,5 +1,5 @@
 
-FROM node:8.1.2
+FROM node:8.5
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone

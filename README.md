@@ -33,22 +33,21 @@ webcube is a batch of continuously updated base code and configurations for mode
 
 ## Integration
 
-* [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) [TODO: v4] + [Helmet](https://www.npmjs.com/package/react-helmet) + [React CSS Modules](https://www.npmjs.com/package/react-css-modules) + ...)
+* [React](http://facebook.github.io/react/) ([Router](https://www.npmjs.com/package/react-router) [TODO: v4] + [Helmet](https://www.npmjs.com/package/react-helmet) + ...)
 * [Redux](http://redux.js.org/) ([FSA](https://www.npmjs.com/package/redux-actions) + [Reselect](https://www.npmjs.com/package/reselect) + [Redux Actions](https://www.npmjs.com/package/redux-actions) + [Redux Thunk](https://github.com/gaearon/redux-thunk) / [Redux Observable](https://redux-observable.js.org/) [TODO] + ...)
   * [Redux Logger](https://github.com/fcomb/redux-logger) + [Redux DevTools](https://github.com/gaearon/redux-devtools) + [Reactotron](https://github.com/infinitered/reactotron) [TODO]
 * [lokka](https://github.com/kadirahq/lokka) [TODO] / [React Apollo](http://dev.apollodata.com/react/) [TODO]
 * [Webpack](http://webpack.github.io/docs/) [TODO: v2]
-  * [Babel v6](babeljs.io) ([babel-preset-env](https://github.com/babel/babel-preset-env) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [fast-async](https://github.com/MatAtBread/fast-async) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
+  * [Babel v6](babeljs.io) ([babel-preset-env](https://github.com/babel/babel-preset-env) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators) + [fast-async](https://github.com/MatAtBread/fast-async) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)) + [React Transform](https://github.com/gaearon/babel-plugin-react-transform) ([hmr](https://github.com/gaearon/react-transform-hmr) + [catch-errors](https://github.com/gaearon/react-transform-catch-errors) + [render-visualizer](https://github.com/spredfast/react-transform-render-visualizer))
   * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([styled-components](https://github.com/styled-components/styled-components) [TODO] / [Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) / [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [mozjpeg](https://github.com/imagemin/imagemin-mozjpeg) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader)
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware) + [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 * [Gulp](http://gulpjs.com/)
-  * [Flow](flowtype.org) [TODO] + [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [react](https://www.npmjs.com/package/eslint-plugin-react) + [flowtype](https://github.com/gajus/eslint-plugin-flowtype) [TODO] + [graphql](https://www.npmjs.com/package/eslint-plugin-graphql) [TODO] + [fp](eslint-plugin-fp) [TODO])
-  * [StyleLint](http://stylelint.io/) + [CSSComb](http://csscomb.com/) ([SMACSS](https://smacss.com/book/formatting)-like property order)
+  * [ESLint v2](http://eslint.org/) ([eslint-config-webcube](https://github.com/dexteryy/eslint-config-webcube) + [Prettier](https://github.com/prettier/prettier)) + TypeScript [TODO] / [Flow](flowtype.org) [TODO] + [StyleLint](http://stylelint.io/) [TODO]
   * [UglifyJS v2](https://github.com/mishoo/UglifyJS2) / [uglify-es](https://github.com/mishoo/UglifyJS2/tree/harmony) [TODO] / [Babili](https://github.com/babel/babili) [TODO] + [Prepack](https://prepack.io/) [TODO]
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
-* [Jest](https://facebook.github.io/jest/) [TODO] + [Enzyme](http://airbnb.io/enzyme/) [TODO] / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/) + [Karma](https://karma-runner.github.io/) ([PhantomJS](http://phantomjs.org/) / [ChromeHeadless](https://github.com/karma-runner/karma-chrome-launcher/pull/111) [TODO])
+* [Jest](https://facebook.github.io/jest/) [TODO] + [Enzyme](http://airbnb.io/enzyme/) [TODO] / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)), AVA [TODO] / [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/) + [ChromeHeadless](https://github.com/karma-runner/karma-chrome-launcher/pull/111) [TODO])
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Husky](https://github.com/typicode/husky) + [EditorConfig](http://editorconfig.org/)
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 * [Wechat JS SDK](https://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html) + [Google Tag Manager](https://developers.google.com/tag-manager/) / [Google Analytics](https://www.google.com/analytics/analytics/) / [Baidu Tongji](http://tongji.baidu.com/) + [GrowingIO](https://www.growingio.com) / [ZhugeIO](https://zhugeio.com)
@@ -235,7 +234,9 @@ Underlying generator scripts:
 
 ## How to Test the Web App
 
-Functional tests:
+WIP
+
+<!-- Functional tests:
 
 * NodeJS + [Mocha](http://mochajs.org/) + [Nightmare](http://nightmarejs.org/)
 * Naming convention: `**/*.spec.js`
@@ -275,17 +276,19 @@ npm run test:cloud
 
 Karma configuration:
 
-* [`webcube/src/configs/karma.conf.babel.js`][karmaconf]
+* [`webcube/src/configs/karma.conf.babel.js`][karmaconf] -->
 
 #### Code Style
 
-Manually run static checking:
+WIP
+
+<!-- Manually run static checking:
 
 ```
 npm run lint
 ```
 
-See the [example configuration](https://github.com/dexteryy/webcube-example/#code-style)
+See the [example configuration](https://github.com/dexteryy/webcube-example/#code-style) -->
 
 ## How to Deploy the Web App
 
