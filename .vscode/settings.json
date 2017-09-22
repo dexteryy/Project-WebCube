@@ -1,17 +1,104 @@
 {
   "eslint.workingDirectories": [
-    "./boilerplate"
+    "./boilerplate",
+    "./templates/app",
+    "./templates/staticweb",
+    "./configs"
   ],
+  "files.associations": {
+    "*.config": "properties",
+    ".babelrc": "json",
+    "babelrc": "json",
+    ".eslintrc": "json",
+    "eslintrc": "json",
+    ".stylelintrc": "json",
+    "stylelintrc": "json",
+    ".htmlhintrc": "json",
+    "htmlhintrc": "json"
+  },
   "search.exclude": {
+    "build": true,
     "**/yarn.lock": true,
     "**/package-lock.json": true,
-    "**/.eslintrc.json": true,
-    "**/.stylelintrc": true,
     "**/*.log": true,
     "**/*.pid": true,
     "**/.git": true,
-    "**/.vscode": true,
     "**/node_modules": true,
     "**/bower_components": true
-  }
+  },
+  //
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  //
+  "eslint.nodePath": "./node_modules",
+  "eslint.enable": true,
+  "eslint.run": "onType",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+    // {
+    //   "language": "typescript",
+    //   "autoFix": true
+    // },
+    // {
+    //   "language": "typescriptreact",
+    //   "autoFix": true
+    // }
+  ],
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false,
+  "tslint.enable": true,
+  "flow.enabled": false,
+  //
+  "stylelint.enable": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  //
+  "htmlhint.enable": true,
+  //
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  //
+  "eslint.autoFixOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  // "[typescript]": {
+  //   "editor.formatOnSave": false
+  // },
+  // "[typescriptreact]": {
+  //   "editor.formatOnSave": false
+  // },
+  "prettier.parser": "babylon",
+  "prettier.eslintIntegration": true,
+  "prettier.javascriptEnable": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "javascript.format.enable": false,
+  "prettier.typescriptEnable": [
+    // "typescript",
+    // "typescriptreact"
+  ],
+  // "typescript.format.enable": false,
+  "typescript.format.enable": true,
+  "prettier.cssEnable": [
+    "css",
+    "less",
+    "scss"
+  ],
+  "prettier.jsonEnable": [],
+  "json.format.enable": true,
+  "prettier.graphqlEnable": [
+    "graphql"
+  ]
 }

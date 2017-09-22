@@ -100,6 +100,8 @@ Add other configuration files depended by webcube and recommended npm scripts
 ```
 cp ./node_modules/webcube/configs/gitignore ./.gitignore
 cp ./node_modules/webcube/configs/dockerignore ./.dockerignore
+cp ./node_modules/webcube/configs/404.html ./configs/
+cp ./node_modules/webcube/configs/htmlhintrc ./staticweb/.htmlhintrc
 ```
 
 #### Step 2
@@ -161,13 +163,13 @@ npm run build
 > Project-defined build scripts and config files:
 >
 > * [`webcube-example/package.json`][package.json]
-> * [`webcube-example/configs/gulpfile.babel.js`][custom.gulpfile]
-> * [`webcube-example/configs/webpack.config.babel.js`][custom.webpack.config]
+> * [`webcube-example/configs/gulpfile.js`][custom.gulpfile]
+> * [`webcube-example/configs/webpack.config.js`][custom.webpack.config]
 
 > Underlying build scripts and config files:
 >
-> * [`webcube/src/configs/gulpfile.babel.js`][gulpfile]
-> * [`webcube/src/configs/webpack.config.babel.js`][webpack.config]
+> * [`webcube/src/configs/gulpfile.js`][gulpfile]
+> * [`webcube/src/configs/webpack.config.js`][webpack.config]
 
 Open in the browser
 
@@ -225,11 +227,11 @@ npm run new
 
 Project-defined generator scripts:
 
-* [`webcube-example/configs/plopfile.babel.js`][custom.plopfile]
+* [`webcube-example/configs/plopfile.js`][custom.plopfile]
 
 Underlying generator scripts:
 
-* [`webcube/src/configs/plopfile.babel.js`][plopfile]
+* [`webcube/src/configs/plopfile.js`][plopfile]
 
 ## How to Test the Web App
 
@@ -275,7 +277,7 @@ npm run test:cloud
 
 Karma configuration:
 
-* [`webcube/src/configs/karma.conf.babel.js`][karmaconf] -->
+* [`webcube/src/configs/karma.conf.js`][karmaconf] -->
 
 #### Code Style
 
@@ -325,17 +327,17 @@ npm run deploy:staticserver
 
 Underlying deployment scripts and adapters:
 
-* [`webcube/src/configs/gulpfile.babel.js`][gulpfile]
+* [`webcube/src/configs/gulpfile.js`][gulpfile]
 * [`webcube/src/utils/deploy/*.js`](https://github.com/dexteryy/webcube/blob/master/src/utils/deploy/)
 
 [package.json]: https://github.com/dexteryy/webcube-example/blob/master/package.json
 [env.sample.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/env.sample.config
 [custom.env.sample.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/env.sample.config
-[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.config.babel.js
-[custom.webpack.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/webpack.config.babel.js
-[gulpfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/gulpfile.babel.js
-[custom.gulpfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/gulpfile.babel.js
-[plopfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/plopfile.babel.js
-[custom.plopfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/plopfile.babel.js
-[karmaconf]: https://github.com/dexteryy/webcube/blob/master/src/configs/karma.conf.babel.js
+[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.config.js
+[custom.webpack.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/webpack.config.js
+[gulpfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/gulpfile.js
+[custom.gulpfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/gulpfile.js
+[plopfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/plopfile.js
+[custom.plopfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/plopfile.js
+[karmaconf]: https://github.com/dexteryy/webcube/blob/master/src/configs/karma.conf.js
 [gitignore]: https://github.com/dexteryy/webcube-example/blob/master/.gitignore

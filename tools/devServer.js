@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint no-undefined: 0 */
 
 const path = require('path');

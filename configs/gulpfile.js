@@ -30,13 +30,15 @@ const webpackConfig = require('./webpack.config.js');
 const pidFile = path.join(rootPath, '.webserver.pid');
 
 try {
-  require(path.join(
-    rootPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.js`
-  ));
+  require(path.join(rootPath, 'staticweb/gulpfile.js'));
 } catch (ex) {
   console.info('No custom gulpfile');
 }
+
+const htmlhintrcPath = path.join(
+  rootPath,
+  `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/.htmlhintrc`
+);
 
 function buildApp(myWebpackConfig) {
   let stream = gulp
@@ -145,7 +147,7 @@ function startStaticWebServer(done) {
       config: Object.assign({}, config, customConfig),
       errorPage:
         process.env.WEBCUBE_STATIC_SERVER_ERROR_PAGE ||
-        path.join(buildPath, 'configs/404.html'),
+        path.join(buildPath, 'templates/configs/404.html'),
       debug: Boolean(process.env.WEBCUBE_STATIC_SERVER_ENABLE_DEBUG),
       gzip: Boolean(process.env.WEBCUBE_STATIC_SERVER_ENABLE_GZIP),
     })
@@ -203,7 +205,7 @@ gulp.task('check:html', [], () =>
         !process.env.WEBCUBE_DISABLE_HTMLHINT,
         htmlhint({
           // https://github.com/yaniswang/HTMLHint/wiki/Rules
-          htmlhintrc: path.join(rootPath, '.htmlhintrc'),
+          htmlhintrc: htmlhintrcPath,
         })
       )
     )

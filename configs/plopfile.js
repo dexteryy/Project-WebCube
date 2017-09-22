@@ -45,11 +45,6 @@ module.exports = function(plop) {
       path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
     },
-    {
-      type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
-    },
   ];
 
   const addReactRouterEntryActions = [
@@ -86,11 +81,6 @@ module.exports = function(plop) {
       type: 'add',
       path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-    {
-      type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
     },
   ];
 
@@ -144,11 +134,6 @@ module.exports = function(plop) {
       type: 'add',
       path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-    {
-      type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
     },
   ];
 
@@ -210,11 +195,6 @@ module.exports = function(plop) {
       type: 'add',
       path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-    {
-      type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.scss'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.scss'),
     },
   ];
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 import App from './main/containers/App';
