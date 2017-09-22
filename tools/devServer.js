@@ -15,7 +15,7 @@ const {
   rootPath,
   staticRoot,
 } = require('../utils');
-const webpackConfig = require('../configs/webpack.config.babel');
+const webpackConfig = require('../configs/webpack.config');
 
 // https://github.com/FormidableLabs/webpack-dashboard
 webpackConfig.plugins.push(

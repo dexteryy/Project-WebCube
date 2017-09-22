@@ -1,5 +1,17 @@
 {
   "eslint.workingDirectories": [
     "./boilerplate"
-  ]
+  ],
+  "search.exclude": {
+    "**/yarn.lock": true,
+    "**/package-lock.json": true,
+    "**/.eslintrc.json": true,
+    "**/.stylelintrc": true,
+    "**/*.log": true,
+    "**/*.pid": true,
+    "**/.git": true,
+    "**/.vscode": true,
+    "**/node_modules": true,
+    "**/bower_components": true
+  }
 }

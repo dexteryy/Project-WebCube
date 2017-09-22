@@ -98,7 +98,6 @@ cp ./node_modules/webcube/configs/Dockerfile ./
 Add other configuration files depended by webcube and recommended npm scripts
 
 ```
-cp ./node_modules/webcube/configs/babelrc ./.babelrc
 cp ./node_modules/webcube/configs/gitignore ./.gitignore
 cp ./node_modules/webcube/configs/dockerignore ./.dockerignore
 ```

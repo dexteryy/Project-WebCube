@@ -7,7 +7,7 @@ let customPlopfile;
 try {
   customPlopfile = require(path.join(
     rootPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/plopfile.babel.js`
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/plopfile.js`
   ));
 } catch (ex) {
   console.info('No custom plopfile');

@@ -22,7 +22,7 @@ let customConfig;
 try {
   customConfig = require(path.join(
     rootPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.babel.js`
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.js`
   ));
 } catch (ex) {
   console.info('No custom webpack configs');

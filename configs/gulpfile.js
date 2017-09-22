@@ -25,14 +25,14 @@ const {
   cloudAdapter,
 } = require('../utils');
 //
-const webpackConfig = require('./webpack.config.babel.js');
+const webpackConfig = require('./webpack.config.js');
 
 const pidFile = path.join(rootPath, '.webserver.pid');
 
 try {
   require(path.join(
     rootPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.babel.js`
+    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.js`
   ));
 } catch (ex) {
   console.info('No custom gulpfile');

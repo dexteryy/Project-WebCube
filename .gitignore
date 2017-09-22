@@ -2,9 +2,3 @@ node_modules/
 .npm
 *.log
 *.pid
-configs/*
-!src/configs/
-tools/*
-!src/tools/
-utils/*
-!src/utils/
