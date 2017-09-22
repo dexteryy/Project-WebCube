@@ -114,7 +114,7 @@ const babelLoaderPlugins = [
   'transform-object-rest-spread',
   'syntax-dynamic-import',
   'syntax-optional-chaining',
-  'transform-decorators',
+  'transform-decorators-legacy',
   'dynamic-import-webpack',
   ['lodash', { id: ['lodash', 'recompose'] }],
 ];
@@ -258,6 +258,7 @@ module.exports = Object.assign(
                 },
               ],
               'react',
+              'flow',
             ]),
             plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
             cacheDirectory: true,
@@ -267,15 +268,25 @@ module.exports = Object.assign(
           test: /\.scss$/,
           loader: (cssOpt =>
             process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-              ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss!sass`)
-              : `style?singleton!css?${cssOpt}!postcss!sass`)(cssLoaderConfig),
+              ? ExtractTextPlugin.extract(
+                  'style',
+                  `css?${cssOpt}!postcss-loader!sass`
+                )
+              : `style?singleton!css?${cssOpt}!postcss-loader!sass`)(
+            cssLoaderConfig
+          ),
         },
         {
           test: /\.css$/,
           loader: (cssOpt =>
             process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-              ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss`)
-              : `style?singleton!css?${cssOpt}!postcss`)(cssLoaderConfig),
+              ? ExtractTextPlugin.extract(
+                  'style',
+                  `css?${cssOpt}!postcss-loader`
+                )
+              : `style?singleton!css?${cssOpt}!postcss-loader`)(
+            cssLoaderConfig
+          ),
         },
         {
           test: /\.json$/,

@@ -10,23 +10,25 @@ if (
   !process.env.WEBCUBE_DISABLE_TAP_EVENT_ADDON &&
   !process.env.WEBCUBE_USE_PREACT
 ) {
-  import('react-tap-event-plugin')();
+  /* eslint-disable no-undef */
+  require('react-tap-event-plugin')();
+  /* eslint-enable no-undef */
 }
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
 export default class AppSkeleton {
-  defaultOptions: Object = {};
-  createRoot: Function;
-  Root: React.Component;
+  defaultOptions = {};
+  createRoot = null;
+  Root = null;
   // @TODO react-router v4: start
-  routes: ?Object;
-  rootProps: ?Object;
+  routes = null;
+  rootProps = null;
   // @TODO react-router v4: end
-  reducers: ?Object;
-  initialState: ?Object;
-  moreMiddleware: ?Array<Function>;
-  moreEnhancers: ?Array<Function>;
+  reducers = null;
+  initialState;
+  moreMiddleware = [];
+  moreEnhancers = [];
 
   builtinOptions = {
     disableHashRouter: false,
@@ -51,12 +53,12 @@ export default class AppSkeleton {
     wechatApiList: [],
     wechatShare: null,
   };
-  opt: Object = {};
+  opt = {};
 
-  _node: HTMLElement;
-  _root: React.Component | void;
+  _node = null;
+  _root = null;
 
-  constructor(userOpt: Object = {}) {
+  constructor(userOpt = {}) {
     this.config(userOpt);
     if (typeof window !== 'undefined') {
       this.loadExternalScripts();
@@ -67,7 +69,7 @@ export default class AppSkeleton {
     Object.assign(this.opt, this.builtinOptions, this.defaultOptions, userOpt);
   }
 
-  mount(node: HTMLElement, cb: Function): AppSkeleton {
+  mount(node, cb) {
     const Root = this.createRoot({
       isProductionEnv,
       AppRoot: this.Root,
@@ -100,12 +102,12 @@ export default class AppSkeleton {
     return this;
   }
 
-  unmount(): AppSkeleton {
+  unmount() {
     ReactDOM.unmountComponentAtNode(this._node);
     return this;
   }
 
-  remount(cb: Function): AppSkeleton {
+  remount(cb) {
     return this.mount(this._node, cb);
   }
 

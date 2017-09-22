@@ -1,3 +1,4 @@
+/* eslint-disable filenames/match-exported */
 import AppSkeleton from 'webcube/boilerplate/AppSkeleton';
 import createReduxRouterRoot from 'webcube/boilerplate/createReduxRouterRoot';
 import routes from './routes';
@@ -13,3 +14,4 @@ export default class App extends AppSkeleton {
     homeModel,
   };
 }
+/* eslint-enable filenames/match-exported */

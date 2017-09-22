@@ -5,9 +5,7 @@
   "env": {
     "browser": true
   },
-  "rules": {
-    "filenames/match-exported": 0
-  },
+  "rules": {},
   "globals": {
     "process": true
   }
