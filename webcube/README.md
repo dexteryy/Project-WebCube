@@ -1,7 +1,7 @@
 
 # webcube
 
-[< Back to Project WebCube](../)
+[< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
 [![NPM Version][npm-image]][npm-url]
 <!-- [![Build Status][travis-image]][travis-url]

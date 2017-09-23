@@ -1,6 +1,6 @@
 # eslint-config-webcube
 
-[< Back to Project WebCube](../)
+[< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
 [![NPM Version][npm-image]][npm-url]
 <!-- [![Dependencies Status][dep-image]][dep-url]
