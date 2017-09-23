@@ -1,7 +1,9 @@
 
-# WebCube Project (monorepo)
+# Project WebCube (monorepo)
 
 Continuously updated JS infrastructure for [modern web dev](https://github.com/dexteryy/spellbook-of-modern-webdev)
+
+> NOTE: This repo itself is also a template or starter for [Universal JS monorepo](https://gist.github.com/dexteryy/1618d2398e0b24ee250535b7bc358342)
 
 ## Table of Content
 

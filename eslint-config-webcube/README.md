@@ -1,19 +1,21 @@
 # eslint-config-webcube
 
+[< Back to Project WebCube](../)
+
 [![NPM Version][npm-image]][npm-url]
-[![Dependencies Status][dep-image]][dep-url]
-[![Greenkeeper badge][greenkeeper-image]](https://greenkeeper.io/)
+<!-- [![Dependencies Status][dep-image]][dep-url]
+[![Greenkeeper badge][greenkeeper-image]](https://greenkeeper.io/) -->
 
 [![Nodei][nodei-image]][npm-url]
 
 [npm-image]: https://img.shields.io/npm/v/eslint-config-webcube.svg
 [nodei-image]: https://nodei.co/npm/eslint-config-webcube.png?downloads=true
 [npm-url]: https://npmjs.org/package/eslint-config-webcube
-[dep-image]: https://david-dm.org/dexteryy/eslint-config-webcube.svg
+<!-- [dep-image]: https://david-dm.org/dexteryy/eslint-config-webcube.svg
 [dep-url]: https://david-dm.org/dexteryy/eslint-config-webcube
-[greenkeeper-image]: https://badges.greenkeeper.io/dexteryy/eslint-config-webcube.svg
+[greenkeeper-image]: https://badges.greenkeeper.io/dexteryy/eslint-config-webcube.svg -->
 
-A [sharable ESLint presets]() which integrates [Prettier]() and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins (see [Spellbook of Modern Web Dev > Toolchain](https://github.com/dexteryy/spellbook-of-modern-webdev#toolchain) > Static Analysis).
+A [sharable ESLint presets](https://eslint.org/docs/user-guide/configuring#using-a-shareable-configuration-package) which integrates [Prettier](https://github.com/prettier/prettier) and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins (see [Spellbook of Modern Web Dev > Toolchain](https://github.com/dexteryy/spellbook-of-modern-webdev#toolchain) > Static Analysis).
 
 It's closely compatible with [Airbnb's code style](https://github.com/airbnb/javascript).
 

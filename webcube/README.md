@@ -1,28 +1,30 @@
 
 # webcube
 
+[< Back to Project WebCube](../)
+
 [![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
+<!-- [![Build Status][travis-image]][travis-url]
 [![Dependencies Status][dep-image]][dep-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+[![Test Coverage][coveralls-image]][coveralls-url] -->
 
 [![Nodei][nodei-image]][npm-url]
 
 [npm-image]: https://img.shields.io/npm/v/webcube.svg
 [nodei-image]: https://nodei.co/npm/webcube.png?downloads=true
 [npm-url]: https://npmjs.org/package/webcube
-[travis-image]: https://img.shields.io/travis/dexteryy/webcube-example/master.svg
+<!-- [travis-image]: https://img.shields.io/travis/dexteryy/webcube-example/master.svg
 [travis-url]: https://travis-ci.org/dexteryy/webcube-example
 [dep-image]: https://david-dm.org/dexteryy/webcube.svg
 [dep-url]: https://david-dm.org/dexteryy/webcube
 [coveralls-image]: https://img.shields.io/coveralls/dexteryy/webcube-example/master.svg
-[coveralls-url]: https://coveralls.io/r/dexteryy/webcube-example?branch=master
+[coveralls-url]: https://coveralls.io/r/dexteryy/webcube-example?branch=master -->
 
 ![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
 --- | --- | --- |
 iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
 
-webcube is a continuously updated JS infrastructure for modern [Universal JS]() web app/site and [static web]()
+webcube is a continuously updated JS infrastructure for modern [Universal JS](https://github.com/dexteryy/spellbook-of-modern-webdev) web app/site and [static web](https://github.com/dexteryy/spellbook-of-modern-webdev)
 
  It simplifies the integration with the latest cutting-edge JS technology and tools, automatically provides the modern software engineering environment, architecture, workflow and best practices. It also can lower the barrier of starting a new web app project.
 
@@ -43,7 +45,7 @@ webcube is a continuously updated JS infrastructure for modern [Universal JS]() 
   * [ExtractTextPlugin](https://www.npmjs.com/package/extract-text-webpack-plugin) + [AssetsPlugin](https://www.npmjs.com/package/assets-webpack-plugin)
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware) + [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 * [Gulp](http://gulpjs.com/)
-  * [ESLint v2](http://eslint.org/) ([eslint-config-webcube](https://github.com/dexteryy/eslint-config-webcube) + [Prettier](https://github.com/prettier/prettier)) + TypeScript [TODO] / [Flow](flowtype.org) [TODO] + [StyleLint](http://stylelint.io/) [TODO]
+  * [ESLint v2](http://eslint.org/) ([eslint-config-webcube](https://github.com/dexteryy/Project-WebCube/tree/master/eslint-config-webcube) + [Prettier](https://github.com/prettier/prettier)) + TypeScript [TODO] / [Flow](flowtype.org) [TODO] + [StyleLint](http://stylelint.io/) [TODO]
   * [UglifyJS v2](https://github.com/mishoo/UglifyJS2) / [uglify-es](https://github.com/mishoo/UglifyJS2/tree/harmony) [TODO] / [Babili](https://github.com/babel/babili) [TODO] + [Prepack](https://prepack.io/) [TODO]
   * [HTMLHint](https://github.com/yaniswang/HTMLHint) + [HTMLMinifier](https://github.com/kangax/html-minifier) + [gulp-inline-source](https://www.npmjs.com/package/gulp-inline-source/) + [gulp-replace](https://www.npmjs.com/package/gulp-replace/)
 * [Jest](https://facebook.github.io/jest/) [TODO] + [Enzyme](http://airbnb.io/enzyme/) [TODO] / [Nightmare](http://nightmarejs.org/) ([electron-prebuilt](https://www.npmjs.com/package/electron-prebuilt)), AVA [TODO] / [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/) + [ChromeHeadless](https://github.com/karma-runner/karma-chrome-launcher/pull/111) [TODO])
@@ -51,15 +53,15 @@ webcube is a continuously updated JS infrastructure for modern [Universal JS]() 
 * [AWS-SDK-JS](https://github.com/aws/aws-sdk-js) / [Aliyun-SDK-JS](https://github.com/aliyun-UED/aliyun-sdk-js)
 * [Wechat JS SDK](https://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html) + [Google Tag Manager](https://developers.google.com/tag-manager/) / [Google Analytics](https://www.google.com/analytics/analytics/) / [Baidu Tongji](http://tongji.baidu.com/) + [GrowingIO](https://www.growingio.com) / [ZhugeIO](https://zhugeio.com)
 
-Boilerplate as [library](https://github.com/dexteryy/webcube/blob/master/src/boilerplate/):
+Boilerplate as [library](https://github.com/dexteryy/Project-WebCube/tree/master/webcube/boilerplate/):
 
-- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/webcube-example/blob/master/templates/app/entries/react-redux-router/index.js)
-- `createReactRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react/index.js)
-- `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-router/index.js)
-- `createReduxRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux/index.js)
-- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/index.js)
-- `stateSelector` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/main/containers/Home.jsx)
-- `actionDispatcher` - [exmaple](https://github.com/dexteryy/webcube/blob/master/templates/app/entries/react-redux-router/main/containers/Home.jsx)
+- `AppSkeleton` - [exmaple A](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react/index.js), [example B](https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/templates/app/entries/react-redux-router/index.js)
+- `createReactRoot` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react/index.js)
+- `createReactRouterRoot` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react-router/index.js)
+- `createReduxRoot` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react-redux/index.js)
+- `createReduxRouterRoot` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react-redux-router/index.js)
+- `stateSelector` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react-redux-router/main/containers/Home.jsx)
+- `actionDispatcher` - [exmaple](https://github.com/dexteryy/Project-WebCube/blob/master/webcube/templates/app/entries/react-redux-router/main/containers/Home.jsx)
 - ...
 
 ## How to Create a New Web App
@@ -222,7 +224,6 @@ Unit tests:
 
 * [Karma](https://karma-runner.github.io/) + [PhantomJS](https://www.npmjs.com/package/karma-phantomjs-launcher)/[Chrome](https://www.npmjs.com/package/karma-chrome-launcher) + [Mocha](http://mochajs.org/)
 * Naming convention: `**/*.test.js`
-* Example: [webcube-example/app/example-app/effects/components/WelcomeBox/tests/index.test.js](https://github.com/dexteryy/webcube-example/blob/master/app/example-app/effects/components/WelcomeBox/tests/index.test.js)
 
 Manually run functional tests (run automatically after building):
 
@@ -265,7 +266,7 @@ WIP
 npm run lint
 ```
 
-See the [example configuration](https://github.com/dexteryy/webcube-example/#code-style) -->
+See the [example configuration](https://github.com/dexteryy/Project-WebCube/tree/master/webcube-example-for-monorepo/#code-style) -->
 
 ## How to Deploy the Web App
 
@@ -304,16 +305,15 @@ npm run deploy:staticserver
 Underlying deployment scripts and adapters:
 
 * [`webcube/src/configs/gulpfile.js`][gulpfile]
-* [`webcube/src/utils/deploy/*.js`](https://github.com/dexteryy/webcube/blob/master/src/utils/deploy/)
+* [`webcube/src/utils/deploy/*.js`](https://github.com/dexteryy/Project-WebCube/tree/master/webcube/utils/deploy/)
 
-[package.json]: https://github.com/dexteryy/webcube-example/blob/master/package.json
-[env.sample.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/env.sample.config
-[custom.env.sample.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/env.sample.config
-[webpack.config]: https://github.com/dexteryy/webcube/blob/master/src/configs/webpack.config.js
-[custom.webpack.config]: https://github.com/dexteryy/webcube-example/blob/master/configs/webpack.config.js
-[gulpfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/gulpfile.js
-[custom.gulpfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/gulpfile.js
-[plopfile]: https://github.com/dexteryy/webcube/blob/master/src/configs/plopfile.js
-[custom.plopfile]: https://github.com/dexteryy/webcube-example/blob/master/configs/plopfile.js
-[karmaconf]: https://github.com/dexteryy/webcube/blob/master/src/configs/karma.conf.js
-[gitignore]: https://github.com/dexteryy/webcube-example/blob/master/.gitignore
+[package.json]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/package.json
+[env.sample.config]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube/configs/env.sample.config
+[custom.env.sample.config]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/configs/env.sample.config
+[webpack.config]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube/configs/webpack.config.js
+[custom.webpack.config]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/configs/webpack.config.js
+[gulpfile]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube/configs/gulpfile.js
+[custom.gulpfile]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/configs/gulpfile.js
+[plopfile]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube/configs/plopfile.js
+[custom.plopfile]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/configs/plopfile.js
+[gitignore]: https://github.com/dexteryy/Project-WebCube/blob/master/webcube-example-for-monorepo/.gitignore

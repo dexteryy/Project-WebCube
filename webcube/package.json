@@ -4,11 +4,11 @@
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
-    "url": "https://github.com/dexteryy/webcube/issues"
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/webcube",
-  "repository": "https://github.com/dexteryy/webcube",
-  "version": "1.0.0-alpha.21",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/webcube",
+  "repository": "https://github.com/dexteryy/Project-WebCube",
+  "version": "1.0.0-alpha.23",
   "license": "MIT",
   "main": "index.js",
   "bin": {

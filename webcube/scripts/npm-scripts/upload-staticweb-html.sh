@@ -1,5 +1,5 @@
 #!/bin/sh
-root=""
+root="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
   root="${npm_package_config_webcube_monorepo_root}"
 fi

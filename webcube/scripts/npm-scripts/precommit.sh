@@ -1,5 +1,5 @@
 #!/bin/sh
-root=""
+root="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
   root="${npm_package_config_webcube_monorepo_root}"
 fi
@@ -24,7 +24,7 @@ lint() {
     echo "   open the link (cmd+click in VSCode) in the comments to see rule's document."
     echo "4. If you cannot find the rule ID in the .eslintrc or you want to know more,"
     echo "   open the following link:"
-    echo "   https://github.com/dexteryy/eslint-config-webcube/blob/master/.eslintrc.config.json"
+    echo "   https://github.com/dexteryy/Project-WebCube/blob/master/eslint-config-webcube/.eslintrc.config.json"
     echo "   then search for the rule ID."
     echo ""
     echo "NOTE:"

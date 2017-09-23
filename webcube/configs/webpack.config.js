@@ -235,7 +235,9 @@ module.exports = Object.assign(
       extensions: ['', '.js', '.jsx'],
     },
     resolveLoader: {
-      modulesDirectories: [].concat(monorepoModules ? [monorepoModules] : []),
+      modulesDirectories: [path.join(rootPath, 'node_modules')].concat(
+        monorepoModules ? [monorepoModules] : []
+      ),
     },
     devtool: 'source-map',
     module: {
