@@ -1,0 +1,48 @@
+{
+  "scripts": {
+    "precommit": "webcube-precommit",
+    "update": "webcube-deps-update",
+    "upgrade": "webcube-deps-upgrade",
+    "lint": "webcube-lint",
+    "lint:error": "webcube-lint-error",
+    "test": "webcube-test",
+    "build": "webcube-build",
+    "build:html": "webcube-build-html",
+    "new": "webcube-new",
+    "dev": "webcube-dev",
+    "dev:dashboard": "webcube-dev-dashboard",
+    "staticserver": "webcube-staticserver",
+    "start:staticserver": "webcube-start-staticserver",
+    "stop:staticserver": "webcube-stop-staticserver",
+    "deploy:staticserver": "webcube-deploy-staticserver",
+    "deploy:staticserver:push": "webcube-deploy-staticserver-push",
+    "deploy:staticweb": "webcube-deploy-staticweb",
+    "upload:staticweb:html": "webcube-upload-staticweb-html",
+    "upload:staticweb:assets": "webcube-upload-staticweb-assets",
+    "webcube:update": "webcube-update",
+    "webcube:setup": "webcube-setup"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:error --",
+      "git add"
+    ]
+  },
+  "config": {
+    "webcube": {
+      "staticserver": {
+        "container": "[registry]/[hub]/[container]"
+      }
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "webcube": "^1.0.0-alpha.21"
+  },
+  "devDependencies": {}
+}

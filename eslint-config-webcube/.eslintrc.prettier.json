@@ -1,0 +1,47 @@
+{
+  // https://eslint.org/docs/user-guide/configuring#extending-configuration-files
+  "extends": [
+    ".eslintrc.config.json",
+    // https://www.npmjs.com/package/eslint-config-prettier
+    // https://github.com/prettier/eslint-config-prettier/blob/master/index.js#L14
+    "prettier",
+    // https://github.com/prettier/eslint-config-prettier/blob/master/flowtype.js
+    // @TODO
+    // "prettier/flowtype",
+    // https://github.com/prettier/eslint-config-prettier/blob/master/react.js
+    "prettier/react"
+  ],
+  "rules": {
+    // https://github.com/prettier/eslint-config-prettier#curly
+    "curly": "error",
+    // https://github.com/prettier/eslint-config-prettier#max-len
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "tabWidth": 4,
+        "ignoreComments": true,
+        "ignoreTrailingComments": false,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    // https://github.com/prettier/eslint-config-prettier#no-confusing-arrow
+    "no-confusing-arrow": "off",
+    // https://github.com/prettier/eslint-config-prettier#no-mixed-operators
+    "no-mixed-operators": "off",
+    // https://github.com/prettier/eslint-config-prettier#no-tabs
+    "no-tabs": "error",
+    // https://github.com/prettier/eslint-config-prettier#quotes
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ]
+  }
+}

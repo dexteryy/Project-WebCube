@@ -1,0 +1,4 @@
+{
+  "public": "build/public/",
+  "cleanUrls": true
+}

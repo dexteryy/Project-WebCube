@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "../.eslintrc.json"
+  ],
+  "rules": {
+    "filenames/match-regex": [
+      "error",
+      "^[a-zA-Z0-9\\.-]+$"
+    ]
+  }
+}

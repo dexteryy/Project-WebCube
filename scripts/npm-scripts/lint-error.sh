@@ -1,1 +1,0 @@
-webcube-lint --quiet $*

@@ -1,9 +1,6 @@
 {
   "eslint.workingDirectories": [
-    "./webcube/boilerplate",
-    "./webcube/templates/app",
-    "./webcube/templates/staticweb",
-    "./webcube-example/configs"
+    "./configs"
   ],
   "files.associations": {
     "*.config": "properties",
