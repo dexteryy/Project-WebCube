@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const path = require('path');
-const { cd, mkdir, cp } = require('shelljs');
+const { cd, mkdir, cp, exit } = require('shelljs');
 const { rootPath, modulePath } = require('../../utils/beforeEnvConfig');
 
-cd(rootPath);
+if (cd(rootPath).code !== 0) {
+  exit(1);
+}
 mkdir('-p', 'app/common', 'staticweb');
 cp('-r', path.join(modulePath, 'templates/configs'), './');
 cp('configs/env.sample.config', 'env.config');

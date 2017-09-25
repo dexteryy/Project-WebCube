@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const path = require('path');
-const { cd, cp } = require('shelljs');
+const { cd, cp, exit } = require('shelljs');
 const { rootPath, modulePath } = require('../../utils/beforeEnvConfig');
 
-cd(rootPath);
+if (cd(rootPath).code !== 0) {
+  exit(1);
+}
 
 // migration
 // cp('configs/env.sample.config', 'configs/env.sample.config.backup');
