@@ -5,10 +5,10 @@
   "scripts": {
     "precommit": "webcube-precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "update": "npm run clear:deps && lerna bootstrap",
-    "upgrade": "npm run clear:lock && npm run update",
-    "clear:lock": "rm -rf yarn.lock package-lock.json && lerna exec -- rm -rf yarn.lock package-lock.json",
-    "clear:deps": "rm -rf ./node_modules && lerna clean --yes",
+    "update": "webcube-monorepo-deps-update",
+    "upgrade": "webcube-monorepo-deps-upgrade",
+    "clear:lock": "webcube-monorepo-clear-lock",
+    "clear:deps": "webcube-monorepo-clear-deps",
     "lint": "webcube-lint",
     "lint:error": "webcube-lint-error"
   },
@@ -31,12 +31,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "devDependencies": {
-    "cz-conventional-changelog": "^2.0.0",
-    "husky": "^0.14.3",
-    "lerna": "^2.2.0",
-    "lint-staged": "^4.2.2"
-  },
+  "devDependencies": {},
   "workspaces": [
     "webcube/",
     "nodecube/",
