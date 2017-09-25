@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube",
-  "version": "1.0.0-alpha.24",
+  "version": "1.0.0-alpha.25",
   "license": "MIT",
   "main": "index.js",
   "bin": {
@@ -75,7 +75,7 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.7.2",
-    "eslint-config-webcube": "1.0.0-rc.1",
+    "eslint-config-webcube": "^1.0.0-rc.2",
     "exports-loader": "^0.6.4",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -150,7 +150,6 @@
     "webpack-md5-hash": "^0.0.5",
     "webpack-stream": "^3.2.0"
   },
-  "devDependencies": {},
   "keywords": [
     "react",
     "react-router",

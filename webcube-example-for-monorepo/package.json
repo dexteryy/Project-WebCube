@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-example-for-monorepo",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "test": "webcube-test",
     "build": "webcube-build",
@@ -35,7 +35,6 @@
     }
   },
   "dependencies": {
-    "webcube": "^1.0.0-alpha.24"
-  },
-  "devDependencies": {}
+    "webcube": "^1.0.0-alpha.25"
+  }
 }
