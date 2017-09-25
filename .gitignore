@@ -9,5 +9,6 @@ build/public/*
 !build/public/favicon.png
 !build/public/404.html
 coverage/
+demo*/
 app/demo*
 staticweb/demo*

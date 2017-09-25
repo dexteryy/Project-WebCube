@@ -4,15 +4,10 @@
   "description": "Continuously updated JS infrastructure for modern web dev",
   "scripts": {
     "precommit": "webcube-precommit",
-    "update": "npm run clear:deps && yarn",
+    "update": "npm run clear:deps && lerna bootstrap",
     "upgrade": "npm run clear:lock && npm run update",
-    "clear:lock": "rm -rf yarn.lock package-lock.json",
-    "clear:deps": "npm run clear:deps:root && npm run clear:deps:webcube && npm run clear:deps:nodecube && npm run clear:deps:eslint && npm run clear:deps:example",
-    "clear:deps:root": "rm -rf ./node_modules",
-    "clear:deps:webcube": "rm -rf ./webcube/node_modules",
-    "clear:deps:nodecube": "rm -rf ./nodecube/node_modules",
-    "clear:deps:eslint": "rm -rf ./eslint-config-webcube/node_modules",
-    "clear:deps:example": "rm -rf ./*-example-*/node_modules",
+    "clear:lock": "rm -rf yarn.lock ./*/yarn.lock package-lock.json ./*/package-lock.json",
+    "clear:deps": "rm -rf ./node_modules && rm -rf ./*/node_modules",
     "lint": "webcube-lint",
     "lint:error": "webcube-lint-error"
   },

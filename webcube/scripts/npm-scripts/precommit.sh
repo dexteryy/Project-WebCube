@@ -1,10 +1,16 @@
 #!/bin/sh
-root="."
+webcubeRoot="."
+binRoot="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  root="${npm_package_config_webcube_monorepo_root}"
+  webcubeRoot="${npm_package_config_webcube_monorepo_root}"
+  binRoot="${npm_package_config_webcube_monorepo_root}"
+  if [[ ! -d ${binRoot}/node_modules/ ]]; then
+    webcubeRoot="."
+    binRoot="./node_modules/webcube"
+  fi
 fi
 lint() {
-  $root/node_modules/.bin/lint-staged || (
+  $binRoot/node_modules/.bin/lint-staged || (
     echo ""
     echo "=============================="
     echo "All eslint errors in staged files must be fixed. "

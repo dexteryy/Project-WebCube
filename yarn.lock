@@ -1640,12 +1640,12 @@ caniuse-api@^2.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000735"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000735.tgz#32bc4a07ef1f247474adb6097a031b94ca97ea9a"
+  version "1.0.30000737"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000737.tgz#7881d970cb0773978cbe5b803e595c1d19fddd3d"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000718, caniuse-lite@^1.0.30000726:
-  version "1.0.30000735"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000735.tgz#aab44016ef243e215ef43fd1343efd22930842f8"
+  version "1.0.30000737"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000737.tgz#8199a601dd54c096e1f8567bcb7461b94f0d4509"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -3074,8 +3074,8 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.18:
-  version "1.3.21"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.21.tgz#a967ebdcfe8ed0083fc244d1894022a8e8113ea2"
+  version "1.3.22"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.22.tgz#4322d52c151406e3eaef74ad02676883e8416418"
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -3361,8 +3361,8 @@ eslint-plugin-promise@^3.5.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-3.5.0.tgz#78fbb6ffe047201627569e85a6c5373af2a68fca"
 
 eslint-plugin-react@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.3.0.tgz#ca9368da36f733fbdc05718ae4e91f778f38e344"
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.4.0.tgz#300a95861b9729c087d362dd64abcc351a74364a"
   dependencies:
     doctrine "^2.0.0"
     has "^1.0.1"
@@ -5807,8 +5807,8 @@ liftoff@^2.1.0, liftoff@^2.2.0:
     resolve "^1.1.7"
 
 lint-staged@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.2.2.tgz#a308ceb3f1031b78c832fbe4570744b3c7fd5a4e"
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.2.3.tgz#5a1f12256af06110b96225f109dbf215009a37a9"
   dependencies:
     app-root-path "^2.0.0"
     chalk "^2.1.0"
@@ -8918,16 +8918,16 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     inherits "^2.0.1"
 
 router@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/router/-/router-1.3.1.tgz#e59ef64fafc22194a196986834d887058d76af47"
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/router/-/router-1.3.2.tgz#bfaa16888a5283d5ee40d999da7a9fa15296a60c"
   dependencies:
     array-flatten "2.1.1"
-    debug "2.6.8"
+    debug "2.6.9"
     methods "~1.1.2"
-    parseurl "~1.3.1"
+    parseurl "~1.3.2"
     path-to-regexp "0.1.7"
-    setprototypeof "1.0.3"
-    utils-merge "1.0.0"
+    setprototypeof "1.1.0"
+    utils-merge "1.0.1"
 
 rsvp@^3.6.2:
   version "3.6.2"
@@ -9121,6 +9121,10 @@ set-value@^2.0.0:
 setprototypeof@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.0.3.tgz#66567e37043eeb4f04d91bd658c0cbefb55b8e04"
+
+setprototypeof@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
 
 sha.js@2.2.6:
   version "2.2.6"
@@ -10069,8 +10073,8 @@ uglify-js@3.0.x:
     source-map "~0.5.1"
 
 uglify-js@3.1.x, uglify-js@^3.0.5:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.1.tgz#e7144307281a1bc38a9a20715090b546c9f44791"
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.2.tgz#b50bcf15a5fd9e9ed40afbcdef3b59d6891b291f"
   dependencies:
     commander "~2.11.0"
     source-map "~0.5.1"
@@ -10332,8 +10336,8 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "~1.0.0"
 
 vary@~1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.1.tgz#67535ebb694c1d52257457984665323f587e8d37"
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
 vendors@^1.0.0:
   version "1.0.1"

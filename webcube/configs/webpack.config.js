@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -175,13 +176,23 @@ const cssLoaderConfig = JSON.stringify({
   // reduceIdents: true,
 });
 
-const monorepoModules =
+let monorepoModules =
   process.env.npm_package_config_webcube_monorepo_root &&
   path.join(
     rootPath,
     process.env.npm_package_config_webcube_monorepo_root,
     'node_modules'
   );
+if (!fs.existsSync(monorepoModules)) {
+  monorepoModules = '';
+}
+const webcubeModules = process.env.npm_package_config_webcube_monorepo_root
+  ? path.join(
+      rootPath,
+      process.env.npm_package_config_webcube_monorepo_root,
+      'webcube/node_modules'
+    )
+  : path.join(rootPath, 'node_modules/webcube/node_modules');
 
 module.exports = Object.assign(
   {
@@ -229,15 +240,15 @@ module.exports = Object.assign(
           : null,
         customConfig.resolveAlias
       ),
-      modulesDirectories: [path.join(rootPath, 'node_modules')].concat(
-        monorepoModules ? [monorepoModules] : []
-      ),
+      modulesDirectories: [path.join(rootPath, 'node_modules')]
+        .concat(webcubeModules ? [webcubeModules] : [])
+        .concat(monorepoModules ? [monorepoModules] : []),
       extensions: ['', '.js', '.jsx'],
     },
     resolveLoader: {
-      modulesDirectories: [path.join(rootPath, 'node_modules')].concat(
-        monorepoModules ? [monorepoModules] : []
-      ),
+      modulesDirectories: [path.join(rootPath, 'node_modules')]
+        .concat(webcubeModules ? [webcubeModules] : [])
+        .concat(monorepoModules ? [monorepoModules] : []),
     },
     devtool: 'source-map',
     module: {
@@ -249,10 +260,14 @@ module.exports = Object.assign(
             path.join(rootPath, 'app'),
             path.join(rootPath, 'src'),
             path.join(rootPath, 'staticweb'),
-            monorepoModules
-              ? path.join(monorepoModules, '../', 'webcube')
-              : path.join(rootPath, 'node_modules/webcube'),
-          ].concat(customConfig.babelLoaderInclude),
+            path.join(rootPath, 'node_modules/webcube'),
+          ]
+            .concat(
+              monorepoModules
+                ? [path.join(monorepoModules, '../', 'webcube')]
+                : []
+            )
+            .concat(customConfig.babelLoaderInclude),
           // exclude: /node_modules/,
           query: {
             presets: customConfig.babelLoaderPresets([
@@ -377,9 +392,9 @@ module.exports = Object.assign(
       ].concat(customConfig.postcssPlugins);
     },
     sassLoader: {
-      includePaths: [path.join(rootPath, 'node_modules')].concat(
-        monorepoModules ? [monorepoModules] : []
-      ),
+      includePaths: [path.join(rootPath, 'node_modules')]
+        .concat(webcubeModules ? [webcubeModules] : [])
+        .concat(monorepoModules ? [monorepoModules] : []),
     },
     plugins: [
       // http://mts.io/2015/04/08/webpack-shims-polyfills/

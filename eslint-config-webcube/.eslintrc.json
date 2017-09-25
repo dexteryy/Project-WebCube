@@ -6,6 +6,9 @@
   "env": {
     "node": true
   },
+  "settings": {
+    "import/resolver": "node"
+  },
   "rules": {
     "prettier/prettier": [
       2,
@@ -22,6 +25,7 @@
     ],
     "node/no-unsupported-features": 2,
     "import/default": 0,
+    "import/no-dynamic-require": 0,
     "import/no-commonjs": 0
   }
 }

@@ -1,6 +1,12 @@
 #!/bin/sh
-root="."
+webcubeRoot="."
+binRoot="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  root="${npm_package_config_webcube_monorepo_root}"
+  webcubeRoot="${npm_package_config_webcube_monorepo_root}"
+  binRoot="${npm_package_config_webcube_monorepo_root}"
+  if [[ ! -d ${binRoot}/node_modules/ ]]; then
+    webcubeRoot="."
+    binRoot="./node_modules/webcube"
+  fi
 fi
-$root/node_modules/.bin/eslint --fix --color --ext .js --ext .jsx --ext .es6 $*
+$binRoot/node_modules/.bin/eslint --fix --color --ext .js --ext .jsx --ext .es6 $*

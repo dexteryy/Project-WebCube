@@ -1,11 +1,17 @@
 #!/bin/sh
-root="."
+webcubeRoot="."
+binRoot="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  root="${npm_package_config_webcube_monorepo_root}"
+  webcubeRoot="${npm_package_config_webcube_monorepo_root}"
+  binRoot="${npm_package_config_webcube_monorepo_root}"
+  if [[ ! -d ${binRoot}/node_modules/ ]]; then
+    webcubeRoot="."
+    binRoot="./node_modules/webcube"
+  fi
 fi
-CFG_FILE="${root}/node_modules/webcube/configs/gulpfile.js"
+CFG_FILE="${webcubeRoot}/node_modules/webcube/configs/gulpfile.js"
 (
-  $root/node_modules/.bin/gulp --gulpfile $CFG_FILE build:staticweb
+  $binRoot/node_modules/.bin/gulp --gulpfile $CFG_FILE build:staticweb
 ) && (
   webcube-start-staticserver
 )

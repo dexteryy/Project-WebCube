@@ -335,7 +335,7 @@
     "no-loop-func": "error",
     // https://eslint.org/docs/rules/no-magic-numbers
     "no-magic-numbers": [
-      "error",
+      "warn",
       {
         "ignore": [
           0,
