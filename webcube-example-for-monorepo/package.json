@@ -3,6 +3,7 @@
   "name": "webcube-example-for-monorepo",
   "version": "0.0.1",
   "scripts": {
+    "precommit:custom": "npm run test",
     "test": "webcube-test",
     "build": "webcube-build",
     "build:html": "webcube-build-html",

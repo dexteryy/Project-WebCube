@@ -1,2 +1,2 @@
 #!/bin/sh
-nohup npm run staticserver > ./webserver.log 2>&1 &
+nohup webcube-staticserver > ./webserver.log 2>&1 &

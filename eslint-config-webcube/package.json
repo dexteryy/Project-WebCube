@@ -21,7 +21,7 @@
     "node": ">=6.9.0"
   },
   "scripts": {
-    "precommit": "npm run check",
+    "precommit:custom": "npm run check",
     "prepublish": "npm run check",
     "check": "cd ../; eslint-find-rules --unused ./eslint-config-webcube/.eslintrc.prettier.json; cd -",
     "stat": "cd ../; eslint-index ./eslint-config-webcube/.eslintrc.prettier.json --format table; cd -"
@@ -48,8 +48,7 @@
     "check-dependencies": "^1.1.0",
     "eslint": "^4.7.2",
     "eslint-find-rules": "^3.1.1",
-    "eslint-index": "^1.4.0",
-    "husky": "^0.14.3"
+    "eslint-index": "^1.4.0"
   },
   "keywords": [
     "eslint",

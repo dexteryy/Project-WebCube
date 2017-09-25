@@ -3,6 +3,7 @@
   "name": <Your project name (same as director name)>,
   "version": "0.0.0",
   "scripts": {
+    "precommit:custom": "npm run test",
     "test": "webcube-test",
     "build": "webcube-build",
     "build:html": "webcube-build-html",

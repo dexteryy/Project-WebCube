@@ -4,6 +4,7 @@
   "description": "Continuously updated JS infrastructure for modern web dev",
   "scripts": {
     "precommit": "webcube-precommit",
+    "precommit:custom": "lerna run precommit:custom",
     "update": "npm run clear:deps && lerna bootstrap",
     "upgrade": "npm run clear:lock && npm run update",
     "clear:lock": "rm -rf yarn.lock package-lock.json && lerna exec -- rm -rf yarn.lock package-lock.json",

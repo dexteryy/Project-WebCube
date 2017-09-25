@@ -44,7 +44,7 @@ lint() {
 (
   lint
 ) && (
-  npm run test
+  npm run precommit:custom
 ) && (
 
 echo ""

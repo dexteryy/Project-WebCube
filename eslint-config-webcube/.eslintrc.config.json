@@ -1516,6 +1516,7 @@
       }
     ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
+    "react/jsx-curly-brace-presence": "off",
     // "react/jsx-curly-brace-presence": [
     //   "error",
     //   "never"
