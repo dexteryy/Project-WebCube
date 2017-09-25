@@ -6,8 +6,8 @@
     "precommit": "webcube-precommit",
     "update": "npm run clear:deps && lerna bootstrap",
     "upgrade": "npm run clear:lock && npm run update",
-    "clear:lock": "rm -rf yarn.lock ./*/yarn.lock package-lock.json ./*/package-lock.json",
-    "clear:deps": "rm -rf ./node_modules && rm -rf ./*/node_modules",
+    "clear:lock": "rm -rf yarn.lock package-lock.json && lerna exec -- rm -rf yarn.lock package-lock.json",
+    "clear:deps": "rm -rf ./node_modules && lerna clean --yes",
     "lint": "webcube-lint",
     "lint:error": "webcube-lint-error"
   },

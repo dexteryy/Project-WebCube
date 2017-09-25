@@ -1,6 +1,7 @@
 {
+  "private": true,
   "name": "webcube-example-for-monorepo",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "scripts": {
     "test": "webcube-test",
     "build": "webcube-build",

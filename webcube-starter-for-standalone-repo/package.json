@@ -1,4 +1,5 @@
 {
+  "private": true,
   "scripts": {
     "precommit": "webcube-precommit",
     "update": "webcube-deps-update",
