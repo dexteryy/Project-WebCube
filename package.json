@@ -5,10 +5,10 @@
   "scripts": {
     "precommit": "webcube-precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "update": "webcube-monorepo-deps-update",
-    "upgrade": "webcube-monorepo-deps-upgrade",
-    "clear:lock": "webcube-monorepo-clear-lock",
-    "clear:deps": "webcube-monorepo-clear-deps",
+    "update": "npm run clear:deps && lerna bootstrap",
+    "upgrade": "npm run clear:lock && npm run update",
+    "clear:lock": "lerna exec -- rm yarn.lock package-lock.json 2>/dev/null || true && rm yarn.lock package-lock.json 2>/dev/null || true",
+    "clear:deps": "lerna clean --yes 2>/dev/null || true && rm -rf ./node_modules 2>/dev/null || true",
     "lint": "webcube-lint",
     "lint:error": "webcube-lint-error"
   },

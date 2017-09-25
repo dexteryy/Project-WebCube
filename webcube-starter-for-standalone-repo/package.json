@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "precommit": "webcube-precommit",
-    "update": "webcube-deps-update",
-    "upgrade": "webcube-deps-upgrade",
+    "update": "rm -rf ./node_modules && yarn",
+    "upgrade": "rm -rf yarn.lock package-lock.json && npm run update",
     "lint": "webcube-lint",
     "lint:error": "webcube-lint-error",
     "test": "webcube-test",
