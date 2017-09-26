@@ -31,11 +31,14 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "devDependencies": {},
   "workspaces": [
     "webcube/",
     "nodecube/",
     "eslint-config-webcube/",
     "*-example-*/"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-config-webcube": "^1.0.0-rc.3",
+    "webcube": "^1.0.0-alpha.26"
+  }
 }
