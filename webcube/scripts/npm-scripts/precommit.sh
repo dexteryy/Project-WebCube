@@ -50,6 +50,7 @@ lint() {
 echo ""
 echo "=============================="
 echo "[PRECOMMIT] Verified!"
+echo "Please commit all autofixes caused by eslint and prettier"
 echo ""
 
 ) || (

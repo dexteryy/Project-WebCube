@@ -184,7 +184,7 @@
       "error",
       {
         "prefer": {
-          "returns": "return",
+          "return": "returns",
           "exception": "throws",
           "property": "prop",
           "arg": "param",
@@ -1593,7 +1593,7 @@
     "import/unambiguous": "off",
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-commonjs.md
     // @TIPS
-    // for the following usages:
+    // for the following 'require' usages:
     // 1. dynamic module path -
     //    explicitly declare `eslint-disable` when truly necessary
     // 2. dependencies determined at runtime -
@@ -1604,6 +1604,17 @@
     //    `import 'xxx'` (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Import_a_module_for_its_side_effects_only)
     // 4. async require or promise-loader -
     //    dynamic import (`import('xxx').then()`)
+    // for 'modules.exports = jsonData' usage:
+    // solutions:
+    // #1: use JSON format
+    // #2: use es6 export
+    // export const wechatPayGray = 'xxxx'
+    // #3: export named object
+    // const iconPath = {
+    //   wechatPayGray: 'xxxx',
+    //   // ...
+    // }
+    // export default iconPath
     "import/no-commonjs": "error",
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-amd.md
     "import/no-amd": "error",
@@ -1656,6 +1667,8 @@
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/HEAD/docs/rules/no-duplicate-disable.md
     "eslint-comments/no-duplicate-disable": "error",
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/HEAD/docs/rules/no-unlimited-disable.md
+    // @TIPS
+    // move code into a dedicated directory with its own .eslintrc
     "eslint-comments/no-unlimited-disable": "error",
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/HEAD/docs/rules/no-unused-disable.md
     "eslint-comments/no-unused-disable": "error",

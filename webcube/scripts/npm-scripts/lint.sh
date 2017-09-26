@@ -9,4 +9,4 @@ if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
     binRoot="./node_modules/webcube"
   fi
 fi
-$binRoot/node_modules/.bin/eslint --fix --color --ext .js --ext .jsx --ext .es6 $*
+$binRoot/node_modules/.bin/eslint --fix --color --ext .js,.jsx,.es6 $*
