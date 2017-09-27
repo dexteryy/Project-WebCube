@@ -43,7 +43,7 @@ curl https://raw.githubusercontent.com/dexteryy/webcube/master/webcube-starter-f
 Step 1: install dependencies
 
 ```bash
-yarn
+npm run update
 ```
 
 Step 2: scaffold
@@ -81,7 +81,7 @@ Step #1: install dependencies in monorepo's root
 
 ```bash
 cd ../
-yarn
+npm run update
 cd -
 ```
 

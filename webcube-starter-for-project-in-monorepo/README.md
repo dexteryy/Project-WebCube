@@ -5,7 +5,7 @@ Step 1: install dependencies in monorepo's root
 
 ```bash
 cd ../
-yarn
+npm run update
 cd -
 ```
 

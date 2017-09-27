@@ -1,12 +1,5 @@
 {
   "extends": [
-    "webcube"
-  ],
-  "env": {
-    "browser": true
-  },
-  "rules": {},
-  "globals": {
-    "process": true
-  }
+    "../../boilerplate/.eslintrc.json"
+  ]
 }

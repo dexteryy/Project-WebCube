@@ -4,7 +4,7 @@
 Step 1: install dependencies
 
 ```bash
-yarn
+npm run update
 ```
 
 Step 2: scaffold
