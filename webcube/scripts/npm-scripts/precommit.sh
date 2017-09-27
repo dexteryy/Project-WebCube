@@ -23,9 +23,7 @@ lint() {
     echo "follow these steps:"
     echo "1. Find the rule ID that correspond to the error/warning"
     echo "   from the console log or IDE's problems/lint panel."
-    echo "2. Open the closest .eslintrc, such as"
-    echo "   https://cd.i.strikingly.com/strikingly/Bobcat/blob/develop/.eslintrc"
-    echo "   then search for the rule ID."
+    echo "2. Open the closest .eslintrc.json, then search for the rule ID."
     echo "3. Find tips in comments. If they do not exist or are not enough,"
     echo "   open the link (cmd+click in VSCode) in the comments to see rule's document."
     echo "4. If you cannot find the rule ID in the .eslintrc or you want to know more,"
@@ -36,7 +34,7 @@ lint() {
     echo "NOTE:"
     echo "* Inline configuration (like eslint-disable) MUST only be used for explicitly declare the rare case,"
     echo "  NOT for permanently or temporarily ignore the error/warning."
-    echo "* DO NOT optionally modify .eslintrc and pre-commit scripts."
+    echo "* DO NOT optionally modify .eslintrc and pre-commit hook."
     exit 1
   )
 }
