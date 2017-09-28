@@ -28,8 +28,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run lint:error --",
-      "git add"
+      "npm run lint:error --"
     ]
   },
   "config": {
