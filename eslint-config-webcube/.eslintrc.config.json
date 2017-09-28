@@ -871,14 +871,15 @@
       }
     ],
     // https://eslint.org/docs/rules/no-underscore-dangle
-    "no-underscore-dangle": [
-      "error",
-      {
-        "allowAfterThis": true,
-        "allowAfterSuper": true,
-        "enforceInMethodNames": true
-      }
-    ],
+    "no-underscore-dangle": "off",
+    // "no-underscore-dangle": [
+    //   "error",
+    //   {
+    //     "allowAfterThis": true,
+    //     "allowAfterSuper": true,
+    //     "enforceInMethodNames": true
+    //   }
+    // ],
     // https://eslint.org/docs/rules/no-unneeded-ternary
     "no-unneeded-ternary": [
       "error",
