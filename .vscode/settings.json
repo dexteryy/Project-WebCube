@@ -14,7 +14,9 @@
     ".stylelintrc": "json",
     "stylelintrc": "json",
     ".htmlhintrc": "json",
-    "htmlhintrc": "json"
+    "htmlhintrc": "json",
+    "Procfile*": "shellscript",
+    "README": "markdown"
   },
   "search.exclude": {
     "**/build": true,
@@ -61,10 +63,6 @@
   //
   "htmlhint.enable": true,
   //
-  "editor.formatOnType": true,
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  //
   "eslint.autoFixOnSave": true,
   "prettier.parser": "babylon",
   "prettier.eslintIntegration": true,
@@ -78,7 +76,6 @@
     // "typescriptreact"
   ],
   // "typescript.format.enable": false,
-  "typescript.format.enable": true,
   "prettier.cssEnable": [
     "css",
     "less",
@@ -86,6 +83,11 @@
   ],
   "prettier.jsonEnable": [],
   "json.format.enable": true,
+  "[json]": {
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+  },
   "prettier.graphqlEnable": [
     "graphql"
   ]
