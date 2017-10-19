@@ -23,6 +23,7 @@
       }
     ],
     "node/no-unsupported-features": 2,
+    "filenames/match-regex": 0,
     "import/default": 0,
     "import/no-dynamic-require": 0,
     "import/no-commonjs": 0

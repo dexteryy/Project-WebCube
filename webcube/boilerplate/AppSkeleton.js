@@ -19,15 +19,23 @@ const isProductionEnv = process.env.NODE_ENV === 'production';
 
 export default class AppSkeleton {
   defaultOptions = {};
+
   createRoot = null;
+
   Root = null;
+
   // @TODO react-router v4: start
   routes = null;
+
   rootProps = null;
+
   // @TODO react-router v4: end
   reducers = null;
+
   initialState;
+
   moreMiddleware = [];
+
   moreEnhancers = [];
 
   builtinOptions = {
@@ -53,9 +61,11 @@ export default class AppSkeleton {
     wechatApiList: [],
     wechatShare: null,
   };
+
   opt = {};
 
   _node = null;
+
   _root = null;
 
   constructor(userOpt = {}) {
@@ -191,7 +201,6 @@ export default class AppSkeleton {
 
   // http://tongji.baidu.com/web/help/article?id=174&type=0
   loadBaiduTongjiScripts() {
-    /* eslint-disable no-underscore-dangle */
     const { baiduTongjiScript, baiduTongjiId } = this.opt;
     window._hmt = window._hmt || [];
     const baiduScript = document.createElement('script');
@@ -200,11 +209,9 @@ export default class AppSkeleton {
     baiduScript.src =
       baiduTongjiScript || `https://hm.baidu.com/hm.js?${baiduTongjiId}`;
     point.parentNode.insertBefore(baiduScript, point);
-    /* eslint-enable no-underscore-dangle */
   }
 
   loadGrowingIoScripts() {
-    /* eslint-disable no-underscore-dangle */
     const { growingIoAccountId } = this.opt;
     const _vds = window._vds || [];
     window._vds = _vds;
@@ -217,11 +224,9 @@ export default class AppSkeleton {
     vds.src = `${protocol}dn-growing.qbox.me/vds.js`;
     const s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(vds, s);
-    /* eslint-enable no-underscore-dangle */
   }
 
   loadZhugeIoScripts() {
-    /* eslint-disable no-underscore-dangle */
     const { zhugeIoAppKey } = this.opt;
     window.zhuge = window.zhuge || [];
     window.zhuge.methods = '_init debug identify track trackLink trackForm page'.split(
@@ -273,7 +278,6 @@ export default class AppSkeleton {
       }
     };
     window.zhuge.load(zhugeIoAppKey);
-    /* eslint-enable no-underscore-dangle */
   }
 
   // http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html

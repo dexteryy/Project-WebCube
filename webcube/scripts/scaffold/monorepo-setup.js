@@ -12,5 +12,15 @@ cp(path.join(modulePath, 'templates/root/dockerignore'), './');
 cp(path.join(modulePath, 'templates/root/gitignore'), './.gitignore');
 cp(path.join(modulePath, 'templates/root/README.md'), './');
 cp(path.join(modulePath, '.htmlhintrc'), 'staticweb/.htmlhintrc');
-cp(path.join(modulePath, 'boilerplate/.eslintrc.json'), './');
-cp(path.join(modulePath, '.eslintrc.json'), 'configs/');
+cp(
+  path.join(modulePath, 'templates/monorepo/eslintrc.browser.json'),
+  './app/.eslintrc.json'
+);
+cp(
+  path.join(modulePath, 'templates/monorepo/eslintrc.browser.json'),
+  './staticweb/.eslintrc.json'
+);
+cp(
+  path.join(modulePath, 'templates/monorepo/eslintrc.node.json'),
+  './.eslintrc.json'
+);

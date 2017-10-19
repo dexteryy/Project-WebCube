@@ -27,26 +27,26 @@
     "stat": "cd ../; eslint-index ./eslint-config-webcube/.eslintrc.prettier.json --format table; cd -"
   },
   "peerDependencies": {
-    "eslint": "^4.7.2"
+    "eslint": "^4.9.0"
   },
   "dependencies": {
-    "babel-eslint": "^8.0.0",
+    "babel-eslint": "^8.0.1",
     "eslint-config-prettier": "^2.6.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-eslint-comments": "^1.0.3",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.3.0",
-    "prettier": "^1.7.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.4.0",
+    "prettier": "^1.7.4",
     "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
     "check-dependencies": "^1.1.0",
-    "eslint": "^4.7.2",
+    "eslint": "^4.9.0",
     "eslint-find-rules": "^3.1.1",
     "eslint-index": "^1.4.0"
   },

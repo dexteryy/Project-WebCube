@@ -8,6 +8,7 @@ export default class App extends PureComponent {
   componentWillUpdate() {
     //
   }
+
   render() {
     return <div id="reactRouterAppRoot">Success!</div>;
   }

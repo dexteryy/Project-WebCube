@@ -1,5 +1,6 @@
 {
   "eslint.workingDirectories": [
+    "./eslint-config-webcube",
     "./webcube/boilerplate",
     "./webcube/templates/app",
     "./webcube/templates/staticweb",
@@ -39,6 +40,11 @@
   "eslint.nodePath": "./node_modules",
   "eslint.enable": true,
   "eslint.run": "onType",
+  "eslint.options": {
+    "rules": {
+      "no-debugger": "off"
+    }
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact"
@@ -84,6 +90,7 @@
   "prettier.jsonEnable": [],
   "json.format.enable": true,
   "[json]": {
+    "editor.tabSize": 2,
     "editor.formatOnType": true,
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true

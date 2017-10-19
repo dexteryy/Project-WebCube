@@ -6,8 +6,11 @@ import createReduxRoot from 'webcube/boilerplate/createReduxRoot';
 
 export default class App extends AppSkeleton {
   defaultOptions = {};
+
   createRoot = createReduxRoot;
+
   Root = AppRoot;
+
   reducers = {
     homeModel,
   };

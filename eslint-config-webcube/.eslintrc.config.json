@@ -102,6 +102,8 @@
     // explicitly declare `eslint-disable` when truly necessary
     "no-control-regex": "error",
     // https://eslint.org/docs/rules/no-debugger
+    // @TIPS: for non-VSCode users, please use `debugger // eslint-disable-line`
+    //        instead of `debugger` to avoid it to be removed by IDE's autoFixOnSave feature
     "no-debugger": "error",
     // https://eslint.org/docs/rules/no-dupe-args
     "no-dupe-args": "error",
@@ -283,7 +285,12 @@
     // https://eslint.org/docs/rules/no-div-regex
     "no-div-regex": "error",
     // https://eslint.org/docs/rules/no-else-return
-    "no-else-return": "error",
+    "no-else-return": [
+      "error",
+      {
+        "allowElseIf": true
+      }
+    ],
     // https://eslint.org/docs/rules/no-empty-function
     // @TIPS
     // add commment to explain why we need a empty function/method here
@@ -572,10 +579,7 @@
     // https://eslint.org/docs/rules/array-bracket-newline
     "array-bracket-newline": [
       "error",
-      {
-        "multiline": true,
-        "minItems": null
-      }
+      "consistent"
     ],
     // https://eslint.org/docs/rules/array-bracket-spacing
     "array-bracket-spacing": [
@@ -735,17 +739,24 @@
     "lines-around-comment": [
       "error",
       {
-        "beforeBlockComment": false,
+        "beforeBlockComment": true,
         "afterBlockComment": false,
         "beforeLineComment": false,
         "afterLineComment": false,
-        "allowBlockStart": false,
+        "allowBlockStart": true,
         "allowBlockEnd": false,
-        "allowObjectStart": false,
+        "allowClassStart": true,
+        "allowClassEnd": false,
+        "allowObjectStart": true,
         "allowObjectEnd": false,
-        "allowArrayStart": false,
+        "allowArrayStart": true,
         "allowArrayEnd": false
       }
+    ],
+    // https://eslint.org/docs/rules/lines-between-class-members
+    "lines-between-class-members": [
+      "error",
+      "always"
     ],
     // https://eslint.org/docs/rules/max-depth
     "max-depth": [
@@ -798,6 +809,24 @@
         "max": 1
       }
     ],
+    // https://eslint.org/docs/rules/multiline-comment-style
+    // @TODO bug:
+    // // class Foo {
+    // //  bar(){}
+    // //  baz(){}
+    // // }
+    // ->
+    // /*
+    //  * class Foo {
+    //  *   bar(){}
+    //  *   baz(){}
+    //  * }
+    //  */
+    "multiline-comment-style": "off",
+    // "multiline-comment-style": [
+    //   "error",
+    //   "starred-block"
+    // ],
     // https://eslint.org/docs/rules/multiline-ternary
     "multiline-ternary": [
       "error",
@@ -965,7 +994,8 @@
     //       "FunctionDeclaration": true,
     //       "MethodDefinition": true,
     //       "ClassDeclaration": true,
-    //       "ArrowFunctionExpression": true
+    //       "ArrowFunctionExpression": true,
+    //       "FunctionExpression": true
     //     }
     //   }
     // ],

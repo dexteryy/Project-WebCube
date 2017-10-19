@@ -5,7 +5,9 @@ import createReactRoot from 'webcube/boilerplate/createReactRoot';
 
 export default class App extends AppSkeleton {
   defaultOptions = {};
+
   createRoot = createReactRoot;
+
   Root = AppRoot;
 }
 /* eslint-enable filenames/match-exported */

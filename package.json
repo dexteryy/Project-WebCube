@@ -5,7 +5,7 @@
   "scripts": {
     "precommit": "webcube-precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "update": "npm run clear:deps && lerna bootstrap",
+    "update": "npm run clear:deps && yarn install",
     "upgrade": "npm run clear:lock && npm run update",
     "clear:lock": "rm yarn.lock package-lock.json 2>/dev/null || true",
     "clear:deps": "lerna clean --yes 2>/dev/null || true && rm -rf ./node_modules 2>/dev/null || true && lerna exec --bail=false -- rm yarn.lock package-lock.json 2>/dev/null || true",
@@ -37,7 +37,7 @@
     "*-example-*/"
   ],
   "devDependencies": {
-    "eslint-config-webcube": "^1.0.0-rc.3",
-    "webcube": "^1.0.0-alpha.26"
+    "eslint-config-webcube": "^1.0.0-rc.6",
+    "webcube": "^1.0.0-alpha.29"
   }
 }
