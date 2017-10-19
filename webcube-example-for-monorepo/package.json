@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-example-for-monorepo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "precommit:custom": "npm run test",
     "test": "webcube-test",

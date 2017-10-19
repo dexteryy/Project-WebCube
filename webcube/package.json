@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube",
-  "version": "1.0.0-alpha.28",
+  "version": "1.0.0-alpha.29",
   "license": "MIT",
   "main": "index.js",
   "bin": {
