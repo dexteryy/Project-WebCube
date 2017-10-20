@@ -76,7 +76,7 @@
     "debug": "^3.0.1",
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
-    "eslint": "^4.7.2",
+    "eslint": "^4.9.0",
     "eslint-config-webcube": "^1.0.0-rc.6",
     "exports-loader": "^0.6.4",
     "express": "^4.15.4",

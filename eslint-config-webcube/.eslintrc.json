@@ -4,6 +4,8 @@
     ".eslintrc.prettier.json"
   ],
   "env": {
+    "commonjs": false,
+    "browser": false,
     "node": true
   },
   "settings": {

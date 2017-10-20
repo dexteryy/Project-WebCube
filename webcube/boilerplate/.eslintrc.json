@@ -3,7 +3,9 @@
     "webcube"
   ],
   "env": {
-    "browser": true
+    "commonjs": false,
+    "browser": true,
+    "node": false
   },
   "rules": {},
   "globals": {

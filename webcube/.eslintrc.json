@@ -3,6 +3,8 @@
     "webcube"
   ],
   "env": {
+    "commonjs": false,
+    "browser": false,
     "node": true
   },
   "settings": {

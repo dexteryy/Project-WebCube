@@ -13,11 +13,16 @@ lint() {
   $binRoot/node_modules/.bin/lint-staged || (
     echo ""
     echo "=============================="
+    echo ""
+    echo "[WHAT IS WRONG]"
+    echo ""
     echo "All eslint errors in staged files must be fixed. "
     echo ""
     echo "Any rule set to 'error' (2) is considered to can be fixed without "
     echo "understanding business logic and code owner's thoughts."
     echo "Otherwise, it will be set to 'warn' (1)."
+    echo ""
+    echo "[HOW TO FIX]"
     echo ""
     echo "When you see an eslint's error or warning and don't know how to fix it,"
     echo "follow these steps:"
@@ -39,7 +44,26 @@ lint() {
   )
 }
 
+check_version() {
+  if [[ "$(cat ${webcubeRoot}/.webcube-version)" == "1.0"  ]]; then
+    exit 0
+  fi
+  echo ""
+  echo "=============================="
+  echo ""
+  echo "[WHAT IS WRONG]"
+  echo ""
+  echo "Outdated './node_modules/'."
+  echo ""
+  echo "[HOW TO FIX]"
+  echo ""
+  echo "Please run \`npm run update\` to reinstall dependencies"
+  exit 1
+}
+
 (
+  check_version
+) && (
   lint
 ) && (
   npm run precommit:custom
@@ -47,6 +71,7 @@ lint() {
 
 echo ""
 echo "=============================="
+echo ""
 echo "[PRECOMMIT] Verified!"
 echo "Please commit all autofixes caused by eslint and prettier"
 echo ""
@@ -54,11 +79,12 @@ echo ""
 ) || (
 echo ""
 echo "=============================="
+echo ""
 echo "[PRECOMMIT] failed!"
 echo ""
-echo "For TRULY URGENT case (like hotfix), you can skip the precommit script:"
+echo "For TRULY URGENT case (like hotfix), you can skip the pre-commit checking:"
 echo "git commit --no-verify -m \"message\""
-echo "Otherwise, you MUST solve all above issues one by one!"
+echo "Otherwise, you should solve all above issues one by one"
 echo ""
 exit 1
 

@@ -285,12 +285,15 @@
     // https://eslint.org/docs/rules/no-div-regex
     "no-div-regex": "error",
     // https://eslint.org/docs/rules/no-else-return
-    "no-else-return": [
-      "error",
-      {
-        "allowElseIf": true
-      }
-    ],
+    // 1. this rule makes it harder to signal that there are two cases and only one of them will run.
+    // 2. no upside (with no-unreachable rule)
+    "no-else-return": "off",
+    // "no-else-return": [
+    //   "error",
+    //   {
+    //     "allowElseIf": true
+    //   }
+    // ],
     // https://eslint.org/docs/rules/no-empty-function
     // @TIPS
     // add commment to explain why we need a empty function/method here
