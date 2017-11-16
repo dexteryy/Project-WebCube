@@ -1,0 +1,8 @@
+.git/
+node_modules/
+.npm
+*.log
+*.log.*
+*.pid
+log/
+coverage/

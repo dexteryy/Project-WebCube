@@ -1,0 +1,60 @@
+{
+  "name": "eslint-config-webcube",
+  "version": "1.0.0-rc.6",
+  "description": "A sharable ESLint presets which integrates Prettier and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins.",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/eslint-config-webcube",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/eslint-config-webcube",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    ".eslintrc.config.json",
+    ".eslintrc.prettier.json",
+    "package.json",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "scripts": {
+    "precommit:custom": "npm run check",
+    "prepublish": "npm run check",
+    "check": "cd ../; eslint-find-rules --unused ./eslint-config-webcube/.eslintrc.prettier.json; cd -",
+    "stat": "cd ../; eslint-index ./eslint-config-webcube/.eslintrc.prettier.json --format table; cd -"
+  },
+  "peerDependencies": {
+    "eslint": "^4.11.0"
+  },
+  "dependencies": {
+    "babel-eslint": "^8.0.2",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-eslint-comments": "^2.0.1",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.4.0",
+    "prettier": "^1.8.2",
+    "strip-json-comments": "^2.0.1"
+  },
+  "devDependencies": {
+    "check-dependencies": "^1.1.0",
+    "eslint": "^4.11.0",
+    "eslint-find-rules": "^3.1.1",
+    "eslint-index": "^1.4.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "prettier",
+    "webcube",
+    "nodecube"
+  ]
+}

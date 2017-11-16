@@ -32,10 +32,8 @@
     }
   },
   "workspaces": [
-    "webcube/",
-    "nodecube/",
-    "eslint-config-webcube/",
-    "*-example-*/"
+    "packages/*",
+    "examples/*"
   ],
   "devDependencies": {
     "eslint-config-webcube": "^1.0.0-rc.6",

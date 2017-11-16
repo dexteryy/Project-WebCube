@@ -1,0 +1,58 @@
+{
+  "name": "hifetch",
+  "version": "2.1.1",
+  "description": "A minimal higher-level wrapper around Fetch API",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/hifetch",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/hifetch",
+  "license": "MIT",
+  "main": "build/dist/index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "precommit:custom": "npm run test",
+    "build": "if [ -d build ]; then rm -r build; fi; npm run build:src && npm run build:test",
+    "build:src": "babel src --out-dir build/dist --source-maps",
+    "build:test": "babel tests --out-dir build/tests --source-maps",
+    "test": "npm run build && npm run test:nobuild",
+    "test:nobuild": "mocha build/tests/**/*.spec.js"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "qs": "^6.5.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-optional-chaining": "^7.0.0-alpha.13",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-runtime": "^6.26.0",
+    "chai": "^4.1.2",
+    "chance": "^1.0.11",
+    "fast-async": "^6.3.0",
+    "form-data": "^2.3.1",
+    "mocha": "^3.5.3",
+    "nock": "^9.0.22"
+  },
+  "keywords": [
+    "fetch",
+    "ajax",
+    "promise",
+    "error-handling",
+    "isomorphic"
+  ]
+}

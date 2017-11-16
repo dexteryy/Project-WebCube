@@ -1,0 +1,18 @@
+
+dist: trusty
+sudo: required
+
+language: node_js
+node_js:
+  - "6"
+  - "7.7"
+
+env:
+  - TEST_SUITE=lint
+  - TEST_SUITE=test
+
+install:
+  - npm install
+
+script:
+  - npm run $TEST_SUITE

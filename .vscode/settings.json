@@ -19,6 +19,7 @@
     "Procfile*": "shellscript",
     "README": "markdown"
   },
+  "search.useIgnoreFiles": true,
   "search.exclude": {
     "**/build": true,
     "**/yarn.lock": true,

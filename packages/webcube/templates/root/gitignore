@@ -1,0 +1,13 @@
+node_modules/
+.npm
+*.log
+*.pid
+env.config
+env.json
+rev-version.json
+build/public/*
+!build/public/favicon.png
+!build/public/404.html
+coverage/
+app/demo*
+staticweb/demo*

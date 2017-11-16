@@ -1,5 +1,0 @@
-{
-  "extends": [
-    "../../webcube/boilerplate/.eslintrc.json"
-  ]
-}

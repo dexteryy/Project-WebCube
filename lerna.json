@@ -4,9 +4,7 @@
   "useWorkspaces": true,
   "version": "independent",
   "packages": [
-    "webcube/",
-    "nodecube/",
-    "eslint-config-webcube/",
-    "*-example-*/"
+    "packages/*",
+    "examples/*"
   ]
 }
