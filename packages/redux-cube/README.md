@@ -57,24 +57,24 @@ WIP
 * `import { update, deepMerge } from 'redux-cube/lib/helpers'`
 * Provide some utility fuctions, such as [immutability-helper](https://www.npmjs.com/package/immutability-helper)'s `update`
 
-### redux-cube/lib/remote
+### redux-cube/lib/remote (TODO)
 
 * `import { middleware, reducers } from 'redux-cube/lib/remote/fetch'`
     * Use fetch API, based on [hifetch](https://www.npmjs.com/package/hifetch)
 * `import { middleware } from 'redux-cube/lib/remote/axios'`
     * Use XHR API, a wrapper of [redux-axios-middleware](https://www.npmjs.com/package/redux-axios-middleware)
 
-### redux-cube/lib/notify
+### redux-cube/lib/notify (TODO)
 
 * `import { reducers, Notify } from 'redux-cube/lib/notify'`
 * Alternative or wrapper of [react-notification-system-redux](https://www.npmjs.com/package/react-notification-system-redux) / [react-redux-toastr](https://www.npmjs.com/package/react-redux-toastr)
 
-### redux-cube/lib/loading
+### redux-cube/lib/loading (TODO)
 
 * `import { middleware, Loading } from 'redux-cube/lib/loading'`
 * Wrapper of [react-block-ui](https://www.npmjs.com/package/react-block-ui)
 
-### redux-cube/lib/track
+### redux-cube/lib/track (TODO)
 
 * `import { middleware } from 'redux-cube/lib/track'`
 * `import bugSnag from 'redux-cube/lib/track/bugSnag'`
