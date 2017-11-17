@@ -6,7 +6,7 @@
 
 More Examples:
 
-* [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/)
+* [Initial Webcube Examples](../examples/webcube-initial-structure)
 
 ## Source Code
 
