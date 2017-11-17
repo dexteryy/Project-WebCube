@@ -6,6 +6,10 @@
 * Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube's boilerplate](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube/boilerplate)
 * Examples for results for `npm run webcube:setup` script and webcube's micro generators (`npm run new`)
 
+More Examples:
+
+* [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/)
+
 ## Source Code
 
 * [./app/react-app](./app/react-app)
@@ -25,11 +29,11 @@
 Preparation
 
 ```bash
-git clone git@github.com:dexteryy/Project-WebCube.git ./a-monorepo
+git clone git@github.com:dexteryy/Project-WebCube.git ./a-mono-repo
 ```
 
 ```bash
-cd ./a-monorepo
+cd ./a-mono-repo
 npm run update
 ```
 

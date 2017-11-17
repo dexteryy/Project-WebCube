@@ -4,6 +4,7 @@ import { connect as originConnect } from 'react-redux';
 import { createSelector } from 'reselect';
 import merge from 'lodash/merge';
 import { unwrap, bindActionCreators } from '../utils';
+import createSelectors from './createSelectors';
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, stateProps, dispatchProps);
@@ -11,7 +12,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
 export default function connect({
   // https://www.npmjs.com/package/reselect#creating-a-memoized-selector
-  selectors = [],
+  selectors,
+  select = {},
   transform = () => ({}),
   // actionCreators or [actionCreators, ...]
   // https://redux.js.org/docs/api/bindActionCreators.html
@@ -28,7 +30,10 @@ export default function connect({
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
   const mapStateToProps = (state, ...other) => {
     const newState = unwrap(state);
-    return createSelector(...selectors, transform)(newState, ...other);
+    return createSelector(...(selectors || createSelectors(select)), transform)(
+      newState,
+      ...other,
+    );
   };
   let actionCreators = actions;
   if (Array.isArray(actionCreators)) {

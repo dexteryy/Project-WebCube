@@ -10309,6 +10309,14 @@ to-regex@^3.0.1:
     extend-shallow "^2.0.1"
     regex-not "^1.0.0"
 
+todomvc-app-css@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/todomvc-app-css/-/todomvc-app-css-2.1.0.tgz#b6f2716d339afa2e5f799347d2a48b05396242a5"
+
+todomvc-common@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/todomvc-common/-/todomvc-common-1.0.4.tgz#23099af886c2f0525bfd4537e078f12d0074309e"
+
 topologically-combine-reducers@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/topologically-combine-reducers/-/topologically-combine-reducers-0.0.5.tgz#e5162acbc4991a68857033cc81ea839f4552e66c"

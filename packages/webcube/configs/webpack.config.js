@@ -156,7 +156,7 @@ if (!isProductionEnv && liveMode === 'hmr') {
 const browsers = JSON.parse(process.env.WEBCUBE_BROWSERS || null) || [];
 
 const cssLoaderConfig = JSON.stringify({
-  modules: true,
+  modules: !process.env.WEBCUBE_DISABLE_CSS_MODULES,
   importLoaders: 1,
   localIdentName: '[name]__[local]___[hash:base64:5]',
   sourceMap: !isProductionEnv,

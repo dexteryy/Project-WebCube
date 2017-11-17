@@ -32,6 +32,11 @@ npm install --save-dev redux-cube
 
 WIP
 
+## Examples
+
+* "react-redux-app" and "react-redux-router-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+* [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-todo-app/)
+
 ## Modules
 
 ### redux-cube
@@ -118,8 +123,3 @@ WIP
 * [redux-auth-wrapper](https://www.npmjs.com/package/redux-auth-wrapper)
 * [redux-test-utils](https://www.npmjs.com/package/redux-test-utils) + [enzyme-redux](https://www.npmjs.com/package/enzyme-redux)
 * [redux-testkit](https://www.npmjs.com/package/redux-testkit)
-
-## Examples
-
-* "react-redux-app" and "react-redux-router-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
-* [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-todo-app/)

@@ -8,7 +8,12 @@ import { TITLE } from '../constants/sample';
 import SampleList from '../components/SampleList';
 
 @connect({
-  selectors: [state => state.items.log, state => state.items.message],
+  select: {
+    items: {
+      log: true,
+      message: true,
+    },
+  },
   transform: (log, message) => ({
     log,
     message,

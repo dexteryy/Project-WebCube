@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { withRouter as withRouterMeta } from 'react-router';
 import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
@@ -6,6 +7,7 @@ import { createApp } from 'redux-cube';
 import { reducer as sampleReducer, epics } from './reducers/sample';
 import Sample from './containers/Sample';
 
+@withRouterMeta
 @createApp(
   withPersist({
     reducers: {
@@ -20,7 +22,7 @@ import Sample from './containers/Sample';
 )
 class SampleApp extends PureComponent {
   render() {
-    return <Sample />;
+    return <Sample {...this.props} />;
   }
 }
 

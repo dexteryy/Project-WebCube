@@ -17,12 +17,13 @@ export default function withPersist({
 }) {
   return {
     _enablePersist: true,
-    _persistStorage: persistStorage,
-    _persistKey: persistKey,
-    _persistConfig: persistConfig,
     _persistStore: persistStore,
     _persistCombineReducers: persistCombineReducers,
     _PersistGate: PersistGate,
+    // allow dynamic config
+    persistStorage,
+    persistKey,
+    persistConfig,
     ...config,
   };
 }

@@ -82,9 +82,9 @@ export default function appState({
     _enableRouter3 = false,
     // withPersist
     _enablePersist = false,
-    _persistStorage,
-    _persistKey,
-    _persistConfig,
+    persistStorage,
+    persistKey,
+    persistConfig,
     _persistStore,
     _persistCombineReducers,
     // withImmutable
@@ -122,9 +122,9 @@ export default function appState({
   if (_enablePersist) {
     // https://github.com/rt2zz/redux-persist#usage
     rootReducer = _persistCombineReducers(
-      _persistConfig || {
-        key: _persistKey,
-        storage: _persistStorage,
+      persistConfig || {
+        key: persistKey,
+        storage: persistStorage,
       },
       {
         persist: rootReducer,
