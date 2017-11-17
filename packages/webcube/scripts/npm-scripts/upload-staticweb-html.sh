@@ -10,6 +10,4 @@ if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
   fi
 fi
 CFG_FILE="${webcubeRoot}/node_modules/webcube/configs/gulpfile.js"
-DEPLOY_MODE=staticweb
-NODE_ENV=production
-$binRoot/node_modules/.bin/gulp --gulpfile $CFG_FILE deploy:staticweb:html
+DEPLOY_MODE=staticweb NODE_ENV=production $binRoot/node_modules/.bin/gulp --gulpfile $CFG_FILE deploy:staticweb:html

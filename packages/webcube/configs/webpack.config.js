@@ -264,8 +264,6 @@ module.exports = Object.assign(
         {
           app: path.join(rootPath, 'app'),
         },
-        isProductionEnv ||
-        process.env.WEBCUBE_DISABLE_PERF_ADDON ||
         process.env.WEBCUBE_USE_PREACT
           ? {
               react: 'preact-compat',

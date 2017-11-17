@@ -18,10 +18,9 @@
     "prepare": "npm run build",
     "precommit:custom": "npm run test",
     "test": "exit 0",
-    "clear": "rm -r dist lib 2>/dev/null || true",
-    "build": "npm run clear && npm run build:dist && npm run build:lib",
-    "build:lib": "mkdir lib && cp -r src/* lib/",
-    "build:dist": "babel src --out-dir dist --source-maps"
+    "clear": "rm -r dist 2>/dev/null || true",
+    "build": "npm run clear && npm run build:dist",
+    "build:dist": "babel lib --out-dir dist --source-maps"
   },
   "dependencies": {
     "react-router": "^3.2.0",

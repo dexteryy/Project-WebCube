@@ -117,5 +117,5 @@ WIP
 
 ## Examples
 
-* "react-redux-app" and "react-redux-router-app" in [webcube project's initial structure](./examples/webcube-initial-structure/)
-* [webcube's TodoMVC example](./examples/webcube-todo-app/)
+* "react-redux-app" and "react-redux-router-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+* [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-todo-app/)

@@ -18,13 +18,13 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 
 ### Starters
 
-* [webcube's starter for standalone repo](./starters/webcube-app-as-standalone/)
-* [webcube's starter for project in monorepo](./starters/webcube-app-in-monorepo/)
-* [nodecube's starter for standalone repo](./starters/nodecube-service-as-standalone/)
-* [nodecube's starter for project in monorepo](./starters/nodecube-service-in-monorepo/)
+* [Webcube's Starter For Standalone Repo](./starters/webcube-app-as-standalone/)
+* [Webcube's Starter For Project In Monorepo](./starters/webcube-app-in-monorepo/)
+* [Nodecube's Starter For Standalone Repo](./starters/nodecube-service-as-standalone/)
+* [Nodecube's Starter For Project In Monorepo](./starters/nodecube-service-in-monorepo/)
 
 ### Examples (in monorepo)
 
-* [webcube project's initial structure](./examples/webcube-initial-structure/)
-* [webcube's TodoMVC example](./examples/webcube-todo-app/)
-* [nodecube project's initial structure](./examples/nodecube-initial-structure/)
+* [Initial Webcube Examples](./examples/webcube-initial-structure/)
+* [Webcube's TodoMVC Example](./examples/webcube-todo-app/)
+* [Initial Nodecube Examples](./examples/nodecube-initial-structure/)
