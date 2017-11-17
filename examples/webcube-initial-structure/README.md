@@ -15,10 +15,10 @@
 
 ## View Results in Production Environment
 
-* [react-app](https://app.cubemage.cn/react-app)
-* [react-router-app](https://app.cubemage.cn/react-router-app)
-* [react-redux-app](https://app.cubemage.cn/react-redux-app)
-* [react-redux-router-app](https://app.cubemage.cn/react-redux-router-app)
+* [react-app](https://app.cubemage.cn/react-app/index.html)
+* [react-router-app](https://app.cubemage.cn/react-router-app/index.html)
+* [react-redux-app](https://app.cubemage.cn/react-redux-app/index.html)
+* [react-redux-router-app](https://app.cubemage.cn/react-redux-router-app/index.html)
 
 ## View Results in Development Environment
 
