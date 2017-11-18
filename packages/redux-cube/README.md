@@ -42,8 +42,8 @@ WIP
 ### redux-cube
 
 * `import { createApp, createHub, connect } from 'redux-cube'`
-* `createApp` is mainly a wrapper of [redux API](https://redux.js.org/docs/api/) and some must-have action middlewares, store enhancers, high-order reducers and high-order components
-* `createHub` is a wrapper and enhancer of [redux-actions](https://www.npmjs.com/package/redux-actions)
+* `createApp` is mainly a wrapper of [redux API](https://redux.js.org/docs/api/) and some must-have action middlewares, store enhancers, high-order reducers and high-order components. It provides the support for [Sub-App pattern](https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400) (React component with its own isolated Redux store)
+* `createHub` is an enhancer (almost a rewrite) of [redux-actions](https://www.npmjs.com/package/redux-actions). It provides the support for [Reducer-Bundle-or-Ducks-Modular-like pattern](https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be)
 * `connect` is mainly a wrapper of [react-redux](https://www.npmjs.com/package/react-redux) and  [reselect](https://www.npmjs.com/package/reselect)
 
 ### redux-cube/lib/plugins
