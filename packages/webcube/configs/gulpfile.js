@@ -11,7 +11,8 @@ const webpackStream = require('webpack-stream');
 const sourcemaps = require('gulp-sourcemaps');
 const inlinesource = require('gulp-inline-source');
 const htmlhint = require('gulp-htmlhint');
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
+const minify = require('gulp-babel-minify');
 const htmlmin = require('gulp-htmlmin');
 const staticWebServer = require('superstatic');
 const jsonfile = require('jsonfile');
@@ -52,7 +53,17 @@ function buildApp(myWebpackConfig) {
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
     stream = stream
       .pipe(jsFilter)
-      .pipe(uglify())
+      .pipe(
+        process.env.WEBCUBE_USE_UGLIFY
+          ? uglify()
+          : // https://github.com/babel/minify/tree/master/packages/babel-preset-minify#options
+            minify({
+              mangle: {
+                keepClassName: Boolean(process.env.WEBCUBE_MINIFY_KEEP_NAME),
+                keepFnName: Boolean(process.env.WEBCUBE_MINIFY_KEEP_NAME),
+              },
+            })
+      )
       .pipe(
         rename({
           suffix: '_min',

@@ -74,10 +74,6 @@ const entries = Object.assign(
 );
 
 for (const entry in entries) {
-  // or babel-runtime
-  if (process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
-    entries[entry].unshift('babel-polyfill');
-  }
   if (liveMode === 'refresh') {
     // http://webpack.github.io/docs/webpack-dev-server.html#inline-mode
     entries[entry].unshift(
@@ -120,14 +116,6 @@ const babelLoaderPlugins = [
   'dynamic-import-webpack',
   ['lodash', { id: ['lodash', 'recompose'] }],
 ];
-if (!process.env.WEBCUBE_USE_POLYFILL_INSTEAD_OF_RUNTIME) {
-  // bug: ReferenceError: Can't find variable: Symbol
-  //      https://github.com/gajus/react-css-modules/issues/66
-  babelLoaderPlugins.push([
-    'transform-runtime',
-    { polyfill: true, regenerator: true },
-  ]);
-}
 
 const reactTransformPlugins = [
   'react-transform',
@@ -320,9 +308,10 @@ module.exports = Object.assign(
                   },
                   include: [],
                   exclude: ['transform-async-to-generator'],
-                  uglify: true,
-                  useBuiltIns: true,
-                  loose: false,
+                  useBuiltIns: 'usage',
+                  forceAllTransforms: Boolean(process.env.WEBCUBE_USE_UGLIFY),
+                  shippedProposals: false,
+                  loose: Boolean(process.env.WEBCUBE_ENABLE_LOOSE_MODE),
                   debug: false,
                 },
               ],

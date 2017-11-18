@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
@@ -18,7 +18,7 @@ import Sample from './containers/Sample';
     persistKey: 'sampleRoot1',
   }),
 )
-class SampleApp extends PureComponent {
+class SampleApp extends Component {
   render() {
     return <Sample />;
   }

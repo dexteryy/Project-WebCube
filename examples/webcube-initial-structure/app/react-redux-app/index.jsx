@@ -1,18 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { withScripts } from 'webcube';
-import googleAnalytics from 'webcube/boilerplate/external/googleAnalytics';
+import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { App as SampleApp } from './sample';
 
 @withScripts(
-  googleAnalytics({
-    // googleAnalyticsTrackingId: '',
-    // googleAnalyticsInit(ga) {},
+  googleTagManager({
+    googleTagManagerContainerId: 'UA-81044026-3',
   }),
 )
-class ReactReduxApp extends PureComponent {
+class ReactReduxApp extends Component {
   render() {
-    // const { scripts } = this.props;
     return (
       <div>
         <SampleApp />

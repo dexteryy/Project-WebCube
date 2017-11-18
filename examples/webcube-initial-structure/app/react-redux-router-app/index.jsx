@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import withRouter from 'redux-cube/lib/plugins/withRouter';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
-import googleAnalytics from 'webcube/boilerplate/external/googleAnalytics';
+import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from './common/utils';
 import { App as SampleApp } from './sample';
 
 @withScripts(
-  googleAnalytics({
-    // googleAnalyticsTrackingId: '',
-    // googleAnalyticsInit(ga) {},
+  googleTagManager({
+    googleTagManagerContainerId: 'UA-81044026-3',
   }),
 )
 @createApp(
@@ -20,20 +19,14 @@ import { App as SampleApp } from './sample';
     devToolsOptions: { name: 'ReactReduxRouterApp' },
   }),
 )
-class ReactReduxRouterApp extends PureComponent {
+class ReactReduxRouterApp extends Component {
   render() {
-    const {
-      // scripts,
-      Router,
-    } = this.props;
     const toSample = () => <Redirect to="/sample" />;
     return (
-      <Router>
-        <Switch>
-          <Route path="/" exact={true} render={toSample} />
-          <Route path="/sample" component={SampleApp} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/" exact={true} render={toSample} />
+        <Route path="/sample" component={SampleApp} />
+      </Switch>
     );
   }
 }

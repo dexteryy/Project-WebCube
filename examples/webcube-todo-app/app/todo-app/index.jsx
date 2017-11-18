@@ -1,18 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import withRouter from 'redux-cube/lib/plugins/withRouter';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
-import googleAnalytics from 'webcube/boilerplate/external/googleAnalytics';
+import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from './common/utils';
 import { App as TodoApp } from './main';
 import Endnote from './common/components/Endnote';
 
 @withScripts(
-  googleAnalytics({
-    /* googleAnalyticsTrackingId: '', */
-    /* googleAnalyticsInit(ga) {}, */
+  googleTagManager({
+    googleTagManagerContainerId: 'UA-81044026-3',
   }),
 )
 @createApp(
@@ -21,23 +20,17 @@ import Endnote from './common/components/Endnote';
     devToolsOptions: { name: 'EntryApp' },
   }),
 )
-class EntryApp extends PureComponent {
+class EntryApp extends Component {
   render() {
-    const {
-      /* scripts, */
-      Router,
-    } = this.props;
     return (
-      <Router>
-        <div>
-          <Helmet
-            title="Todo App - Webcube's TodoMVC Example"
-            meta={[{ name: 'description', content: '' }]}
-          />
-          <TodoApp title="Todo App" />
-          <Endnote />
-        </div>
-      </Router>
+      <div>
+        <Helmet
+          title="Todo App - Webcube's TodoMVC Example"
+          meta={[{ name: 'description', content: '' }]}
+        />
+        <TodoApp title="Todo App" />
+        <Endnote />
+      </div>
     );
   }
 }

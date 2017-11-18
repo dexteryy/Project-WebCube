@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import withRouter from 'redux-cube/lib/plugins/withRouter';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
-import googleAnalytics from 'webcube/boilerplate/external/googleAnalytics';
+import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from '../todo-app/common/utils';
 import { App as TodoApp } from '../todo-app/main';
@@ -36,9 +36,8 @@ const SithTodoApp = () => (
 );
 
 @withScripts(
-  googleAnalytics({
-    /* googleAnalyticsTrackingId: '', */
-    /* googleAnalyticsInit(ga) {}, */
+  googleTagManager({
+    googleTagManagerContainerId: 'UA-81044026-3',
   }),
 )
 @createApp(
@@ -47,12 +46,8 @@ const SithTodoApp = () => (
     devToolsOptions: { name: 'EntryApp' },
   }),
 )
-class EntryApp extends PureComponent {
+class EntryApp extends Component {
   render() {
-    const {
-      /* scripts, */
-      Router,
-    } = this.props;
     const TodoApps = () => (
       <div>
         <Helmet
@@ -66,12 +61,10 @@ class EntryApp extends PureComponent {
     );
     const JumpToDefault = () => <Redirect to="jedi-todo/" />;
     return (
-      <Router>
-        <Switch>
-          <Route path="/" exact={true} render={JumpToDefault} />
-          <Route path="/" render={TodoApps} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/" exact={true} render={JumpToDefault} />
+        <Route path="/" render={TodoApps} />
+      </Switch>
     );
   }
 }

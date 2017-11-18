@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 import { getDisplayName } from './utils';
 
 export default function withScripts(...scripts) {
   return WrappedComponent => {
-    class WithScripts extends PureComponent {
+    class WithScripts extends Component {
       componentDidMount() {
         if (typeof window !== 'undefined') {
           Object.keys(scripts).forEach(name => {

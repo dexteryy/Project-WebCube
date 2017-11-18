@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter,
   HashRouter,
@@ -7,30 +7,26 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { withScripts } from 'webcube';
-import googleAnalytics from 'webcube/boilerplate/external/googleAnalytics';
+import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from './common/utils';
 import { App as SampleApp } from './sample';
 
 const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
 
-@withScripts(
-  googleAnalytics({
-    // googleAnalyticsTrackingId: '',
-    // googleAnalyticsInit(ga) {},
-  }),
-)
-class {{pascalCase entryName}} extends PureComponent {
+// @withScripts(
+//   googleTagManager({
+//     googleTagManagerContainerId: '',
+//   }),
+// )
+class {{pascalCase entryName}} extends Component {
   render() {
-    // const { scripts } = this.props;
     const toSample = () => <Redirect to="/sample" />;
     return (
-      <Router>
-        <Switch>
-          <Route path="/" exact={true} render={toSample} />
-          <Route path="/sample" component={SampleApp} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/" exact={true} render={toSample} />
+        <Route path="/sample" component={SampleApp} />
+      </Switch>
     );
   }
 }

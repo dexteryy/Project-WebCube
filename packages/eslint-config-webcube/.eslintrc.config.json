@@ -1393,7 +1393,9 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/require-default-props.md
     "react/require-default-props": "off",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/require-optimization.md
-    "react/require-optimization": "error",
+    // https://github.com/facebook/react/pull/7195#issuecomment-236361372
+    // https://hackernoon.com/react-purecomponent-considered-harmful-8155b5c1d4bc
+    "react/require-optimization": "off",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/require-render-return.md
     "react/require-render-return": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/self-closing-comp.md

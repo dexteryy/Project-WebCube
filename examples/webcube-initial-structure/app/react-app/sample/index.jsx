@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Sample from './containers/Sample';
 
-class SampleApp extends PureComponent {
+class SampleApp extends Component {
   state = {};
 
   render() {

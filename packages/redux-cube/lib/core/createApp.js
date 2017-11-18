@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import { Provider } from 'react-redux';
 
@@ -19,7 +19,7 @@ export default function createApp(config) {
     // withRouter
     _enableRouter = false,
     _routerHistory,
-    _Router,
+    routerConfig,
     _ConnectedRouter: ConnectedRouter,
     // withRouter3
     _enableRouter3 = false,
@@ -30,7 +30,7 @@ export default function createApp(config) {
     // withImmutable
   } = config;
   return SubAppComponent => {
-    class WithAppState extends PureComponent {
+    class WithAppState extends Component {
       // https://redux.js.org/docs/recipes/IsolatingSubapps.html
       // https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400
       constructor(props) {
@@ -52,11 +52,6 @@ export default function createApp(config) {
         const { store, persistor } = this;
         const { ...passThroughProps } = this.props;
         const withProps = React.createElement(SubAppComponent, {
-          ...(_enableRouter
-            ? {
-                Router: _Router,
-              }
-            : {}),
           // https://github.com/reactjs/react-router-redux#history--synchistorywithstorehistory-store-options
           ...(_enableRouter3
             ? {
@@ -78,6 +73,7 @@ export default function createApp(config) {
                 ConnectedRouter,
                 {
                   history: _routerHistory,
+                  ...routerConfig,
                 },
                 withProps,
               )

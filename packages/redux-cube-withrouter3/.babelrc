@@ -17,8 +17,9 @@
         "exclude": [
           "transform-async-to-generator"
         ],
-        "uglify": true,
-        "useBuiltIns": true,
+        "useBuiltIns": "usage",
+        "forceAllTransforms": true,
+        "shippedProposals": false,
         "loose": false,
         "debug": false
       }

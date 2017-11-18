@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import { withRouter as withRouterMeta } from 'react-router';
+import React, { Component } from 'react';
 import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
@@ -7,7 +6,6 @@ import { createApp } from 'redux-cube';
 import { reducer as todoReducer } from './reducers/todo';
 import Main from './containers/Main';
 
-@withRouterMeta
 @createApp(
   withPersist({
     reducers: {
@@ -20,7 +18,7 @@ import Main from './containers/Main';
     enableDynamicConfig: true,
   }),
 )
-class TodoApp extends PureComponent {
+class TodoApp extends Component {
   render() {
     return <Main {...this.props} />;
   }

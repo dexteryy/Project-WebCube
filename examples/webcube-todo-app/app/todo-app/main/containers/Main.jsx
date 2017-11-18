@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { withRouter as withRouterMeta } from 'react-router';
 import { autobind } from 'core-decorators';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'redux-cube';
@@ -8,6 +9,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import List from './List';
 
+@withRouterMeta
 @connect({
   select: {
     todo: {
