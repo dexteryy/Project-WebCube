@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const path = require('path');
 const { cd, cp, exit } = require('shelljs');
-const { rootPath, modulePath } = require('../../utils/beforeEnvConfig');
+const { projectPath, modulePath } = require('../../utils/beforeEnvConfig');
 
-if (cd(rootPath).code !== 0) {
+if (cd(projectPath).code !== 0) {
   exit(1);
 }
 

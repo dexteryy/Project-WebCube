@@ -28,7 +28,8 @@
     "webcube": {
       "monorepo": {
         "root": "../../",
-        "project": "./examples/webcube-todo-app"
+        "packagePath": "packages/webcube",
+        "projectPath": "examples/webcube-todo-app"
       },
       "staticserver": {
         "container": "[registry]/[hub]/[container]"

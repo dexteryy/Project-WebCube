@@ -1,9 +1,9 @@
 const path = require('path');
 const dotenv = require('dotenv');
-const { rootPath, modulePath, buildPath } = require('./beforeEnvConfig');
+const { rootPath, modulePath, projectPath } = require('./beforeEnvConfig');
 
 dotenv.config({
-  path: path.join(rootPath, 'env.config'),
+  path: path.join(projectPath, 'env.config'),
 });
 
 const isCloudEnv = process.env.NODE_ENV === 'cloud'; // deprecated
@@ -35,7 +35,7 @@ function getUrlRoot() {
 module.exports = {
   rootPath,
   modulePath,
-  buildPath,
+  projectPath,
   isCloudEnv,
   isProductionEnv,
   isStagingEnv,

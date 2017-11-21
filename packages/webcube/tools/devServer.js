@@ -13,7 +13,7 @@ const {
   liveMode,
   serverPort,
   serverHost,
-  rootPath,
+  projectPath,
   staticRoot,
 } = require('../utils');
 const webpackConfig = require('../configs/webpack.config');
@@ -31,7 +31,7 @@ const compiler = webpack(webpackConfig);
 // compiler.apply(new DashboardPlugin({ port: process.env.WEBCUBE_DEVSERVER_DASHBOARD_PORT }));
 const DEFAULT_TIMEOUT = 300;
 const devServerConfig = {
-  contentBase: path.join(rootPath, 'staticweb'),
+  contentBase: path.join(projectPath, 'staticweb'),
   publicPath:
     deployMode === 'staticweb'
       ? (isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT) ||

@@ -20,34 +20,34 @@ const {
   isProductionEnv,
   serverPort,
   serverHost,
-  rootPath,
-  buildPath,
+  projectPath,
+  modulePath,
   staticRoot,
   cloudAdapter,
 } = require('../utils');
 //
 const webpackConfig = require('./webpack.config.js');
 
-const pidFile = path.join(rootPath, '.webserver.pid');
+const pidFile = path.join(projectPath, '.webserver.pid');
 
 try {
   require(path.join(
-    rootPath,
+    projectPath,
     `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.js`
   ));
 } catch (ex) {
   console.info('No custom gulpfile');
 }
 
-const htmlhintrcPath = path.join(rootPath, 'staticweb/.htmlhintrc');
+const htmlhintrcPath = path.join(projectPath, 'staticweb/.htmlhintrc');
 
 function buildApp(myWebpackConfig) {
   let stream = gulp
-    .src(['app/**/*.js', 'staticweb/**/*.js'], { cwd: rootPath })
+    .src(['app/**/*.js', 'staticweb/**/*.js'], { cwd: projectPath })
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: rootPath }));
+    .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }));
   if (isProductionEnv) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
@@ -69,7 +69,7 @@ function buildApp(myWebpackConfig) {
           suffix: '_min',
         })
       )
-      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: rootPath }))
+      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }))
       .pipe(jsFilter.restore)
       .pipe(cssFilter)
       .pipe(
@@ -77,7 +77,7 @@ function buildApp(myWebpackConfig) {
           suffix: '_min',
         })
       )
-      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: rootPath }))
+      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }))
       .pipe(cssFilter.restore);
   }
   return stream;
@@ -85,7 +85,7 @@ function buildApp(myWebpackConfig) {
 
 function buildHTML() {
   const revData = JSON.parse(
-    fs.readFileSync(path.join(rootPath, 'rev-version.json'))
+    fs.readFileSync(path.join(projectPath, 'rev-version.json'))
   );
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
@@ -108,12 +108,12 @@ function buildHTML() {
     return `${$1}"${res}"`;
   }
   let stream = gulp
-    .src('staticweb/**/*.html', { cwd: rootPath })
+    .src('staticweb/**/*.html', { cwd: projectPath })
     .pipe(replace(RE_JS_FILE, replaceRev))
     .pipe(replace(RE_CSS_FILE, replaceRev))
     .pipe(
       inlinesource({
-        rootpath: path.join(rootPath, 'build/public'),
+        rootpath: path.join(projectPath, 'build/public'),
       })
     );
   if (isProductionEnv && !process.env.WEBCUBE_DISABLE_HTMLMIN) {
@@ -133,18 +133,18 @@ function buildHTML() {
       })
     );
   }
-  return stream.pipe(gulp.dest('build/public', { cwd: rootPath }));
+  return stream.pipe(gulp.dest('build/public', { cwd: projectPath }));
 }
 
 function startStaticWebServer(done) {
   fs.writeFileSync(pidFile, process.pid);
   const config = jsonfile.readFileSync(
-    path.join(buildPath, 'configs/superstatic.json')
+    path.join(modulePath, 'configs/superstatic.json')
   );
   let customConfig;
   try {
     customConfig = jsonfile.readFileSync(
-      path.join(rootPath, 'configs/static.json')
+      path.join(projectPath, 'configs/static.json')
     );
     delete customConfig.public;
   } catch (e) {
@@ -154,11 +154,11 @@ function startStaticWebServer(done) {
     .server({
       port: serverPort,
       host: serverHost,
-      cwd: rootPath,
+      cwd: projectPath,
       config: Object.assign({}, config, customConfig),
       errorPage:
         process.env.WEBCUBE_STATIC_SERVER_ERROR_PAGE ||
-        path.join(buildPath, 'templates/configs/404.html'),
+        path.join(modulePath, 'templates/configs/404.html'),
       debug: Boolean(process.env.WEBCUBE_STATIC_SERVER_ENABLE_DEBUG),
       gzip: Boolean(process.env.WEBCUBE_STATIC_SERVER_ENABLE_GZIP),
     })
@@ -198,19 +198,19 @@ function stopStaticWebServer(done) {
 
 gulp.task('clean:app', done => {
   del([`build/public/${staticRoot}/**`, 'build/public/static-for-dev/**'], {
-    cwd: rootPath,
+    cwd: projectPath,
   }).then(() => done());
 });
 
 gulp.task('clean:html', done => {
   del([`build/public/!(${staticRoot}|static-for-dev)/**`], {
-    cwd: rootPath,
+    cwd: projectPath,
   }).then(() => done());
 });
 
 gulp.task('check:html', [], () =>
   gulp
-    .src('staticweb/**/*.html', { cwd: rootPath })
+    .src('staticweb/**/*.html', { cwd: projectPath })
     .pipe(
       gulpif(
         !process.env.WEBCUBE_DISABLE_HTMLHINT,
@@ -241,7 +241,7 @@ gulp.task(
   'deploy:staticweb:html',
   [],
   cloudAdapter.deployHTML([`build/public/!(${staticRoot})/**/*.html`], {
-    cwd: rootPath,
+    cwd: projectPath,
   })
 );
 
@@ -249,7 +249,7 @@ gulp.task(
   'deploy:staticweb:assets',
   [],
   cloudAdapter.deployStatic([`build/public/${staticRoot}/**/*`], {
-    cwd: rootPath,
+    cwd: projectPath,
   })
 );
 

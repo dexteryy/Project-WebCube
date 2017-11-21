@@ -1,20 +1,33 @@
 const path = require('path');
 
+function trimPath(p = '') {
+  return p.replace(/^\.*\//, '').replace(/\/$/, '');
+}
+
 // export const rootPath = path.join(__dirname, '../../../');
 // export const modulePath = path.join(rootPath, 'node_modules/webcube/');
 const modulePath = path.join(__dirname, '../');
-const monorepoRoot = process.env.npm_package_config_webcube_monorepo_root;
-const projectPath = process.env.npm_package_config_webcube_monorepo_project;
-const rootPath = path.join(
-  modulePath,
-  monorepoRoot ? path.join(monorepoRoot, projectPath) : '../../'
+let rootPath = path.join(modulePath, '../../');
+const packagePath = trimPath(
+  process.env.npm_package_config_webcube_monorepo_packagePath
 );
-const buildPath = modulePath;
+if (packagePath) {
+  const depth = packagePath.split('/').length;
+  const parents = [];
+  for (let i = 0; i < depth; i++) {
+    parents.push('..');
+  }
+  rootPath = path.join(modulePath, parents.join('/'));
+}
+const projectPath = path.join(
+  rootPath,
+  trimPath(process.env.npm_package_config_webcube_monorepo_projectPath)
+);
 // export const rootPath = path.join(__dirname, '../../');
 // export const modulePath = path.join(rootPath, 'webcube/');
 
 module.exports = {
   rootPath,
   modulePath,
-  buildPath,
+  projectPath,
 };

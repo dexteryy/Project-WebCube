@@ -27,8 +27,9 @@
   "config": {
     "webcube": {
       "monorepo": {
-        "root": "../../",
-        "project": <Your director's path relative to monorepo's root>,
+        "root": <the path of monorepo root directory relative to this project folder>,
+        "packagePath": <the path of webcube package relative to monorepo's root>,
+        "projectPath": <the path of this project folder relative to monorepo's root>
       },
       "staticserver": {
         "container": "[registry]/[hub]/[container]"

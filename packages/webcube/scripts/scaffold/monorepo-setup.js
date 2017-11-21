@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 const path = require('path');
 const { cd, mkdir, cp } = require('shelljs');
-const { rootPath, modulePath } = require('../../utils/beforeEnvConfig');
+const { projectPath, modulePath } = require('../../utils/beforeEnvConfig');
 
-cd(rootPath);
+cd(projectPath);
 mkdir('-p', 'app/common', 'staticweb');
 cp('-r', path.join(modulePath, 'templates/configs'), './');
-cp('configs/env.sample.config', 'env.config');
+cp('monorepo/env.sample.config', 'env.config');
 cp(path.join(modulePath, 'templates/root/Dockerfile'), './');
 cp(path.join(modulePath, 'templates/root/dockerignore'), './');
 cp(path.join(modulePath, 'templates/root/gitignore'), './.gitignore');

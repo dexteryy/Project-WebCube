@@ -28,7 +28,8 @@
     "webcube": {
       "monorepo": {
         "root": "../../",
-        "project": "./examples/webcube-initial-structure/"
+        "packagePath": "packages/webcube",
+        "projectPath": "examples/webcube-initial-structure"
       },
       "staticserver": {
         "container": "[registry]/[hub]/[container]"

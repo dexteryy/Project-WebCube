@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -17,12 +16,14 @@ const {
   serverPort,
   serverHost,
   rootPath,
+  modulePath,
+  projectPath,
 } = require('../utils');
 
 let customConfig;
 try {
   customConfig = require(path.join(
-    rootPath,
+    projectPath,
     `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.js`
   ));
 } catch (ex) {
@@ -165,22 +166,7 @@ const cssLoaderConfig = JSON.stringify({
   // reduceIdents: true,
 });
 
-let monorepoModules =
-  process.env.npm_package_config_webcube_monorepo_root &&
-  path.join(
-    rootPath,
-    process.env.npm_package_config_webcube_monorepo_root,
-    'node_modules'
-  );
-if (!fs.existsSync(monorepoModules)) {
-  monorepoModules = '';
-}
-
-const esModules = [
-  'webcube',
-  'redux-cube',
-  /*
-   * @TODO
+/*
    * issue:
    * root prior to workspace
    * ./pacages/redux-cube/node_modules/ - none
@@ -193,8 +179,7 @@ const esModules = [
    * solution:
    * workspace prior to root except unused workspaces
    */
-  // 'redux-cube-withrouter3',
-];
+const es6Packages = JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || [];
 const workspacesForNode = ['webcube'];
 const workspacesForBrowser = [
   'webcube',
@@ -204,29 +189,31 @@ const workspacesForBrowser = [
   'hifetch',
 ];
 
-const resolvePathsForNode = [path.join(rootPath, 'node_modules')]
+const resolvePathsForNode = (projectPath !== rootPath
+  ? [path.join(projectPath, 'node_modules')]
+  : []
+)
   .concat(
-    monorepoModules
-      ? workspacesForNode.map(workspace =>
-          path.join(monorepoModules, workspace, 'node_modules')
-        )
-      : []
+    workspacesForNode.map(workspace =>
+      path.join(rootPath, 'node_modules', workspace, 'node_modules')
+    )
   )
-  .concat(monorepoModules ? [monorepoModules] : []);
+  .concat([path.join(rootPath, 'node_modules')]);
 
-const resolvePathsForBrowser = [path.join(rootPath, 'node_modules')]
+const resolvePathsForBrowser = (projectPath !== rootPath
+  ? [path.join(projectPath, 'node_modules')]
+  : []
+)
   .concat(
-    monorepoModules
-      ? workspacesForBrowser.map(workspace =>
-          path.join(monorepoModules, workspace, 'node_modules')
-        )
-      : []
+    workspacesForBrowser.map(workspace =>
+      path.join(rootPath, 'node_modules', workspace, 'node_modules')
+    )
   )
-  .concat(monorepoModules ? [monorepoModules] : []);
+  .concat([path.join(rootPath, 'node_modules')]);
 
 module.exports = Object.assign(
   {
-    context: rootPath,
+    context: projectPath,
     entry: entries,
     output: {
       filename: isProductionEnv ? 'js/[name]_[chunkhash].js' : 'js/[name].js',
@@ -235,10 +222,10 @@ module.exports = Object.assign(
         : 'js/[name].js',
       path: isProductionEnv
         ? path.join(
-            rootPath,
+            projectPath,
             `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`
           )
-        : path.join(rootPath, 'build/public/static-for-dev/'),
+        : path.join(projectPath, 'build/public/static-for-dev/'),
       publicPath:
         (deployMode === 'staticweb' &&
           ((isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT) ||
@@ -247,10 +234,9 @@ module.exports = Object.assign(
         '/static-for-dev/',
     },
     resolve: {
-      // root: [path.join(rootPath, 'app')],
       alias: Object.assign(
         {
-          app: path.join(rootPath, 'app'),
+          app: path.join(projectPath, 'app'),
         },
         process.env.WEBCUBE_USE_PREACT
           ? {
@@ -276,22 +262,13 @@ module.exports = Object.assign(
           test: /\.jsx?$/,
           loader: 'babel',
           include: [
-            path.join(rootPath, 'app'),
-            path.join(rootPath, 'src'),
-            path.join(rootPath, 'staticweb'),
+            path.join(projectPath, 'app'),
+            path.join(projectPath, 'src'),
+            path.join(projectPath, 'staticweb'),
+            modulePath,
+            path.join(projectPath, 'node_modules', 'redux-cube'),
           ]
-            .concat(
-              esModules.map(module =>
-                path.join(rootPath, 'node_modules', module)
-              )
-            )
-            .concat(
-              monorepoModules
-                ? esModules.map(module =>
-                    path.join(monorepoModules, '../packages/', module)
-                  )
-                : []
-            )
+            .concat(es6Packages.map(module => path.join(rootPath, module)))
             .concat(customConfig.babelLoaderInclude),
           // exclude: /node_modules/,
           query: {
@@ -465,7 +442,7 @@ module.exports = Object.assign(
         // https://www.npmjs.com/package/assets-webpack-plugin
         new AssetsPlugin({
           filename: 'rev-version.json',
-          path: rootPath,
+          path: projectPath,
           fullPath: true,
           prettyPrint: true,
         }),

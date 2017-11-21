@@ -1,12 +1,12 @@
 // https://github.com/amwmedia/plop
 
 const path = require('path');
-const { rootPath, modulePath } = require('../utils');
+const { projectPath, modulePath } = require('../utils');
 
 let customPlopfile;
 try {
   customPlopfile = require(path.join(
-    rootPath,
+    projectPath,
     `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/plopfile.js`
   ));
 } catch (ex) {
@@ -21,7 +21,7 @@ module.exports = function(plop) {
   const addReactEntryActions = [
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-app/index.jsx'
@@ -29,7 +29,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-app/sample/index.jsx'
@@ -38,7 +38,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/components/SampleList.jsx'
       ),
       templateFile: path.join(
@@ -48,7 +48,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/constants/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/constants/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-app/sample/constants/sample.js'
@@ -57,7 +60,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/containers/Sample.jsx'
       ),
       templateFile: path.join(
@@ -67,12 +70,12 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
       templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
     },
   ];
@@ -80,7 +83,7 @@ module.exports = function(plop) {
   const addReactRouterEntryActions = [
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-router-app/index.jsx'
@@ -88,7 +91,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-router-app/sample/index.jsx'
@@ -96,7 +99,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/common/utils/index.js'),
+      path: path.join(projectPath, 'app/{{entryName}}/common/utils/index.js'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-router-app/common/utils/index.js'
@@ -105,7 +108,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/components/SampleList.jsx'
       ),
       templateFile: path.join(
@@ -115,7 +118,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/constants/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/constants/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-router-app/sample/constants/sample.js'
@@ -124,7 +130,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/containers/Sample.jsx'
       ),
       templateFile: path.join(
@@ -134,12 +140,12 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
       templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
     },
   ];
@@ -147,7 +153,7 @@ module.exports = function(plop) {
   const addReactReduxEntryActions = [
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/index.jsx'
@@ -155,7 +161,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/index.jsx'
@@ -163,7 +169,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/hub.js'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/hub.js'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/hub.js'
@@ -171,7 +177,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/actions/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/actions/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/actions/sample.js'
@@ -180,7 +189,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/components/SampleList.jsx'
       ),
       templateFile: path.join(
@@ -190,7 +199,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/constants/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/constants/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/constants/sample.js'
@@ -199,7 +211,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/containers/Sample.jsx'
       ),
       templateFile: path.join(
@@ -209,7 +221,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/reducers/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/reducers/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/reducers/sample.js'
@@ -217,12 +232,12 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
       templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
     },
   ];
@@ -230,7 +245,7 @@ module.exports = function(plop) {
   const addReactReduxRouterEntryActions = [
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/index.jsx'
@@ -238,7 +253,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/index.jsx'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/index.jsx'
@@ -246,7 +261,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/hub.js'),
+      path: path.join(projectPath, 'app/{{entryName}}/sample/hub.js'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/hub.js'
@@ -254,7 +269,7 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/common/utils/index.js'),
+      path: path.join(projectPath, 'app/{{entryName}}/common/utils/index.js'),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/common/utils/index.js'
@@ -262,7 +277,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/actions/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/actions/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/actions/sample.js'
@@ -271,7 +289,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/components/SampleList.jsx'
       ),
       templateFile: path.join(
@@ -281,7 +299,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/constants/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/constants/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/constants/sample.js'
@@ -290,7 +311,7 @@ module.exports = function(plop) {
     {
       type: 'add',
       path: path.join(
-        rootPath,
+        projectPath,
         'app/{{entryName}}/sample/containers/Sample.jsx'
       ),
       templateFile: path.join(
@@ -300,7 +321,10 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'app/{{entryName}}/sample/reducers/sample.js'),
+      path: path.join(
+        projectPath,
+        'app/{{entryName}}/sample/reducers/sample.js'
+      ),
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/reducers/sample.js'
@@ -308,12 +332,12 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/index.html'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
       templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
     },
     {
       type: 'add',
-      path: path.join(rootPath, 'staticweb/{{entryName}}/deploy.js'),
+      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
       templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
     },
   ];
@@ -340,13 +364,13 @@ module.exports = function(plop) {
         opt.actions.concat([
           Object.assign(
             {
-              path: path.join(rootPath, 'env.config'),
+              path: path.join(projectPath, 'env.config'),
             },
             updateEnvConfig
           ),
           Object.assign(
             {
-              path: path.join(rootPath, 'configs/env.sample.config'),
+              path: path.join(projectPath, 'configs/env.sample.config'),
             },
             updateEnvConfig
           ),
@@ -417,13 +441,13 @@ module.exports = function(plop) {
         opt.actions.concat([
           Object.assign(
             {
-              path: path.join(rootPath, 'env.config'),
+              path: path.join(projectPath, 'env.config'),
             },
             updateEnvConfig
           ),
           Object.assign(
             {
-              path: path.join(rootPath, 'configs/env.sample.config'),
+              path: path.join(projectPath, 'configs/env.sample.config'),
             },
             updateEnvConfig
           ),
