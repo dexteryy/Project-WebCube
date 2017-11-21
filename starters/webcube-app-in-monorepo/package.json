@@ -27,7 +27,7 @@
   "config": {
     "webcube": {
       "monorepo": {
-        "root": "../",
+        "root": "../../",
         "project": <Your director's path relative to monorepo's root>,
       },
       "staticserver": {
@@ -36,7 +36,7 @@
     }
   },
   "dependencies": {
-    "webcube": "^1.0.0-alpha.29"
+    "webcube": "^1.0.0-alpha.33"
   },
   "devDependencies": {}
 }
