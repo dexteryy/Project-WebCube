@@ -1,11 +1,4 @@
 {
-  "eslint.workingDirectories": [
-    "./eslint-config-webcube",
-    "./webcube/boilerplate",
-    "./webcube/templates/app",
-    "./webcube/templates/staticweb",
-    "./webcube-example/configs"
-  ],
   "files.associations": {
     "*.config": "properties",
     ".babelrc": "json",
@@ -21,6 +14,7 @@
   },
   "search.useIgnoreFiles": true,
   "search.exclude": {
+    "**/dist": true,
     "**/build": true,
     "**/yarn.lock": true,
     "**/package-lock.json": true,

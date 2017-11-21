@@ -1,0 +1,162 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "packages/webcube"
+    },
+    {
+      "path": "packages/eslint-config-webcube"
+    },
+    {
+      "path": "packages/redux-cube"
+    },
+    {
+      "path": "packages/redux-cube-withrouter3"
+    },
+    {
+      "path": "packages/hifetch"
+    },
+    {
+      "path": "examples/webcube-initial-structure"
+    },
+    {
+      "path": "examples/webcube-todo-app"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "change-case",
+      "code-settings-sync",
+      "debugger-for-chrome",
+      "EditorConfig",
+      "eslint-disable-snippets",
+      "gitlens",
+      "gitignore",
+      "graphql-for-vscode",
+      "html-snippets",
+      "HTMLHint",
+      "indenticator",
+      "JavaScriptSnippets",
+      "lorem-ipsum",
+      "markdown-preview-enhanced",
+      "node-debug2",
+      "path-intellisense",
+      "react-redux-es6-snippets",
+      "ReactSnippets",
+      "regex",
+      "search-node-modules",
+      "sharecode",
+      "svg-icons",
+      "vsc-lorem-cn",
+      "vscode-color",
+      "vscode-css-modules",
+      "vscode-docker",
+      "vscode-eslint",
+      "vscode-icons",
+      "vscode-javascript-snippet-pack",
+      "vscode-jest",
+      "vscode-open-in-github",
+      "vscode-styled-components",
+      "vscode-todo-highlight",
+      "yaml"
+    ]
+  },
+  "settings": {
+    "files.associations": {
+      "*.config": "properties",
+      ".babelrc": "json",
+      "babelrc": "json",
+      ".eslintrc": "json",
+      "eslintrc": "json",
+      ".stylelintrc": "json",
+      "stylelintrc": "json",
+      ".htmlhintrc": "json",
+      "htmlhintrc": "json",
+      "Procfile*": "shellscript",
+      "README": "markdown"
+    },
+    "search.useIgnoreFiles": true,
+    "search.exclude": {
+      "**/dist": true,
+      "**/build": true,
+      "**/yarn.lock": true,
+      "**/package-lock.json": true,
+      "**/*.log": true,
+      "**/*.pid": true,
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/bower_components": true
+    },
+    //
+    "editor.rulers": [
+      80,
+      120
+    ],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    //
+    "eslint.nodePath": "node_modules",
+    "eslint.enable": true,
+    "eslint.run": "onType",
+    "eslint.options": {
+      "rules": {
+        "no-debugger": "off"
+      }
+    },
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact"
+      // {
+      //   "language": "typescript",
+      //   "autoFix": true
+      // },
+      // {
+      //   "language": "typescriptreact",
+      //   "autoFix": true
+      // }
+    ],
+    "javascript.validate.enable": false,
+    "typescript.validate.enable": false,
+    "tslint.enable": true,
+    "flow.enabled": false,
+    //
+    "stylelint.enable": true,
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    //
+    "htmlhint.enable": true,
+    //
+    "eslint.autoFixOnSave": true,
+    "prettier.parser": "babylon",
+    "prettier.eslintIntegration": true,
+    "prettier.javascriptEnable": [
+      // "javascript",
+      // "javascriptreact"
+    ],
+    "javascript.format.enable": false,
+    "prettier.typescriptEnable": [
+      // "typescript",
+      // "typescriptreact"
+    ],
+    // "typescript.format.enable": false,
+    "prettier.cssEnable": [
+      "css",
+      "less",
+      "scss"
+    ],
+    "prettier.jsonEnable": [],
+    "json.format.enable": true,
+    "[json]": {
+      "editor.tabSize": 2,
+      "editor.formatOnType": true,
+      "editor.formatOnPaste": true,
+      "editor.formatOnSave": true
+    },
+    "prettier.graphqlEnable": [
+      "graphql"
+    ]
+  }
+}
