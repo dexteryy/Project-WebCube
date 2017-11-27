@@ -121,7 +121,6 @@
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.1.1",
     "react-helmet": "^5.2.0",
-    "react-router": "^4.2.0",
     "react-tap-event-plugin": "^3.0.2",
     "react-test-renderer": "^16.1.1",
     "react-transform-catch-errors": "^1.0.2",
