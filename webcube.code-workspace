@@ -1,6 +1,7 @@
 {
   "folders": [
     {
+      "name": "monorepo",
       "path": "."
     },
     {
@@ -66,6 +67,7 @@
   "settings": {
     "files.associations": {
       "*.config": "properties",
+      ".code-workspace": "json",
       ".babelrc": "json",
       "babelrc": "json",
       ".eslintrc": "json",
@@ -97,7 +99,7 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     //
-    "eslint.nodePath": "node_modules",
+    "eslint.nodePath": "./node_modules",
     "eslint.enable": true,
     "eslint.run": "onType",
     "eslint.options": {
@@ -132,6 +134,13 @@
     "eslint.autoFixOnSave": true,
     "prettier.parser": "babylon",
     "prettier.eslintIntegration": true,
+    "prettier.disableLanguages": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "json"
+    ],
     "prettier.javascriptEnable": [
       // "javascript",
       // "javascriptreact"
@@ -142,6 +151,7 @@
       // "typescriptreact"
     ],
     // "typescript.format.enable": false,
+    // "typescript.format.enable": true,
     "prettier.cssEnable": [
       "css",
       "less",
