@@ -8,7 +8,11 @@ import {
   routerReducer,
 } from 'react-router-redux';
 
-export default function withRouter3({ disableHashRouter = false, ...config }) {
+export default function withRouter3({
+  disableHashRouter = false,
+  routerHistoryConfig,
+  ...config
+}) {
   const history = disableHashRouter ? browserHistory : hashHistory;
   return {
     _enableRouter3: true,
@@ -16,6 +20,7 @@ export default function withRouter3({ disableHashRouter = false, ...config }) {
     _routerMiddleware: routerMiddleware,
     _routerHistory: history,
     _syncRouterHistoryWithStore: syncHistoryWithStore,
+    _routerHistoryConfig: routerHistoryConfig,
     ...config,
   };
 }

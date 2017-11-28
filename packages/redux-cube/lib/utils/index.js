@@ -30,3 +30,20 @@ export function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
+
+export function deepApply(target, fn, moreArgs = []) {
+  const newTarget = {};
+  for (const key in target) {
+    let value = target[key];
+    let childArgs = [];
+    if (Array.isArray(value)) {
+      [value, ...childArgs] = value;
+    }
+    if (typeof value === 'object') {
+      newTarget[key] = deepApply(value, fn, childArgs);
+    } else {
+      newTarget[key] = target[key];
+    }
+  }
+  return fn(newTarget, ...moreArgs);
+}

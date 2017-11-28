@@ -6,6 +6,10 @@ const RE_IS_CONSTANT = /^[A-Z0-9_]+$/;
 const RE_IS_ARRAY_TOSTRING = /,/;
 const RE_INVALID_DELIMIER = /[_.a-zA-Z0-9]/;
 
+function defaultMetaCreator(payload, meta) {
+  return meta;
+}
+
 function normalizeActionType(key) {
   let regularKey = key;
   if (!RE_IS_CONSTANT.test(key)) {
@@ -113,7 +117,7 @@ export class Hub {
     hub[regularType] = actionCreator;
   }
 
-  addAction(type, payloadCreator, metaCreator) {
+  addAction(type, payloadCreator, metaCreator = defaultMetaCreator) {
     const { delimiter } = this.config;
     const namespaces = type.split(delimiter);
     let regularType;
@@ -254,7 +258,7 @@ export class Hub {
     }
   }
 
-  action(path, payload) {
+  action(path, ...args) {
     const { hub } = this;
     const { delimiter } = this.config;
     const regularType = path
@@ -265,7 +269,7 @@ export class Hub {
     if (!actionCreator) {
       actionCreator = this.addAction(regularType).types[regularType];
     }
-    return actionCreator(payload);
+    return actionCreator(...args);
   }
 }
 

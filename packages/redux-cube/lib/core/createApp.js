@@ -24,6 +24,7 @@ export default function createApp(config) {
     // withRouter3
     _enableRouter3 = false,
     _syncRouterHistoryWithStore,
+    _routerHistoryConfig,
     // withPersist
     _enablePersist = false,
     _PersistGate: PersistGate,
@@ -58,6 +59,7 @@ export default function createApp(config) {
                 routerHistoryWithStore: _syncRouterHistoryWithStore(
                   _routerHistory,
                   store,
+                  _routerHistoryConfig,
                 ),
               }
             : {}),

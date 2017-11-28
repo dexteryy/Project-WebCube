@@ -15,28 +15,31 @@ export default function connect({
   selectors,
   select = {},
   transform = () => ({}),
+  mapStateToProps: customMapStateToProps,
   // actionCreators or [actionCreators, ...]
   // https://redux.js.org/docs/api/bindActionCreators.html
   actions = {},
   // optional
   actionsProp = 'actions',
   // optional
-  customDispatch: customMapDispatchToProps,
+  mapDispatchToProps: customMapDispatchToProps,
   // optional
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
   ...options
 }) {
   // https://www.npmjs.com/package/reselect#createselectorinputselectors--inputselectors-resultfunc
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-  const mapStateToProps = (state, ...other) => {
-    const newState = unwrap(state);
-    return createSelector(...(selectors || createSelectors(select)), transform)(
-      newState,
-      ...other,
-    );
-  };
+  const mapStateToProps =
+    customMapStateToProps ||
+    ((state, ...other) => {
+      const newState = unwrap(state);
+      return createSelector(
+        ...(selectors || createSelectors(select)),
+        transform,
+      )(newState, ...other);
+    });
   let actionCreators = actions;
-  if (Array.isArray(actionCreators)) {
+  if (!customMapDispatchToProps && Array.isArray(actionCreators)) {
     actionCreators = merge({}, ...actions);
   }
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
