@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
-  "version": "1.0.0-alpha.35",
+  "version": "1.0.0-alpha.36",
   "license": "MIT",
   "main": "boilerplate/index.js",
   "bin": {
@@ -126,7 +126,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.5.0",
-    "redux-cube": "^1.0.0-rc.7",
+    "redux-cube": "^1.0.0-rc.8",
     "sass-loader": "^4.1.1",
     "shelljs": "^0.7.8",
     "style-loader": "^0.13.2",
