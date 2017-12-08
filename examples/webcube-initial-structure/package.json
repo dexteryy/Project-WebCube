@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-initial-structure",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "precommit:custom": "npm run test",
     "test": "webcube-test",
@@ -37,6 +37,6 @@
     }
   },
   "dependencies": {
-    "webcube": "^1.0.0-alpha.36"
+    "webcube": "^1.0.0-alpha.37"
   }
 }
