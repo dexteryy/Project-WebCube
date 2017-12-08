@@ -166,6 +166,20 @@ const cssLoaderConfig = JSON.stringify({
   // reduceIdents: true,
 });
 
+const excludeFromCssModules = JSON.parse(
+  process.env.WEBCUBE_EXCLUDE_FROM_CSS_MODULES || '[]'
+).map(relativePath => path.join(rootPath, relativePath));
+
+const getScssLoaderConfig = cssOpt =>
+  process.env.WEBCUBE_ENABLE_EXTRACT_CSS
+    ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader!sass`)
+    : `style?singleton!css?${cssOpt}!postcss-loader!sass`;
+
+const getCssLoaderConfig = cssOpt =>
+  process.env.WEBCUBE_ENABLE_EXTRACT_CSS
+    ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader`)
+    : `style?singleton!css?${cssOpt}!postcss-loader`;
+
 /*
    * issue:
    * root prior to workspace
@@ -301,27 +315,31 @@ module.exports = Object.assign(
         },
         {
           test: /\.scss$/,
-          loader: (cssOpt =>
-            process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-              ? ExtractTextPlugin.extract(
-                  'style',
-                  `css?${cssOpt}!postcss-loader!sass`
-                )
-              : `style?singleton!css?${cssOpt}!postcss-loader!sass`)(
-            cssLoaderConfig
+          loader: getScssLoaderConfig(cssLoaderConfig),
+          exclude: excludeFromCssModules,
+        },
+        {
+          test: /\.scss$/,
+          loader: getScssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              modules: false,
+            })
           ),
+          include: excludeFromCssModules,
         },
         {
           test: /\.css$/,
-          loader: (cssOpt =>
-            process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-              ? ExtractTextPlugin.extract(
-                  'style',
-                  `css?${cssOpt}!postcss-loader`
-                )
-              : `style?singleton!css?${cssOpt}!postcss-loader`)(
-            cssLoaderConfig
+          loader: getCssLoaderConfig(cssLoaderConfig),
+          exclude: excludeFromCssModules,
+        },
+        {
+          test: /\.css$/,
+          loader: getCssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              modules: false,
+            })
           ),
+          include: excludeFromCssModules,
         },
         {
           test: /\.json$/,
