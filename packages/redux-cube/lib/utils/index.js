@@ -31,7 +31,7 @@ export function bindActionCreators(actionCreators, dispatch) {
   return boundActionCreators;
 }
 
-export function deepApply(target, fn, moreArgs = []) {
+export function combineReducersWith(fn, target, ...moreArgs) {
   const newTarget = {};
   for (const key in target) {
     let value = target[key];
@@ -40,7 +40,7 @@ export function deepApply(target, fn, moreArgs = []) {
       [value, ...childArgs] = value;
     }
     if (typeof value === 'object') {
-      newTarget[key] = deepApply(value, fn, childArgs);
+      newTarget[key] = combineReducersWith(fn, value, ...childArgs);
     } else {
       newTarget[key] = target[key];
     }

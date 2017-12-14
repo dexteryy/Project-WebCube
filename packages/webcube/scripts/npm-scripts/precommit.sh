@@ -45,7 +45,7 @@ lint() {
 }
 
 check_version() {
-  if [[ "$(cat ${webcubeRoot}/.webcube-version)" == "1.0"  ]]; then
+  if [[ "$(cat ${webcubeRoot}/.webcube-version)" == "3.0"  ]]; then
     exit 0
   fi
   echo ""

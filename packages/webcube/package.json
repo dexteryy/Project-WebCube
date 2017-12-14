@@ -41,7 +41,7 @@
     "precommit:custom": "exit 0"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=6.9.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -127,6 +127,7 @@
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.5.0",
     "redux-cube": "^1.0.0-rc.9",
+    "rxjs": "^5.5.5",
     "sass-loader": "^4.1.1",
     "shelljs": "^0.7.8",
     "style-loader": "^0.13.2",

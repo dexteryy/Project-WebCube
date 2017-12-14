@@ -88,10 +88,6 @@ class Hifetch {
       if (typeof data === 'object') {
         if (FormData && data instanceof FormData) {
           dataType = mimeLib.form;
-        } else if (data.constructor !== Object) {
-          throw new Error(
-            'hifetch: `data` must be a plain object, FormData object or string',
-          );
         } else if (dataType === mimeLib.form) {
           dataForBody = new FormData();
           mergeToForm(data);

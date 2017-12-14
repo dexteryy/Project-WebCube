@@ -2,6 +2,7 @@
 import { createAction, handleAction, handleActions } from 'redux-actions';
 import changeCase from 'change-case';
 
+const ACTION_CREATOR = '__CUSTOM_ACTION_CREATOR__';
 const RE_IS_CONSTANT = /^[A-Z0-9_]+$/;
 const RE_IS_ARRAY_TOSTRING = /,/;
 const RE_INVALID_DELIMIER = /[_.a-zA-Z0-9]/;
@@ -58,7 +59,11 @@ function flattenActionNamespaces(
     } else {
       regularKey = normalizeActionType(key);
     }
-    if (!Array.isArray(value) && typeof value === 'object') {
+    if (
+      !Array.isArray(value) &&
+      typeof value === 'object' &&
+      !value[ACTION_CREATOR]
+    ) {
       history.push(regularKey);
       flattenActionNamespaces(value, { flatDict, history, delimiter });
       if (history.length > 0) {
@@ -100,10 +105,16 @@ function unflattenDict(flattenDict, { root = {}, delimiter }) {
 }
 
 export class Hub {
-  constructor(config) {
+  static defaultConfig = {
+    delimiter: '/',
+  };
+
+  ACTION_CREATOR = ACTION_CREATOR;
+
+  constructor(config = {}) {
     this.hub = {};
-    this.config = config;
-    const { delimiter = '/' } = config;
+    this.config = Object.assign({}, Hub.defaultConfig, config);
+    const { delimiter } = this.config;
     if (RE_INVALID_DELIMIER.test(delimiter)) {
       throw new Error(`[redux-cube] "${delimiter}" is not valid delimiter`);
     }
@@ -154,6 +165,10 @@ export class Hub {
       const value = flatActionMap[regularType];
       if (Array.isArray(value)) {
         Object.assign(types, this.addAction(regularType, ...value).types);
+      } else if (value === true) {
+        Object.assign(types, this.addAction(regularType).types);
+      } else if (typeof value === 'object' && value[this.ACTION_CREATOR]) {
+        types[regularType] = value[this.ACTION_CREATOR];
       } else {
         Object.assign(types, this.addAction(regularType, value).types);
       }

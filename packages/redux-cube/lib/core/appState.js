@@ -10,7 +10,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 // https://www.npmjs.com/package/topologically-combine-reducers
 import topologicallyCombineReducers from 'topologically-combine-reducers';
-import { deepApply } from '../utils';
+import { combineReducersWith } from '../utils';
 
 const isProdEnv = process.env.NODE_ENV === 'production';
 let composeWithDevTools, freezeMiddleware, logger, createLogger;
@@ -59,6 +59,8 @@ export default function appState({
   // optional
   // https://www.npmjs.com/package/redux-logger#options
   loggerConfig = null,
+  // https://github.com/pburtchaell/redux-promise-middleware/blob/4843291da348fc8ed633c41e6afbc796f7152cc6/src/index.js#L14
+  promiseMiddlewareConfig = {},
   // optional
   // https://redux.js.org/docs/recipes/reducers/InitializingState.html
   preloadedState,
@@ -115,7 +117,8 @@ export default function appState({
         (_enableRouter3 && { routing: _routerReducer }) ||
         {},
     );
-    let chosenCombineReducers, args;
+    let chosenCombineReducers;
+    const args = [];
     if (canWeEnableImmutableJS) {
       // https://www.npmjs.com/package/redux-immutable
       // https://redux.js.org/docs/recipes/UsingImmutableJS.html#make-your-entire-redux-state-tree-an-immutablejs-object
@@ -123,12 +126,12 @@ export default function appState({
     } else if (enableTopologic) {
       // https://www.npmjs.com/package/topologically-combine-reducers
       chosenCombineReducers = topologicallyCombineReducers;
-      args = [reducerDeps];
+      args.push(reducerDeps);
     } else {
       // https://redux.js.org/docs/api/combineReducers.html
       chosenCombineReducers = combineReducers;
     }
-    rootReducer = deepApply(reducers, chosenCombineReducers, args);
+    rootReducer = combineReducersWith(chosenCombineReducers, reducers, ...args);
   }
   if (_enablePersist) {
     // https://github.com/rt2zz/redux-persist#usage
@@ -150,7 +153,7 @@ export default function appState({
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/introduction.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-suffixes.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-separators.md
-    promiseMiddleware(),
+    promiseMiddleware(promiseMiddlewareConfig),
     // https://www.npmjs.com/package/redux-thunk#injecting-a-custom-argument
     thunkMiddleware,
     // https://redux-observable.js.org/docs/basics/SettingUpTheMiddleware.html

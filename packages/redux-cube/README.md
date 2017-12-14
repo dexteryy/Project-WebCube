@@ -123,6 +123,9 @@ export const { actions, types } = hub.add({
         (a, b) => ({ data: a + b }),
         (a, b) => ({ a, b }),
       ],
+      myType5: {
+        [hub.ACTION_CREATOR]: actionCreator,
+      },
     },
   },
 });
@@ -386,85 +389,105 @@ export default class Main extends PureComponent {
 [hifetch](https://www.npmjs.com/package/hifetch) + [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware) + [redux-thunk](https://www.npmjs.com/package/redux-thunk):
 
 ```js
-import hifetch from 'hifetch'
-import { reset } from 'redux-form'
-import hub from '../hub'
+import { reset } from 'redux-form';
+import hifetch from 'hifetch';
+import hub from '../hub';
 
-const { actions, types } = hub.add({
-  pos: {
+export const { actions, types } = hub.add({
+  users: {
+    fetchAll: () =>
+      hifetch({
+        url: '/v1/users/',
+      }).send(),
 
-   fetch: [(siteId: number) => hifetch({
-      url: '/r/v1/sites/' + siteId + '/restaurant/printers',
-      disableRemoteError: true,
-    }).send(), (siteId: number) => ({
-      siteId,
-    })],
-
-   save: (posData) => {
-      return (dispatch: any) => {
-        dispatch(hifetch({
-          url: '/r/v1/restaurant/storefronts/' + posData.toJS().storefrontId + '/printers',
-          method: 'post',
-          data: posData.toJS(),
-          disableRemoteError: true,
-          success(result) {
-            dispatch(reset('posInfos'))
-            return result
-          },
-        }).send())
-      }
+    toAdd: {
+      [hub.ACTION_CREATOR]: (userId, userData) => dispatch =>
+        dispatch(
+          actions.users.save(userId, userData, {
+            success(result) {
+              dispatch(reset('userInfos'));
+              return result;
+            },
+          }),
+        ),
     },
 
-   update: [(posId: number, posData) => hifetch({
-      url: '/r/v1/restaurant/printers/' + posId,
-      method: 'put',
-      data: posData,
-      disableRemoteError: true,
-    }).send(), (posId: number) => ({
-      posId,
-    })],
+    add: [
+      (userId, userData, opt) =>
+        hifetch({
+          url: `/v1/users/${userId}`,
+          method: 'put',
+          data: userData,
+          ...opt,
+        }).send(),
+      userId => ({
+        userId,
+      }),
+    ],
 
-   delete: [(posId: number) => hifetch({
-      url: '/r/v1/restaurant/printers/' + posId,
-      method: 'delete',
-      disableRemoteError: true,
-    }).send(), (posId: number) => ({
-      posId,
-    })],
+    edit: [
+      (userId, userData) =>
+        hifetch({
+          url: `/v1/users/${userId}`,
+          method: 'post',
+          data: userData,
+        }).send(),
+      userId => ({
+        userId,
+      }),
+    ],
 
+    delete: [
+      userId =>
+        hifetch({
+          url: `/v1/users/${userId}`,
+          method: 'delete',
+        }).send(),
+      userId => ({
+        userId,
+      }),
+    ],
   },
-})
+});
 ```
 
 ```js
-export const { reducer, actions, types } = hub.handle({
-  pos: {
-   fetchPending: (state) =>
-      state.set('isFetching', true),
-   fetchFulfilled: (state, { payload }) =>
-      state.mergeDeep({
-        data: Immutable.fromJS(payload.data),
-        isFetching: false,
-      }),
-   fetchRejected: (state) =>
-      state.set('isFetching', false),
-    savePending: (state) =>
-      state.set('isAdding', true),
-    // ...
-    updateRejected: (state) =>
-      state.set('isUpdating', false),
-    deleteFulfilled: (state, { meta }) =>
-      state.set('data', state.get('data').filter((pos) => {
-        return pos.get('id') !== meta.posId
-      })),
+import { deepMerge } from 'redux-cube/lib/helpers';
+import Immutable from 'immutable';
+import hub from '../hub';
+import { actions as existActions, types as existTypes } from '../actions/users';
+
+const { reducer, actions, types } = hub.handle(
+  {
+    users: {
+      fetchAllPending: state => state.set('isLoading', true),
+      fetchAllFulfilled: (state, { payload }) =>
+        state.mergeDeep({
+          users: Immutable.fromJS(payload.data),
+          isLoading: false,
+        }),
+      fetchAllRejected: state => state.set('isLoading', false),
+      addPending: state => state.set('isLoading', true),
+      // ...
+      updateRejected: state => state.set('isLoading', false),
+      deleteFulfilled: (state, { payload }) =>
+        state.set(
+          'users',
+          state.get('users').filter(user => user.get('id') !== payload.userId),
+        ),
+    },
   },
-}, Immutable.fromJS({
-  data: [],
-  isFetching: false,
-  isUpdating: false,
-  isAdding: false,
-  isEdited: false,
-}))
+  Immutable.fromJS({
+    users: [],
+    isLoading: false,
+  }),
+);
+
+deepMerge(actions, existActions);
+deepMerge(types, existTypes);
+
+export { reducer, actions, types };
+
 ```
 
 ### Immutable
