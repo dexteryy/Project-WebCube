@@ -17,8 +17,6 @@
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
-    "precommit:custom": "npm run test",
-    "test": "exit 0",
     "clear": "rm -r dist 2>/dev/null || true",
     "build": "npm run clear && npm run build:dist",
     "build:dist": "babel lib --out-dir dist --source-maps"

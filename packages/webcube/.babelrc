@@ -1,0 +1,48 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "> 5%"
+          ],
+          "ios": 7,
+          "android": 4,
+          "node": 6,
+          "ie": 11
+        },
+        "include": [],
+        "exclude": [
+          "transform-async-to-generator"
+        ],
+        "useBuiltIns": "usage",
+        "forceAllTransforms": true,
+        "shippedProposals": false,
+        "loose": false,
+        "debug": false
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "fast-async",
+    "transform-function-bind",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "syntax-dynamic-import",
+    "syntax-optional-chaining",
+    "transform-decorators-legacy",
+    [
+      "lodash",
+      {
+        "id": [
+          "lodash",
+          "recompose"
+        ]
+      }
+    ]
+  ]
+}

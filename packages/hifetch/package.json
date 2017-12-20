@@ -18,8 +18,8 @@
     "build": "if [ -d build ]; then rm -r build; fi; npm run build:src && npm run build:test",
     "build:src": "babel src --out-dir build/dist --source-maps",
     "build:test": "babel tests --out-dir build/tests --source-maps",
-    "test": "npm run build && npm run test:nobuild",
-    "test:nobuild": "mocha build/tests/**/*.spec.js"
+    "test": "npm run build 1>/dev/null && npm run test:nobuild",
+    "test:nobuild": "mocha build/tests/**/*.spec.js --reporter nyan"
   },
   "engines": {
     "node": ">=6"

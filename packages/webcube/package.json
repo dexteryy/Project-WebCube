@@ -37,9 +37,7 @@
     "webcube-upload-staticweb-assets": "./scripts/npm-scripts/upload-staticweb-assets.sh",
     "webcube-devserver": "./tools/devServer.js"
   },
-  "scripts": {
-    "precommit:custom": "exit 0"
-  },
+  "scripts": {},
   "engines": {
     "node": ">=6.9.0"
   },

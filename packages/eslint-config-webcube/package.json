@@ -21,7 +21,6 @@
     "node": ">=6.9.0"
   },
   "scripts": {
-    "precommit:custom": "npm run check",
     "prepublish": "npm run check",
     "check": "cd ../; eslint-find-rules --unused ./eslint-config-webcube/.eslintrc.prettier.json; cd -",
     "stat": "cd ../; eslint-index ./eslint-config-webcube/.eslintrc.prettier.json --format table; cd -"
