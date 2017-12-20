@@ -354,6 +354,7 @@ export const App = EntryApp;
 
 ```js
 import { connect } from 'redux-cube';
+import { autobind } from 'core-decorators';
 import { actions as todoActions } from '../reducers/todo';
 
 @connect({
