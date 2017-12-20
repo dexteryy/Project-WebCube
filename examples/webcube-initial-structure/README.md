@@ -62,7 +62,7 @@ NODE_ENV=production npm run build
 
 View
 
-* http://localhost:8012/react-app/
-* http://localhost:8012/react-router-app/
-* http://localhost:8012/react-redux-app/
-* http://localhost:8012/react-redux-router-app/
+* http://localhost:8011/react-app/
+* http://localhost:8011/react-router-app/
+* http://localhost:8011/react-redux-app/
+* http://localhost:8011/react-redux-router-app/

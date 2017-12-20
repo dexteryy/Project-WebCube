@@ -56,5 +56,5 @@ NODE_ENV=production npm run build
 
 View
 
-* http://localhost:8011/todo-app/
-* http://localhost:8011/multiple-todo-apps/
+* http://localhost:8012/todo-app/
+* http://localhost:8012/multiple-todo-apps/
