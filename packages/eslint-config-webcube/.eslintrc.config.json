@@ -1249,6 +1249,8 @@
     // TypeError: Cannot read property 'property' of undefined
     // at getPropKey (./node_modules/eslint-plugin-react/lib/rules/boolean-prop-naming.js: 88: 21)
     "react/boolean-prop-naming": "off",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/button-has-type.md
+    "react/button-has-type": "error",
     // "react/boolean-prop-naming": [
     //   "error",
     //   {
@@ -1260,6 +1262,11 @@
     // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/default-props-match-prop-types.md
     "react/default-props-match-prop-types": "error",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
+    "react/destructuring-assignment": [
+      "error",
+      "always"
+    ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/display-name.md
     // @TODO
     // @TIPS
@@ -1319,6 +1326,12 @@
     // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/forbid-foreign-prop-types.md
     "react/forbid-foreign-prop-types": "error",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md
+    // @TIPS
+    // this.setState({value: this.state.value + 1});
+    // ->
+    // this.setState(prevState => ({value: prevState.value + 1}));
+    "react/no-access-state-in-setstate": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-array-index-key.md
     "react/no-array-index-key": "warn",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-children-prop.md
@@ -1391,7 +1404,12 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/react-in-jsx-scope.md
     "react/react-in-jsx-scope": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/require-default-props.md
-    "react/require-default-props": "off",
+    "react/require-default-props": [
+      "error",
+      {
+        "forbidDefaultForRequired": true
+      }
+    ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/require-optimization.md
     // https://github.com/facebook/react/pull/7195#issuecomment-236361372
     // https://hackernoon.com/react-purecomponent-considered-harmful-8155b5c1d4bc
@@ -1565,6 +1583,8 @@
         "allowGlobals": true
       }
     ],
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-one-expression-per-line.md
+    "react/jsx-one-expression-per-line": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
     "react/jsx-curly-brace-presence": "off",
     // "react/jsx-curly-brace-presence": [
@@ -1596,7 +1616,10 @@
         "declaration": true,
         "assignment": true,
         "return": true,
-        "arrow": true
+        "arrow": true,
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
       }
     ],
     "react/no-unused-state": "error",
