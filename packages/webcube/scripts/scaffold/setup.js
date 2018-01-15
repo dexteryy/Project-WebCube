@@ -7,8 +7,10 @@ if (cd(projectPath).code !== 0) {
   exit(1);
 }
 mkdir('-p', 'app/common', 'staticweb');
+
 cp('-r', path.join(modulePath, 'templates/configs'), './');
 cp(path.join(modulePath, 'configs/env.sample.config'), 'env.config');
+
 cp(path.join(modulePath, 'templates/root/Dockerfile'), './');
 cp(path.join(modulePath, 'templates/root/dockerignore'), './');
 cp(path.join(modulePath, 'templates/root/gitignore'), './.gitignore');

@@ -61,8 +61,7 @@ Copy [webcube-starter-for-standalone-repo/package.json](https://github.com/dexte
 
 ```bash
 mkdir my-project
-cd my-project
-curl https://raw.githubusercontent.com/dexteryy/Project-WebCube/master/starters/webcube-app-as-standalone/package.json > package.json
+cd my-project && curl https://raw.githubusercontent.com/dexteryy/Project-WebCube/master/starters/webcube-app-as-standalone/package.json > package.json
 ```
 
 Step 1:
@@ -99,11 +98,15 @@ Create a monorepo based on [webcube's monorepo](https://github.com/dexteryy/Proj
 git clone git@github.com:dexteryy/webcube.git your-monorepo
 cd your-monorepo/
 rm -rf .git examples starters
-# If you need to fork webcube's packages:
-# rm -rf packages/*
 mkdir entries
 mkdir services
 ```
+
+> NOTE: If you need not to fork webcube's packages, you should remove these files:
+>
+> ```
+> rm -rf packages/*
+> ```
 
 Step 0:
 
@@ -116,8 +119,7 @@ mkdir -p entries/my-project
 Copy [webcube-starter-for-project-in-monorepo/package.json](https://github.com/dexteryy/Project-WebCube/blob/master/starters/webcube-app-in-monorepo/package.json) into your project
 
 ```bash
-cd entries/my-project
-curl https://raw.githubusercontent.com/dexteryy/Project-WebCube/master/starters/webcube-app-in-monorepo/package.json > package.json
+cd entries/my-project && curl https://raw.githubusercontent.com/dexteryy/Project-WebCube/master/starters/webcube-app-in-monorepo/package.json > package.json
 ```
 
 Edit `entries/my-project/package.json`, replace fields surrounded by angle brackets with correct configuration.
@@ -127,7 +129,7 @@ Step #1:
 Install dependencies in monorepo's root
 
 ```bash
-cd ../
+cd ../../
 npm run update
 cd -
 ```

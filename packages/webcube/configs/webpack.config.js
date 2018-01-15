@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
@@ -183,13 +184,15 @@ const getCssLoaderConfig = cssOpt =>
     ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader`)
     : `style?singleton!css?${cssOpt}!postcss-loader`;
 
-const es6Modules = JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || [];
+const es6Modules = (
+  JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || []
+).map(es6ModulePath => fs.realpathSync(path.join(rootPath, es6ModulePath)));
+
 const monorepoModules = [];
 (packageJson.workspaces || []).forEach(workspacePath => {
   const matches = glob.sync(path.join(rootPath, workspacePath));
   monorepoModules.push(...matches);
 });
-
 const resolvePaths = (projectPath !== rootPath
   ? [path.join(projectPath, 'node_modules')]
   : []
@@ -255,7 +258,7 @@ module.exports = Object.assign(
             path.join(projectPath, 'staticweb'),
             modulePath,
           ]
-            .concat(es6Modules.map(module => path.join(rootPath, module)))
+            .concat(es6Modules)
             .concat(customConfig.babelLoaderInclude),
           // exclude: /node_modules/,
           query: {
