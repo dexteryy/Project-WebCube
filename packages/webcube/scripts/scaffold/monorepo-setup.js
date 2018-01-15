@@ -6,7 +6,7 @@ const { projectPath, modulePath } = require('../../utils/beforeEnvConfig');
 cd(projectPath);
 mkdir('-p', 'app/common', 'staticweb');
 cp('-r', path.join(modulePath, 'templates/configs'), './');
-cp('monorepo/env.sample.config', 'env.config');
+cp(path.join(modulePath, 'templates/monorepo/env.sample.config'), 'env.config');
 cp(path.join(modulePath, 'templates/root/Dockerfile'), './');
 cp(path.join(modulePath, 'templates/root/dockerignore'), './');
 cp(path.join(modulePath, 'templates/root/gitignore'), './.gitignore');

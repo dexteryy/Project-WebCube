@@ -32,10 +32,12 @@
     }
   },
   "workspaces": [
+    "entries/*",
+    "services/*",
     "packages/*",
     "examples/*"
   ],
   "devDependencies": {
-    "webcube": "^1.0.0-alpha.29"
+    "webcube": ">= 1.0.0-alpha.39"
   }
 }
