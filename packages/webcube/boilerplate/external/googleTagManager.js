@@ -13,9 +13,7 @@ export default function googleTagManager({ googleTagManagerContainerId }) {
       const point = document.getElementsByTagName('script')[0];
       const gtmScript = document.createElement('script');
       gtmScript.async = true;
-      gtmScript.src = `https://www.googletagmanager.com/gtag.js?id=${
-        googleTagManagerContainerId
-      }`;
+      gtmScript.src = `https://www.googletagmanager.com/gtag.js?id=${googleTagManagerContainerId}`;
       point.parentNode.insertBefore(gtmScript, point);
     },
   };
