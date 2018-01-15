@@ -6,13 +6,15 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { withScripts } from 'webcube';
-import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
+// import { withScripts } from 'webcube';
+// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from './common/utils';
 import { App as SampleApp } from './sample';
 
 const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
+
+const toSample = () => <Redirect to="/sample" />;
 
 // @withScripts(
 //   googleTagManager({
@@ -21,7 +23,6 @@ const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
 // )
 class {{pascalCase entryName}} extends Component {
   render() {
-    const toSample = () => <Redirect to="/sample" />;
     return (
       <Switch>
         <Route path="/" exact={true} render={toSample} />

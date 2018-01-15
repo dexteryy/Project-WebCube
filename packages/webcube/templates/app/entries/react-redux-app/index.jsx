@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withScripts } from 'webcube';
-import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
+// import { withScripts } from 'webcube';
+// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { App as SampleApp } from './sample';
 

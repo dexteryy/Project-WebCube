@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import withRouter from 'redux-cube-withrouter';
 import { createApp } from 'redux-cube';
-import { withScripts } from 'webcube';
-import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
+// import { withScripts } from 'webcube';
+// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from './common/utils';
 import { App as SampleApp } from './sample';
+
+const toSample = () => <Redirect to="/sample" />;
 
 // @withScripts(
 //   googleTagManager({
@@ -21,7 +23,6 @@ import { App as SampleApp } from './sample';
 )
 class {{pascalCase entryName}} extends Component {
   render() {
-    const toSample = () => <Redirect to="/sample" />;
     return (
       <Switch>
         <Route path="/" exact={true} render={toSample} />

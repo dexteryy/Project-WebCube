@@ -1,4 +1,5 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -19,6 +20,8 @@ const {
   modulePath,
   projectPath,
 } = require('../utils');
+
+const packageJson = require(path.join(rootPath, './package.json'));
 
 let customConfig;
 try {
@@ -180,22 +183,19 @@ const getCssLoaderConfig = cssOpt =>
     ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader`)
     : `style?singleton!css?${cssOpt}!postcss-loader`;
 
-const es6Packages = JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || [];
+const es6Modules = JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || [];
+const monorepoModules = [];
+(packageJson.workspaces || []).forEach(workspacePath => {
+  const matches = glob.sync(path.join(rootPath, workspacePath));
+  monorepoModules.push(...matches);
+});
 
-const resolvePathsForNode = (projectPath !== rootPath
-  ? [path.join(projectPath, 'node_modules')]
-  : []
-).concat([
-  path.join(rootPath, 'node_modules/webcube', 'node_modules'),
-  path.join(rootPath, 'node_modules'),
-]);
-
-const resolvePathsForBrowser = (projectPath !== rootPath
+const resolvePaths = (projectPath !== rootPath
   ? [path.join(projectPath, 'node_modules')]
   : []
 )
   .concat(
-    es6Packages.map(workspace => path.join(rootPath, workspace, 'node_modules'))
+    monorepoModules.map(workspace => path.join(workspace, 'node_modules'))
   )
   .concat([path.join(rootPath, 'node_modules')]);
 
@@ -234,11 +234,11 @@ module.exports = Object.assign(
           : null,
         customConfig.resolveAlias
       ),
-      modulesDirectories: resolvePathsForBrowser,
+      modulesDirectories: resolvePaths,
       extensions: ['', '.js', '.jsx'],
     },
     resolveLoader: {
-      modulesDirectories: resolvePathsForNode,
+      modulesDirectories: resolvePaths,
     },
     devtool: 'source-map',
     module: {
@@ -255,7 +255,7 @@ module.exports = Object.assign(
             path.join(projectPath, 'staticweb'),
             modulePath,
           ]
-            .concat(es6Packages.map(module => path.join(rootPath, module)))
+            .concat(es6Modules.map(module => path.join(rootPath, module)))
             .concat(customConfig.babelLoaderInclude),
           // exclude: /node_modules/,
           query: {
@@ -395,7 +395,7 @@ module.exports = Object.assign(
       ].concat(customConfig.postcssPlugins);
     },
     sassLoader: {
-      includePaths: resolvePathsForNode,
+      includePaths: resolvePaths,
     },
     plugins: [
       // http://mts.io/2015/04/08/webpack-shims-polyfills/
