@@ -69,6 +69,7 @@ Step 1:
 Install dependencies
 
 ```bash
+git init
 npm run update
 ```
 
@@ -100,6 +101,7 @@ cd your-monorepo/
 rm -rf .git examples starters
 mkdir entries
 mkdir services
+git init
 ```
 
 > NOTE: If you need not to fork webcube's packages, you should remove these files:

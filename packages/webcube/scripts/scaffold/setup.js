@@ -19,5 +19,6 @@ cp(path.join(modulePath, 'templates/root/README.md'), './');
 cp('-r', path.join(modulePath, 'templates/root/vscode'), './.vscode');
 cp(path.join(modulePath, '.htmlhintrc'), 'staticweb/.htmlhintrc');
 cp(path.join(modulePath, 'boilerplate/.eslintrc.json'), './app/');
+cp(path.join(modulePath, 'boilerplate/.eslintrc.json'), './staticweb/');
 cp(path.join(modulePath, '.eslintrc.json'), './');
 cp(path.join(modulePath, '.editorconfig'), './');
