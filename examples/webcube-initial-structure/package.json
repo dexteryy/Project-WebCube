@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-initial-structure",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "precommit:custom": "npm run test",
     "test": "webcube-test",
@@ -45,9 +45,9 @@
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.2.2",
-    "redux-cube": "^1.0.0-rc.9",
-    "redux-cube-withrouter": "^1.0.1",
+    "redux-cube": "^1.0.0-rc.10",
+    "redux-cube-withrouter": "^1.0.2",
     "rxjs": "^5.5.6",
-    "webcube": "^1.0.0-alpha.37"
+    "webcube": "^1.0.0-alpha.38"
   }
 }

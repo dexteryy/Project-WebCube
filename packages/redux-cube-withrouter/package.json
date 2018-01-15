@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-withrouter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "redux-cube's pluggable module for react-router v4+",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
