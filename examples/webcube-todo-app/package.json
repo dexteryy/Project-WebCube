@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-todo-app",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "precommit:custom": "npm run test",
     "test": "webcube-test",
@@ -51,6 +51,6 @@
     "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.4",
     "uuid": "^3.1.0",
-    "webcube": "^1.0.0-alpha.41"
+    "webcube": "^1.0.0-alpha.42"
   }
 }
