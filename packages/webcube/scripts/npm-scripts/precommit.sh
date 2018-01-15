@@ -1,11 +1,11 @@
-#!/bin/sh
-webcubeRoot="."
+#!/bin/bash
+repoRoot="."
 binRoot="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  webcubeRoot="${npm_package_config_webcube_monorepo_root}"
+  repoRoot="${npm_package_config_webcube_monorepo_root}"
   binRoot="${npm_package_config_webcube_monorepo_root}"
   if [[ ! -d ${binRoot}/node_modules/ ]]; then
-    webcubeRoot="."
+    repoRoot="."
     binRoot="./node_modules/webcube"
   fi
 fi
@@ -44,25 +44,8 @@ lint() {
   )
 }
 
-check_version() {
-  if [[ "$(cat ${webcubeRoot}/.webcube-version)" == "3.0"  ]]; then
-    exit 0
-  fi
-  echo ""
-  echo "=============================="
-  echo ""
-  echo "[WHAT IS WRONG]"
-  echo ""
-  echo "Outdated './node_modules/'."
-  echo ""
-  echo "[HOW TO FIX]"
-  echo ""
-  echo "Please run \`npm run update\` to reinstall dependencies"
-  exit 1
-}
-
 (
-  check_version
+  webcube-check
 ) && (
   lint
 ) && (

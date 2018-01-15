@@ -43,7 +43,7 @@ export default function Footer({
           </Link>
         </li>
       </ul>
-      <button className="clear-completed" onClick={onClear}>
+      <button type="button" className="clear-completed" onClick={onClear}>
         Clear completed
       </button>
     </footer>

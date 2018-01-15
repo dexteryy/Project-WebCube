@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import withRouter from 'redux-cube/lib/plugins/withRouter';
+import withRouter from 'redux-cube-withrouter';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
 import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
@@ -35,6 +35,20 @@ const SithTodoApp = () => (
   />
 );
 
+const TodoApps = () => (
+  <div>
+    <Helmet
+      title="Multiple Todo Apps - Webcube's TodoMVC Example"
+      meta={[{ name: 'description', content: '' }]}
+    />
+    <JediTodoApp />
+    <SithTodoApp />
+    <Endnote />
+  </div>
+);
+
+const JumpToDefault = () => <Redirect to="jedi-todo/" />;
+
 @withScripts(
   googleTagManager({
     googleTagManagerContainerId: 'UA-81044026-3',
@@ -48,18 +62,6 @@ const SithTodoApp = () => (
 )
 class EntryApp extends Component {
   render() {
-    const TodoApps = () => (
-      <div>
-        <Helmet
-          title="Multiple Todo Apps - Webcube's TodoMVC Example"
-          meta={[{ name: 'description', content: '' }]}
-        />
-        <JediTodoApp />
-        <SithTodoApp />
-        <Endnote />
-      </div>
-    );
-    const JumpToDefault = () => <Redirect to="jedi-todo/" />;
     return (
       <Switch>
         <Route path="/" exact={true} render={JumpToDefault} />

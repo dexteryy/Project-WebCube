@@ -44,7 +44,6 @@
     "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
-    "check-dependencies": "^1.1.0",
     "eslint": "^4.13.1",
     "eslint-find-rules": "^3.1.1",
     "eslint-index": "^1.4.0"

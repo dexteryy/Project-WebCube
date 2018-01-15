@@ -1263,10 +1263,16 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/default-props-match-prop-types.md
     "react/default-props-match-prop-types": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
-    "react/destructuring-assignment": [
-      "error",
-      "always"
-    ],
+    // @TODO bug:
+    // tyled.div`
+    //   & .s-common-button {
+    //     border-radius: ${_props => _props.borderRadius}px;
+    // `props => <div id={props.id} />` should be considered to a stateless component, `props => props.borderRadius` should not
+    "react/destructuring-assignment": "off",
+    // "react/destructuring-assignment": [
+    //   "error",
+    //   "always"
+    // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/display-name.md
     // @TODO
     // @TIPS

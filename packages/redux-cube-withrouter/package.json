@@ -1,14 +1,14 @@
 {
-  "name": "redux-cube",
-  "version": "1.0.0-rc.9",
-  "description": "App state manager. A set of wrappers which simplify the use of Redux and its mainstream ecosystem, reduce boilerplate, and support many patterns (like Sub App, Reducer Bundle, ...)",
+  "name": "redux-cube-withrouter",
+  "version": "1.0.1",
+  "description": "redux-cube's pluggable module for react-router v4+",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
@@ -22,27 +22,10 @@
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
   "peerDependencies": {
-    "react": ">= 15.x",
-    "rxjs": ">= 5.5.5"
+    "react-router-dom": ">= 4.2.2"
   },
   "dependencies": {
-    "change-case": "^3.0.1",
-    "hoist-non-react-statics": "^2.3.1",
-    "lodash": "^4.17.4",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1",
-    "redux-debounced": "^0.4.0",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-immutable": "^4.0.0",
-    "redux-immutable-state-invariant": "^2.1.0",
-    "redux-logger": "^3.0.6",
-    "redux-observable": "^0.17.0",
-    "redux-persist": "^5.3.5",
-    "redux-promise-middleware": "^4.4.2",
-    "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "topologically-combine-reducers": "^0.0.5"
+    "react-router-redux": ">= 5.0.0-alpha.8"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -62,6 +45,7 @@
   "keywords": [
     "redux",
     "redux-cube",
+    "react-router",
     "boilerplate",
     "webcube"
   ]

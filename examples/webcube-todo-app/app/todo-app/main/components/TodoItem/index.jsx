@@ -87,7 +87,7 @@ export default class TodoItem extends PureComponent {
             onClick={onToggle}
           />
           <label onDoubleClick={this.handleStartInput}>{content}</label>
-          <button className="destroy" onClick={onDelete} />
+          <button type="button" className="destroy" onClick={onDelete} />
         </div>
         <input
           className="edit"

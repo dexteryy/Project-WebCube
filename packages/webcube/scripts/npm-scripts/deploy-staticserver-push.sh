@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 (
   docker build ./ --tag "$npm_package_config_webcube_staticserver_container:production"
 ) && (

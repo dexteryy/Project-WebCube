@@ -10,6 +10,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 // https://www.npmjs.com/package/topologically-combine-reducers
 import topologicallyCombineReducers from 'topologically-combine-reducers';
+import thunkPayloadMiddleware from '../middlewares/thunkPayload';
 import { combineReducersWith } from '../utils';
 
 const isProdEnv = process.env.NODE_ENV === 'production';
@@ -149,13 +150,16 @@ export default function appState({
   // https://redux.js.org/docs/api/applyMiddleware.html
   const middlewaresToApply = [
     ...priorMiddlewares,
+    // https://www.npmjs.com/package/redux-thunk#injecting-a-custom-argument
+    // https://github.com/gaearon/redux-thunk/blob/master/src/index.js
+    thunkMiddleware,
+    thunkPayloadMiddleware(),
     createDebounce(),
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/introduction.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-suffixes.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-separators.md
+    // https://github.com/pburtchaell/redux-promise-middleware/blob/master/src/index.js
     promiseMiddleware(promiseMiddlewareConfig),
-    // https://www.npmjs.com/package/redux-thunk#injecting-a-custom-argument
-    thunkMiddleware,
     // https://redux-observable.js.org/docs/basics/SettingUpTheMiddleware.html
     createEpicMiddleware(combineEpics(...epics)),
     ...middlewares,

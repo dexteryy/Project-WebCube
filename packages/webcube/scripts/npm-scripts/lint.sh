@@ -1,11 +1,11 @@
-#!/bin/sh
-webcubeRoot="."
+#!/bin/bash
+repoRoot="."
 binRoot="."
 if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  webcubeRoot="${npm_package_config_webcube_monorepo_root}"
+  repoRoot="${npm_package_config_webcube_monorepo_root}"
   binRoot="${npm_package_config_webcube_monorepo_root}"
   if [[ ! -d ${binRoot}/node_modules/ ]]; then
-    webcubeRoot="."
+    repoRoot="."
     binRoot="./node_modules/webcube"
   fi
 fi

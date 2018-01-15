@@ -21,9 +21,11 @@
     "build": "npm run clear && npm run build:dist",
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
+  "peerDependencies": {
+    "react-router": "< 4"
+  },
   "dependencies": {
-    "react-router": "^3.2.0",
-    "react-router-redux": "^4.0.8"
+    "react-router-redux": "< 5"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -43,6 +45,7 @@
   "keywords": [
     "redux",
     "redux-cube",
+    "react-router",
     "boilerplate",
     "webcube"
   ]

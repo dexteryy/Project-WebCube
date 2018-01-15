@@ -180,48 +180,22 @@ const getCssLoaderConfig = cssOpt =>
     ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader`)
     : `style?singleton!css?${cssOpt}!postcss-loader`;
 
-/*
-   * issue:
-   * root prior to workspace
-   * ./pacages/redux-cube/node_modules/ - none
-   * ./pacages/redux-cube-withrouter3/node_modules/react-router/ - v3
-   * ./node_modules/react-router/ - v4
-   * workspace prior to root
-   * ./pacages/redux-cube/node_modules/react-router-redux - v4
-   * ./pacages/redux-cube-withrouter3/node_modules/ - none
-   * ./node_modules/react-router-redux/ - v3
-   * solution:
-   * workspace prior to root except unused workspaces
-   */
 const es6Packages = JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || [];
-const workspacesForNode = ['webcube'];
-const workspacesForBrowser = [
-  'webcube',
-  'redux-cube',
-  // @TODO
-  // 'redux-cube-withrouter3',
-  'hifetch',
-];
 
 const resolvePathsForNode = (projectPath !== rootPath
   ? [path.join(projectPath, 'node_modules')]
   : []
-)
-  .concat(
-    workspacesForNode.map(workspace =>
-      path.join(rootPath, 'node_modules', workspace, 'node_modules')
-    )
-  )
-  .concat([path.join(rootPath, 'node_modules')]);
+).concat([
+  path.join(rootPath, 'node_modules/webcube', 'node_modules'),
+  path.join(rootPath, 'node_modules'),
+]);
 
 const resolvePathsForBrowser = (projectPath !== rootPath
   ? [path.join(projectPath, 'node_modules')]
   : []
 )
   .concat(
-    workspacesForBrowser.map(workspace =>
-      path.join(rootPath, 'node_modules', workspace, 'node_modules')
-    )
+    es6Packages.map(workspace => path.join(rootPath, workspace, 'node_modules'))
   )
   .concat([path.join(rootPath, 'node_modules')]);
 
@@ -280,7 +254,6 @@ module.exports = Object.assign(
             path.join(projectPath, 'src'),
             path.join(projectPath, 'staticweb'),
             modulePath,
-            path.join(projectPath, 'node_modules', 'redux-cube'),
           ]
             .concat(es6Packages.map(module => path.join(rootPath, module)))
             .concat(customConfig.babelLoaderInclude),

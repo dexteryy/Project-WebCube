@@ -1,6 +1,8 @@
 /* eslint-disable filenames/match-exported */
 // https://github.com/ReactTraining/react-router/tree/v3/docs
+/* eslint-disable import/named */
 import { browserHistory, hashHistory } from 'react-router';
+/* eslint-enable import/named */
 // https://www.npmjs.com/package/react-router-redux
 import {
   syncHistoryWithStore,

@@ -10,6 +10,9 @@
       "path": "packages/redux-cube"
     },
     {
+      "path": "packages/redux-cube-withrouter"
+    },
+    {
       "path": "packages/redux-cube-withrouter3"
     },
     {

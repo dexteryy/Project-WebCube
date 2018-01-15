@@ -28,7 +28,7 @@ redux-cube's pluggable module for react-router v3
 npm install --save-dev redux-cube-withrouter3
 ```
 
-For react-router v4+, use `import { withRouter } from 'redux-cube'`
+For react-router v4+, use [redux-cube-withrouter](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withrouter)
 
 ## Get Started
 

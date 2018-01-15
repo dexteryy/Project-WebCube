@@ -22,37 +22,39 @@
 --- | --- | --- |
 iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
 
-Redux Cube is a app state manager. It's a set of wrappers which simplify the use of Redux and its whole ecosystem, reduce boilerplate, and provide many features (Sub App, Reducer Bundle, ...)
+Redux Cube is an app state manager. It is part of my effort to simplify the usage of all 'mainstream' tools and best practices mentioned in the [Spellbook of Modern Web Dev](https://github.com/dexteryy/spellbook-of-modern-webdev/). It can reduce boilerplate and support many patterns (like Sub App, Reducer Bundle, ...)
 
-Slides: [Introduction to Redux Cube](https://app.cubemage.cn/slides/intro-to-redux-cube/index.html)
+
+<!-- Slides: [Introduction to Redux Cube](https://app.cubemage.cn/slides/intro-to-redux-cube/index.html) -->
 
 ```
 npm install --save-dev redux-cube
 ```
 
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 
-* [Redux Cube](#redux-cube)
-	* [Examples](#examples)
-	* [Overview](#overview)
-		* [Action Type](#action-type)
-		* [Action Creators](#action-creators)
-		* [Reducers](#reducers)
-		* [Ducks Modular / Reducer Bundle](#ducks-modular-reducer-bundle)
-		* [Sub-Apps](#sub-apps)
-		* [Connect to React Components](#connect-to-react-components)
-		* [Async Action Creators](#async-action-creators)
-		* [Immutable](#immutable)
-	* [Modules](#modules)
-		* [redux-cube](#redux-cube-1)
-		* [redux-cube/lib/plugins](#redux-cubelibplugins)
-		* [redux-cube/lib/helpers](#redux-cubelibhelpers)
-	* [Redux Ecosystem](#redux-ecosystem)
-		* [Built-in Wrapped Packages](#built-in-wrapped-packages)
-		* [Optional Built-in Wrapped Packages](#optional-built-in-wrapped-packages)
-		* [Non-wrapped Recommended Packages](#non-wrapped-recommended-packages)
+* [Examples](#examples)
+* [Overview](#overview)
+	* [Action Type](#action-type)
+	* [Action Creators](#action-creators)
+	* [Reducers](#reducers)
+	* [Async Action Creators / Side Effects](#async-action-creators-side-effects)
+	* [Ducks Modular / Reducer Bundle](#ducks-modular-reducer-bundle)
+	* [Connect to React Components](#connect-to-react-components)
+	* [Sub-Apps](#sub-apps)
+	* [Immutable](#immutable)
+* [API](#api)
+	* [redux-cube](#redux-cube-1)
+		* [`createApp`](#createapp)
+		* [`createHub`](#createhub)
+		* [`connect`](#connect)
+	* [Plugins](#plugins)
+		* [withPersist](#withpersist)
+		* [withImmutable](#withimmutable)
+		* [withRouter](#withrouter)
+		* [withRouter3](#withrouter3)
 
 <!-- /code_chunk_output -->
 
@@ -64,7 +66,7 @@ npm install --save-dev redux-cube
 
 ## Overview
 
-![](overview.png)
+<!-- ![](overview.png) -->
 
 ### Action Type
 
@@ -74,6 +76,8 @@ import { createHub } from 'redux-cube';
 
 export default createHub();
 ```
+
+`createHub` returns a `Hub` instance which is an namespace manager of action types and a set of helper functions used to generate standard action object (follow [Flux Standard Action](https://www.npmjs.com/package/flux-standard-action) and other best practices) and action creators.
 
 ```js
 // sampleApp/actions/sample.js
@@ -106,6 +110,40 @@ export const { actions, types } = hub.add({
 });
 ```
 
+The above codes are equivalent.
+
+```js
+console.log(types)
+// {
+//   'NAMESPACE/MORE_NAMESPACE/MY_TYPE': defaultActionCreator,
+// }
+
+console.log(actions)
+// {
+//   namespace: {
+//     moreNamespace: {
+//       myType: defaultActionCreator,
+//     },
+//   },
+// }
+```
+
+The `defaultActionCreator` is equivalent to:
+
+```js
+() => ({
+  type: 'NAMESPACE/MORE_NAMESPACE/MY_TYPE',
+  payload: defaultPayloadCreator,
+  meta: undefined,
+})
+```
+
+The `defaultPayloadCreator` is equivalent to:
+
+```js
+a => a
+```
+
 ### Action Creators
 
 ```js
@@ -131,40 +169,27 @@ export const { actions, types } = hub.add({
 });
 ```
 
-Call the action creator (default payloadCreator)
-
 ```js
 actions.namespace.moreNamespace.myType(10);
 // or
 types['NAMESPACE/MORE_NAMESPACE/MY_TYPE'](10);
+// results:
+// {
+//   "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE",
+//   "payload": 10
+// }
 ```
 
-Result:
-
 ```js
-{
-  "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE",
-  "payload": 10
-}
-```
-
-Call the action creator (custom payloadCreator and metaCreator)
-
-```js
-// call action creator
 actions.namespace.moreNamespace.myType4(1, 10);
 // or
 types['NAMESPACE/MORE_NAMESPACE/MY_TYPE_4'](1, 10);
-```
-
-Result:
-
-```js
-{
-  "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE_4",
-  "payload": { data: 11 },
-  "meta": { "a": 1, "b": 10 }
-}
+// result:
+// {
+//   "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE_4",
+//   "payload": { data: 11 },
+//   "meta": { "a": 1, "b": 10 }
+// }
 ```
 
 ### Reducers
@@ -181,6 +206,97 @@ export const { reducer } = hub.handle({
   },
   anotherType: (state, { payload, meta }) => newState,
 }, initialStateForASliceOfStore);
+```
+
+### Async Action Creators / Side Effects
+
+* [redux-thunk](https://www.npmjs.com/package/redux-thunk)
+* [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware)
+* [redux-cube's Thunk Payload Middleware](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube/lib/middlewares/thunkPayload.js)
+* [redux-debounced](https://www.npmjs.com/package/redux-debounced)
+* [redux-observable](https://www.npmjs.com/package/redux-observable)
+
+```js
+// sampleApp/actions/users.js
+import { reset } from 'redux-form';
+import hifetch from 'hifetch';
+import hub from '../hub';
+
+export const { actions, types } = hub.add({
+  users: {
+    fetchAll: () =>
+      // handle by redux-promise-middleware
+      hifetch({
+        url: '/v1/users/',
+      }).send(),
+
+    add: [
+      (userId, userData, opt) =>
+        // handled by Thunk Payload Middleware
+        dispatch =>
+          // handle by redux-promise-middleware
+          hifetch({
+            url: `/v1/users/${userId}`,
+            method: 'put',
+            data: userData,
+            ...opt,
+          }).send().then(response => {
+            dispatch(reset('userInfos'));
+            return response;
+          }),
+      userId => ({
+        userId,
+      }),
+    ],
+
+    edit: [
+      (userId, userData) =>
+        // handle by redux-promise-middleware
+        hifetch({
+          url: `/v1/users/${userId}`,
+          method: 'post',
+          data: userData,
+        }).send(),
+      userId => ({
+        userId,
+      }),
+    ],
+
+  },
+});
+```
+
+```js
+// sampleApp/reducers/users.js
+import Immutable from 'immutable';
+import hub from '../hub';
+import { types as existTypes } from '../actions/users';
+
+export const { reducer, actions, types } = hub.handle(
+  {
+    users: {
+      fetchAllPending: state => state.set('isLoading', true),
+      fetchAllFulfilled: (state, { payload }) =>
+        state.mergeDeep({
+          users: Immutable.fromJS(payload.data),
+          isLoading: false,
+        }),
+      fetchAllRejected: state => state.set('isLoading', false),
+      addPending: state => state.set('isLoading', true),
+      // ...
+      updateRejected: state => state.set('isLoading', false),
+      deleteFulfilled: (state, { payload }) =>
+        state.set(
+          'users',
+          state.get('users').filter(user => user.get('id') !== payload.userId),
+        ),
+    },
+  },
+  Immutable.fromJS({
+    users: [],
+    isLoading: false,
+  }),
+).with(existTypes); // see Reducer Bundle
 ```
 
 ### Ducks Modular / Reducer Bundle
@@ -207,55 +323,131 @@ Redux Cube's Reducer Bundle:
 import hub from '../hub';
 
 export const { actions, types } = hub.add({
-  myType1: payloadCreator,
-  myType2: payloadCreator,
+  myType1: payloadCreator1,
+  myType2: payloadCreator2,
 });
 ```
 
 ```js
 // sampleApp/reducers/sample.js
-import { deepMerge } from 'redux-cube/lib/helpers';
 import hub from '../hub';
-import { types, actions } from '../actions/sample';
+import { types as existTypes } from '../actions/sample';
 
-const { reducer, types: handledTypes, actions: handledActions } = hub.handle(
+export const { reducer, types, actions } = hub.handle(
+  // declared action type
   myType1: (state, { payload, meta }) => newState,
+  // undeclared action type
   myType3: (state, { payload, meta }) => newState,
+  // undeclared action type
   myType4: (state, { payload, meta }) => newState,
-}, initialStateForASliceOfStore);
+}, initialStateForASliceOfStore).with(existTypes);
 
-const epics = [
+export const epics = [
   action$ =>
     action$.pipe(/* ... */)
 ];
-
-deepMerge(actions, handledActions);
-Object.assign(types, handledTypes);
-
-export { reducer, actions, types, epics };
 ```
 
 ```js
 import { actions, types } from '../reducers/sample';
 
 console.log(actions);
-
 // {
-//   myType1: actionCreator,
-//   myType2: actionCreator,
-//   myType3: actionCreator,
-//   myType4: actionCreator,
+//   myType1: actionCreator1,
+//   myType2: actionCreator2,
+//   myType3: defaultActionCreator,
+//   myType4: defaultActionCreator,
 // }
 
 console.log(types);
-
 // {
-//   MY_TYPE_1: actionCreator,
-//   MY_TYPE_2: actionCreator,
-//   MY_TYPE_3: actionCreator,
-//   MY_TYPE_4: actionCreator,
+//   MY_TYPE_1: actionCreator1,
+//   MY_TYPE_2: actionCreator2,
+//   MY_TYPE_3: defaultActionCreator,
+//   MY_TYPE_4: defaultActionCreator,
 // }
 ```
+
+It is highly recommended to use reducer files as the only authoritative sources of action types and action creators.
+
+Action files should be only used by reducer files. They should be totally transparent to all other code.
+
+Because `hub.handle` can automatically add actions for undeclared action types, you only need to manually call `hub.add` (and maybe write them in a separate action file) when these actions have side effects
+
+### Connect to React Components
+
+```js
+import { connect } from 'redux-cube';
+import { autobind } from 'core-decorators';
+import { actions as todoActions } from '../reducers/todo';
+
+@connect({
+  select: {
+    todo: {
+     input: true,
+     items: true,
+    },
+  },
+  transform: (input, items) => ({
+    input,
+    items,
+    count: items.filter(item => !item.isCompleted).length,
+  }),
+ actions: todoActions,
+})
+export default class Main extends PureComponent {
+  @autobind
+  handleInputChange(content) {
+   this.props.actions.todo.changeInput(content);
+  }
+  render() {
+    const { input, items, count } = this.props;
+```
+
+Te above code is equal to
+
+```js
+// ...
+
+@connect({
+  selectors: [
+    state => state.todo.input,
+    state => state.todo.items,
+  ],
+  // ...
+```
+
+or
+
+```js
+// ...
+import { createSelector } from 'reselect';
+
+@connect({
+  mapStateToProps: createSelector(
+    [
+      state => state.todo.input,
+      state => state.todo.items,
+    ],
+    transform: (input, items) => ({
+      input,
+      items,
+      count: items.filter(item => !item.isCompleted).length,
+    }),
+  ),
+  mapDispatchToProps: dispatch => ({
+    actions: {
+      todo: {
+        changeInput: (...args) => dispatch(
+          todoActions.todo.changeInput(...args)
+        ),
+      },
+    },
+  }),
+})
+export default class Main extends PureComponent {
+```
+
 
 ### Sub-Apps
 
@@ -294,8 +486,8 @@ export const App = SampleApp;
 ```js
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import withRouter from 'redux-cube/lib/plugins/withRouter';
 import { createApp } from 'redux-cube';
+import withRouter from 'redux-cube-withrouter';
 import { App as TodoApp } from '../todo-app/main';
 
 const JediTodoApp = () => (
@@ -350,171 +542,21 @@ class EntryApp extends Component {
 export const App = EntryApp;
 ```
 
-### Connect to React Components
-
-```js
-import { connect } from 'redux-cube';
-import { autobind } from 'core-decorators';
-import { actions as todoActions } from '../reducers/todo';
-
-@connect({
-  select: {
-    todo: {
-     input: true,
-     items: true,
-    },
-  },
-  transform: (input, items) => ({
-    input,
-    items,
-    count: items.filter(item => !item.isCompleted).length,
-  }),
- actions: todoActions,
-})
-export default class Main extends PureComponent {
-  @autobind
-  handleInputChange(content) {
-   this.props.actions.todo.changeInput(content);
-  }
-  render() {
-    const { input, items, count } = this.props;
-```
-
-### Async Action Creators
-
-* [redux-thunk](https://www.npmjs.com/package/redux-thunk)
-* [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware)
-* [redux-debounced](https://www.npmjs.com/package/redux-debounced)
-* [redux-observable](https://www.npmjs.com/package/redux-observable)
-
-[hifetch](https://www.npmjs.com/package/hifetch) + [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware) + [redux-thunk](https://www.npmjs.com/package/redux-thunk):
-
-```js
-import { reset } from 'redux-form';
-import hifetch from 'hifetch';
-import hub from '../hub';
-
-export const { actions, types } = hub.add({
-  users: {
-    fetchAll: () =>
-      hifetch({
-        url: '/v1/users/',
-      }).send(),
-
-    toAdd: {
-      [hub.ACTION_CREATOR]: (userId, userData) => dispatch =>
-        dispatch(
-          actions.users.save(userId, userData, {
-            success(result) {
-              dispatch(reset('userInfos'));
-              return result;
-            },
-          }),
-        ),
-    },
-
-    add: [
-      (userId, userData, opt) =>
-        hifetch({
-          url: `/v1/users/${userId}`,
-          method: 'put',
-          data: userData,
-          ...opt,
-        }).send(),
-      userId => ({
-        userId,
-      }),
-    ],
-
-    edit: [
-      (userId, userData) =>
-        hifetch({
-          url: `/v1/users/${userId}`,
-          method: 'post',
-          data: userData,
-        }).send(),
-      userId => ({
-        userId,
-      }),
-    ],
-
-    delete: [
-      userId =>
-        hifetch({
-          url: `/v1/users/${userId}`,
-          method: 'delete',
-        }).send(),
-      userId => ({
-        userId,
-      }),
-    ],
-  },
-});
-```
-
-```js
-import { deepMerge } from 'redux-cube/lib/helpers';
-import Immutable from 'immutable';
-import hub from '../hub';
-import { actions as existActions, types as existTypes } from '../actions/users';
-
-const { reducer, actions, types } = hub.handle(
-  {
-    users: {
-      fetchAllPending: state => state.set('isLoading', true),
-      fetchAllFulfilled: (state, { payload }) =>
-        state.mergeDeep({
-          users: Immutable.fromJS(payload.data),
-          isLoading: false,
-        }),
-      fetchAllRejected: state => state.set('isLoading', false),
-      addPending: state => state.set('isLoading', true),
-      // ...
-      updateRejected: state => state.set('isLoading', false),
-      deleteFulfilled: (state, { payload }) =>
-        state.set(
-          'users',
-          state.get('users').filter(user => user.get('id') !== payload.userId),
-        ),
-    },
-  },
-  Immutable.fromJS({
-    users: [],
-    isLoading: false,
-  }),
-);
-
-deepMerge(actions, existActions);
-deepMerge(types, existTypes);
-
-export { reducer, actions, types };
-
-```
-
 ### Immutable
-
-ImmutableJS object + [redux-immutable](https://www.npmjs.com/package/redux-immutable)
-
-```js
-@createApp(withImmutable(withRouter({
-  reducers, //
-  // ...
-})))
-```
 
 [Frozen](https://www.npmjs.com/package/redux-immutable-state-invariant) plain object + [immutability-helper](https://www.npmjs.com/package/immutability-helper) / [icepick](https://www.npmjs.com/package/icepick) / [seamless-immutable](https://www.npmjs.com/package/seamless-immutable) / [dot-prop-immutable](https://www.npmjs.com/package/dot-prop-immutable) / [object-path-immutable](https://www.npmjs.com/package/object-path-immutable) / [timm](https://www.npmjs.com/package/timm) / [updeep](https://www.npmjs.com/package/updeep)
 
 ```js
 @createApp(withPersist(withRouter({
   reducers,
- disableFreezeState: false, // default
+  disableFreezeState: false, // default
   enableTopologic: true,
   // ...
 })))
 ```
 
 ```js
-import { update } from 'redux-cube/lib/helpers';
+import update from 'immutability-helper';
 import hub from '../hub';
 
 export const { reducer, types, actions } = hub.handle({
@@ -541,30 +583,131 @@ export const { reducer, types, actions } = hub.handle({
 });
 ```
 
-## Modules
+ImmutableJS object + [redux-immutable](https://www.npmjs.com/package/redux-immutable)
+
+```js
+@createApp(withImmutable(withRouter({
+  reducers, //
+  // ...
+})))
+```
+
+
+## API
 
 ### redux-cube
 
-* `import { createApp, createHub, connect } from 'redux-cube'`
-* `createApp` is mainly a wrapper of [redux API](https://redux.js.org/docs/api/) and some must-have action middlewares, store enhancers, high-order reducers and high-order components. It provides the support for [Sub-App pattern](https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400) (React component with its own isolated Redux store)
-* `createHub` is an enhancer (almost a rewrite) of [redux-actions](https://www.npmjs.com/package/redux-actions). It provides the support for [Reducer-Bundle-or-Ducks-Modular-like pattern](https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be)
-* `connect` is mainly a wrapper of [react-redux](https://www.npmjs.com/package/react-redux) and  [reselect](https://www.npmjs.com/package/reselect)
+```js
+import { createApp, createHub, connect } from 'redux-cube'
+```
 
-### redux-cube/lib/plugins
+#### `createApp`
 
-* `import withRouter from 'redux-cube/lib/plugins/withPersist'`
-  * Add support to `createApp` for [redux-persist](https://www.npmjs.com/package/redux-persist)
-* `import withRouter from 'redux-cube/lib/plugins/withRouter'`
-  * Add support to `createApp` for [react-router v4+](https://reacttraining.com/react-router/) + [react-router-redux v5+](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)
-* `import withRouter3 from 'redux-cube-withrouter3'`
-  * Add support to `createApp` for [react-router v3](https://github.com/ReactTraining/react-router/tree/v3/docs) + [react-router-redux v4](https://github.com/reactjs/react-router-redux)
-* `import withImmutable from 'redux-cube/lib/plugins/withImmutable'`
-  * Add support to `createApp` for [redux-immutable](https://www.npmjs.com/package/redux-immutable)
+It's mainly a wrapper of [redux API](https://redux.js.org/docs/api/) and some must-have action middlewares, store enhancers, high-order reducers and high-order components.
 
-### redux-cube/lib/helpers
+It provides the support for [Sub-App pattern](https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400) (React component with its own isolated Redux store)
 
-* `import { update, deepMerge } from 'redux-cube/lib/helpers'`
-* Provide some utility fuctions, such as [immutability-helper](https://www.npmjs.com/package/immutability-helper)'s `update`
+Options
+
+* `reducers`
+* `reducer`
+* `reducerDeps`
+* `epics`
+  * https://redux-observable.js.org/docs/basics/Epics.html
+* `disableDevTools`
+* `devToolsOptions`
+  * https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md
+* `disableFreezeState`
+* `enableTopologic`
+  * https://www.npmjs.com/package/topologically-combine-reducers
+* `loggerConfig`
+  * https://www.npmjs.com/package/redux-logger#options
+* promiseMiddlewareConfig`
+  * https://github.com/pburtchaell/redux-promise-middleware/blob/4843291da348fc8ed633c41e6afbc796f7152cc6/src/index.js#L14
+* `preloadedState`
+  * https://redux.js.org/docs/recipes/reducers/InitializingState.html
+* `middlewares`
+  * https://redux.js.org/docs/advanced/Middleware.html
+  * https://redux.js.org/docs/api/applyMiddleware.html
+* `priorMiddlewares`
+* `enhancers`
+  * https://redux.js.org/docs/Glossary.html#store-enhancer
+* `priorEnhancers`
+* `storeListeners`
+
+#### `createHub`
+
+An superset and enhanced implement (almost a rewrite) of [redux-actions](https://www.npmjs.com/package/redux-actions).
+
+It provides the support for namespace management and [Reducer-Bundle-or-Ducks-Modular-like pattern](https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be)
+
+Options:
+
+* `delimiter`
+
+#### `connect`
+
+It's mainly a wrapper of [react-redux](https://www.npmjs.com/package/react-redux) and  [reselect](https://www.npmjs.com/package/reselect)
+
+Options:
+
+* `selectors`
+* `select`
+* `transform`
+* `mapStateToProps`
+* `actions`
+* `actionsProp`
+* `mapDispatchToProps`
+
+### Plugins
+
+#### withPersist
+
+```js
+import withPersist from 'redux-cube/lib/plugins/withPersist'
+```
+
+Add support to `createApp` for [redux-persist](https://www.npmjs.com/package/redux-persist)
+
+Options:
+
+* `persistStorage`
+* `persistKey`
+* `persistConfig`
+
+#### withImmutable
+
+```js
+import withImmutable from 'redux-cube/lib/plugins/withImmutable'
+```
+
+Add support to `createApp` for [redux-immutable](https://www.npmjs.com/package/redux-immutable)
+
+#### withRouter
+
+```js
+import withRouter from 'redux-cube-withrouter'
+```
+
+Add support to `createApp` for [react-router v4+](https://reacttraining.com/react-router/) + [react-router-redux v5+](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)
+
+Options:
+
+* `supportHtml5History`
+* `routerConfig`
+
+#### withRouter3
+
+```js
+import withRouter3 from 'redux-cube-withrouter3'
+```
+
+Add support to `createApp` for [react-router v3](https://github.com/ReactTraining/react-router/tree/v3/docs) + [react-router-redux v4](https://github.com/reactjs/react-router-redux)
+
+Options:
+
+* `disableHashRouter`
+* `routerHistoryConfig`
 
 <!-- ### redux-cube/lib/remote (TODO)
 
@@ -589,43 +732,3 @@ export const { reducer, types, actions } = hub.handle({
 * `import bugSnag from 'redux-cube/lib/track/bugSnag'`
 * `import googleAnalytics from 'redux-cube/lib/track/googleAnalytics'`
 * Alternative or complement to [redux-beacon](https://www.npmjs.com/package/redux-beacon), [redux-raven-middleware](https://www.npmjs.com/package/redux-raven-middleware) / [raven-for-redux](https://www.npmjs.com/package/raven-for-redux), [redux-catch](https://www.npmjs.com/package/redux-catch) -->
-
-## Redux Ecosystem
-
-### Built-in Wrapped Packages
-
-* [react-redux](https://www.npmjs.com/package/react-redux)
-* [reselect](https://www.npmjs.com/package/reselect)
-* [flux-standard-action](https://www.npmjs.com/package/flux-standard-action)
-* [redux-actions](https://www.npmjs.com/package/redux-actions)
-* [topologically-combine-reducers](https://www.npmjs.com/package/topologically-combine-reducers)
-* [redux-logger](https://www.npmjs.com/package/redux-logger)
-* [redux-thunk](https://www.npmjs.com/package/redux-thunk)
-* [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware)
-* [redux-debounced](https://www.npmjs.com/package/redux-debounced)
-* [redux-observable](https://www.npmjs.com/package/redux-observable)
-* [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension#1-with-redux)
-
-### Optional Built-in Wrapped Packages
-
-* [redux-persist](https://www.npmjs.com/package/redux-persist)
-* [react-router v4+](https://reacttraining.com/react-router/) + [react-router-redux v5+](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)
-* [react-router v3](https://github.com/ReactTraining/react-router/tree/v3/docs) + [react-router-redux v4](https://github.com/reactjs/react-router-redux)
-* [immutability-helper](https://www.npmjs.com/package/immutability-helper)
-* [redux-immutable](https://www.npmjs.com/package/redux-immutable) + [immutable](https://www.npmjs.com/package/immutable)
-* [redux-axios-middleware](https://www.npmjs.com/package/redux-axios-middleware)
-* [react-block-ui](https://www.npmjs.com/package/react-block-ui)
-* [react-notification-system-redux](https://www.npmjs.com/package/react-notification-system-redux)
-* [react-redux-toastr](https://www.npmjs.com/package/react-redux-toastr)
-
-### Non-wrapped Recommended Packages
-
-* [normalizr](https://www.npmjs.com/package/normalizr)
-* [redux-optimistic-ui](https://www.npmjs.com/package/redux-optimistic-ui)
-* [localforage](https://www.npmjs.com/package/localforage)
-* [redux-form](https://redux-form.com/)
-* [redux-undo](https://www.npmjs.com/package/redux-undo)
-* [react-intl-redux](https://www.npmjs.com/package/react-intl-redux)
-* [redux-auth-wrapper](https://www.npmjs.com/package/redux-auth-wrapper)
-* [redux-test-utils](https://www.npmjs.com/package/redux-test-utils) + [enzyme-redux](https://www.npmjs.com/package/enzyme-redux)
-* [redux-testkit](https://www.npmjs.com/package/redux-testkit)

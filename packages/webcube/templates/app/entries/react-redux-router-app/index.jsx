@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import withRouter from 'redux-cube/lib/plugins/withRouter';
+import withRouter from 'redux-cube-withrouter';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
 import googleTagManager from 'webcube/boilerplate/external/googleTagManager';

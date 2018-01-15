@@ -3,6 +3,7 @@ node_modules/
 *.log
 *.pid
 .webcube-version
+.project-version
 env.config
 env.json
 rev-version.json

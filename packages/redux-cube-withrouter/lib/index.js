@@ -1,3 +1,4 @@
+/* eslint-disable filenames/match-exported */
 import createBrowserHistory from 'history/createBrowserHistory';
 import createHashHistory from 'history/createHashHistory';
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
@@ -30,3 +31,4 @@ export default function withRouter({
     ...config,
   };
 }
+/* eslint-enable filenames/match-exported */

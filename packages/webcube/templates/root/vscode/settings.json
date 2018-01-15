@@ -1,9 +1,7 @@
 {
-  "eslint.workingDirectories": [
-    "./configs"
-  ],
   "files.associations": {
     "*.config": "properties",
+    ".code-workspace": "json",
     ".babelrc": "json",
     "babelrc": "json",
     ".eslintrc": "json",
@@ -11,9 +9,13 @@
     ".stylelintrc": "json",
     "stylelintrc": "json",
     ".htmlhintrc": "json",
-    "htmlhintrc": "json"
+    "htmlhintrc": "json",
+    "Procfile*": "shellscript",
+    "README": "markdown"
   },
+  "search.useIgnoreFiles": true,
   "search.exclude": {
+    "**/dist": true,
     "**/build": true,
     "**/yarn.lock": true,
     "**/package-lock.json": true,
@@ -34,6 +36,11 @@
   "eslint.nodePath": "./node_modules",
   "eslint.enable": true,
   "eslint.run": "onType",
+  "eslint.options": {
+    "rules": {
+      "no-debugger": "off"
+    }
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact"
@@ -65,6 +72,13 @@
   "eslint.autoFixOnSave": true,
   "prettier.parser": "babylon",
   "prettier.eslintIntegration": true,
+  "prettier.disableLanguages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
   "prettier.javascriptEnable": [
     // "javascript",
     // "javascriptreact"
@@ -75,7 +89,7 @@
     // "typescriptreact"
   ],
   // "typescript.format.enable": false,
-  "typescript.format.enable": true,
+  // "typescript.format.enable": true,
   "prettier.cssEnable": [
     "css",
     "less",
@@ -83,6 +97,12 @@
   ],
   "prettier.jsonEnable": [],
   "json.format.enable": true,
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+  },
   "prettier.graphqlEnable": [
     "graphql"
   ]

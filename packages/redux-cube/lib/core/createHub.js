@@ -1,6 +1,7 @@
 // https://www.npmjs.com/package/redux-actions
 import { createAction, handleAction, handleActions } from 'redux-actions';
 import changeCase from 'change-case';
+import deepMerge from 'lodash/merge';
 
 const ACTION_CREATOR = '__CUSTOM_ACTION_CREATOR__';
 const RE_IS_CONSTANT = /^[A-Z0-9_]+$/;
@@ -17,9 +18,7 @@ function normalizeActionType(key) {
     regularKey = changeCase.constantCase(key);
     if (!RE_IS_CONSTANT.test(regularKey)) {
       throw new Error(
-        `[redux-cube] action type "${
-          key
-        }" must be constant case ("TEST_STRING") or camel case ("testString").`,
+        `[redux-cube] action type "${key}" must be constant case ("TEST_STRING") or camel case ("testString").`,
       );
     }
   }
@@ -102,6 +101,19 @@ function unflattenDict(flattenDict, { root = {}, delimiter }) {
     });
   });
   return root;
+}
+
+function withTypes({ delimiter }) {
+  return function(types) {
+    /* eslint-disable babel/no-invalid-this */
+    const actions = unflattenDict(types, { delimiter });
+    return {
+      ...this,
+      types: Object.assign(this.types, types),
+      actions: deepMerge(this.actions, actions),
+    };
+    /* eslint-enable babel/no-invalid-this */
+  };
 }
 
 export class Hub {
@@ -202,6 +214,7 @@ export class Hub {
       types,
       actions,
       reducer: handleAction(regularType, reducer, initialState),
+      with: withTypes({ delimiter }),
     };
   }
 
@@ -226,6 +239,7 @@ export class Hub {
       reducer: handleActions(flatReducerMap, initialState, {
         namespace: delimiter,
       }),
+      with: withTypes({ delimiter }),
     };
   }
 
@@ -285,6 +299,27 @@ export class Hub {
       actionCreator = this.addAction(regularType).types[regularType];
     }
     return actionCreator(...args);
+  }
+
+  types(selectorMap) {
+    const { hub } = this;
+    const { delimiter } = this.config;
+    const paths = flattenActionNamespaces(selectorMap, { delimiter });
+    const results = {};
+    for (const type in hub) {
+      for (const path in paths) {
+        if (type === path || type.indexOf(`${path}${delimiter}`) === 0) {
+          results[type] = hub[type];
+        }
+      }
+    }
+    return results;
+  }
+
+  actions(selectorMap) {
+    const { delimiter } = this.config;
+    const types = this.types(selectorMap);
+    return unflattenDict(types, { delimiter });
   }
 }
 

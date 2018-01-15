@@ -14,6 +14,8 @@ import { App as SampleApp } from './sample';
 
 const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
 
+const toSample = () => <Redirect to="/sample" />;
+
 @withScripts(
   googleTagManager({
     googleTagManagerContainerId: 'UA-81044026-3',
@@ -21,7 +23,6 @@ const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
 )
 class ReactRouterApp extends Component {
   render() {
-    const toSample = () => <Redirect to="/sample" />;
     return (
       <Router>
         <Switch>

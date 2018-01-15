@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import { update } from 'redux-cube/lib/helpers';
+import update from 'immutability-helper';
 
 import hub from '../hub';
 
