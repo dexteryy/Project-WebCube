@@ -7,7 +7,7 @@ cd(projectPath);
 mkdir('-p', 'app/common', 'staticweb');
 
 cp('-r', path.join(modulePath, 'templates/configs'), './');
-cp(path.join(modulePath, 'configs/env.sample.config'), 'env.config');
+cp('configs/env.sample.config', 'env.config');
 
 cp(path.join(modulePath, 'templates/root/Dockerfile'), './');
 cp(path.join(modulePath, 'templates/root/dockerignore'), './');

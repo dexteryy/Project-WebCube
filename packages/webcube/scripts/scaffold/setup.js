@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 const path = require('path');
 const { cd, mkdir, cp, exit } = require('shelljs');
-const { projectPath, modulePath } = require('../../utils/beforeEnvConfig');
+const { modulePath } = require('../../utils/beforeEnvConfig');
 
-if (cd(projectPath).code !== 0) {
+if (cd().code !== 0) {
   exit(1);
 }
 mkdir('-p', 'app/common', 'staticweb');
 
 cp('-r', path.join(modulePath, 'templates/configs'), './');
-cp(path.join(modulePath, 'configs/env.sample.config'), 'env.config');
+cp('configs/env.sample.config', 'env.config');
 
 cp(path.join(modulePath, 'templates/root/Dockerfile'), './');
 cp(path.join(modulePath, 'templates/root/dockerignore'), './');
