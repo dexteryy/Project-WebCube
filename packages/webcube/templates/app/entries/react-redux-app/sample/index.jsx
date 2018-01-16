@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
 
-import { reducer as sampleReducer, epics } from './reducers/sample';
+import { reducer as sampleReducer, epics } from './ducks/sample';
 import Sample from './containers/Sample';
 
 @createApp(
@@ -16,7 +16,7 @@ import Sample from './containers/Sample';
     devToolsOptions: { name: 'SampleApp' },
     persistStorage: localforage,
     persistKey: 'sampleRoot1',
-  }),
+  })
 )
 class SampleApp extends Component {
   render() {

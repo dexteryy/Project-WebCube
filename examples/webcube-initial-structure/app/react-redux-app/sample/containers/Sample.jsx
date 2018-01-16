@@ -3,17 +3,12 @@ import Helmet from 'react-helmet';
 import { autobind } from 'core-decorators';
 import { connect } from 'redux-cube';
 
-import { actions } from '../reducers/sample';
+import { actions } from '../ducks/sample';
 import { TITLE } from '../constants/sample';
 import SampleList from '../components/SampleList';
 
 @connect({
-  select: {
-    items: {
-      log: true,
-      message: true,
-    },
-  },
+  selectors: [state => state.items.log, state => state.items.message],
   transform: (log, message) => ({
     log,
     message,

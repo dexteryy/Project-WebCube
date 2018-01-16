@@ -4,19 +4,14 @@ import { autobind } from 'core-decorators';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'redux-cube';
 
-import { actions as todoActions } from '../reducers/todo';
+import { actions as todoActions } from '../ducks/todo';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import List from './List';
 
 @withRouterMeta
 @connect({
-  select: {
-    todo: {
-      input: true,
-      items: true,
-    },
-  },
+  selectors: [state => state.todo.input, state => state.todo.items],
   transform: (input, items) => ({
     input,
     items,

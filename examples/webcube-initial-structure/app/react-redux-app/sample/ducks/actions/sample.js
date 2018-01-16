@@ -1,4 +1,4 @@
-import hub from '../hub';
+import hub from '../../hub';
 
 export const { types, actions } = hub.add({
   // use redux-promise-middleware

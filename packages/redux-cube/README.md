@@ -218,9 +218,10 @@ export const { reducer } = hub.handle({
 
 ```js
 // sampleApp/actions/users.js
-import { reset } from 'redux-form';
-import hifetch from 'hifetch';
 import hub from '../hub';
+// https://www.npmjs.com/package/hifetch
+import hifetch from 'hifetch';
+import { reset } from 'redux-form';
 
 export const { actions, types } = hub.add({
   users: {
@@ -249,13 +250,12 @@ export const { actions, types } = hub.add({
       }),
     ],
 
-    edit: [
+    delete: [
       (userId, userData) =>
         // handle by redux-promise-middleware
         hifetch({
           url: `/v1/users/${userId}`,
-          method: 'post',
-          data: userData,
+          method: 'delete',
         }).send(),
       userId => ({
         userId,
@@ -264,13 +264,24 @@ export const { actions, types } = hub.add({
 
   },
 });
+
+// handle by redux-observable
+export const epics = [
+  action$ =>
+    action$.pipe(
+      ofType('USERS/DELETE_FULFILLED'),
+      map(action => ({
+        type: 'NOTIFY',
+        payload: { text: 'DELETED!' },
+      }))
+    ),
+];
 ```
 
 ```js
 // sampleApp/reducers/users.js
-import Immutable from 'immutable';
 import hub from '../hub';
-import { types as existTypes } from '../actions/users';
+import Immutable from 'immutable';
 
 export const { reducer, actions, types } = hub.handle(
   {
@@ -284,7 +295,6 @@ export const { reducer, actions, types } = hub.handle(
       fetchAllRejected: state => state.set('isLoading', false),
       addPending: state => state.set('isLoading', true),
       // ...
-      updateRejected: state => state.set('isLoading', false),
       deleteFulfilled: (state, { payload }) =>
         state.set(
           'users',
@@ -296,7 +306,7 @@ export const { reducer, actions, types } = hub.handle(
     users: [],
     isLoading: false,
   }),
-).with(existTypes); // see Reducer Bundle
+);
 ```
 
 ### Ducks Modular / Reducer Bundle
@@ -319,8 +329,8 @@ Original Ducks Modular:
 Redux Cube's Reducer Bundle:
 
 ```js
-// sampleApp/actions/sample.js
-import hub from '../hub';
+// sampleApp/ducks/actions/sample.js
+import hub from '../../hub';
 
 export const { actions, types } = hub.add({
   myType1: payloadCreator1,
@@ -329,9 +339,9 @@ export const { actions, types } = hub.add({
 ```
 
 ```js
-// sampleApp/reducers/sample.js
+// sampleApp/ducks/sample.js
 import hub from '../hub';
-import { types as existTypes } from '../actions/sample';
+import { types as existTypes } from './actions/sample';
 
 export const { reducer, types, actions } = hub.handle(
   // declared action type
@@ -368,26 +378,25 @@ console.log(types);
 // }
 ```
 
-It is highly recommended to use reducer files as the only authoritative sources of action types and action creators.
+It is highly recommended to use "duck" files as the only authoritative sources of action types and action creators.
 
-Action files should be only used by reducer files. They should be totally transparent to all other code.
+Action files should be only used by "duck" files. They should be totally transparent to all other code.
 
 Because `hub.handle` can automatically add actions for undeclared action types, you only need to manually call `hub.add` (and maybe write them in a separate action file) when these actions have side effects
 
 ### Connect to React Components
 
 ```js
+// sampleApp/containers/Sample.jsx
 import { connect } from 'redux-cube';
 import { autobind } from 'core-decorators';
-import { actions as todoActions } from '../reducers/todo';
+import { actions as todoActions } from '../ducks/todo';
 
 @connect({
-  select: {
-    todo: {
-     input: true,
-     items: true,
-    },
-  },
+  selectors: [
+    state => state.todo.input,
+    state => state.todo.items,
+  ],
   transform: (input, items) => ({
     input,
     items,
@@ -405,19 +414,6 @@ export default class Main extends PureComponent {
 ```
 
 Te above code is equal to
-
-```js
-// ...
-
-@connect({
-  selectors: [
-    state => state.todo.input,
-    state => state.todo.items,
-  ],
-  // ...
-```
-
-or
 
 ```js
 // ...
@@ -448,17 +444,21 @@ import { createSelector } from 'reselect';
 export default class Main extends PureComponent {
 ```
 
+`mapDispatchToProps` option can be used together with `actions` option.
+
+`mapStateToProps` option can be used together with `selectors` option.
 
 ### Sub-Apps
 
 ```js
+// multipleTodoApp/todo/index.jsx
 import React, { Component } from 'react';
 import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
 
-import { reducer as sampleReducer, epics } from './reducers/sample';
-import { reducer as sample2Reducer, epics } from './reducers/sample2';
+import { reducer as sampleReducer, epics } from './ducks/sample';
+import { reducer as sample2Reducer, epics } from './ducks/sample2';
 import Sample from './containers/Sample';
 
 @createApp(withPersist({
@@ -469,26 +469,27 @@ import Sample from './containers/Sample';
     },
   },
   epics,
-  preloadedState: typeof window !== 'undefined' && window._preloadSampleData,
-  devToolsOptions: { name: 'SampleApp' },
+  preloadedState: typeof window !== 'undefined' && window._preloadTodoData,
+  devToolsOptions: { name: 'TodoApp' },
   persistStorage: localforage,
-  persistKey: 'sampleRoot2',
+  persistKey: 'todoRoot',
 }))
-class SampleApp extends Component {
+class TodoApp extends Component {
   render() {
     return <Sample />;
   }
 }
 
-export const App = SampleApp;
+export const App = TodoApp;
 ```
 
 ```js
+// multipleTodoApp/index.jsx
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { createApp } from 'redux-cube';
 import withRouter from 'redux-cube-withrouter';
-import { App as TodoApp } from '../todo-app/main';
+import { App as TodoApp } from './todo';
 
 const JediTodoApp = () => (
   <TodoApp
@@ -514,9 +515,7 @@ const SithTodoApp = () => (
     }}
   />
 );
-```
 
-```js
 @createApp(withRouter({
   supportHtml5History: isDynamicUrl(),
   devToolsOptions: { name: 'EntryApp' },
@@ -612,6 +611,7 @@ Options
 * `reducers`
 * `reducer`
 * `reducerDeps`
+  * https://www.npmjs.com/package/topologically-combine-reducers
 * `epics`
   * https://redux-observable.js.org/docs/basics/Epics.html
 * `disableDevTools`
@@ -652,7 +652,6 @@ It's mainly a wrapper of [react-redux](https://www.npmjs.com/package/react-redux
 Options:
 
 * `selectors`
-* `select`
 * `transform`
 * `mapStateToProps`
 * `actions`

@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
 
-import { reducer as todoReducer } from './reducers/todo';
+import { reducer as todoReducer } from './ducks/todo';
 import Main from './containers/Main';
 
 @createApp(

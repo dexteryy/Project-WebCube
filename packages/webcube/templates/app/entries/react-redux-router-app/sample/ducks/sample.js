@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import update from 'immutability-helper';
 
 import hub from '../hub';
-import { types as existTypes } from '../actions/sample';
+import { types as existTypes } from './actions/sample';
 
 let itemId = Date.now() * 1000;
 
@@ -38,7 +38,7 @@ export const { reducer, types, actions } = hub
     {
       log: [],
       message: '',
-    },
+    }
   )
   .with(existTypes);
 
@@ -49,6 +49,6 @@ export const epics = [
       map(action => ({
         type: 'LOG/ADD_ITEM',
         payload: { text: action.payload },
-      })),
+      }))
     ),
 ];

@@ -177,13 +177,21 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
+      path: path.join(projectPath, 'app/{{entryName}}/sample/ducks/sample.js'),
+      templateFile: path.join(
+        modulePath,
+        'templates/app/entries/react-redux-app/sample/ducks/sample.js'
+      ),
+    },
+    {
+      type: 'add',
       path: path.join(
         projectPath,
-        'app/{{entryName}}/sample/actions/sample.js'
+        'app/{{entryName}}/sample/ducks/actions/sample.js'
       ),
       templateFile: path.join(
         modulePath,
-        'templates/app/entries/react-redux-app/sample/actions/sample.js'
+        'templates/app/entries/react-redux-app/sample/ducks/actions/sample.js'
       ),
     },
     {
@@ -217,17 +225,6 @@ module.exports = function(plop) {
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/reducers/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/reducers/sample.js'
       ),
     },
     {
@@ -277,13 +274,21 @@ module.exports = function(plop) {
     },
     {
       type: 'add',
+      path: path.join(projectPath, 'app/{{entryName}}/sample/ducks/sample.js'),
+      templateFile: path.join(
+        modulePath,
+        'templates/app/entries/react-redux-router-app/sample/ducks/sample.js'
+      ),
+    },
+    {
+      type: 'add',
       path: path.join(
         projectPath,
-        'app/{{entryName}}/sample/actions/sample.js'
+        'app/{{entryName}}/sample/ducks/actions/sample.js'
       ),
       templateFile: path.join(
         modulePath,
-        'templates/app/entries/react-redux-router-app/sample/actions/sample.js'
+        'templates/app/entries/react-redux-router-app/sample/ducks/actions/sample.js'
       ),
     },
     {
@@ -317,17 +322,6 @@ module.exports = function(plop) {
       templateFile: path.join(
         modulePath,
         'templates/app/entries/react-redux-router-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/reducers/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/reducers/sample.js'
       ),
     },
     {

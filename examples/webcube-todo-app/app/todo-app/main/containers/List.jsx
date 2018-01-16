@@ -2,15 +2,11 @@ import React, { PureComponent } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'redux-cube';
 
-import { actions as todoActions } from '../reducers/todo';
+import { actions as todoActions } from '../ducks/todo';
 import TodoList from '../components/TodoList';
 
 @connect({
-  select: {
-    todo: {
-      items: true,
-    },
-  },
+  selectors: [state => state.todo.items],
   transform: items => ({
     items,
     isAllCompleted: !items.find(item => !item.isCompleted),
