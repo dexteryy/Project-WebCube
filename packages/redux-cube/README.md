@@ -50,7 +50,7 @@ npm install --save-dev redux-cube
 		* [`createApp`](#createapp)
 		* [`createHub`](#createhub)
 		* [`connect`](#connect)
-	* [Plugins](#plugins)
+	* [Plugins](#plugins)
 		* [withPersist](#withpersist)
 		* [withImmutable](#withimmutable)
 		* [withRouter](#withrouter)
@@ -658,7 +658,7 @@ Options:
 * `actionsProp`
 * `mapDispatchToProps`
 
-### Plugins
+### Plugins
 
 #### withPersist
 
