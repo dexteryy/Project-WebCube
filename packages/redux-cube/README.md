@@ -25,7 +25,7 @@ iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
 Redux Cube is an app state manager. It is part of my effort to simplify the usage of all 'mainstream' tools and best practices mentioned in the [Spellbook of Modern Web Dev](https://github.com/dexteryy/spellbook-of-modern-webdev/). It can reduce boilerplate and support many patterns (like Sub App, Reducer Bundle, ...)
 
 
-<!-- Slides: [Introduction to Redux Cube](https://app.cubemage.cn/slides/intro-to-redux-cube/index.html) -->
+Slides: [Introduction to Redux Cube](https://app.cubemage.cn/slides/intro-to-redux-cube/index.html)
 
 ```
 npm install --save-dev redux-cube
@@ -66,7 +66,7 @@ npm install --save-dev redux-cube
 
 ## Overview
 
-<!-- ![](overview.png) -->
+![](overview.png)
 
 ### Action Type
 
