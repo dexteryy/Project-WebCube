@@ -1,14 +1,14 @@
 {
-  "name": "redux-cube-withrouter3",
-  "version": "1.0.2",
-  "description": "redux-cube's pluggable module for react-router v3",
+  "name": "redux-graphql",
+  "version": "0.1.0",
+  "description": "",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-graphql",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-graphql",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
@@ -23,10 +23,12 @@
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
   "peerDependencies": {
-    "react-router": "< 4"
+    "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "react-router-redux": "< 5"
+    "change-case": "^3.0.1",
+    "graphql": "^0.12.3",
+    "graphql-tools": "^2.18.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -45,9 +47,8 @@
   },
   "keywords": [
     "redux",
-    "redux-cube",
-    "react-router",
-    "boilerplate",
+    "graphql",
+    "api",
     "webcube"
   ]
 }

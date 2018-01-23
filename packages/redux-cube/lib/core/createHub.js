@@ -41,7 +41,12 @@ function flattenActionNamespaces(
       // like combineActions, but support actionMap value
       key
         .split(',')
-        .map(newKey => normalizeActionType(newKey))
+        .map(newKey =>
+          newKey
+            .split(delimiter)
+            .map(splitedKey => normalizeActionType(splitedKey))
+            .join(delimiter),
+        )
         .forEach(newKey => {
           history.push(newKey);
           flattenActionNamespaces(
@@ -56,7 +61,10 @@ function flattenActionNamespaces(
         });
       continue;
     } else {
-      regularKey = normalizeActionType(key);
+      regularKey = key
+        .split(delimiter)
+        .map(splitedKey => normalizeActionType(splitedKey))
+        .join(delimiter);
     }
     if (
       !Array.isArray(value) &&

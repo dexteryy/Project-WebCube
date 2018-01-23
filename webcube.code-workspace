@@ -16,6 +16,9 @@
       "path": "packages/redux-cube-withrouter3"
     },
     {
+      "path": "packages/redux-graphql"
+    },
+    {
       "path": "packages/hifetch"
     },
     {

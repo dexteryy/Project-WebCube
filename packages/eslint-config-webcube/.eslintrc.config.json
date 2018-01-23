@@ -23,7 +23,9 @@
     "jest": false
   },
   // https://eslint.org/docs/user-guide/configuring#specifying-globals
-  "globals": {},
+  "globals": {
+    "gql": true
+  },
   // https://eslint.org/docs/user-guide/configuring#configuring-plugins
   "plugins": [
     // https://www.npmjs.com/package/eslint-plugin-prettier

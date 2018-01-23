@@ -10,6 +10,7 @@
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/hifetch",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/hifetch",
   "license": "MIT",
+  "webcube:module": "src/index.js",
   "module": "src/index.js",
   "main": "build/dist/index.js",
   "scripts": {

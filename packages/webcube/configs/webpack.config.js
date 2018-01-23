@@ -120,6 +120,7 @@ const babelLoaderPlugins = [
   'transform-decorators-legacy',
   'dynamic-import-webpack',
   ['lodash', { id: ['lodash', 'recompose'] }],
+  'graphql-tag',
 ];
 
 const reactTransformPlugins = [
@@ -239,6 +240,15 @@ module.exports = Object.assign(
       ),
       modulesDirectories: resolvePaths,
       extensions: ['', '.js', '.jsx'],
+      packageMains: [
+        'webcube:module',
+        'webpack',
+        'browser',
+        'web',
+        'browserify',
+        ['jam', 'main'],
+        'main',
+      ],
     },
     resolveLoader: {
       modulesDirectories: resolvePaths,
@@ -323,6 +333,10 @@ module.exports = Object.assign(
           loader: isProductionEnv
             ? 'file?name=data/[name]_[hash].[ext]'
             : 'file?name=data/[name].[ext]',
+        },
+        {
+          test: /\.(txt|gql)$/,
+          loader: 'raw',
         },
         {
           test: /\.(gif|png|jpe?g|svg)$/i,

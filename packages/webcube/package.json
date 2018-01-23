@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
+    "@playlyfe/gql": "^2.4.0",
     "aliyun-sdk": "^1.10.15",
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.4",
@@ -60,6 +61,7 @@
     "babel-loader": "^6.4.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
+    "babel-plugin-graphql-tag": "^1.3.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-react-transform": "^3.0.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
