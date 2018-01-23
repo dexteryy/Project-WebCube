@@ -1,5 +1,5 @@
 {
-  "name": "redux-graphql",
+  "name": "redux-source",
   "version": "0.1.1",
   "description": "",
   "author": "dexteryy <dexter.yy@gmail.com>",
@@ -7,8 +7,8 @@
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-graphql",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-graphql",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
