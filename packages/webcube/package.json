@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
-  "version": "1.0.0-alpha.46",
+  "version": "1.0.0-alpha.47",
   "license": "MIT",
   "main": "boilerplate/index.js",
   "bin": {
@@ -81,7 +81,7 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.13.1",
-    "eslint-config-webcube": "^1.0.0-rc.11",
+    "eslint-config-webcube": "^1.0.0",
     "exports-loader": "^0.6.4",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^1.0.1",
