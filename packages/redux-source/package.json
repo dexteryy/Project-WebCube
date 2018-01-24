@@ -28,7 +28,9 @@
   "dependencies": {
     "change-case": "^3.0.1",
     "graphql": "^0.12.3",
-    "graphql-tools": "^2.18.0"
+    "graphql-tools": "^2.18.0",
+    "normalizr": "^3.2.4",
+    "pluralize": "^7.0.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",

@@ -1,8 +1,8 @@
 import { execute } from 'graphql';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import changeCase from 'change-case';
-import { merge } from 'lodash';
-// import { normalize, schema } from 'normalizr';
+import { schema, normalize } from 'normalizr';
+import pluralize from 'pluralize';
 
 const mocks = {
   Int: () => 0,
@@ -11,6 +11,39 @@ const mocks = {
   Boolean: () => false,
   ID: () => Date.now() * 1000 + Math.floor(Math.random() * 1000),
 };
+
+function astToNormalizeSchema(gqlAst, { idAttribute }) {
+  const normalizeSchema = {};
+  const entityOption = { idAttribute };
+  const { definitions } = gqlAst;
+  const traverseProp = root => ({ name, selectionSet }) => {
+    if (!selectionSet) {
+      return;
+    }
+    const childRoot = {};
+    selectionSet.selections.forEach(traverseProp(childRoot));
+    if (name.value !== idAttribute) {
+      const entity = new schema.Entity(name.value, childRoot, entityOption);
+      root[name.value] = pluralize.isPlural(name.value) ? [entity] : entity;
+    }
+  };
+  definitions.forEach(({ selectionSet: { selections } }) => {
+    selections.forEach(traverseProp(normalizeSchema));
+  });
+  return normalizeSchema;
+}
+
+function normalizeData(originData, normalizeSchema) {
+  const res = {};
+  Object.keys(originData).forEach(key => {
+    const value = originData[key];
+    res[key] =
+      value && normalizeSchema[key]
+        ? normalize(value, normalizeSchema[key])
+        : value;
+  });
+  return res;
+}
 
 export function createSource({
   schema: typeDefs,
@@ -31,20 +64,34 @@ export function createSource({
     typeDefs,
     resolvers,
   });
-  return function source(gqlAst, { stateName = 'source' }) {
+  return function source(gqlAst, { stateName = 'source', idAttribute = 'id' }) {
+    const normalizeSchema = astToNormalizeSchema(gqlAst, { idAttribute });
     const { definitions } = gqlAst;
     const actions = {};
     const reducerMap = {};
-    const defaultResult = {};
+    const defaultResult = {
+      [stateName]: {
+        data: {},
+        isLoading: false,
+        errors: [],
+      },
+    };
     definitions.forEach(operation => {
       const { name } = operation;
-      merge(defaultResult, {
-        [stateName]: {
-          ...execute(defaultStateSchema, gqlAst, null, null, null, name.value),
-          isLoading: false,
-          errors: [],
-        },
-      });
+      const { data: defaultData } = execute(
+        defaultStateSchema,
+        gqlAst,
+        null,
+        null,
+        null,
+        name.value,
+      );
+      if (defaultData) {
+        Object.assign(
+          defaultResult[stateName].data,
+          normalizeData(defaultData, normalizeSchema),
+        );
+      }
       const TYPE = [namespace, `${changeCase.constantCase(name.value)}`].join(
         delimiter,
       );
@@ -66,7 +113,9 @@ export function createSource({
             }
             return dispatch({
               type: SUCCESS_TYPE,
-              payload: result.data,
+              payload: result.data
+                ? normalizeData(result.data, normalizeSchema)
+                : null,
             });
           },
         );
@@ -88,10 +137,13 @@ export function createSource({
         ...state,
         ...{
           [stateName]: {
-            data: {
-              ...state[stateName].data,
-              ...payload,
-            },
+            data:
+              state[stateName].data || payload
+                ? {
+                    ...state[stateName].data,
+                    ...payload,
+                  }
+                : null,
             isLoading: false,
             errors: [],
           },
