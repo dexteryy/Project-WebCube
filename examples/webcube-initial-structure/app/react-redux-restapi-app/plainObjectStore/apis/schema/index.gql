@@ -1,0 +1,36 @@
+type Character {
+  url: ID!
+  name: String!
+  height: String!
+  mass: String!
+  gender: String!
+  starships: [Starship!]
+  films: [Film!]!
+}
+
+type Starship {
+  url: ID!
+  name: String!
+  model: String!
+  passengers: String!
+  crew: String!
+  manufacturer: String!
+  created: String!
+  characters: [Character!]!
+  films: [Film!]!
+}
+
+type Film {
+  url: ID!
+  title: String!
+  director: String!
+  created: String!
+  characters: [Character!]!
+  starships: [Starship!]!
+}
+
+type Query {
+  character(id: String!): Character
+  starship(id: String!): Starship
+  film(id: String!): Film
+}

@@ -4,6 +4,7 @@
 [< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
 * Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube's boilerplate](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube/boilerplate)
+* Examples for usage of [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source)
 * Examples for results for `npm run webcube:setup` script and webcube's micro generators (`npm run new`)
 
 More Examples:
@@ -16,6 +17,7 @@ More Examples:
 * [./app/react-router-app](./app/react-router-app)
 * [./app/react-redux-app](./app/react-redux-app)
 * [./app/react-redux-router-app](./app/react-redux-router-app)
+* [./app/react-redux-restapi-app](./app/react-redux-restapi-app)
 
 ## View Results in Production Environment
 
@@ -23,6 +25,7 @@ More Examples:
 * [react-router-app](https://app.cubemage.cn/react-router-app/index.html)
 * [react-redux-app](https://app.cubemage.cn/react-redux-app/index.html)
 * [react-redux-router-app](https://app.cubemage.cn/react-redux-router-app/index.html)
+* [react-redux-restapi-app](https://app.cubemage.cn/react-redux-restapi-app/index.html)
 
 ## View Results in Development Environment
 
@@ -66,3 +69,4 @@ View
 * http://localhost:8011/react-router-app/
 * http://localhost:8011/react-redux-app/
 * http://localhost:8011/react-redux-router-app/
+* http://localhost:8011/react-redux-restapi-app/

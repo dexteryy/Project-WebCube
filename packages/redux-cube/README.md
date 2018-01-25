@@ -210,10 +210,19 @@ export const { reducer } = hub.handle({
 
 ### Async Action Creators / Side Effects
 
+For common needs:
+
 * [redux-thunk](https://www.npmjs.com/package/redux-thunk)
 * [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware)
 * [redux-cube's Thunk Payload Middleware](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube/lib/middlewares/thunkPayload.js)
 * [redux-debounced](https://www.npmjs.com/package/redux-debounced)
+
+For API-related needs:
+
+* [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/examples/package/redux-source)
+
+For complex needs:
+
 * [redux-observable](https://www.npmjs.com/package/redux-observable)
 
 ```js
@@ -308,6 +317,10 @@ export const { reducer, actions, types } = hub.handle(
   }),
 );
 ```
+
+How to use redux-cube with [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source):
+
+See [react-redux-restapi-app/](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/app/react-redux-restapi-app/)
 
 ### Ducks Modular / Reducer Bundle
 

@@ -69,7 +69,7 @@ export function createSource({
     const { definitions } = gqlAst;
     const actions = {};
     const reducerMap = {};
-    const defaultResult = {
+    const initialState = {
       [stateName]: {
         data: {},
         isLoading: false,
@@ -88,7 +88,7 @@ export function createSource({
       );
       if (defaultData) {
         Object.assign(
-          defaultResult[stateName].data,
+          initialState[stateName].data,
           normalizeData(defaultData, normalizeSchema),
         );
       }
@@ -165,7 +165,7 @@ export function createSource({
     return {
       actions,
       reducerMap,
-      defaultResult,
+      initialState,
     };
   };
 }

@@ -12,6 +12,7 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 * [redux-cube](./packages/redux-cube/) - App state manager. A set of wrappers which simplify the use of Redux and its whole ecosystem, reduce boilerplate, and provide many features (Sub App, Reducer Bundle, ...)
     * [redux-cube-withrouter](./packages/redux-cube-withrouter/) - redux-cube's pluggable module for react-router v4+
     * [redux-cube-withrouter3](./packages/redux-cube-withrouter3/) - redux-cube's pluggable module for react-router v3
+* [redux-source](./packages/redux-source/) - Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state
 * [hifetch](./packages/hifetch/) - A minimal higher-level wrapper around Fetch API
 * [nodecube](https://github.com/dexteryy/nodecube) - Continuously updated JS infrastructure for Node.js microservice or API gateway service.
 

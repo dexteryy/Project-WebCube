@@ -1949,8 +1949,8 @@ caniuse-api@^2.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000794"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000794.tgz#bbe71104fa277ce4b362387d54905e8b88e52f35"
+  version "1.0.30000795"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000795.tgz#644f03fab00dd8bd1693e5e1e70d86b31c5cfece"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000791, caniuse-lite@^1.0.30000792:
   version "1.0.30000792"
@@ -4721,6 +4721,10 @@ graphql-subscriptions@^0.5.6:
     es6-promise "^4.1.1"
     iterall "^1.1.3"
 
+graphql-tag@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.6.1.tgz#4788d509f6e29607d947fc47a40c4e18f736d34a"
+
 graphql-tools@^2.18.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.19.0.tgz#04e1065532ab877aff3ad1883530fb56804ce9bf"
@@ -4737,9 +4741,9 @@ graphql@0.9.6, graphql@^0.9.5, graphql@^0.9.6:
   dependencies:
     iterall "^1.0.0"
 
-graphql@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.12.3.tgz#11668458bbe28261c0dcb6e265f515ba79f6ce07"
+graphql@^0.11.7:
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.11.7.tgz#e5abaa9cb7b7cccb84e9f0836bf4370d268750c6"
   dependencies:
     iterall "1.1.3"
 
@@ -10493,8 +10497,8 @@ timed-out@^4.0.0:
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
 
 timers-browserify@^2.0.2, timers-browserify@^2.0.4:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.5.tgz#04878fb12a155a159c9d1e59faa1f77bf4ecc44c"
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.6.tgz#241e76927d9ca05f4d959819022f5b3664b64bae"
   dependencies:
     setimmediate "^1.0.4"
 

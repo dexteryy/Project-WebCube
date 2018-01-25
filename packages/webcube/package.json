@@ -87,6 +87,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "fast-async": "^6.3.0",
     "file-loader": "^0.10.1",
+    "graphql-tag": "^2.6.1",
     "gulp": "^3.9.1",
     "gulp-babel-minify": "^0.2.0",
     "gulp-filter": "^5.0.1",
