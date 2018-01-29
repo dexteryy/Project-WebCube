@@ -61,10 +61,4 @@ const resolvers = {
   },
 };
 
-export const defaultValues = {
-  Character: () => null,
-  Starship: () => null,
-  Film: () => null,
-};
-
 export default resolvers;

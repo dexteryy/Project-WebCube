@@ -30,7 +30,9 @@
     "graphql": "^0.11.7",
     "graphql-tools": "^2.18.0",
     "normalizr": "^3.2.4",
-    "pluralize": "^7.0.0"
+    "pluralize": "^7.0.0",
+    "react-redux": "^5.0.6",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",

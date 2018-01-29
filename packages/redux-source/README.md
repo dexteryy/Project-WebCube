@@ -37,7 +37,7 @@ npm install --save-dev redux-source
 Create a data source instance for Star Wars API:
 
 ```js
-// sampleApp/apis/index.js
+// starWarsApp/apis/index.js
 import { createSource } from 'redux-source';
 
 export const source = createSource({
@@ -70,11 +70,6 @@ export const source = createSource({
       }).send(),
   },
   },
-  // optional
-  defaultValues: {
-    Character: () => null,
-    Starship: () => null,
-  },
 });
 ```
 
@@ -89,11 +84,11 @@ See [react-redux-restapi-app/plainObjectStore/apis](https://github.com/dexteryy/
 Generate reducers, actions and normalized initial state:
 
 ```js
-// sampleApp/ducks/index.js
+// starWarsApp/ducks/starWars.js
 import gql from 'graphql-tag';
 import { source } from '../apis';
 
-const { actions: sourceActions, reducerMap, initialState } = source(
+export const starWarsSource = source(
   gql`
     query showCharacter($characterId: String!) {
       character(id: $characterId) {
@@ -119,29 +114,40 @@ const { actions: sourceActions, reducerMap, initialState } = source(
   },
 );
 
-console.log(sourceActions)
+console.log(starWarsSource.actions)
 // {
-//   'GQL_SOURCE/SHOW_CHARACTER': asyncActionCreator,
-//   'GQL_SOURCE/SHOW_CHARACTER_PENDING': actionCreator,
-//   'GQL_SOURCE/SHOW_CHARACTER_SUCCESS': actionCreator,
-//   'GQL_SOURCE/SHOW_CHARACTER_ERROR': actionCreator,
-//   'GQL_SOURCE/SHOW_SHIP': asyncActionCreator,
-//   'GQL_SOURCE/SHOW_SHIP_PENDING': actionCreator,
-//   'GQL_SOURCE/SHOW_SHIP_SUCCESS': actionCreator,
-//   'GQL_SOURCE/SHOW_SHIP_ERROR': actionCreator,
+//   'REDUX_SOURCE/SHOW_CHARACTER': asyncActionCreator,
+//   'REDUX_SOURCE/SHOW_CHARACTER_PENDING': actionCreator,
+//   'REDUX_SOURCE/SHOW_CHARACTER_SUCCESS': actionCreator,
+//   'REDUX_SOURCE/SHOW_CHARACTER_ERROR': actionCreator,
+//   'REDUX_SOURCE/SHOW_SHIP': asyncActionCreator,
+//   'REDUX_SOURCE/SHOW_SHIP_PENDING': actionCreator,
+//   'REDUX_SOURCE/SHOW_SHIP_SUCCESS': actionCreator,
+//   'REDUX_SOURCE/SHOW_SHIP_ERROR': actionCreator,
 // }
 
-console.log(reducerMap)
+console.log(starWarsSource.reducerMap)
 // {
-//   'GQL_SOURCE/SHOW_CHARACTER_PENDING': (state, action) => { /* ... */ },
-//   'GQL_SOURCE/SHOW_CHARACTER_SUCCESS': (state, action) => { /* ... */ },
-//   'GQL_SOURCE/SHOW_CHARACTER_ERROR': (state, action) => { /* ... */ },
-//   'GQL_SOURCE/SHOW_SHIP_PENDING': (state, action) => { /* ... */ },
-//   'GQL_SOURCE/SHOW_SHIP_SUCCESS': (state, action) => { /* ... */ },
-//   'GQL_SOURCE/SHOW_SHIP_ERROR': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_CHARACTER_PENDING': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_CHARACTER_SUCCESS': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_CHARACTER_ERROR': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_SHIP_PENDING': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_SHIP_SUCCESS': (state, action) => { /* ... */ },
+//   'REDUX_SOURCE/SHOW_SHIP_ERROR': (state, action) => { /* ... */ },
 // }
 
-console.log(dinitialState)
+console.log(starWarsSource.initialState)
+// {
+//   source: {
+//     data: {},
+//     isPending: false,
+//     errors: [],
+//   }
+// }
+
+starWarsSource.actions.reduxSource.showCharacter({ characterId: '1' })
+starWarsSource.actions.reduxSource.showShip({ shipId: '10' })
+console.log(state)
 // {
 //   source: {
 //     data: {
@@ -159,7 +165,7 @@ console.log(dinitialState)
 //         result: "...",
 //       },
 //     },
-//     isLoading: false,
+//     isPending: false,
 //     errors: [],
 //   }
 // }
@@ -172,24 +178,47 @@ See [babel-plugin-graphql-tag](https://www.npmjs.com/package/babel-plugin-graphq
 How to customize:
 
 ```js
-const source = createSource({
-  // ...
-  namespace: 'MY_NAMESPACE',
-  delimiter: '|',
+const starWarsSource = source(
+  `
+    ...
+  `,
+  {
+    stateName: 'starWarsSource',
+    namespace: 'STAR_WARS_NAMESPACE',
+    delimiter: '|',
+  }
 })
 
-const { actions: sourceActions, reducerMap, initialState } = source(
-  // ...
-);
-
-console.log(sourceActions)
+console.log(starWarsSource.actions)
 // {
-//   'MY_NAMESPACE|SHOW_CHARACTER': asyncActionCreator,
-//   'MY_NAMESPACE|SHOW_CHARACTER_PENDING': actionCreator,
-//   'MY_NAMESPACE|SHOW_CHARACTER_SUCCESS': actionCreator,
-//   'MY_NAMESPACE|SHOW_CHARACTER_ERROR': actionCreator,
+//   'STAR_WARS_NAMESPACE|SHOW_CHARACTER': asyncActionCreator,
+//   'STAR_WARS_NAMESPACE|SHOW_CHARACTER_PENDING': actionCreator,
+//   'STAR_WARS_NAMESPACE|SHOW_CHARACTER_SUCCESS': actionCreator,
+//   'STAR_WARS_NAMESPACE|SHOW_CHARACTER_ERROR': actionCreator,
 //   ...
 // }
+
+console.log(starWarsSource.initialState)
+// {
+//   starWarsSource: {
+//     data: {},
+//     isPending: false,
+//     errors: [],
+//   }
+// }
+```
+
+How to connect react component:
+
+```js
+import connectSource from 'redux-source/lib/connectSource';
+import { starWarsSource } from '../ducks/starWars';
+
+@connectSource(starWarsSource, {
+  slice: state => state.sliceStateName,
+  actionsProp: 'actions',
+})
+export default class StarWarsInfo extends PureComponent {
 ```
 
 How to use the above output with [redux-cube](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube):

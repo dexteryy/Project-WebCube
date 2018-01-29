@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import hub from '../hub';
 import { source } from '../apis';
 
-const { actions: sourceActions, reducerMap, initialState } = source(
+export const starWarsSource = source(
   gql`
-    query showCharacter($characterId: String = "") {
+    query showCharacter($characterId: String!) {
       character(id: $characterId) {
         url
         name
@@ -25,7 +25,7 @@ const { actions: sourceActions, reducerMap, initialState } = source(
       }
     }
 
-    query showShip($shipId: String = "") {
+    query showShip($shipId: String!) {
       starship(id: $shipId) {
         url
         name
@@ -34,6 +34,8 @@ const { actions: sourceActions, reducerMap, initialState } = source(
     }
   `,
   {
+    stateName: 'source',
+    namespace: 'STAR_WARS_SOURCE',
     idAttribute: 'url',
   },
 );
@@ -41,7 +43,7 @@ const { actions: sourceActions, reducerMap, initialState } = source(
 export const { reducer, types, actions } = hub
   .handle(
     {
-      ...reducerMap,
+      ...starWarsSource.reducerMap,
       character: {
         inputId: (state, { payload }) =>
           update(state, {
@@ -96,7 +98,7 @@ export const { reducer, types, actions } = hub
     {
       characterId: '',
       shipId: '',
-      ...initialState,
+      ...starWarsSource.initialState,
     },
   )
-  .with(sourceActions);
+  .with(starWarsSource.actions);

@@ -1,34 +1,23 @@
 import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
 import { autobind } from 'core-decorators';
+import connectSource from 'redux-source/lib/connectSource';
 import { connect } from 'redux-cube';
 
-import { actions } from '../ducks/starWarsInfo';
+import { actions, starWarsSource } from '../ducks/starWarsInfo';
 import styles from './StarWarsInfo.scss';
 
+@connectSource(starWarsSource, {
+  slice: state => state.starWarsInfo,
+})
 @connect({
   selectors: [
     state => state.starWarsInfo.characterId,
     state => state.starWarsInfo.shipId,
-    state => state.starWarsInfo.source.data.character,
-    state => state.starWarsInfo.source.data.starship,
-    state => state.starWarsInfo.source.errors,
-    state => state.starWarsInfo.source.isLoading,
   ],
-  transform: (
+  transform: (characterId, shipId) => ({
     characterId,
     shipId,
-    characterEntities,
-    starshipEntities,
-    sourceErrors,
-    isSourceLoading,
-  ) => ({
-    characterId,
-    shipId,
-    characterEntities,
-    starshipEntities,
-    sourceErrors,
-    isSourceLoading,
   }),
   actions,
 })
@@ -37,7 +26,7 @@ export default class StarWarsInfo extends PureComponent {
   handleCharacterSearch(e) {
     if (e.key === 'Enter') {
       const characterId = e.target.value;
-      this.props.actions.gqlSource.showCharacter({ characterId });
+      this.props.actions.starWarsSource.showCharacter({ characterId });
     }
   }
 
@@ -45,7 +34,7 @@ export default class StarWarsInfo extends PureComponent {
   handleShipSearch(e) {
     if (e.key === 'Enter') {
       const shipId = e.target.value;
-      this.props.actions.gqlSource.showShip({ shipId });
+      this.props.actions.starWarsSource.showShip({ shipId });
     }
   }
 
@@ -79,17 +68,12 @@ export default class StarWarsInfo extends PureComponent {
     const {
       characterId,
       shipId,
-      characterEntities,
-      starshipEntities,
-      sourceErrors,
-      isSourceLoading,
+      source: {
+        data: { character, starship },
+        errors: sourceErrors,
+        isPending: isSourceLoading,
+      },
     } = this.props;
-    const character =
-      characterEntities &&
-      characterEntities.entities.character[characterEntities.result];
-    const starship =
-      starshipEntities &&
-      starshipEntities.entities.starship[starshipEntities.result];
     return (
       <div className={styles.box}>
         <Helmet
@@ -130,44 +114,37 @@ export default class StarWarsInfo extends PureComponent {
             </p>
             <ul>
               {character.starships.length ? (
-                character.starships.map(starshipId => {
-                  const ship = characterEntities.entities.starships[starshipId];
-                  return (
-                    <li key={ship.url}>
-                      <p className={styles['result-title']}>{ship.name}</p>
-                      <p>
-                        <label>Model</label>
-                        {ship.model}
-                      </p>
-                      <p>
-                        <label>Films</label>
-                      </p>
-                      <ul>
-                        {ship.films.length ? (
-                          ship.films.map(filmId => {
-                            const film =
-                              characterEntities.entities.films[filmId];
-                            return (
-                              <li key={`${film.url}-${film.url}`}>
-                                <p className={styles['result-title']}>
-                                  {film.title}
-                                </p>
-                                <p>
-                                  <label>Director</label>
-                                  {film.director}
-                                </p>
-                              </li>
-                            );
-                          })
-                        ) : (
-                          <li>
-                            <p>None</p>
+                character.starships.map(ship => (
+                  <li key={ship.url}>
+                    <p className={styles['result-title']}>{ship.name}</p>
+                    <p>
+                      <label>Model</label>
+                      {ship.model}
+                    </p>
+                    <p>
+                      <label>Films</label>
+                    </p>
+                    <ul>
+                      {ship.films.length ? (
+                        ship.films.map(film => (
+                          <li key={`${film.url}-${film.url}`}>
+                            <p className={styles['result-title']}>
+                              {film.title}
+                            </p>
+                            <p>
+                              <label>Director</label>
+                              {film.director}
+                            </p>
                           </li>
-                        )}
-                      </ul>
-                    </li>
-                  );
-                })
+                        ))
+                      ) : (
+                        <li>
+                          <p>None</p>
+                        </li>
+                      )}
+                    </ul>
+                  </li>
+                ))
               ) : (
                 <li>
                   <p>None</p>

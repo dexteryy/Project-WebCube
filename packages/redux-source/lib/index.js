@@ -1,16 +1,8 @@
 import { execute } from 'graphql';
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-import changeCase from 'change-case';
-import { schema, normalize } from 'normalizr';
-import pluralize from 'pluralize';
-
-const mocks = {
-  Int: () => 0,
-  Float: () => 0,
-  String: () => '',
-  Boolean: () => false,
-  ID: () => Date.now() * 1000 + Math.floor(Math.random() * 1000),
-};
+import { makeExecutableSchema } from 'graphql-tools';
+import { constantCase } from 'change-case';
+import { schema, normalize, denormalize } from 'normalizr';
+import { isPlural } from 'pluralize';
 
 function astToNormalizeSchema(gqlAst, { idAttribute }) {
   const normalizeSchema = {};
@@ -24,7 +16,7 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
     selectionSet.selections.forEach(traverseProp(childRoot));
     if (name.value !== idAttribute) {
       const entity = new schema.Entity(name.value, childRoot, entityOption);
-      root[name.value] = pluralize.isPlural(name.value) ? [entity] : entity;
+      root[name.value] = isPlural(name.value) ? [entity] : entity;
     }
   };
   definitions.forEach(({ selectionSet: { selections } }) => {
@@ -45,26 +37,20 @@ function normalizeData(originData, normalizeSchema) {
   return res;
 }
 
-export function createSource({
-  schema: typeDefs,
-  resolvers,
-  defaultValues,
-  namespace = 'GQL_SOURCE',
-  delimiter = '/',
-}) {
-  const defaultStateSchema = makeExecutableSchema({ typeDefs });
-  addMockFunctionsToSchema({
-    schema: defaultStateSchema,
-    mocks: {
-      ...mocks,
-      ...defaultValues,
-    },
-  });
+export function createSource({ schema: typeDefs, resolvers }) {
   const executableSchema = makeExecutableSchema({
     typeDefs,
     resolvers,
   });
-  return function source(gqlAst, { stateName = 'source', idAttribute = 'id' }) {
+  return function source(
+    gqlAst,
+    {
+      stateName = 'source',
+      idAttribute = 'id',
+      namespace = 'REDUX_SOURCE',
+      delimiter = '/',
+    },
+  ) {
     const normalizeSchema = astToNormalizeSchema(gqlAst, { idAttribute });
     const { definitions } = gqlAst;
     const actions = {};
@@ -72,29 +58,14 @@ export function createSource({
     const initialState = {
       [stateName]: {
         data: {},
-        isLoading: false,
+        isPending: false,
+        pendingCount: 0,
         errors: [],
       },
     };
     definitions.forEach(operation => {
       const { name } = operation;
-      const { data: defaultData } = execute(
-        defaultStateSchema,
-        gqlAst,
-        null,
-        null,
-        null,
-        name.value,
-      );
-      if (defaultData) {
-        Object.assign(
-          initialState[stateName].data,
-          normalizeData(defaultData, normalizeSchema),
-        );
-      }
-      const TYPE = [namespace, `${changeCase.constantCase(name.value)}`].join(
-        delimiter,
-      );
+      const TYPE = [namespace, `${constantCase(name.value)}`].join(delimiter);
       const PENDING_TYPE = `${TYPE}_PENDING`;
       const SUCCESS_TYPE = `${TYPE}_SUCCESS`;
       const ERROR_TYPE = `${TYPE}_ERROR`;
@@ -127,45 +98,95 @@ export function createSource({
           [stateName]: {
             ...state[stateName],
             ...{
-              isLoading: true,
+              isPending: true,
+              pendingCount: state[stateName].pendingCount + 1,
               errors: [],
             },
           },
         },
       });
-      reducerMap[SUCCESS_TYPE] = (state, { payload }) => ({
-        ...state,
-        ...{
-          [stateName]: {
-            data:
-              state[stateName].data || payload
-                ? {
-                    ...state[stateName].data,
-                    ...payload,
-                  }
-                : null,
-            isLoading: false,
-            errors: [],
-          },
-        },
-      });
-      reducerMap[ERROR_TYPE] = (state, { payload }) => ({
-        ...state,
-        ...{
-          [stateName]: {
-            ...state[stateName],
-            ...{
-              isLoading: false,
-              errors: payload,
+      reducerMap[SUCCESS_TYPE] = (state, { payload }) => {
+        const count = state[stateName].pendingCount - 1;
+        return {
+          ...state,
+          ...{
+            [stateName]: {
+              data:
+                state[stateName].data || payload
+                  ? {
+                      ...state[stateName].data,
+                      ...payload,
+                    }
+                  : null,
+              isPending: count > 0,
+              pendingCount: count,
+              errors: [],
             },
           },
-        },
-      });
+        };
+      };
+      reducerMap[ERROR_TYPE] = (state, { payload }) => {
+        const count = state[stateName].pendingCount - 1;
+        return {
+          ...state,
+          ...{
+            [stateName]: {
+              ...state[stateName],
+              ...{
+                isPending: count > 0,
+                pendingCount: count,
+                errors: payload,
+              },
+            },
+          },
+        };
+      };
     });
     return {
       actions,
       reducerMap,
       initialState,
+      normalizeSchema,
+      stateName,
+      idAttribute,
+      namespace,
+      delimiter,
+      normalize(data) {
+        const normalizedData = {};
+        for (const key in data) {
+          if (!normalizeSchema[key]) {
+            throw new Error(
+              `Invalid input. Allowed keys: ${Object.keys(normalizeSchema).join(
+                ', ',
+              )}`,
+            );
+          }
+          normalizedData[key] = normalize(data[key], normalizeSchema[key]);
+        }
+        return normalizedData;
+      },
+      denormalize(normalizedData) {
+        const data = {};
+        for (const key in normalizedData) {
+          if (!normalizeSchema[key]) {
+            throw new Error(
+              `Invalid input. Allowed keys: ${Object.keys(normalizeSchema).join(
+                ', ',
+              )}`,
+            );
+          }
+          const { result, entities } = normalizedData[key];
+          Object.assign(
+            data,
+            denormalize(
+              { [key]: result },
+              { [key]: normalizeSchema[key] },
+              entities,
+            ),
+          );
+        }
+        return data;
+      },
     };
   };
 }
