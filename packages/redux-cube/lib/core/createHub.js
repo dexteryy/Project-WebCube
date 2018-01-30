@@ -84,41 +84,51 @@ function flattenActionNamespaces(
   return flatDict;
 }
 
-function unflatten(regularType, actionCreator, { root = {}, delimiter }) {
-  let cursor = root;
+function unflatten(
+  regularType,
+  actionCreator,
+  { actions = {}, types = {}, delimiter },
+) {
+  let cursor = actions;
+  let cursor2 = types;
   const namespaces = regularType.split(delimiter);
   namespaces.forEach((namespace, n) => {
     const key = changeCase.camelCase(namespace);
     if (n < namespaces.length - 1) {
       if (!cursor[key]) {
         cursor[key] = {};
+        cursor2[key] = {};
       }
       cursor = cursor[key];
+      cursor2 = cursor2[key];
     } else {
       cursor[key] = actionCreator;
+      cursor2[key] = regularType;
     }
   });
-  return root;
+  return { actions: cursor, types: cursor2 };
 }
 
-function unflattenDict(flattenDict, { root = {}, delimiter }) {
+function unflattenDict(flattenDict, { actions = {}, types = {}, delimiter }) {
   Object.keys(flattenDict).forEach(regularType => {
     unflatten(regularType, flattenDict[regularType], {
-      root,
+      actions,
+      types,
       delimiter,
     });
   });
-  return root;
+  return { actions, types };
 }
 
 function withTypes({ delimiter }) {
-  return function(types) {
+  return function(typeDict) {
     /* eslint-disable babel/no-invalid-this */
-    const actions = unflattenDict(types, { delimiter });
+    const { actions, types } = unflattenDict(typeDict, { delimiter });
     return {
       ...this,
-      types: Object.assign(this.types, types),
+      typeDict: Object.assign(this.typeDict, typeDict),
       actions: deepMerge(this.actions, actions),
+      types: deepMerge(this.types, types),
     };
     /* eslint-enable babel/no-invalid-this */
   };
@@ -166,10 +176,10 @@ export class Hub {
     );
     this.record(regularType, actionCreator);
     return {
-      types: {
+      typeDict: {
         [regularType]: actionCreator,
       },
-      actions: unflatten(regularType, actionCreator, {
+      ...unflatten(regularType, actionCreator, {
         delimiter,
       }),
     };
@@ -177,20 +187,20 @@ export class Hub {
 
   addActions(actionMap, ...identityActions) {
     const { delimiter } = this.config;
-    const types = {};
+    const typeDict = {};
     const flatActionMap = flattenActionNamespaces(actionMap, {
       delimiter,
     });
     Object.keys(flatActionMap).forEach(regularType => {
       const value = flatActionMap[regularType];
       if (Array.isArray(value)) {
-        Object.assign(types, this.addAction(regularType, ...value).types);
+        Object.assign(typeDict, this.addAction(regularType, ...value).typeDict);
       } else if (value === true) {
-        Object.assign(types, this.addAction(regularType).types);
+        Object.assign(typeDict, this.addAction(regularType).typeDict);
       } else if (typeof value === 'object' && value[this.ACTION_CREATOR]) {
-        types[regularType] = value[this.ACTION_CREATOR];
+        typeDict[regularType] = value[this.ACTION_CREATOR];
       } else {
-        Object.assign(types, this.addAction(regularType, value).types);
+        Object.assign(typeDict, this.addAction(regularType, value).typeDict);
       }
     });
     // https://redux-actions.js.org/docs/api/createAction.html#createactionsactionmap-identityactions
@@ -198,11 +208,11 @@ export class Hub {
       if (!type) {
         return;
       }
-      Object.assign(types, this.addAction(type).types);
+      Object.assign(typeDict, this.addAction(type).typeDict);
     });
     return {
-      types,
-      actions: unflattenDict(types, { delimiter }),
+      typeDict,
+      ...unflattenDict(typeDict, { delimiter }),
     };
   }
 
@@ -210,15 +220,16 @@ export class Hub {
     const { hub } = this;
     const { delimiter } = this.config;
     const regularType = normalizeActionType(type);
-    let types, actions;
+    let typeDict, actions, types;
     const actionCreator = hub[regularType];
     if (!actionCreator) {
-      ({ types, actions } = this.addAction(regularType));
+      ({ typeDict, actions, types } = this.addAction(regularType));
     } else {
-      types = { [regularType]: actionCreator };
-      actions = unflattenDict(types, { delimiter });
+      typeDict = { [regularType]: actionCreator };
+      ({ actions, types } = unflattenDict(typeDict, { delimiter }));
     }
     return {
+      typeDict,
       types,
       actions,
       reducer: handleAction(regularType, reducer, initialState),
@@ -229,21 +240,21 @@ export class Hub {
   handleActions(reducerMap, initialState) {
     const { hub } = this;
     const { delimiter } = this.config;
-    const types = {};
+    const typeDict = {};
     const flatReducerMap = flattenActionNamespaces(reducerMap, {
       delimiter,
     });
     Object.keys(flatReducerMap).forEach(regularType => {
       const actionCreator = hub[regularType];
       if (!actionCreator) {
-        Object.assign(types, this.addAction(regularType).types);
+        Object.assign(typeDict, this.addAction(regularType).typeDict);
       } else {
-        types[regularType] = actionCreator;
+        typeDict[regularType] = actionCreator;
       }
     });
     return {
-      types,
-      actions: unflattenDict(types, { delimiter }),
+      typeDict,
+      ...unflattenDict(typeDict, { delimiter }),
       reducer: handleActions(flatReducerMap, initialState, {
         namespace: delimiter,
       }),
@@ -304,7 +315,7 @@ export class Hub {
       .join(delimiter);
     let actionCreator = hub[regularType];
     if (!actionCreator) {
-      actionCreator = this.addAction(regularType).types[regularType];
+      actionCreator = this.addAction(regularType).typeDict[regularType];
     }
     return actionCreator(...args);
   }
@@ -326,8 +337,8 @@ export class Hub {
 
   actions(selectorMap) {
     const { delimiter } = this.config;
-    const types = this.types(selectorMap);
-    return unflattenDict(types, { delimiter });
+    const typeDict = this.types(selectorMap);
+    return unflattenDict(typeDict, { delimiter }).actions;
   }
 }
 

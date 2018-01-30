@@ -83,15 +83,15 @@ export default createHub();
 // sampleApp/actions/sample.js
 import hub from '../hub';
 
-export const { actions, types } = hub.add('NAMESPACE/MORE_NAMESPACE/MY_TYPE');
+export const { actions, types, typeDict } = hub.add('NAMESPACE/MORE_NAMESPACE/MY_TYPE');
 ```
 
 ```js
-export const { actions, types } = hub.add('namespace.moreNamespace.myType');
+export const { actions, types, typeDict } = hub.add('namespace.moreNamespace.myType');
 ```
 
 ```js
-export const { actions, types } = hub.add({
+export const { actions, types, typeDict } = hub.add({
   NAMESPACE: {
     MORE_NAMESPACE: {
       MY_TYPE: true
@@ -101,7 +101,7 @@ export const { actions, types } = hub.add({
 ```
 
 ```js
-export const { actions, types } = hub.add({
+export const { actions, types, typeDict } = hub.add({
   namespace: {
     moreNamespace: {
       myType: true
@@ -113,9 +113,18 @@ export const { actions, types } = hub.add({
 The above codes are equivalent.
 
 ```js
-console.log(types)
+console.log(typeDict)
 // {
 //   'NAMESPACE/MORE_NAMESPACE/MY_TYPE': defaultActionCreator,
+// }
+
+console.log(types)
+// {
+//   namespace: {
+//     moreNamespace: {
+//       myType: 'NAMESPACE/MORE_NAMESPACE/MY_TYPE',
+//     },
+//   },
 // }
 
 console.log(actions)
@@ -147,11 +156,11 @@ a => a
 ### Action Creators
 
 ```js
-export const { actions, types } = hub.add('NAMESPACE/MORE_NAMESPACE/MY_TYPE', payloadCreator, metaCreator);
+export const { actions, types, typeDict } = hub.add('NAMESPACE/MORE_NAMESPACE/MY_TYPE', payloadCreator, metaCreator);
 ```
 
 ```js
-export const { actions, types } = hub.add({
+export const { actions, types, typeDict } = hub.add({
   namespace: {
     moreNamespace: {
       myType: true,
@@ -172,7 +181,7 @@ export const { actions, types } = hub.add({
 ```js
 actions.namespace.moreNamespace.myType(10);
 // or
-types['NAMESPACE/MORE_NAMESPACE/MY_TYPE'](10);
+typeDict['NAMESPACE/MORE_NAMESPACE/MY_TYPE'](10);
 // results:
 // {
 //   "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE",
@@ -183,7 +192,7 @@ types['NAMESPACE/MORE_NAMESPACE/MY_TYPE'](10);
 ```js
 actions.namespace.moreNamespace.myType4(1, 10);
 // or
-types['NAMESPACE/MORE_NAMESPACE/MY_TYPE_4'](1, 10);
+typeDict['NAMESPACE/MORE_NAMESPACE/MY_TYPE_4'](1, 10);
 // result:
 // {
 //   "type": "NAMESPACE/MORE_NAMESPACE/MY_TYPE_4",
@@ -232,7 +241,7 @@ import hub from '../hub';
 import hifetch from 'hifetch';
 import { reset } from 'redux-form';
 
-export const { actions, types } = hub.add({
+export const { actions, types, typeDict } = hub.add({
   users: {
     fetchAll: () =>
       // handle by redux-promise-middleware
@@ -292,7 +301,7 @@ export const epics = [
 import hub from '../hub';
 import Immutable from 'immutable';
 
-export const { reducer, actions, types } = hub.handle(
+export const { reducer, actions, types, typeDict } = hub.handle(
   {
     users: {
       fetchAllPending: state => state.set('isLoading', true),
@@ -339,31 +348,36 @@ Original Ducks Modular:
 // Reducer
 ```
 
+> For reference:
+>
+> * [Ducks: Redux Reducer Bundles](https://github.com/erikras/ducks-modular-redux)
+> * [Scaling your Redux App with ducks](https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be)
+
 Redux Cube's Reducer Bundle:
 
 ```js
 // sampleApp/ducks/actions/sample.js
 import hub from '../../hub';
 
-export const { actions, types } = hub.add({
-  myType1: payloadCreator1,
-  myType2: payloadCreator2,
+export const { actions, types, typeDict } = hub.add({
+  myType1: asyncPayloadCreator1,
+  myType2: asyncPayloadCreator2,
 });
 ```
 
 ```js
 // sampleApp/ducks/sample.js
 import hub from '../hub';
-import { types as existTypes } from './actions/sample';
+import { typeDict as existTypeDict } from './actions/sample';
 
-export const { reducer, types, actions } = hub.handle(
+export const { reducer, actions, types, typeDict } = hub.handle(
   // declared action type
   myType1: (state, { payload, meta }) => newState,
   // undeclared action type
   myType3: (state, { payload, meta }) => newState,
   // undeclared action type
   myType4: (state, { payload, meta }) => newState,
-}, initialStateForASliceOfStore).with(existTypes);
+}, initialStateForASliceOfStore).with(existTypeDict);
 
 export const epics = [
   action$ =>
@@ -372,20 +386,20 @@ export const epics = [
 ```
 
 ```js
-import { actions, types } from '../reducers/sample';
+import { actions, types, typeDict } from '../reducers/sample';
 
 console.log(actions);
 // {
-//   myType1: actionCreator1,
-//   myType2: actionCreator2,
+//   myType1: asyncActionCreator1,
+//   myType2: asyncActionCreator2,
 //   myType3: defaultActionCreator,
 //   myType4: defaultActionCreator,
 // }
 
-console.log(types);
+console.log(typeDict);
 // {
-//   MY_TYPE_1: actionCreator1,
-//   MY_TYPE_2: actionCreator2,
+//   MY_TYPE_1: asyncActionCreator1,
+//   MY_TYPE_2: asyncActionCreator2,
 //   MY_TYPE_3: defaultActionCreator,
 //   MY_TYPE_4: defaultActionCreator,
 // }
@@ -571,7 +585,7 @@ export const App = EntryApp;
 import update from 'immutability-helper';
 import hub from '../hub';
 
-export const { reducer, types, actions } = hub.handle({
+export const { reducer, actions, types, typeDict } = hub.handle({
   changeInput: (state, { payload: content }) =>
     update(state, {
      input: { $set: content },

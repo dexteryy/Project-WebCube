@@ -15,7 +15,7 @@ function findItem(items, id) {
   return items.findIndex(item => item.id === id);
 }
 
-export const { reducer, types, actions } = hub.handle(
+export const { reducer, actions, types, typeDict } = hub.handle(
   {
     todo: {
       add: (state, { payload: content }) =>

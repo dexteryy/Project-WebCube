@@ -208,9 +208,14 @@ console.log(starWarsSource.initialState)
 // }
 ```
 
+How to use the above output with [redux-cube](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube):
+
+See [react-redux-restapi-app/](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/app/react-redux-restapi-app/)
+
 How to connect react component:
 
 ```js
+import { connect } from 'react-redux';
 import connectSource from 'redux-source/lib/connectSource';
 import { starWarsSource } from '../ducks/starWars';
 
@@ -218,9 +223,24 @@ import { starWarsSource } from '../ducks/starWars';
   slice: state => state.sliceStateName,
   actionsProp: 'actions',
 })
+@connect(
+  //...
+)
 export default class StarWarsInfo extends PureComponent {
 ```
 
-How to use the above output with [redux-cube](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube):
+or with redux-cube's `connect`:
 
-See [react-redux-restapi-app/](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/app/react-redux-restapi-app/)
+```js
+import { connect } from 'redux-cube';
+import connectSource from 'redux-source/lib/connectSource';
+import { starWarsSource, actions } from '../ducks/starWars';
+
+@connectSource(starWarsSource, {
+  slice: state => state.sliceStateName,
+})
+@connect({
+  // ...
+  actions,
+})
+```

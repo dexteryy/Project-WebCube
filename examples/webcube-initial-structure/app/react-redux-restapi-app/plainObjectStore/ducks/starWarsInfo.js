@@ -40,7 +40,7 @@ export const starWarsSource = source(
   },
 );
 
-export const { reducer, types, actions } = hub
+export const { reducer, actions, types, typeDict } = hub
   .handle(
     {
       ...starWarsSource.reducerMap,

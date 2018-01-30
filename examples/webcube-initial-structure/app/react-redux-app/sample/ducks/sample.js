@@ -3,11 +3,11 @@ import { map } from 'rxjs/operators';
 import update from 'immutability-helper';
 
 import hub from '../hub';
-import { types as existTypes } from './actions/sample';
+import { typeDict as existTypeDict } from './actions/sample';
 
 let itemId = Date.now() * 1000;
 
-export const { reducer, types, actions } = hub
+export const { reducer, actions, types, typeDict } = hub
   .handle(
     {
       log: {
@@ -40,7 +40,7 @@ export const { reducer, types, actions } = hub
       message: '',
     },
   )
-  .with(existTypes);
+  .with(existTypeDict);
 
 export const epics = [
   action$ =>
