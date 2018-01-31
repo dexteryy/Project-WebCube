@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import localforage from 'localforage';
-import withPersist from 'redux-cube/lib/plugins/withPersist';
+import withPersist from 'redux-cube-with-persist';
 import { createApp } from 'redux-cube';
 
 import { reducer as todoReducer } from './ducks/todo';

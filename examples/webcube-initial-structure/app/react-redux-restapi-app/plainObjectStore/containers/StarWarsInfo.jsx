@@ -66,6 +66,7 @@ export default class StarWarsInfo extends PureComponent {
 
   render() {
     const {
+      isEnabled,
       characterId,
       shipId,
       source: {
@@ -75,12 +76,20 @@ export default class StarWarsInfo extends PureComponent {
       },
     } = this.props;
     return (
-      <div className={styles.box}>
+      <div
+        className={styles.box}
+        style={
+          !isEnabled
+            ? {
+                display: 'none',
+              }
+            : {}
+        }>
         <Helmet
           title="React + Redux + Restful API App - Plain Object Store - Star Wars Info"
           meta={[{ name: 'description', content: '' }]}
         />
-        <h2>Star Wars Info</h2>
+        <h2>Star Wars Info (Plain Object Store)</h2>
         {isSourceLoading && <p className={styles.loading}>Loading...</p>}
         {sourceErrors.length > 0 && (
           <p className={styles.error}>

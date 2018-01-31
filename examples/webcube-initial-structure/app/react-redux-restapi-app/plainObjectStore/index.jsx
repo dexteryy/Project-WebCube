@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter as withRouterMeta } from 'react-router';
 import localforage from 'localforage';
+import withPersist from 'redux-cube-with-persist';
 import { createApp } from 'redux-cube';
-import withPersist from 'redux-cube/lib/plugins/withPersist';
 
 import { reducer as starWarsInfoReducer } from './ducks/starWarsInfo';
 import StarWarsInfo from './containers/StarWarsInfo';
 
+@withRouterMeta
 @createApp(
   withPersist({
     reducers: {
@@ -20,7 +22,8 @@ import StarWarsInfo from './containers/StarWarsInfo';
 )
 class PlainObjectStoreApp extends Component {
   render() {
-    return <StarWarsInfo />;
+    const { location: { pathname } } = this.props;
+    return <StarWarsInfo isEnabled={pathname === '/plain'} />;
   }
 }
 

@@ -1,0 +1,53 @@
+{
+  "name": "redux-cube-withrouter",
+  "version": "1.0.3",
+  "description": "redux-cube's pluggable module for react-router v4+",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "webcube:module": "lib/index.js",
+  "module": "lib/index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "clear": "rm -r dist 2>/dev/null || true",
+    "build": "npm run clear && npm run build:dist",
+    "build:dist": "babel lib --out-dir dist --source-maps"
+  },
+  "peerDependencies": {
+    "react-router-dom": ">= 4.2.2"
+  },
+  "dependencies": {
+    "react-router-redux": ">= 5.0.0-alpha.8"
+  },
+  "devDependencies": {
+    "@babel/polyfill": "^7.0.0-beta.32",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-optional-chaining": "^7.0.0-alpha.13",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "fast-async": "^6.3.0"
+  },
+  "keywords": [
+    "redux",
+    "redux-cube",
+    "react-router",
+    "boilerplate",
+    "webcube"
+  ]
+}

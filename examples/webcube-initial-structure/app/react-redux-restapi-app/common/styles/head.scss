@@ -1,0 +1,30 @@
+
+.nav {
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+  }
+  a {
+    text-decoration: none;
+    color: #333;
+    float: left;
+    padding: 20px;
+    background: #eee;
+    margin: 0 10px 0 0;
+  }
+}
+
+a.selected {
+  background: #09f;
+  color: #fff;
+}

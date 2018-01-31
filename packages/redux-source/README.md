@@ -22,11 +22,13 @@
 --- | --- | --- |
 iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
 
-Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state
+Using GraphQL [schema](http://graphql.org/learn/schema/) and [query](http://graphql.org/learn/queries/) language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state
 
 ```
 npm install --save-dev redux-source
 ```
+
+For Immutable.js store: [redux-source-immutable](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-immutable)
 
 ## Examples
 

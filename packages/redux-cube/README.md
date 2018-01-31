@@ -1,4 +1,4 @@
-# Redux Cube
+# redux-cube
 
 [< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
@@ -51,10 +51,6 @@ npm install --save-dev redux-cube
 		* [`createHub`](#createhub)
 		* [`connect`](#connect)
 	* [Plugins](#plugins)
-		* [withPersist](#withpersist)
-		* [withImmutable](#withimmutable)
-		* [withRouter](#withrouter)
-		* [withRouter3](#withrouter3)
 
 <!-- /code_chunk_output -->
 
@@ -480,8 +476,8 @@ export default class Main extends PureComponent {
 ```js
 // multipleTodoApp/todo/index.jsx
 import React, { Component } from 'react';
+import withPersist from 'redux-cube-with-persist';
 import localforage from 'localforage';
-import withPersist from 'redux-cube/lib/plugins/withPersist';
 import { createApp } from 'redux-cube';
 
 import { reducer as sampleReducer, epics } from './ducks/sample';
@@ -687,74 +683,7 @@ Options:
 
 ### Plugins
 
-#### withPersist
-
-```js
-import withPersist from 'redux-cube/lib/plugins/withPersist'
-```
-
-Add support to `createApp` for [redux-persist](https://www.npmjs.com/package/redux-persist)
-
-Options:
-
-* `persistStorage`
-* `persistKey`
-* `persistConfig`
-
-#### withImmutable
-
-```js
-import withImmutable from 'redux-cube/lib/plugins/withImmutable'
-```
-
-Add support to `createApp` for [redux-immutable](https://www.npmjs.com/package/redux-immutable)
-
-#### withRouter
-
-```js
-import withRouter from 'redux-cube-withrouter'
-```
-
-Add support to `createApp` for [react-router v4+](https://reacttraining.com/react-router/) + [react-router-redux v5+](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)
-
-Options:
-
-* `supportHtml5History`
-* `routerConfig`
-
-#### withRouter3
-
-```js
-import withRouter3 from 'redux-cube-withrouter3'
-```
-
-Add support to `createApp` for [react-router v3](https://github.com/ReactTraining/react-router/tree/v3/docs) + [react-router-redux v4](https://github.com/reactjs/react-router-redux)
-
-Options:
-
-* `disableHashRouter`
-* `routerHistoryConfig`
-
-<!-- ### redux-cube/lib/remote (TODO)
-
-* `import { middleware, reducers } from 'redux-cube/lib/remote/fetch'`
-    * Use fetch API, based on [hifetch](https://www.npmjs.com/package/hifetch)
-* `import { middleware } from 'redux-cube/lib/remote/axios'`
-    * Use XHR API, a wrapper of [redux-axios-middleware](https://www.npmjs.com/package/redux-axios-middleware)
-
-### redux-cube/lib/notify (TODO)
-
-* `import { reducers, Notify } from 'redux-cube/lib/notify'`
-* Alternative or wrapper of [react-notification-system-redux](https://www.npmjs.com/package/react-notification-system-redux) / [react-redux-toastr](https://www.npmjs.com/package/react-redux-toastr)
-
-### redux-cube/lib/loading (TODO)
-
-* `import { middleware, Loading } from 'redux-cube/lib/loading'`
-* Wrapper of [react-block-ui](https://www.npmjs.com/package/react-block-ui)
-
-### redux-cube/lib/track (TODO)
-
-* `import { middleware } from 'redux-cube/lib/track'`
-* `import bugSnag from 'redux-cube/lib/track/bugSnag'`
-* `import googleAnalytics from 'redux-cube/lib/track/googleAnalytics'`
-* Alternative or complement to [redux-beacon](https://www.npmjs.com/package/redux-beacon), [redux-raven-middleware](https://www.npmjs.com/package/redux-raven-middleware) / [raven-for-redux](https://www.npmjs.com/package/raven-for-redux), [redux-catch](https://www.npmjs.com/package/redux-catch) -->
+* [redux-cube-with-router](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router)
+* [redux-cube-with-router3](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router3)
+* [redux-cube-with-persist](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist)
+* [redux-cube-with-immutable](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-immutable)

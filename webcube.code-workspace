@@ -10,13 +10,22 @@
       "path": "packages/redux-cube"
     },
     {
-      "path": "packages/redux-cube-withrouter"
+      "path": "packages/redux-cube-with-router"
     },
     {
-      "path": "packages/redux-cube-withrouter3"
+      "path": "packages/redux-cube-with-router3"
+    },
+    {
+      "path": "packages/redux-cube-with-persist"
+    },
+    {
+      "path": "packages/redux-cube-with-immutable"
     },
     {
       "path": "packages/redux-source"
+    },
+    {
+      "path": "packages/redux-source-immutable"
     },
     {
       "path": "packages/hifetch"

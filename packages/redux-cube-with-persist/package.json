@@ -1,14 +1,14 @@
 {
-  "name": "redux-cube-withrouter3",
-  "version": "1.0.3",
-  "description": "redux-cube's pluggable module for react-router v3",
+  "name": "redux-cube-with-persist",
+  "version": "1.0.0",
+  "description": "redux-cube's pluggable module for react-persist",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
@@ -22,11 +22,10 @@
     "build": "npm run clear && npm run build:dist",
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
-  "peerDependencies": {
-    "react-router": "< 4"
-  },
+  "peerDependencies": {},
   "dependencies": {
-    "react-router-redux": "< 5"
+    "redux-persist": "^5.3.5",
+    "redux-persist-transform-immutable": "^4.3.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -46,8 +45,8 @@
   "keywords": [
     "redux",
     "redux-cube",
-    "react-router",
     "boilerplate",
+    "persist",
     "webcube"
   ]
 }

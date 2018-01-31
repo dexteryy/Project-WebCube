@@ -1,14 +1,14 @@
 {
-  "name": "redux-cube-withrouter",
-  "version": "1.0.3",
-  "description": "redux-cube's pluggable module for react-router v4+",
+  "name": "redux-cube-with-immutable",
+  "version": "1.0.0",
+  "description": "redux-cube's pluggable module for react-immutable",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-immutable",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-immutable",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
@@ -23,10 +23,10 @@
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
   "peerDependencies": {
-    "react-router-dom": ">= 4.2.2"
+    "immutable": "^3.8.2"
   },
   "dependencies": {
-    "react-router-redux": ">= 5.0.0-alpha.8"
+    "redux-immutable": "^4.0.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -46,8 +46,8 @@
   "keywords": [
     "redux",
     "redux-cube",
-    "react-router",
     "boilerplate",
+    "immutable",
     "webcube"
   ]
 }
