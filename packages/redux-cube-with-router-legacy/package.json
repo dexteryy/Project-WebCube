@@ -1,14 +1,14 @@
 {
-  "name": "redux-cube-withrouter3",
-  "version": "1.0.3",
+  "name": "redux-cube-with-router-legacy",
+  "version": "1.0.4",
   "description": "redux-cube's pluggable module for react-router v3",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
     "url": "https://github.com/dexteryy/Project-WebCube/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-withRouter3",
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router-legacy",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router-legacy",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"

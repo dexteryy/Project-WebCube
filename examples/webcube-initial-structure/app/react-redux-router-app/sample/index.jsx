@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter as withRouterMeta } from 'react-router';
 import localforage from 'localforage';
-import withPersist from 'redux-cube/lib/plugins/withPersist';
+import withPersist from 'redux-cube-with-persist';
 import { createApp } from 'redux-cube';
 
 import { reducer as sampleReducer, epics } from './ducks/sample';

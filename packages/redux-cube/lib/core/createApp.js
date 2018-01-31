@@ -21,8 +21,8 @@ export default function createApp(config) {
     _routerHistory,
     routerConfig,
     _ConnectedRouter: ConnectedRouter,
-    // withRouter3
-    _enableRouter3 = false,
+    // withRouterLegacy
+    _enableRouterLegacy = false,
     _syncRouterHistoryWithStore,
     _routerHistoryConfig,
     // withPersist
@@ -54,7 +54,7 @@ export default function createApp(config) {
         const { ...passThroughProps } = this.props;
         const withProps = React.createElement(SubAppComponent, {
           // https://github.com/reactjs/react-router-redux#history--synchistorywithstorehistory-store-options
-          ...(_enableRouter3
+          ...(_enableRouterLegacy
             ? {
                 routerHistoryWithStore: _syncRouterHistoryWithStore(
                   _routerHistory,

@@ -10,14 +10,14 @@ import {
   routerReducer,
 } from 'react-router-redux';
 
-export default function withRouter3({
+export default function withRouterLegacy({
   disableHashRouter = false,
   routerHistoryConfig,
   ...config
 }) {
   const history = disableHashRouter ? browserHistory : hashHistory;
   return {
-    _enableRouter3: true,
+    _enableRouterLegacy: true,
     _routerReducer: routerReducer,
     _routerMiddleware: routerMiddleware,
     _routerHistory: history,

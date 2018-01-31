@@ -80,7 +80,7 @@ export default class StarWarsInfo extends PureComponent {
           title="React + Redux + Restful API App - Plain Object Store - Star Wars Info"
           meta={[{ name: 'description', content: '' }]}
         />
-        <h2>Star Wars Info</h2>
+        <h2>Star Wars Info (Plain Object Store)</h2>
         {isSourceLoading && <p className={styles.loading}>Loading...</p>}
         {sourceErrors.length > 0 && (
           <p className={styles.error}>

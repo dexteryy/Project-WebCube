@@ -10,8 +10,11 @@ import {
 
 // https://reacttraining.com/react-router/core/guides/redux-integration/deep-integration
 export default function withRouter({
+  // optional
   // https://github.com/ReactTraining/history#usage
   supportHtml5History = false,
+  // optional
+  // https://github.com/ReactTraining/react-router/blob/master/packages/react-router-redux/modules/ConnectedRouter.js#L8
   routerConfig = {},
   ...config
 }) {

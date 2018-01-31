@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "core-decorators": "^0.20.0",
+    "immutable": "^3.8.2",
     "immutability-helper": "^2.6.4",
     "localforage": "^1.5.5",
     "lodash-decorators": "^4.5.0",
@@ -46,8 +47,11 @@
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.2.2",
     "redux-cube": "^1.0.0-rc.12",
-    "redux-cube-withrouter": "^1.0.2",
+    "redux-cube-with-router": "^1.0.0",
+    "redux-cube-with-persist": "^1.0.0",
+    "redux-cube-with-immutable": "^1.0.0",
     "redux-source": "^0.1.0",
+    "redux-source-immutable": "^0.1.0",
     "rxjs": "^5.5.6",
     "webcube": "^1.0.0-alpha.43"
   }

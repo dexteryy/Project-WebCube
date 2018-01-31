@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import withRouter from 'redux-cube-withrouter';
+import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
 import { withScripts } from 'webcube';
 import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
