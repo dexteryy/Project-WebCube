@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-with-persist",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "redux-cube's pluggable module for react-persist",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -22,7 +22,6 @@
     "build": "npm run clear && npm run build:dist",
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
-  "peerDependencies": {},
   "dependencies": {
     "redux-persist": "^5.3.5",
     "redux-persist-transform-immutable": "^4.3.0"
