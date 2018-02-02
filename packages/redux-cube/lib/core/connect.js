@@ -31,12 +31,12 @@ export default function connect({
 }) {
   // https://www.npmjs.com/package/reselect#createselectorinputselectors--inputselectors-resultfunc
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-  const mapStateToProps = (state, ...other) => {
+  const mapStateToProps = (state, ownProps) => {
     const newState = unwrap(state);
     return {
-      ...customMapStateToProps(state, ...other),
+      ...customMapStateToProps(state, ownProps),
       ...(selectors
-        ? createSelector(...selectors, transform)(newState, ...other)
+        ? createSelector(...selectors, transform)(newState, ownProps)
         : {}),
     };
   };
@@ -45,8 +45,8 @@ export default function connect({
     actionCreators = merge({}, ...actions);
   }
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-  const mapDispatchToProps = dispatch => ({
-    ...customMapDispatchToProps(dispatch),
+  const mapDispatchToProps = (dispatch, ownProps) => ({
+    ...customMapDispatchToProps(dispatch, ownProps),
     // https://redux.js.org/docs/api/bindActionCreators.html
     ...(actionCreators
       ? {

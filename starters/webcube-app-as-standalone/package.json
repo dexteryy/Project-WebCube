@@ -3,7 +3,7 @@
   "scripts": {
     "precommit": "webcube-precommit",
     "precommit:custom": "npm run test",
-    "update": "npm run clear:deps && yarn install && echo 4.0 > .project-version",
+    "update": "npm run clear:deps && yarn install && echo 5.0 > .project-version",
     "upgrade": "npm run clear:lock && npm run update",
     "clear:lock": "rm yarn.lock package-lock.json 2>/dev/null || true",
     "clear:deps": "rm -rf ./node_modules 2>/dev/null || true && rm .git/hooks/pre-commit 2>/dev/null || true",
