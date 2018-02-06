@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "core-decorators": "^0.20.0",
+    "graphql-resolvers": "^0.2.2",
     "immutability-helper": "^2.6.4",
     "localforage": "^1.5.5",
     "lodash-decorators": "^4.5.0",

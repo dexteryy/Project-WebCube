@@ -4,16 +4,17 @@ import localforage from 'localforage';
 import withPersist from 'redux-cube-with-persist';
 import { createApp } from 'redux-cube';
 
-import { reducer as starWarsInfoReducer } from './ducks/starWarsInfo';
-import StarWarsInfo from './containers/StarWarsInfo';
+import { reducer as starWarsReducer } from './ducks/starWars';
+import { reducer as shopsReducer } from './ducks/shops';
+import Info from './containers/Info';
 
 @createApp(
   withPersist({
     reducers: {
-      starWarsInfo: starWarsInfoReducer,
+      starWars: starWarsReducer,
+      shops: shopsReducer,
     },
-    preloadedState:
-      typeof window !== 'undefined' && window._preloadStarWarsData,
+    preloadedState: typeof window !== 'undefined' && window._preloadInfoData,
     devToolsOptions: { name: 'PlainObjectStoreApp' },
     persistStorage: localforage,
     persistKey: 'plainObjectStoreRoot',
@@ -21,7 +22,7 @@ import StarWarsInfo from './containers/StarWarsInfo';
 )
 class PlainObjectStoreApp extends Component {
   render() {
-    return <Route path="/plain" component={StarWarsInfo} />;
+    return <Route path="/plain" component={Info} />;
   }
 }
 

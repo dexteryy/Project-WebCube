@@ -1,26 +1,8 @@
 import React, { PureComponent } from 'react';
-import Helmet from 'react-helmet';
 import { autobind } from 'core-decorators';
-import connectSource from 'redux-source-immutable/lib/connectSource';
-import { connect } from 'redux-cube';
 
-import { actions, starWarsSource } from '../ducks/starWarsInfo';
-import styles from '../../plainObjectStore/containers/StarWarsInfo.scss';
+import styles from '../styles/info.scss';
 
-@connectSource(starWarsSource, {
-  slice: state => state.get('starWarsInfo'),
-})
-@connect({
-  selectors: [
-    state => state.getIn(['starWarsInfo', 'characterId']),
-    state => state.getIn(['starWarsInfo', 'shipId']),
-  ],
-  transform: (characterId, shipId) => ({
-    characterId,
-    shipId,
-  }),
-  actions,
-})
 export default class StarWarsInfo extends PureComponent {
   @autobind
   handleCharacterSearch(e) {
@@ -45,23 +27,63 @@ export default class StarWarsInfo extends PureComponent {
 
   @autobind
   handleShipIdInput(e) {
-    this.props.actions.starship.inputId(e.target.value);
+    this.props.actions.ship.inputId(e.target.value);
   }
 
   @autobind
   handleCharacterFieldChange(e) {
     this.props.actions.character.changeField({
-      name: e.target.getAttribute('name'),
+      id: e.target.getAttribute('data-id'),
+      name: e.target.getAttribute('data-name'),
       value: e.target.value,
     });
   }
 
   @autobind
-  handleStarshipFieldChange(e) {
-    this.props.actions.starship.changeField({
-      name: e.target.getAttribute('name'),
+  handleShipFieldChange(e) {
+    this.props.actions.ship.changeField({
+      id: e.target.getAttribute('data-id'),
+      name: e.target.getAttribute('data-name'),
       value: e.target.value,
     });
+  }
+
+  renderShip(ship) {
+    return (
+      <div>
+        <p className={styles['result-title']}>{ship.name}</p>
+        <p>
+          <label>Model</label>
+          <input
+            type="text"
+            value={ship.model}
+            data-name="model"
+            data-id={ship.url}
+            onChange={this.handleShipFieldChange}
+          />
+        </p>
+        <p>
+          <label>Films</label>
+        </p>
+        <ul>
+          {ship.films.length ? (
+            ship.films.map(film => (
+              <li key={`${film.url}-${film.url}`}>
+                <p className={styles['result-title']}>{film.name}</p>
+                <p>
+                  <label>Director</label>
+                  {film.director}
+                </p>
+              </li>
+            ))
+          ) : (
+            <li>
+              <p>None</p>
+            </li>
+          )}
+        </ul>
+      </div>
+    );
   }
 
   render() {
@@ -69,18 +91,14 @@ export default class StarWarsInfo extends PureComponent {
       characterId,
       shipId,
       source: {
-        data: { character, starship },
+        result: { character, ship },
         errors: sourceErrors,
         isPending: isSourceLoading,
       },
     } = this.props;
     return (
       <div className={styles.box}>
-        <Helmet
-          title="React + Redux + Restful API App - Immutable.js Store - Star Wars Info"
-          meta={[{ name: 'description', content: '' }]}
-        />
-        <h2>Star Wars Info (Immutable.js Store)</h2>
+        <h2>Star Wars API</h2>
         {isSourceLoading && <p className={styles.loading}>Loading...</p>}
         {sourceErrors.length > 0 && (
           <p className={styles.error}>
@@ -104,7 +122,8 @@ export default class StarWarsInfo extends PureComponent {
               <label>Height</label>
               <input
                 type="text"
-                name="height"
+                data-name="height"
+                data-id={character.url}
                 value={character.height}
                 onChange={this.handleCharacterFieldChange}
               />
@@ -113,37 +132,9 @@ export default class StarWarsInfo extends PureComponent {
               <label>Ships</label>
             </p>
             <ul>
-              {character.starships.length ? (
-                character.starships.map(ship => (
-                  <li key={ship.url}>
-                    <p className={styles['result-title']}>{ship.name}</p>
-                    <p>
-                      <label>Model</label>
-                      {ship.model}
-                    </p>
-                    <p>
-                      <label>Films</label>
-                    </p>
-                    <ul>
-                      {ship.films.length ? (
-                        ship.films.map(film => (
-                          <li key={`${film.url}-${film.url}`}>
-                            <p className={styles['result-title']}>
-                              {film.title}
-                            </p>
-                            <p>
-                              <label>Director</label>
-                              {film.director}
-                            </p>
-                          </li>
-                        ))
-                      ) : (
-                        <li>
-                          <p>None</p>
-                        </li>
-                      )}
-                    </ul>
-                  </li>
+              {character.ships.length ? (
+                character.ships.map(childShip => (
+                  <li key={childShip.url}>{this.renderShip(childShip)}</li>
                 ))
               ) : (
                 <li>
@@ -162,19 +153,10 @@ export default class StarWarsInfo extends PureComponent {
           onChange={this.handleShipIdInput}
           onKeyPress={this.handleShipSearch}
         />
-        {starship && (
+        {ship && (
           <div className={styles.info}>
             <h4>Result:</h4>
-            <p className={styles['result-title']}>{starship.name}</p>
-            <p>
-              <label>Model</label>
-              <input
-                type="text"
-                name="model"
-                value={starship.model}
-                onChange={this.handleStarshipFieldChange}
-              />
-            </p>
+            {this.renderShip(ship)}
           </div>
         )}
       </div>

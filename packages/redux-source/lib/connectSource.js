@@ -6,30 +6,33 @@ export default function connectSource(
   { stateName, denormalize, actions },
   { slice, actionsProp },
 ) {
-  return OriginComponent => {
-    const mapStateToProps = (oldState, ...other) => {
-      const newState = unwrap(oldState);
-      return createSelector(
-        [
-          state => slice(state)[stateName].data,
-          state => slice(state)[stateName].errors,
-          state => slice(state)[stateName].isPending,
-        ],
-        (data, errors, isPending) => ({
+  const mapStateToProps = (oldState, ...other) => {
+    const newState = unwrap(oldState);
+    return createSelector(
+      [
+        state => slice(state)[stateName].result,
+        state => slice(state)[stateName].entities,
+        state => slice(state)[stateName].errors,
+        state => slice(state)[stateName].isPending,
+      ],
+      (result, entities, errors, isPending) => {
+        const res = denormalize(result, entities);
+        // console.log('denormalize', { result, entities }, res);
+        return {
           [stateName]: {
-            data: denormalize(data),
+            result: res,
             errors,
             isPending,
           },
-        }),
-      )(newState, ...other);
-    };
-    const mapDispatchToProps = dispatch =>
-      actionsProp
-        ? {
-            [actionsProp]: bindActionCreators(actions, dispatch),
-          }
-        : {};
-    return connect(mapStateToProps, mapDispatchToProps)(OriginComponent);
+        };
+      },
+    )(newState, ...other);
   };
+  const mapDispatchToProps = dispatch =>
+    actionsProp
+      ? {
+          [actionsProp]: bindActionCreators(actions, dispatch),
+        }
+      : {};
+  return connect(mapStateToProps, mapDispatchToProps);
 }

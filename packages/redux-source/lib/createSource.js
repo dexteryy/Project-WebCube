@@ -1,48 +1,123 @@
 import { execute } from 'graphql';
+import { makeExecutableSchema } from 'graphql-tools';
+// https://stackoverflow.com/questions/46562561/apollo-graphql-field-type-for-object-with-dynamic-keys
+import GraphQLJSON from 'graphql-type-json';
 import { constantCase } from 'change-case';
 import { schema, normalize, denormalize } from 'normalizr';
-import { isPlural } from 'pluralize';
+import { singular, isPlural } from 'pluralize';
+
+const RE_LIST_SUFFIX = /_$list(_|$)/;
 
 function astToNormalizeSchema(gqlAst, { idAttribute }) {
-  const normalizeSchema = {};
-  const entityOption = { idAttribute };
   const { definitions } = gqlAst;
-  const traverseProp = root => ({ name, selectionSet }) => {
-    if (!selectionSet) {
+  const framents = {};
+  definitions.forEach(definition => {
+    const { kind, name, alias } = definition;
+    if (kind === 'FragmentDefinition') {
+      framents[alias ? alias.value : name.value] = definition;
+    }
+  });
+  const normalizeSchema = {};
+  /* eslint-disable max-statements */
+  const traverseProp = root => field => {
+    const { name, alias, selectionSet } = field;
+    let { value: originName } = name;
+    if (!selectionSet || originName === idAttribute) {
       return;
     }
-    const childRoot = {};
-    selectionSet.selections.forEach(traverseProp(childRoot));
-    if (name.value !== idAttribute) {
-      const entity = new schema.Entity(name.value, childRoot, entityOption);
-      root[name.value] = isPlural(name.value) ? [entity] : entity;
+    const spreadSections = [];
+    selectionSet.selections.forEach(selection => {
+      if (selection.kind === 'FragmentSpread') {
+        const fragment =
+          framents[
+            selection.alias ? selection.alias.value : selection.name.value
+          ];
+        if (!fragment || !fragment.selectionSet) {
+          return;
+        }
+        spreadSections.push(...fragment.selectionSet.selections);
+      } else if (selection.kind === 'Field') {
+        spreadSections.push(selection);
+      }
+    });
+    let hasId = false;
+    for (let i = 0; i < spreadSections.length; i++) {
+      if (spreadSections[i].name.value === idAttribute) {
+        hasId = true;
+        break;
+      }
     }
+    // if (!hasId && normalizeSchema === root) {
+    //   throw new Error(
+    //     '[redux-source] The result of query/mutation operation (an object or objects in an array) must have id attrubute',
+    //   );
+    // }
+    const childRoot = {};
+    spreadSections.forEach(traverseProp(childRoot));
+    let isList = false;
+    if (RE_LIST_SUFFIX.test(originName)) {
+      isList = true;
+      originName = originName.replace(RE_LIST_SUFFIX, '$1');
+      name.value = originName;
+    } else if (isPlural(originName)) {
+      isList = true;
+    }
+    const dataName = alias ? alias.value : originName;
+    const entity = hasId
+      ? new schema.Entity(singular(dataName), childRoot, {
+          idAttribute,
+        })
+      : childRoot;
+    root[dataName] = isList ? [entity] : entity;
   };
-  definitions.forEach(({ selectionSet: { selections } }) => {
-    selections.forEach(traverseProp(normalizeSchema));
+  /* eslint-enable max-statements */
+  definitions.forEach(definition => {
+    const { kind, selectionSet } = definition;
+    if (kind !== 'OperationDefinition') {
+      return;
+    }
+    selectionSet.selections.forEach(traverseProp(normalizeSchema));
   });
   return normalizeSchema;
 }
 
-function normalizeData(originData, normalizeSchema) {
-  const res = {};
-  Object.keys(originData).forEach(key => {
-    const value = originData[key];
-    res[key] =
-      value && normalizeSchema[key]
-        ? normalize(value, normalizeSchema[key])
-        : value;
-  });
-  return res;
+function getConfig(selectionSet) {
+  const config = {};
+  const selections = (selectionSet && selectionSet.selections) || [];
+  const { name: { value: configFieldName }, selectionSet: configSelectionSet } =
+    selections[0] || {};
+  if (configFieldName === '__config__') {
+    selections.shift();
+    if (configSelectionSet) {
+      configSelectionSet.selections.forEach(
+        ({ alias: { value: key }, name: { value } }) => {
+          config[key] = value;
+        },
+      );
+    }
+  }
+  return config;
 }
 
 export default function createSource({
-  executableSchema,
+  typeDefs,
+  resolvers,
   createInitialState,
   pendingReducer,
   successReducer,
   errorReducer,
 }) {
+  const executableSchema = makeExecutableSchema({
+    // https://github.com/apollographql/graphql-tools/blob/master/docs/source/scalars.md
+    typeDefs: `
+      scalar JSON
+      ${typeDefs}
+    `,
+    resolvers: {
+      JSON: GraphQLJSON,
+      ...resolvers,
+    },
+  });
   return function source(
     gqlAst,
     {
@@ -52,15 +127,18 @@ export default function createSource({
       delimiter = '/',
     },
   ) {
-    const normalizeSchema = astToNormalizeSchema(gqlAst, { idAttribute });
+    // console.log'GQL AST', gqlAst);
     const { definitions } = gqlAst;
     const actions = {};
     const reducerMap = {};
     const initialState = createInitialState({
       stateName,
     });
-    definitions.forEach(operation => {
-      const { name } = operation;
+    definitions.forEach(({ name, kind, operation, selectionSet }) => {
+      if (kind !== 'OperationDefinition') {
+        return;
+      }
+      const config = getConfig(selectionSet);
       const TYPE = [namespace, `${constantCase(name.value)}`].join(delimiter);
       const PENDING_TYPE = `${TYPE}_PENDING`;
       const SUCCESS_TYPE = `${TYPE}_SUCCESS`;
@@ -68,9 +146,8 @@ export default function createSource({
       const actionCreator = args => dispatch => {
         dispatch({
           type: PENDING_TYPE,
-          payload: null,
         });
-        execute(executableSchema, gqlAst, null, null, args, name.value).then(
+        execute(executableSchema, gqlAst, null, {}, args, name.value).then(
           result => {
             if (result.errors && result.errors.length) {
               return dispatch({
@@ -81,17 +158,33 @@ export default function createSource({
             return dispatch({
               type: SUCCESS_TYPE,
               payload: result.data
-                ? normalizeData(result.data, normalizeSchema)
+                ? normalize(result.data, normalizeSchema)
                 : null,
             });
           },
         );
       };
       actions[TYPE] = actionCreator;
-      reducerMap[PENDING_TYPE] = pendingReducer({ stateName });
-      reducerMap[SUCCESS_TYPE] = successReducer({ stateName });
-      reducerMap[ERROR_TYPE] = errorReducer({ stateName });
+      reducerMap[PENDING_TYPE] = pendingReducer({
+        stateName,
+        operationName: name.value,
+        operationType: operation,
+        config,
+      });
+      reducerMap[SUCCESS_TYPE] = successReducer({
+        stateName,
+        operationName: name.value,
+        operationType: operation,
+        config,
+      });
+      reducerMap[ERROR_TYPE] = errorReducer({
+        stateName,
+        operationName: name.value,
+        operationType: operation,
+        config,
+      });
     });
+    const normalizeSchema = astToNormalizeSchema(gqlAst, { idAttribute });
     return {
       actions,
       reducerMap,
@@ -102,40 +195,10 @@ export default function createSource({
       namespace,
       delimiter,
       normalize(data) {
-        const normalizedData = {};
-        for (const key in data) {
-          if (!normalizeSchema[key]) {
-            throw new Error(
-              `Invalid input. Allowed keys: ${Object.keys(normalizeSchema).join(
-                ', ',
-              )}`,
-            );
-          }
-          normalizedData[key] = normalize(data[key], normalizeSchema[key]);
-        }
-        return normalizedData;
+        return normalize(data, normalizeSchema);
       },
-      denormalize(normalizedData) {
-        const data = {};
-        for (const key in normalizedData) {
-          if (!normalizeSchema[key]) {
-            throw new Error(
-              `Invalid input. Allowed keys: ${Object.keys(normalizeSchema).join(
-                ', ',
-              )}`,
-            );
-          }
-          const { result, entities } = normalizedData[key];
-          Object.assign(
-            data,
-            denormalize(
-              { [key]: result },
-              { [key]: normalizeSchema[key] },
-              entities,
-            ),
-          );
-        }
-        return data;
+      denormalize(result, entities) {
+        return denormalize(result, normalizeSchema, entities);
       },
     };
   };

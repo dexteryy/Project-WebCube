@@ -1,0 +1,22 @@
+type Shop {
+  id: ID!
+  name: String
+  address: String
+  deliveryEnabled: Boolean!
+  services: [Service!]
+  orders: [JSON!]
+  position: Position
+}
+type Service {
+  id: ID!
+  name: String!
+  price: Float!
+}
+type Query {
+  shops: [Shop!]
+  timestamp: String!
+}
+type Mutation {
+  shops(shopId: String!, shopData: JSON): [Shop!]
+  timestamp: String!
+}
