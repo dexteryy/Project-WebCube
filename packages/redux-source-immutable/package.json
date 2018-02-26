@@ -1,6 +1,6 @@
 {
   "name": "redux-source-immutable",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "The Immutable.js version of redux-source",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -29,7 +29,7 @@
     "graphql-tools": "^2.18.0",
     "lodash": "^4.17.4",
     "react-redux": "^5.0.6",
-    "redux-source": "^0.1.6",
+    "redux-source": "^0.2.0",
     "reselect": "^3.0.1"
   },
   "devDependencies": {

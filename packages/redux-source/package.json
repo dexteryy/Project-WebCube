@@ -1,6 +1,6 @@
 {
   "name": "redux-source",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
