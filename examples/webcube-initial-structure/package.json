@@ -52,8 +52,8 @@
     "redux-cube-with-immutable": "^1.0.0",
     "redux-cube-with-persist": "^1.0.0",
     "redux-cube-with-router": "^1.0.0",
-    "redux-source": "^0.1.0",
-    "redux-source-immutable": "^0.1.0",
+    "redux-source": "^0.2.0",
+    "redux-source-immutable": "^0.2.0",
     "rxjs": "^5.5.6",
     "webcube": "^1.0.0-alpha.43"
   }
