@@ -93,6 +93,7 @@ type Mutation {
 >   * [Schemas and Types](http://graphql.org/learn/schema/)
 >   * [Generating a schema](https://www.apollographql.com/docs/graphql-tools/generate-schema.html)
 > * `JSON` type is built-in and defined by [graphql-type-json](https://www.npmjs.com/package/graphql-type-json) (["field type for object with dynamic keys"](https://stackoverflow.com/questions/46562561/apollo-graphql-field-type-for-object-with-dynamic-keys))
+>   * Other built-in scalar types: `Date`, `Time`, `DateTime` ([graphql-iso-date](https://www.npmjs.com/package/graphql-iso-date))
 >   * You can define your own [custom scalar](https://github.com/apollographql/graphql-tools/blob/master/docs/source/scalars.md)
 > * If you want to automatically normalize (see below) the data of a field, its field name must be plural (for the above example, the field names for `Service` type and `Shop` type are `services` and `shops`) or 'xxxx_$list' when its type is a [List](http://graphql.org/learn/schema/#lists-and-non-null) and must be singular or uncountable when its type is not a [List](http://graphql.org/learn/schema/#lists-and-non-null).
 

@@ -18,6 +18,9 @@ export default function connectSource(
       (result, entities, errors, isPending) => {
         const res = denormalize(result, entities);
         // console.log('denormalize', { result, entities }, res);
+        if (typeof console === 'object' && console.error) {
+          errors.forEach(error => console.error(error.stack));
+        }
         return {
           [stateName]: {
             result: res,

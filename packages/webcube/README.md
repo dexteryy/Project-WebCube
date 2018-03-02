@@ -38,6 +38,9 @@ It is part of my effort to simplify the usage of all 'mainstream' tools and best
 	* [Usage #1: create a web project as a standalone repo](#usage-1-create-a-web-project-as-a-standalone-repo)
 	* [Usage #2: create a web project in a monorepo](#usage-2-create-a-web-project-in-a-monorepo)
 * [How To Develop](#how-to-develop)
+	* [Dev Server](#dev-server)
+	* [Full Build](#full-build)
+	* [View Result](#view-result)
 * [How To Test (WIP)](#how-to-test-wip)
 * [How To Deploy](#how-to-deploy)
 		* [Static Web Mode](#static-web-mode)
@@ -154,7 +157,7 @@ npm run new
 
 ## How To Develop
 
-For faster recompiling ([webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)):
+### Dev Server
 
 ```
 npm run dev
@@ -175,6 +178,23 @@ Enable HMR (Hot Module Replacement):
 ```
 LIVE_MODE=hmr npm run dev:dashboard
 ```
+
+### Full Build
+
+```bash
+npm run build
+```
+
+For production environment:
+
+```bash
+NODE_ENV=production npm run build
+```
+
+### View Result
+
+http://[WEBCUBE_DEVSERVER_HOST](https://github.com/dexteryy/Project-WebCube/blob/master/packages/webcube/templates/configs/env.sample.config#L2):[WEBCUBE_DEVSERVER_PORT](https://github.com/dexteryy/Project-WebCube/blob/master/packages/webcube/templates/configs/env.sample.config#L3)/[entrypoint](https://github.com/dexteryy/Project-WebCube/blob/master/examples/webcube-initial-structure/configs/env.sample.config#L119)
+
 
 ## How To Test (WIP)
 
@@ -225,8 +245,8 @@ npm run deploy:staticserver
 * [Redux](http://redux.js.org/) ([redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube))
 * [lokka](https://github.com/kadirahq/lokka) [TODO] / [React Apollo](http://dev.apollodata.com/react/) [TODO]
 * [Webpack](http://webpack.github.io/docs/) [TODO: v2+]
-  * [Babel v6](babeljs.io) ([JSX + Flow](http://babeljs.io/docs/plugins/preset-react/) + [babel-preset-env](https://github.com/babel/babel-preset-env) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [fast-async](https://github.com/MatAtBread/fast-async) + ...)
-  * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([styled-components](https://github.com/styled-components/styled-components) [TODO] / [Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) / [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
+  * [Babel v6](babeljs.io) ([JSX + Flow](http://babeljs.io/docs/plugins/preset-react/) + [babel-preset-env](https://github.com/babel/babel-preset-env) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [dynamic-import](https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import) + [fast-async](https://github.com/MatAtBread/fast-async) + [rewire](https://www.npmjs.com/package/babel-rewire-plugin) + [webpack-alias](https://www.npmjs.com/package/babel-plugin-webpack-alias) + [react-css-modules](https://www.npmjs.com/package/babel-plugin-react-css-modules) + [lodash](https://www.npmjs.com/package/babel-plugin-lodash) + [ramda](https://www.npmjs.com/package/babel-plugin-ramda) + ...)
+  * [CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js) ([styled-components](https://github.com/styled-components/styled-components) / [Radium](https://github.com/FormidableLabs/radium)), [CSS Modules](https://github.com/css-modules/css-modules) + [PostCSS](https://github.com/postcss/postcss) ([CSSNext](http://cssnext.io/)) / [SCSS](https://www.npmjs.com/package/sass-loader) ([node-sass](https://www.npmjs.com/package/node-sass)) + [Autoprefixer](https://github.com/postcss/autoprefixer) + [CSSNano](http://cssnano.co/options/)
   * [imagemin](https://www.npmjs.com/package/image-webpack-loader) ([gifsicle](https://github.com/kevva/imagemin-gifsicle) + [mozjpeg](https://github.com/imagemin/imagemin-mozjpeg) + [optipng](https://github.com/kevva/imagemin-optipng) + [svgo](https://github.com/kevva/imagemin-svgo) + [pngquant](https://pngquant.org/)) + [url-loader](https://www.npmjs.com/package/url-loader) / [file-loader](https://www.npmjs.com/package/file-loader) + ...
   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) / [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware) + [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 * [ESLint](http://eslint.org/) + [Prettier](https://github.com/prettier/prettier) ([eslint-config-webcube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/eslint-config-webcube))

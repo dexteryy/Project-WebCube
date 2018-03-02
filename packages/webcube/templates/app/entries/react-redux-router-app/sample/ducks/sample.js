@@ -38,7 +38,7 @@ export const { reducer, actions, types, typeDict } = hub
     {
       log: [],
       message: '',
-    }
+    },
   )
   .with(existTypeDict);
 
@@ -49,6 +49,6 @@ export const epics = [
       map(action => ({
         type: 'LOG/ADD_ITEM',
         payload: { text: action.payload },
-      }))
+      })),
     ),
 ];

@@ -23,10 +23,14 @@ export default function connectSource(
         //   { result: result.toJS(), entities: entities.toJS() },
         //   res,
         // );
+        const errorList = errors.toJS();
+        if (typeof console === 'object' && console.error) {
+          errorList.forEach(error => console.error(error.stack));
+        }
         return {
           [stateName]: {
             result: res,
-            errors: errors.toJS(),
+            errors: errorList,
             isPending,
           },
         };

@@ -8,8 +8,7 @@ const autoprefixer = require('autoprefixer');
 const cssnext = require('postcss-cssnext');
 const postcssReporter = require('postcss-reporter');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const kebabCase = require('lodash/kebabCase');
-const defaults = require('lodash/defaults');
+const _ = require('lodash');
 const {
   isProductionEnv,
   isStagingEnv,
@@ -33,7 +32,7 @@ try {
 } catch (ex) {
   console.info('No custom webpack configs');
 }
-customConfig = defaults(customConfig || {}, {
+customConfig = _.defaults(customConfig || {}, {
   resolveAlias: {},
   babelLoaderPresets: presets => presets,
   babelLoaderPlugins: plugins => plugins,
@@ -48,16 +47,16 @@ const mutiplEntries = {};
 for (const name in process.env) {
   const entryName = (/WEBCUBE_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
   if (entryName) {
-    mutiplEntries[kebabCase(entryName)] = [process.env[name]];
+    mutiplEntries[_.kebabCase(entryName)] = [process.env[name]];
   }
   const demoName = (/WEBCUBE_(DEMO_[A-Z_]+)/.exec(name) || [])[1];
   if (demoName) {
-    mutiplEntries[kebabCase(demoName)] = [process.env[name]];
+    mutiplEntries[_.kebabCase(demoName)] = [process.env[name]];
   }
   if (!isProductionEnv) {
     const devEntryName = (/WEBCUBE_DEV_ENTRY_([A-Z_]+)/.exec(name) || [])[1];
     if (devEntryName) {
-      mutiplEntries[kebabCase(devEntryName)] = [process.env[name]];
+      mutiplEntries[_.kebabCase(devEntryName)] = [process.env[name]];
     }
   }
 }
@@ -108,6 +107,18 @@ runtimeVars.forEach(name => {
   definePluginOpt[`process.env.${name}`] = `'${process.env[name] || ''}'`;
 });
 
+const excludeFromCssModulesOrigin = JSON.parse(
+  process.env.WEBCUBE_EXCLUDE_FROM_CSS_MODULES || '[]'
+);
+
+const excludeFromCssModules = excludeFromCssModulesOrigin.map(relativePath =>
+  path.join(rootPath, relativePath)
+);
+
+const isormophicStyles = JSON.parse(
+  process.env.WEBCUBE_INCLUDE_INTO_ISORMOPHIC_STYLES || '[]'
+).map(relativePath => path.join(rootPath, relativePath));
+
 const babelLoaderPlugins = [
   'add-module-exports',
   'transform-es2015-modules-commonjs',
@@ -116,12 +127,39 @@ const babelLoaderPlugins = [
   'transform-class-properties',
   'transform-object-rest-spread',
   'syntax-dynamic-import',
+  'dynamic-import-webpack', // for webpack v1
   'syntax-optional-chaining',
   'transform-decorators-legacy',
-  'dynamic-import-webpack',
   ['lodash', { id: ['lodash', 'recompose'] }],
+  ['ramda'],
+  'styled-components',
   'graphql-tag',
-];
+  [
+    'babel-plugin-webpack-alias',
+    { config: path.join(__dirname, 'webpack.config.js') },
+  ],
+]
+  .concat(
+    process.env.WEBCUBE_DISABLE_CSS_MODULES
+      ? []
+      : [
+          [
+            'react-css-modules',
+            {
+              context: projectPath,
+              handleMissingStyleName: 'ignore',
+              exclude: `(${excludeFromCssModulesOrigin.join('|')})`,
+            },
+          ],
+        ]
+  )
+  .concat(
+    isProductionEnv
+      ? []
+      : [
+          // 'rewire',
+        ]
+  );
 
 const reactTransformPlugins = [
   'react-transform',
@@ -146,10 +184,65 @@ if (!isProductionEnv && liveMode === 'hmr') {
   babelLoaderPlugins.push(reactTransformPlugins);
 }
 
+const babelLoaderConfig = {
+  presets: customConfig.babelLoaderPresets([
+    [
+      'env',
+      {
+        targets: {
+          browsers: ['last 2 versions', '> 5%'],
+          ios: 7,
+          android: 4,
+          node: 6,
+          ie: 11,
+        },
+        include: [],
+        exclude: ['transform-async-to-generator'],
+        useBuiltIns: 'usage',
+        forceAllTransforms: Boolean(process.env.WEBCUBE_USE_UGLIFY),
+        shippedProposals: false,
+        loose: Boolean(process.env.WEBCUBE_ENABLE_LOOSE_MODE),
+        debug: false,
+      },
+    ],
+    'react',
+    'flow',
+  ]),
+  plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
+  cacheDirectory: true,
+};
+
+const es6Modules = (
+  JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || []
+).map(es6ModulePath => fs.realpathSync(path.join(rootPath, es6ModulePath)));
+
+const monorepoModules = [];
+(packageJson.workspaces || []).forEach(workspacePath => {
+  const matches = glob.sync(path.join(rootPath, workspacePath));
+  monorepoModules.push(...matches);
+});
+const resolvePaths = (projectPath !== rootPath
+  ? [path.join(projectPath, 'node_modules')]
+  : []
+)
+  .concat(
+    monorepoModules.map(workspace => path.join(workspace, 'node_modules'))
+  )
+  .concat([path.join(rootPath, 'node_modules')]);
+
+const babelInclude = [
+  path.join(projectPath, 'app'),
+  path.join(projectPath, 'src'),
+  path.join(projectPath, 'staticweb'),
+  modulePath,
+]
+  .concat(es6Modules)
+  .concat(customConfig.babelLoaderInclude);
+
 // https://github.com/ai/browserslist#queries
 const browsers = JSON.parse(process.env.WEBCUBE_BROWSERS || null) || [];
 
-const cssLoaderConfig = JSON.stringify({
+const cssLoaderConfig = {
   modules: !process.env.WEBCUBE_DISABLE_CSS_MODULES,
   importLoaders: 1,
   localIdentName: '[name]__[local]___[hash:base64:5]',
@@ -169,39 +262,57 @@ const cssLoaderConfig = JSON.stringify({
   // zindex: true,
   // normalizeUrl: true,
   // reduceIdents: true,
-});
+};
 
-const excludeFromCssModules = JSON.parse(
-  process.env.WEBCUBE_EXCLUDE_FROM_CSS_MODULES || '[]'
-).map(relativePath => path.join(rootPath, relativePath));
+const getScssLoaderConfig = cssOpt => {
+  const localCssOpt = JSON.stringify(
+    Object.assign({}, cssOpt, {
+      importLoaders: 2,
+    })
+  );
+  return (
+    (cssOpt._enableIsormophicStyleLoader &&
+      `isomorphic-style-loader!css?${localCssOpt}!postcss-loader!sass`) ||
+    (process.env.WEBCUBE_ENABLE_EXTRACT_CSS &&
+      ExtractTextPlugin.extract(
+        'style',
+        `css?${localCssOpt}!postcss-loader!sass`
+      )) ||
+    `style-loader?singleton!css?${localCssOpt}!postcss-loader!sass`
+  );
+};
 
-const getScssLoaderConfig = cssOpt =>
-  process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-    ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader!sass`)
-    : `style?singleton!css?${cssOpt}!postcss-loader!sass`;
+const getLessLoaderConfig = cssOpt => {
+  const localCssOpt = JSON.stringify(
+    Object.assign({}, cssOpt, {
+      importLoaders: 2,
+    })
+  );
+  return (
+    (cssOpt._enableIsormophicStyleLoader &&
+      `isomorphic-style-loader!css?${localCssOpt}!postcss-loader!less`) ||
+    (process.env.WEBCUBE_ENABLE_EXTRACT_CSS &&
+      ExtractTextPlugin.extract(
+        'style',
+        `css?${localCssOpt}!postcss-loader!less`
+      )) ||
+    `style-loader?singleton!css?${localCssOpt}!postcss-loader!less`
+  );
+};
 
-const getCssLoaderConfig = cssOpt =>
-  process.env.WEBCUBE_ENABLE_EXTRACT_CSS
-    ? ExtractTextPlugin.extract('style', `css?${cssOpt}!postcss-loader`)
-    : `style?singleton!css?${cssOpt}!postcss-loader`;
-
-const es6Modules = (
-  JSON.parse(process.env.WEBCUBE_ES6_MODULES || null) || []
-).map(es6ModulePath => fs.realpathSync(path.join(rootPath, es6ModulePath)));
-
-const monorepoModules = [];
-(packageJson.workspaces || []).forEach(workspacePath => {
-  const matches = glob.sync(path.join(rootPath, workspacePath));
-  monorepoModules.push(...matches);
-});
-const resolvePaths = (projectPath !== rootPath
-  ? [path.join(projectPath, 'node_modules')]
-  : []
-)
-  .concat(
-    monorepoModules.map(workspace => path.join(workspace, 'node_modules'))
-  )
-  .concat([path.join(rootPath, 'node_modules')]);
+const getCssLoaderConfig = cssOpt => {
+  const localCssOpt = JSON.stringify(cssOpt);
+  return (
+    (cssOpt._enableIsormophicStyleLoader &&
+      `isomorphic-style-loader!css?${localCssOpt}!postcss-loader`) ||
+    (process.env.WEBCUBE_ENABLE_EXTRACT_CSS &&
+      ExtractTextPlugin.extract(
+        'style',
+        `css?${localCssOpt}!postcss-loader`
+      )) ||
+    `style-loader?singleton!css?${localCssOpt}!postcss-loader`
+  );
+};
 
 module.exports = Object.assign(
   {
@@ -239,7 +350,7 @@ module.exports = Object.assign(
         customConfig.resolveAlias
       ),
       modulesDirectories: resolvePaths,
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
       packageMains: [
         'webcube:module',
         'webpack',
@@ -255,54 +366,27 @@ module.exports = Object.assign(
     },
     devtool: 'source-map',
     module: {
-      // @TODO
-      // noParse: /node_modules\/(?!(webcube|redux-cube)\/?.*)/,
-      noParse: /node_modules\/localforage\/dist\/?.*/,
+      noParse: new RegExp(
+        `(${JSON.parse(process.env.WEBCUBE_WEBPACK_NO_PARSE || '[]').join(
+          '|'
+        )})`
+      ),
       loaders: [
         {
           test: /\.jsx?$/,
           loader: 'babel',
-          include: [
-            path.join(projectPath, 'app'),
-            path.join(projectPath, 'src'),
-            path.join(projectPath, 'staticweb'),
-            modulePath,
-          ]
-            .concat(es6Modules)
-            .concat(customConfig.babelLoaderInclude),
-          // exclude: /node_modules/,
-          query: {
-            presets: customConfig.babelLoaderPresets([
-              [
-                'env',
-                {
-                  targets: {
-                    browsers: ['last 2 versions', '> 5%'],
-                    ios: 7,
-                    android: 4,
-                    node: 6,
-                    ie: 11,
-                  },
-                  include: [],
-                  exclude: ['transform-async-to-generator'],
-                  useBuiltIns: 'usage',
-                  forceAllTransforms: Boolean(process.env.WEBCUBE_USE_UGLIFY),
-                  shippedProposals: false,
-                  loose: Boolean(process.env.WEBCUBE_ENABLE_LOOSE_MODE),
-                  debug: false,
-                },
-              ],
-              'react',
-              'flow',
-            ]),
-            plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
-            cacheDirectory: true,
-          },
+          include: babelInclude,
+          query: babelLoaderConfig,
+        },
+        {
+          test: /\.tsx?$/,
+          loader: `babel?${JSON.stringify(babelLoaderConfig)}!ts-loader`,
+          include: babelInclude,
         },
         {
           test: /\.scss$/,
           loader: getScssLoaderConfig(cssLoaderConfig),
-          exclude: excludeFromCssModules,
+          exclude: _.union(excludeFromCssModules, isormophicStyles),
         },
         {
           test: /\.scss$/,
@@ -311,12 +395,64 @@ module.exports = Object.assign(
               modules: false,
             })
           ),
-          include: excludeFromCssModules,
+          include: _.difference(excludeFromCssModules, isormophicStyles),
+        },
+        {
+          test: /\.scss$/,
+          loader: getScssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+            })
+          ),
+          include: _.difference(isormophicStyles, excludeFromCssModules),
+        },
+        {
+          test: /\.scss$/,
+          loader: getScssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+              modules: false,
+            })
+          ),
+          include: _.intersection(isormophicStyles, excludeFromCssModules),
+        },
+        {
+          test: /\.less$/,
+          loader: getLessLoaderConfig(cssLoaderConfig),
+          exclude: _.union(excludeFromCssModules, isormophicStyles),
+        },
+        {
+          test: /\.less$/,
+          loader: getLessLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              modules: false,
+            })
+          ),
+          include: _.difference(excludeFromCssModules, isormophicStyles),
+        },
+        {
+          test: /\.less$/,
+          loader: getLessLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+            })
+          ),
+          include: _.difference(isormophicStyles, excludeFromCssModules),
+        },
+        {
+          test: /\.less$/,
+          loader: getLessLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+              modules: false,
+            })
+          ),
+          include: _.intersection(isormophicStyles, excludeFromCssModules),
         },
         {
           test: /\.css$/,
           loader: getCssLoaderConfig(cssLoaderConfig),
-          exclude: excludeFromCssModules,
+          exclude: _.union(excludeFromCssModules, isormophicStyles),
         },
         {
           test: /\.css$/,
@@ -325,7 +461,26 @@ module.exports = Object.assign(
               modules: false,
             })
           ),
-          include: excludeFromCssModules,
+          include: _.difference(excludeFromCssModules, isormophicStyles),
+        },
+        {
+          test: /\.css$/,
+          loader: getCssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+            })
+          ),
+          include: _.difference(isormophicStyles, excludeFromCssModules),
+        },
+        {
+          test: /\.css$/,
+          loader: getCssLoaderConfig(
+            Object.assign({}, cssLoaderConfig, {
+              _enableIsormophicStyleLoader: true,
+              modules: false,
+            })
+          ),
+          include: _.intersection(isormophicStyles, excludeFromCssModules),
         },
         {
           test: /\.json$/,
@@ -376,7 +531,7 @@ module.exports = Object.assign(
           ),
         },
         {
-          test: /\.(woff|woff2)$/,
+          test: /\.(woff|woff2|eot|ttf)$/,
           loader: isProductionEnv
             ? `url?limit=${
                 process.env.WEBCUBE_DATAURL_FONT_LIMIT
@@ -386,7 +541,7 @@ module.exports = Object.assign(
               }&name=assets/[name].[ext]`,
         },
         {
-          test: /\.(ttf|eot|wav|mp3)$/,
+          test: /\.(wav|mp3)$/,
           loader: isProductionEnv
             ? 'file?name=assets/[name]_[hash].[ext]'
             : 'file?name=assets/[name].[ext]',
@@ -395,21 +550,27 @@ module.exports = Object.assign(
     },
     // https://www.npmjs.com/package/postcss-loader
     postcss() {
-      return [
-        cssnext({
-          features: {
-            autoprefixer: false,
-          },
-        }),
-        autoprefixer({
-          browsers,
-          // https://github.com/postcss/autoprefixer#outdated-prefixes
-          remove: false,
-          add: true,
-          cascade: false,
-        }),
-        postcssReporter(),
-      ].concat(customConfig.postcssPlugins);
+      return (process.env.WEBCUBE_DISABLE_CSSNEXT
+        ? []
+        : [
+            cssnext({
+              features: {
+                autoprefixer: false,
+              },
+            }),
+          ]
+      )
+        .concat([
+          autoprefixer({
+            browsers,
+            // https://github.com/postcss/autoprefixer#outdated-prefixes
+            remove: false,
+            add: true,
+            cascade: false,
+          }),
+          postcssReporter(),
+        ])
+        .concat(customConfig.postcssPlugins);
     },
     sassLoader: {
       includePaths: resolvePaths,

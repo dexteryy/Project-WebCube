@@ -2,6 +2,8 @@ import { execute } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 // https://stackoverflow.com/questions/46562561/apollo-graphql-field-type-for-object-with-dynamic-keys
 import GraphQLJSON from 'graphql-type-json';
+// https://www.npmjs.com/package/graphql-iso-date
+import { GraphQLDate, GraphQLTime, GraphQLDateTime } from 'graphql-iso-date';
 import { constantCase } from 'change-case';
 import { schema, normalize, denormalize } from 'normalizr';
 import { singular, isPlural } from 'pluralize';
@@ -111,22 +113,26 @@ export default function createSource({
     // https://github.com/apollographql/graphql-tools/blob/master/docs/source/scalars.md
     typeDefs: `
       scalar JSON
+      scalar Date
+      scalar Time
+      scalar DateTime
       ${typeDefs}
     `,
     resolvers: {
       JSON: GraphQLJSON,
+      Date: GraphQLDate,
+      Time: GraphQLTime,
+      DateTime: GraphQLDateTime,
       ...resolvers,
     },
   });
-  return function source(
-    gqlAst,
-    {
+  return function source(gqlAst, opt = {}) {
+    const {
       stateName = 'source',
       idAttribute = 'id',
       namespace = 'REDUX_SOURCE',
       delimiter = '/',
-    },
-  ) {
+    } = opt;
     // console.log'GQL AST', gqlAst);
     const { definitions } = gqlAst;
     const actions = {};

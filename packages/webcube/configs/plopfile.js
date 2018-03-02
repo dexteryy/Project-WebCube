@@ -13,328 +13,138 @@ try {
   console.info('No custom plopfile');
 }
 
+const addReactEntryFiles = {
+  'app/{{entryName}}/index.jsx': 'templates/app/entries/react-app/index.jsx',
+  'app/{{entryName}}/main/index.jsx':
+    'templates/app/entries/react-app/main/index.jsx',
+  'app/{{entryName}}/sample/index.jsx':
+    'templates/app/entries/react-app/sample/index.jsx',
+  'app/{{entryName}}/sample/components/SampleList.jsx':
+    'templates/app/entries/react-app/sample/components/SampleList.jsx',
+  'app/{{entryName}}/sample/constants/sample.js':
+    'templates/app/entries/react-app/sample/constants/sample.js',
+  'app/{{entryName}}/sample/containers/Sample.jsx':
+    'templates/app/entries/react-app/sample/containers/Sample.jsx',
+  'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
+  'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
+};
+
+const addReactRouterEntryFiles = {
+  'app/{{entryName}}/index.jsx':
+    'templates/app/entries/react-router-app/index.jsx',
+  'app/{{entryName}}/main/index.jsx':
+    'templates/app/entries/react-router-app/main/index.jsx',
+  'app/{{entryName}}/sample/index.jsx':
+    'templates/app/entries/react-router-app/sample/index.jsx',
+  'app/{{entryName}}/sample/components/SampleList.jsx':
+    'templates/app/entries/react-router-app/sample/components/SampleList.jsx',
+  'app/{{entryName}}/sample/constants/sample.js':
+    'templates/app/entries/react-router-app/sample/constants/sample.js',
+  'app/{{entryName}}/sample/containers/Sample.jsx':
+    'templates/app/entries/react-router-app/sample/containers/Sample.jsx',
+  'app/{{entryName}}/common/utils/index.js':
+    'templates/app/entries/react-router-app/common/utils/index.js',
+  'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
+  'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
+};
+
+const addReactReduxEntryFiles = {
+  'app/{{entryName}}/index.jsx':
+    'templates/app/entries/react-redux-app/index.jsx',
+  'app/{{entryName}}/main/index.jsx':
+    'templates/app/entries/react-redux-app/main/index.jsx',
+  'app/{{entryName}}/main/hub.js':
+    'templates/app/entries/react-redux-app/main/hub.js',
+  'app/{{entryName}}/main/containers/Layout.jsx':
+    'templates/app/entries/react-redux-app/main/containers/Layout.jsx',
+  'app/{{entryName}}/main/ducks/renameMe.js':
+    'templates/app/entries/react-redux-app/main/ducks/renameMe.js',
+  'app/{{entryName}}/sample/index.jsx':
+    'templates/app/entries/react-redux-app/sample/index.jsx',
+  'app/{{entryName}}/sample/hub.js':
+    'templates/app/entries/react-redux-app/sample/hub.js',
+  'app/{{entryName}}/sample/ducks/sample.js':
+    'templates/app/entries/react-redux-app/sample/ducks/sample.js',
+  'app/{{entryName}}/sample/ducks/actions/sample.js':
+    'templates/app/entries/react-redux-app/sample/ducks/actions/sample.js',
+  'app/{{entryName}}/sample/components/SampleList.jsx':
+    'templates/app/entries/react-redux-app/sample/components/SampleList.jsx',
+  'app/{{entryName}}/sample/constants/sample.js':
+    'templates/app/entries/react-redux-app/sample/constants/sample.js',
+  'app/{{entryName}}/sample/containers/Sample.jsx':
+    'templates/app/entries/react-redux-app/sample/containers/Sample.jsx',
+  'app/{{entryName}}/common/apis/main/index.js':
+    'templates/app/entries/react-redux-app/common/apis/main/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/index.js':
+    'templates/app/entries/react-redux-app/common/apis/main/resolvers/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/loaders/index.js':
+    'templates/app/entries/react-redux-app/common/apis/main/resolvers/loaders/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/__mock__/index.js':
+    'templates/app/entries/react-redux-app/common/apis/main/resolvers/__mock__/index.js',
+  'app/{{entryName}}/common/apis/main/schema/index.gql':
+    'templates/app/entries/react-redux-app/common/apis/main/schema/index.gql',
+  'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
+  'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
+};
+
+const addReactReduxRouterEntryFiles = {
+  'app/{{entryName}}/index.jsx':
+    'templates/app/entries/react-redux-router-app/index.jsx',
+  'app/{{entryName}}/main/index.jsx':
+    'templates/app/entries/react-redux-router-app/main/index.jsx',
+  'app/{{entryName}}/main/hub.js':
+    'templates/app/entries/react-redux-router-app/main/hub.js',
+  'app/{{entryName}}/main/containers/Layout.jsx':
+    'templates/app/entries/react-redux-router-app/main/containers/Layout.jsx',
+  'app/{{entryName}}/main/ducks/renameMe.js':
+    'templates/app/entries/react-redux-router-app/main/ducks/renameMe.js',
+  'app/{{entryName}}/sample/index.jsx':
+    'templates/app/entries/react-redux-router-app/sample/index.jsx',
+  'app/{{entryName}}/sample/hub.js':
+    'templates/app/entries/react-redux-router-app/sample/hub.js',
+  'app/{{entryName}}/sample/ducks/sample.js':
+    'templates/app/entries/react-redux-router-app/sample/ducks/sample.js',
+  'app/{{entryName}}/sample/ducks/actions/sample.js':
+    'templates/app/entries/react-redux-router-app/sample/ducks/actions/sample.js',
+  'app/{{entryName}}/sample/components/SampleList.jsx':
+    'templates/app/entries/react-redux-router-app/sample/components/SampleList.jsx',
+  'app/{{entryName}}/sample/constants/sample.js':
+    'templates/app/entries/react-redux-router-app/sample/constants/sample.js',
+  'app/{{entryName}}/sample/containers/Sample.jsx':
+    'templates/app/entries/react-redux-router-app/sample/containers/Sample.jsx',
+  'app/{{entryName}}/common/utils/index.js':
+    'templates/app/entries/react-redux-router-app/common/utils/index.js',
+  'app/{{entryName}}/common/apis/main/index.js':
+    'templates/app/entries/react-redux-router-app/common/apis/main/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/index.js':
+    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/loaders/index.js':
+    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/loaders/index.js',
+  'app/{{entryName}}/common/apis/main/resolvers/__mock__/index.js':
+    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/__mock__/index.js',
+  'app/{{entryName}}/common/apis/main/schema/index.gql':
+    'templates/app/entries/react-redux-router-app/common/apis/main/schema/index.gql',
+  'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
+  'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
+};
+
+function filesToActions(files) {
+  const actions = [];
+  for (const target in files) {
+    const template = files[target];
+    actions.push({
+      type: 'add',
+      path: path.join(projectPath, target),
+      templateFile: path.join(modulePath, template),
+    });
+  }
+  return actions;
+}
+
 module.exports = function(plop) {
   if (customPlopfile) {
     customPlopfile(plop);
   }
-
-  const addReactEntryActions = [
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-app/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-app/sample/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/components/SampleList.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-app/sample/components/SampleList.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/constants/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-app/sample/constants/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/containers/Sample.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
-      templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-  ];
-
-  const addReactRouterEntryActions = [
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/sample/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/common/utils/index.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/common/utils/index.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/components/SampleList.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/sample/components/SampleList.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/constants/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/sample/constants/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/containers/Sample.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-router-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
-      templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-  ];
-
-  const addReactReduxEntryActions = [
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/hub.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/hub.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/ducks/sample.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/ducks/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/ducks/actions/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/ducks/actions/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/components/SampleList.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/components/SampleList.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/constants/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/constants/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/containers/Sample.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
-      templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-  ];
-
-  const addReactReduxRouterEntryActions = [
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/index.jsx'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/index.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/hub.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/hub.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/common/utils/index.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/common/utils/index.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'app/{{entryName}}/sample/ducks/sample.js'),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/ducks/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/ducks/actions/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/ducks/actions/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/components/SampleList.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/components/SampleList.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/constants/sample.js'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/constants/sample.js'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(
-        projectPath,
-        'app/{{entryName}}/sample/containers/Sample.jsx'
-      ),
-      templateFile: path.join(
-        modulePath,
-        'templates/app/entries/react-redux-router-app/sample/containers/Sample.jsx'
-      ),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/index.html'),
-      templateFile: path.join(modulePath, 'templates/staticweb/index.html'),
-    },
-    {
-      type: 'add',
-      path: path.join(projectPath, 'staticweb/{{entryName}}/deploy.js'),
-      templateFile: path.join(modulePath, 'templates/staticweb/deploy.js'),
-    },
-  ];
 
   const getEntryOpt = opt => {
     const updateEnvConfig = {
@@ -372,12 +182,18 @@ module.exports = function(plop) {
     };
   };
 
+  const addReactEntryActions = [].concat(filesToActions(addReactEntryFiles));
+
   plop.setGenerator(
     'entry:react',
     getEntryOpt({
       description: 'Add a new entry point (with React)',
       actions: addReactEntryActions,
     })
+  );
+
+  const addReactRouterEntryActions = [].concat(
+    filesToActions(addReactRouterEntryFiles)
   );
 
   plop.setGenerator(
@@ -388,12 +204,20 @@ module.exports = function(plop) {
     })
   );
 
+  const addReactReduxEntryActions = [].concat(
+    filesToActions(addReactReduxEntryFiles)
+  );
+
   plop.setGenerator(
     'entry:react-redux',
     getEntryOpt({
       description: 'Add a new entry point (with React + Redux)',
       actions: addReactReduxEntryActions,
     })
+  );
+
+  const addReactReduxRouterEntryActions = [].concat(
+    filesToActions(addReactReduxRouterEntryFiles)
   );
 
   plop.setGenerator(

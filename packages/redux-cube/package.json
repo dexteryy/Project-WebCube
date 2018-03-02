@@ -30,6 +30,7 @@
     "change-case": "^3.0.1",
     "hoist-non-react-statics": "^2.3.1",
     "lodash": "^4.17.4",
+    "react-display-name": "^0.2.3",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
@@ -55,6 +56,8 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-ramda": "^1.4.3",
+    "babel-plugin-rewire": "^1.1.0",
     "babel-preset-env": "^1.6.0",
     "fast-async": "^6.3.0"
   },

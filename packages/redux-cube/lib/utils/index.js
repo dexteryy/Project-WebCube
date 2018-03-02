@@ -1,7 +1,3 @@
-export function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
-
 const IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
 const IS_RECORD_SENTINEL = '@@__IMMUTABLE_RECORD__@@';
 

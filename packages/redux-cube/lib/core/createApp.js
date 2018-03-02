@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import { Provider } from 'react-redux';
-
-import { getDisplayName } from '../utils';
+import getDisplayName from 'react-display-name';
 import appState from './appState';
 
 /**

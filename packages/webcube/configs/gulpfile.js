@@ -62,6 +62,8 @@ function buildApp(myWebpackConfig) {
                 keepClassName: Boolean(process.env.WEBCUBE_MINIFY_KEEP_NAME),
                 keepFnName: Boolean(process.env.WEBCUBE_MINIFY_KEEP_NAME),
               },
+              removeConsole: { exclude: ['info', 'error', 'warn'] },
+              removeDebugger: true,
             })
       )
       .pipe(
@@ -163,6 +165,7 @@ function startStaticWebServer(done) {
       gzip: Boolean(process.env.WEBCUBE_STATIC_SERVER_ENABLE_GZIP),
     })
     .listen(() => {
+      console.info(`Listening at http://${serverHost}:${serverPort}`);
       done();
     });
 }

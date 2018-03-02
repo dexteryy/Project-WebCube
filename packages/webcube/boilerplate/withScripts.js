@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
-
-import { getDisplayName } from './utils';
+import getDisplayName from 'react-display-name';
 
 export default function withScripts(...scripts) {
   return WrappedComponent => {

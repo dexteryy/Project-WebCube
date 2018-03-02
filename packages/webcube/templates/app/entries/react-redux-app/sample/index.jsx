@@ -16,7 +16,7 @@ import Sample from './containers/Sample';
     devToolsOptions: { name: 'SampleApp' },
     persistStorage: localforage,
     persistKey: 'sampleRoot1',
-  })
+  }),
 )
 class SampleApp extends Component {
   render() {

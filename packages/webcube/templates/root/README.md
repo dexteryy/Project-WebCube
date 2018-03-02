@@ -4,40 +4,22 @@
 
 ## Preparation
 
-Step 1: install dependencies
+Create a local configuration file from the template
+
+```bash
+cp ./configs/env.sample.config ./env.config
+```
+
+Install dependencies
 
 ```bash
 npm run update
 ```
 
-Step 2: scaffold
+## Development
 
-```bash
-npm run webcube:setup
-```
+[How to Develop](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube#how-to-develop)
 
-Step 3: create one or more entry point
+[How to Test](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube#how-to-test)
 
-```bash
-npm run new
-```
-
-## Run
-
-```bash
-npm run dev
-```
-
-or
-
-```bash
-npm run build
-```
-
-or
-
-```bash
-NODE_ENV=production npm run build
-```
-
-View http://localhost:8010/your-entry-point
+[How to Deploy](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube#how-to-deploy)

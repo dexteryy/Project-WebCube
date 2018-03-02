@@ -45,6 +45,9 @@
           "recompose"
         ]
       }
+    ],
+    [
+      "ramda"
     ]
   ]
 }

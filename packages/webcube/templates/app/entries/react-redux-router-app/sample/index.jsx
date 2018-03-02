@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter as withRouterMeta } from 'react-router';
 import localforage from 'localforage';
 import withPersist from 'redux-cube-with-persist';
 import { createApp } from 'redux-cube';
@@ -7,7 +6,6 @@ import { createApp } from 'redux-cube';
 import { reducer as sampleReducer, epics } from './ducks/sample';
 import Sample from './containers/Sample';
 
-@withRouterMeta
 @createApp(
   withPersist({
     reducers: {
@@ -18,7 +16,7 @@ import Sample from './containers/Sample';
     devToolsOptions: { name: 'SampleApp' },
     persistStorage: localforage,
     persistKey: 'sampleRoot2',
-  })
+  }),
 )
 class SampleApp extends Component {
   render() {
