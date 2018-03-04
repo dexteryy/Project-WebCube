@@ -44,15 +44,16 @@
   "settings": {
     "files.associations": {
       "*.config": "properties",
-      ".code-workspace": "json",
+      ".code-workspace": "jsonc",
       ".babelrc": "json",
       "babelrc": "json",
-      ".eslintrc": "json",
-      "eslintrc": "json",
-      ".stylelintrc": "json",
-      "stylelintrc": "json",
-      ".htmlhintrc": "json",
-      "htmlhintrc": "json",
+      ".eslintrc": "jsonc",
+      "eslintrc": "jsonc",
+      ".eslintrc*.json": "jsonc",
+      ".stylelintrc": "jsonc",
+      "stylelintrc": "jsonc",
+      ".htmlhintrc": "jsonc",
+      "htmlhintrc": "jsonc",
       "Procfile*": "shellscript",
       "README": "markdown"
     },
@@ -97,7 +98,7 @@
       // }
     ],
     "javascript.validate.enable": false,
-    "typescript.validate.enable": false,
+    "typescript.validate.enable": true,
     "tslint.enable": true,
     "flow.enabled": false,
     //
@@ -108,33 +109,22 @@
     //
     "htmlhint.enable": true,
     //
-    "eslint.autoFixOnSave": true,
-    "prettier.parser": "babylon",
-    "prettier.eslintIntegration": true,
     "prettier.disableLanguages": [
       "javascript",
       "javascriptreact",
       "typescript",
       "typescriptreact",
-      "json"
-    ],
-    "prettier.javascriptEnable": [
-      // "javascript",
-      // "javascriptreact"
-    ],
-    "javascript.format.enable": false,
-    "prettier.typescriptEnable": [
-      // "typescript",
-      // "typescriptreact"
-    ],
-    // "typescript.format.enable": false,
-    // "typescript.format.enable": true,
-    "prettier.cssEnable": [
       "css",
       "less",
-      "scss"
+      "scss",
+      "jsonc",
+      "json"
     ],
-    "prettier.jsonEnable": [],
+    //
+    "eslint.autoFixOnSave": true,
+    "javascript.format.enable": false,
+    // "typescript.format.enable": false,
+    // "typescript.format.enable": true,
     "json.format.enable": true,
     "[json]": {
       "editor.tabSize": 2,
@@ -142,8 +132,11 @@
       "editor.formatOnPaste": true,
       "editor.formatOnSave": true
     },
-    "prettier.graphqlEnable": [
-      "graphql"
-    ]
+    "[jsonc]": {
+      "editor.tabSize": 2,
+      "editor.formatOnType": true,
+      "editor.formatOnPaste": true,
+      "editor.formatOnSave": true
+    }
   }
 }
