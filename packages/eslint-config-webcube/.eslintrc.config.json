@@ -1243,25 +1243,17 @@
     ],
     // react
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/boolean-prop-naming.md
-    // @TODO bug:
-    // static propTypes ={
-    //   ...reduxFormPropTypes,
-    // }
-    // Cannot read property 'property' of undefined
-    // TypeError: Cannot read property 'property' of undefined
-    // at getPropKey (./node_modules/eslint-plugin-react/lib/rules/boolean-prop-naming.js: 88: 21)
-    "react/boolean-prop-naming": "off",
+    "react/boolean-prop-naming": [
+      "error",
+      {
+        "propTypeNames": [
+          "bool"
+        ],
+        "rule": "^(is|has|should)[A-Z]([A-Za-z0-9]?)+"
+      }
+    ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/button-has-type.md
     "react/button-has-type": "error",
-    // "react/boolean-prop-naming": [
-    //   "error",
-    //   {
-    //     "propTypeNames": [
-    //       "bool"
-    //     ],
-    //     "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+"
-    //   }
-    // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/default-props-match-prop-types.md
     "react/default-props-match-prop-types": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
@@ -1309,6 +1301,15 @@
     //     ]
     //   }
     // ],
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-dom-props.md
+    "react/forbid-dom-props": "off",
+    // @CUSTOM
+    // "react/forbid-dom-props": [
+    //   "error",
+    //   {
+    //     "forbid": []
+    //   }
+    // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/forbid-elements.md
     "react/forbid-elements": "off",
     // @CUSTOM
@@ -1329,7 +1330,8 @@
     // "react/forbid-prop-types": [
     //   "error",
     //   {
-    //     "forbid": []
+    //     "forbid": [],
+    //     "allowInPropTypes": []
     //   }
     // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/forbid-foreign-prop-types.md
@@ -1381,6 +1383,8 @@
     "react/no-typos": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-string-refs.md
     "react/no-string-refs": "error",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md
+    "react/no-this-in-sfc": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-unescaped-entities.md
     "react/no-unescaped-entities": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-unknown-property.md
@@ -1437,7 +1441,14 @@
       "error",
       {
         "order": [
-          "static-methods",
+          "type-annotations",
+          "class-properties-and-methods",
+          "instance-variables",
+          "state",
+          "getInitialState",
+          "getChildContext",
+          "getDefaultProps",
+          "constructor",
           "lifecycle",
           "/^is.+$/",
           "/^_is.+$/",
@@ -1447,18 +1458,20 @@
           "/^_should.+$/",
           "/^get.+$/",
           "/^_get.+$/",
+          "getters",
           "/^set.+$/",
           "/^_set.+$/",
+          "setters",
           "/^on.+$/",
           "/^_on.+$/",
           "/^handle.+$/",
           "/^_handle.+$/",
+          "instance-methods",
           "everything-else",
-          "rendering",
-          "render"
+          "rendering"
         ],
         "groups": {
-          "lifecycle": [
+          "class-properties-and-methods": [
             "displayName",
             "propTypes",
             "contextTypes",
@@ -1466,11 +1479,9 @@
             "mixins",
             "statics",
             "defaultProps",
-            "getDefaultProps",
-            "state",
-            "getInitialState",
-            "getChildContext",
-            "constructor",
+            "static-methods"
+          ],
+          "lifecycle": [
             "componentWillMount",
             "componentDidMount",
             "componentWillReceiveProps",
@@ -1480,7 +1491,8 @@
             "componentWillUnmount"
           ],
           "rendering": [
-            "/^render.+$/"
+            "/^render.+$/",
+            "render"
           ]
         }
       }
@@ -1496,6 +1508,8 @@
       "error",
       "always"
     ],
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-child-element-spacing.md
+    "react/jsx-child-element-spacing": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md
     "react/jsx-closing-bracket-location": [
       "error",
@@ -1556,6 +1570,8 @@
     ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
     "react/jsx-key": "error",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-max-depth.md
+    "react/jsx-max-depth": "off",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md
     "react/jsx-max-props-per-line": [
       "error",
@@ -1601,6 +1617,8 @@
     // ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "react/jsx-pascal-case": "error",
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-sort-default-props.md
+    "react/jsx-sort-default-props": "off",
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md
     // @TODO bug: conflict with prettier
     "react/jsx-sort-props": "off",
@@ -1610,7 +1628,8 @@
       {
         "closingSlash": "never",
         "beforeSelfClosing": "always",
-        "afterOpening": "never"
+        "afterOpening": "never",
+        "beforeClosing": "never"
       }
     ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-react.md

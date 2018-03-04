@@ -11,7 +11,7 @@ export default function Endnote() {
         Template by <a href="http://sindresorhus.com">Sindre Sorhus</a>
       </p>
       <p>
-        Part of
+        Part of{' '}
         <a href="https://github.com/dexteryy/Project-WebCube">
           WebCube Project
         </a>
