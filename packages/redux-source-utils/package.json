@@ -1,0 +1,62 @@
+{
+  "name": "redux-source-utils",
+  "version": "0.2.1",
+  "description": "redux-source-utils's common code",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-utils",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-utils",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "webcube:module": "lib/index.js",
+  "module": "lib/index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "clear": "rm -r dist 2>/dev/null || true",
+    "build": "npm run clear && npm run build:dist",
+    "build:dist": "babel lib --out-dir dist --source-maps"
+  },
+  "peerDependencies": {
+    "redux-thunk": "^2.2.0"
+  },
+  "dependencies": {
+    "change-case": "^3.0.1",
+    "graphql": "^0.11.7",
+    "graphql-iso-date": "^3.5.0",
+    "graphql-tools": "^2.18.0",
+    "graphql-type-json": "^0.1.4",
+    "lodash": "^4.17.4",
+    "normalizr": "^3.2.4",
+    "pluralize": "^7.0.0"
+  },
+  "devDependencies": {
+    "@babel/polyfill": "^7.0.0-beta.32",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-ramda": "^1.4.3",
+    "babel-plugin-rewire": "^1.1.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-optional-chaining": "^7.0.0-alpha.13",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "fast-async": "^6.3.0"
+  },
+  "keywords": [
+    "redux",
+    "graphql",
+    "api",
+    "redux-source",
+    "webcube"
+  ]
+}

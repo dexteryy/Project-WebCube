@@ -26,16 +26,8 @@
     "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "change-case": "^3.0.1",
-    "graphql": "^0.11.7",
-    "graphql-iso-date": "^3.5.0",
-    "graphql-tools": "^2.18.0",
-    "graphql-type-json": "^0.1.4",
     "lodash": "^4.17.4",
-    "normalizr": "^3.2.4",
-    "pluralize": "^7.0.0",
-    "react-redux": "^5.0.6",
-    "reselect": "^3.0.1"
+    "redux-source-utils": "^0.2.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -58,6 +50,7 @@
     "redux",
     "graphql",
     "api",
+    "redux-source",
     "webcube"
   ]
 }

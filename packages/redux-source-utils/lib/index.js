@@ -1,3 +1,7 @@
+import createSource from './createSource';
+
+export { createSource };
+
 const IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
 const IS_RECORD_SENTINEL = '@@__IMMUTABLE_RECORD__@@';
 

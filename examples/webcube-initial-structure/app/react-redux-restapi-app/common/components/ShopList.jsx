@@ -62,21 +62,9 @@ export default class ShopList extends PureComponent {
   }
 
   render() {
-    const {
-      source: {
-        result: { shops = [], timestamp = '' },
-        errors: sourceErrors,
-        isPending: isSourceLoading,
-      },
-    } = this.props;
+    const { source: { result: { shops = [], timestamp = '' } } } = this.props;
     return (
       <div>
-        {isSourceLoading && <p className={styles.loading}>Loading...</p>}
-        {sourceErrors.length > 0 && (
-          <p className={styles.error}>
-            Error! {sourceErrors.map(({ message }) => message)}
-          </p>
-        )}
         <h3>Shop List</h3>
         <input
           type="button"

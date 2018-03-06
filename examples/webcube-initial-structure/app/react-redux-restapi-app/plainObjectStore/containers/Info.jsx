@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
-import connectSource from 'redux-source/lib/connectSource';
+import connectSource from 'redux-source-connect';
 import { connect } from 'redux-cube';
 
 import { actions as starWarsActions, starWarsSource } from '../ducks/starWars';
+import withNotify from '../../common/hoc/withNotify';
+import withBlockUi from '../../common/hoc/withBlockUi';
 import StarWarsInfo from '../../common/components/StarWarsInfo';
 import Shops from './Shops';
 
@@ -21,6 +23,8 @@ import Shops from './Shops';
   }),
   actions: starWarsActions,
 })
+@withBlockUi()
+@withNotify()
 export default class Info extends PureComponent {
   render() {
     return (

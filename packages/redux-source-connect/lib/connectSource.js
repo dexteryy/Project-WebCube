@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { unwrap, bindActionCreators } from './utils';
+import { unwrap, bindActionCreators } from 'redux-source-utils';
 
 export default function connectSource(
   { stateName, denormalize, actions },
-  { slice, actionsProp },
+  { slice, actionsProp, enableErrorLogger = false },
 ) {
   const mapStateToProps = (oldState, ...other) => {
     const newState = unwrap(oldState);
@@ -18,8 +18,21 @@ export default function connectSource(
       (result, entities, errors, isPending) => {
         const res = denormalize(result, entities);
         // console.log('denormalize', { result, entities }, res);
-        if (typeof console === 'object' && console.error) {
-          errors.forEach(error => console.error(error.stack));
+        if (
+          errors.length &&
+          enableErrorLogger &&
+          typeof console === 'object' &&
+          console.error
+        ) {
+          errors.forEach(error => {
+            if (
+              typeof error === 'object' &&
+              !error._reduxSourceConnectReported
+            ) {
+              error._reduxSourceConnectReported = true;
+              console.error(error.stack || error);
+            }
+          });
         }
         return {
           [stateName]: {

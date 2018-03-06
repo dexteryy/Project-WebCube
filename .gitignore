@@ -2,6 +2,9 @@ node_modules/
 .npm
 *.log
 *.pid
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .webcube-version
 .project-version
 env.config

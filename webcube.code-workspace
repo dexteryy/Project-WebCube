@@ -22,10 +22,25 @@
       "path": "packages/redux-cube-with-immutable"
     },
     {
+      "path": "packages/redux-source-utils"
+    },
+    {
       "path": "packages/redux-source"
     },
     {
       "path": "packages/redux-source-immutable"
+    },
+    {
+      "path": "packages/redux-source-connect"
+    },
+    {
+      "path": "packages/redux-source-connect-immutable"
+    },
+    {
+      "path": "packages/redux-source-with-notify"
+    },
+    {
+      "path": "packages/redux-source-with-block-ui"
     },
     {
       "path": "packages/hifetch"

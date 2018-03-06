@@ -23,14 +23,12 @@
     "build:dist": "babel lib --out-dir dist --source-maps"
   },
   "peerDependencies": {
-    "immutable": "^3.8.2"
+    "immutable": "^3.8.2",
+    "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "graphql-tools": "^2.18.0",
     "lodash": "^4.17.4",
-    "react-redux": "^5.0.6",
-    "redux-source": "^0.2.1",
-    "reselect": "^3.0.1"
+    "redux-source-utils": "^0.2.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -54,6 +52,7 @@
     "graphql",
     "api",
     "immutable",
+    "redux-source",
     "webcube"
   ]
 }

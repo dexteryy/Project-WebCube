@@ -1,6 +1,6 @@
 import union from 'lodash/union';
 import difference from 'lodash/difference';
-import _createSource from './createSource';
+import { createSource as _createSource } from 'redux-source-utils';
 
 const combineMethods = {
   replace({ result, entities }) {

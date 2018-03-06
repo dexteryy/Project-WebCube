@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
-import connectSource from 'redux-source-immutable/lib/connectSource';
+import connectSource from 'redux-source-connect-immutable';
 import { connect } from 'redux-cube';
 
 import styles from '../../common/styles/info.scss';
 import { actions as shopsActions, shopsSource } from '../ducks/shops';
+import withNotify from '../../common/hoc/withNotify';
+import withBlockUi from '../../common/hoc/withBlockUi';
 import ShopList from '../../common/components/ShopList';
 
 @connectSource(shopsSource, {
@@ -12,6 +14,8 @@ import ShopList from '../../common/components/ShopList';
 @connect({
   actions: shopsActions,
 })
+@withBlockUi()
+@withNotify()
 export default class Shops extends PureComponent {
   render() {
     return (

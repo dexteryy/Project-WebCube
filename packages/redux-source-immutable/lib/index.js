@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import union from 'lodash/union';
 import difference from 'lodash/difference';
-import _createSource from 'redux-source/lib/createSource';
+import { createSource as _createSource } from 'redux-source-utils';
 
 const combineMethods = {
   replace({ state, stateName, result, entities }) {

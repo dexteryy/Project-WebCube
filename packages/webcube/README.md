@@ -20,10 +20,6 @@
 [dep-url]: https://david-dm.org/dexteryy/webcube
 -->
 
-![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- |
-iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
-
 webcube is a continuously updated JS infrastructure for modern Universal JS web app/site and static web.
 
 It is part of my effort to simplify the usage of all 'mainstream' tools and best practices mentioned in the [Spellbook of Modern Web Dev](https://github.com/dexteryy/spellbook-of-modern-webdev/).

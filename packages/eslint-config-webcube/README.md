@@ -17,6 +17,10 @@ A [sharable ESLint presets](https://eslint.org/docs/user-guide/configuring#using
 
 It's closely compatible with [Airbnb's code style](https://github.com/airbnb/javascript).
 
+```
+npm install --save-dev eslint-config-webcube
+```
+
 ### Integrated Plugins
 
 * [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)

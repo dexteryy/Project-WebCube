@@ -18,14 +18,10 @@
 [dep-url]: https://david-dm.org/dexteryy/redux-source-immutable
 -->
 
-![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- |
-iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
-
 The [Immutable.js](http://facebook.github.io/immutable-js/) version of [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source)
 
 ```
-npm install --save-dev redux-source-immutable
+npm install --save redux-source-immutable
 ```
 
 ## Examples
@@ -34,5 +30,10 @@ npm install --save-dev redux-source-immutable
 
 ## Get Started
 
-Same as [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source#get-started)
+Same as [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source#get-started) except:
+
+```js
+import { createSource } from 'redux-source-immutable';
+```
+
 

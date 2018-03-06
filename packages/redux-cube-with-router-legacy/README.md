@@ -18,14 +18,10 @@
 [dep-url]: https://david-dm.org/dexteryy/redux-cube-with-router-legacy
 -->
 
-![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- |
-iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
-
 [redux-cube](https://www.npmjs.com/package/redux-cube)'s pluggable module for [react-router's legacy version (< 4)](https://github.com/ReactTraining/react-router/tree/v3/docs) and [react-router-redux v4](https://github.com/reactjs/react-router-redux)
 
 ```
-npm install --save-dev redux-cube-with-router-legacy
+npm install --save redux-cube-with-router-legacy
 ```
 
 For [react-router v4+](https://reacttraining.com/react-router/), use [redux-cube-with-router](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router)

@@ -16,6 +16,10 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
     * [redux-cube-with-immutable](./packages/redux-cube-with-immutable/) - redux-cube's pluggable module for redux-immutable
 * [redux-source](./packages/redux-source/) - Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state
     * [redux-source-immutable](./packages/redux-source-immutable/) - The Immutable.js version of redux-source
+    * [redux-source-connect](./packages/redux-source-connect/) - Connect React components to Redux states maintained by redux-source automatically
+    * [redux-source-connect-immutable](./packages/redux-source-connect-immutable/) - Connect React components to Redux states maintained by redux-source-immutable automatically
+    * [redux-source-with-notify](./packages/redux-source-with-notify/) - A React higher-order component for displaying notifications based on Redux states maintained by redux-source automatically
+    * [redux-source-with-block-ui](./packages/redux-source-with-block-ui/) - A React higher-order component for displaying "React Block UI" based on Redux states maintained by redux-source automatically
 * [hifetch](./packages/hifetch/) - A minimal higher-level wrapper around Fetch API
 * [WIP] [nodecube](https://github.com/dexteryy/nodecube) - Continuously updated JS infrastructure for Node.js microservice or API gateway service.
 

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import connectSource from 'redux-source/lib/connectSource';
+import connectSource from 'redux-source-connect';
 import { connect } from 'redux-cube';
 
 import { actions, reduxSource } from '../ducks/renameMe';

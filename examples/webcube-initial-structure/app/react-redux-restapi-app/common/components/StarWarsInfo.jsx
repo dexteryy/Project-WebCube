@@ -90,21 +90,11 @@ export default class StarWarsInfo extends PureComponent {
     const {
       characterId,
       shipId,
-      source: {
-        result: { character, ship },
-        errors: sourceErrors,
-        isPending: isSourceLoading,
-      },
+      source: { result: { character, ship } },
     } = this.props;
     return (
       <div className={styles.box}>
         <h2>Star Wars API</h2>
-        {isSourceLoading && <p className={styles.loading}>Loading...</p>}
-        {sourceErrors.length > 0 && (
-          <p className={styles.error}>
-            Error! {sourceErrors.map(({ message }) => message)}
-          </p>
-        )}
         <h3>Character Info</h3>
         <input
           type="text"

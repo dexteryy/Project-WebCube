@@ -18,14 +18,10 @@
 [dep-url]: https://david-dm.org/dexteryy/redux-cube-with-immutable
 -->
 
-![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- |
-iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
-
-redux-cube's pluggable module for [redux-immutable](https://www.npmjs.com/package/redux-immutable)
+[redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube)'s pluggable module for [redux-immutable](https://www.npmjs.com/package/redux-immutable)
 
 ```
-npm install --save-dev redux-cube-with-immutable
+npm install --save redux-cube-with-immutable
 ```
 
 > NOTE: redux-cube-with-immutable cannot be used with [redux-cube-with-persist](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist)

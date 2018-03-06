@@ -18,17 +18,13 @@
 [dep-url]: https://david-dm.org/dexteryy/redux-cube
 -->
 
-![iOS Safari](https://github.com/alrra/browser-logos/raw/master/src/safari-ios/safari-ios_48x48.png) | ![Android WebView](https://github.com/alrra/browser-logos/raw/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- |
-iOS 7+ ✔ | Android 4+ ✔ | 11+ ✔ |
-
 Redux Cube is an app state manager. It is part of my effort to simplify the usage of all 'mainstream' tools and best practices mentioned in the [Spellbook of Modern Web Dev](https://github.com/dexteryy/spellbook-of-modern-webdev/). It can reduce boilerplate and support many patterns (like Sub App, Reducer Bundle, ...)
 
 
 Slides: [Introduction to Redux Cube](https://app.cubemage.cn/slides/intro-to-redux-cube/index.html)
 
 ```
-npm install --save-dev redux-cube
+npm install --save redux-cube
 ```
 
 
