@@ -26,6 +26,10 @@ npm install --save redux-source-with-block-ui
 
 It works great with [redux-source-with-notify](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-with-notify)
 
+## Examples
+
+* "react-redux-restapi-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+
 ## Get Started
 
 For [redux-source's example](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source#get-started):

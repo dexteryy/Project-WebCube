@@ -27,7 +27,8 @@ export default class ShopList extends PureComponent {
 
   @autobind
   handleAdd() {
-    if (this.props.source.result.shops.find(shop => shop.id === 'shop-1')) {
+    const { source: { result: { shops = [] } } } = this.props;
+    if (shops.find(shop => shop.id === 'shop-1')) {
       this.props.actions.shopsSource.addShop({
         id: 'shop-100',
         data: getRandomShop('shop-100'),
@@ -50,7 +51,8 @@ export default class ShopList extends PureComponent {
 
   @autobind
   handleDelete() {
-    if (this.props.source.result.shops.find(shop => shop.id === 'shop-1')) {
+    const { source: { result: { shops = [] } } } = this.props;
+    if (shops.find(shop => shop.id === 'shop-1')) {
       this.props.actions.shopsSource.deleteShop({
         id: 'shop-1',
       });

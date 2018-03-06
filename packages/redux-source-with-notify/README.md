@@ -26,6 +26,10 @@ npm install --save redux-source-with-notify
 
 It works great with [redux-source-with-block-ui](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-with-block-ui)
 
+## Examples
+
+* "react-redux-restapi-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+
 ## Get Started
 
 For [redux-source's example](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source#get-started):
@@ -47,10 +51,10 @@ import { actions, shopsSource } from '../ducks/shops';
   actions,
 })
 @withNotify({
-  onSuccess: () => {
+  onSuccess: (ref) => { // `ref` is a reference to `MyMessage`'s DOM node
     myMessage.success('Success!')
   },
-  onError: () => {
+  onError: (ref) => { // `ref` is a reference to `MyMessage`'s DOM node
     myMessage.error('Operation failed. Please try again or contact admin.')
   },
   sourceStateName = 'source',  // optional
@@ -62,28 +66,41 @@ export default class ShopList extends PureComponent {
 
 Or you can create a custom wrapper:
 
+For example, we use [React Notification System](http://igorprado.com/react-notification-system/)
+
 ```js
 // shopManageApp/hoc/withNotify.js
+import NotificationSystem from 'react-notification-system';
 import originWithNotify from 'redux-source-with-notify';
-import MyMessage, { myMessage } from '../components/MyMessage'
 
 export default function withNotify(config = {}) {
   const {
-    successDuration,
+    position = 'tc',
+    successDuration = 2,
     errorDuration = 4,
     successText = 'Success!',
     errorText = 'Operation failed. Please try again or contact admin.',
     sourceStateName,
   } = config;
   return originWithNotify({
-    onSuccess: () => {
-      myMessage.success(successText, successDuration);
+    onSuccess: notify => {
+      notify.addNotification({
+        message: successText,
+        level: 'success',
+        autoDismiss: successDuration,
+        position,
+      });
     },
-    onError: () => {
-      myMessage.error(errorText, errorDuration);
+    onError: notify => {
+      notify.addNotification({
+        message: errorText,
+        level: 'error',
+        autoDismiss: errorDuration,
+        position,
+      });
     },
     sourceStateName,
-    trigger: MyMessage,
+    trigger: NotificationSystem,
   });
 }
 ```
