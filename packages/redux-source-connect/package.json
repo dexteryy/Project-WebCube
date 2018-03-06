@@ -1,6 +1,6 @@
 {
   "name": "redux-source-connect",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Connect React components to Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "react-redux": "^5.0.6",
-    "redux-source-utils": "^0.2.1",
+    "redux-source-utils": "^0.2.2",
     "reselect": "^3.0.1"
   },
   "devDependencies": {
