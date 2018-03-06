@@ -1,6 +1,6 @@
 {
   "name": "redux-source-with-notify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React higher-order component for displaying notifications based on Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
