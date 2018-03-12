@@ -8,7 +8,7 @@ dotenv.config({
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const isStagingEnv = process.env.DEPLOY_ENV === 'staging';
-const deployMode = process.env.DEPLOY_MODE || 'staticweb';
+const deployMode = process.env.DEPLOY_MODE;
 const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 const DEFAULT_DEV_PORT = 8000;
 const serverPort = process.env.WEBCUBE_DEVSERVER_PORT || DEFAULT_DEV_PORT;
