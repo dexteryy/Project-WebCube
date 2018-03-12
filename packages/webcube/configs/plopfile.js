@@ -1,14 +1,11 @@
 // https://github.com/amwmedia/plop
 
 const path = require('path');
-const { projectPath, modulePath } = require('../utils');
+const { configRoot, projectPath, modulePath } = require('../utils');
 
 let customPlopfile;
 try {
-  customPlopfile = require(path.join(
-    projectPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/plopfile.js`
-  ));
+  customPlopfile = require(path.join(projectPath, `${configRoot}/plopfile.js`));
 } catch (ex) {
   console.info('No custom plopfile');
 }

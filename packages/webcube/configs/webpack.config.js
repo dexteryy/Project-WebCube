@@ -3,6 +3,7 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const cssnext = require('postcss-cssnext');
@@ -16,6 +17,7 @@ const {
   liveMode,
   serverPort,
   serverHost,
+  staticRoot,
   rootPath,
   modulePath,
   projectPath,
@@ -210,6 +212,7 @@ const babelLoaderConfig = {
   ]),
   plugins: customConfig.babelLoaderPlugins(babelLoaderPlugins),
   cacheDirectory: true,
+  // shouldPrintComment: false,
 };
 
 const es6Modules = (
@@ -249,7 +252,7 @@ const cssLoaderConfig = {
   sourceMap: !isProductionEnv,
   // https://github.com/webpack/css-loader#minification
   // https://github.com/webpack/css-loader/blob/master/lib/processCss.js
-  minimize: isProductionEnv,
+  minimize: isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_MINIMIZE,
   // http://cssnano.co/options/
   // https://github.com/ben-eb/cssnano/blob/master/index.js
   // https://github.com/postcss/autoprefixer#options
@@ -314,27 +317,33 @@ const getCssLoaderConfig = cssOpt => {
   );
 };
 
+const outputJsPath = process.env.WEBCUBE_OUTPUT_CUSTOM_JS_PATH || 'js';
+const outputCssPath = process.env.WEBCUBE_OUTPUT_CUSTOM_CSS_PATH || 'css';
+const outputAssetsPath =
+  process.env.WEBCUBE_OUTPUT_CUSTOM_ASSETS_PATH || 'assets';
+
 module.exports = Object.assign(
   {
     context: projectPath,
     entry: entries,
     output: {
-      filename: isProductionEnv ? 'js/[name]_[chunkhash].js' : 'js/[name].js',
-      chunkFilename: isProductionEnv
-        ? 'js/[name]_[chunkhash].js'
-        : 'js/[name].js',
-      path: isProductionEnv
-        ? path.join(
-            projectPath,
-            `build/public/${process.env.WEBCUBE_STATIC_ROOT}/`
-          )
-        : path.join(projectPath, 'build/public/static-for-dev/'),
+      filename:
+        isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+          ? `${outputJsPath}/[name]_[chunkhash].js`
+          : `${outputJsPath}/[name].js`,
+      chunkFilename:
+        isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+          ? `${outputJsPath}/[name]_[chunkhash].js`
+          : `${outputJsPath}/[name].js`,
+      path: !process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT
+        ? path.join(projectPath, `build/public/${staticRoot}/`)
+        : path.join(rootPath, process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT),
       publicPath:
         (deployMode === 'staticweb' &&
           ((isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT) ||
             process.env.WEBCUBE_DEPLOY_STATIC_ROOT)) ||
-        (isProductionEnv && `/${process.env.WEBCUBE_STATIC_ROOT}/`) ||
-        '/static-for-dev/',
+        process.env.WEBCUBE_CUSTOM_STATIC_ROOT_URL ||
+        `/${staticRoot}/`,
     },
     resolve: {
       alias: Object.assign(
@@ -485,9 +494,10 @@ module.exports = Object.assign(
         {
           test: /\.json$/,
           // https://www.npmjs.com/package/file-loader
-          loader: isProductionEnv
-            ? 'file?name=data/[name]_[hash].[ext]'
-            : 'file?name=data/[name].[ext]',
+          loader:
+            isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+              ? 'file?name=data/[name]_[hash].[ext]'
+              : 'file?name=data/[name].[ext]',
         },
         {
           test: /\.(txt|gql)$/,
@@ -497,13 +507,13 @@ module.exports = Object.assign(
           test: /\.(gif|png|jpe?g|svg)$/i,
           loaders: [
             // https://www.npmjs.com/package/url-loader
-            isProductionEnv
-              ? `url?limit=${
+            isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+              ? `url-loader?limit=${
                   process.env.WEBCUBE_DATAURL_IMAGES_LIMIT
-                }&name=assets/[name]_[hash].[ext]`
-              : `url?limit=${
+                }&name=${outputAssetsPath}/[name]_[hash].[ext]`
+              : `url-loader?limit=${
                   process.env.WEBCUBE_DATAURL_IMAGES_LIMIT
-                }&name=assets/[name].[ext]`,
+                }&name=${outputAssetsPath}/[name].[ext]`,
           ].concat(
             process.env.WEBCUBE_ENABLE_IMAGE_MIN
               ? [
@@ -532,19 +542,21 @@ module.exports = Object.assign(
         },
         {
           test: /\.(woff|woff2|eot|ttf)$/,
-          loader: isProductionEnv
-            ? `url?limit=${
-                process.env.WEBCUBE_DATAURL_FONT_LIMIT
-              }&name=assets/[name]_[hash].[ext]`
-            : `url?limit=${
-                process.env.WEBCUBE_DATAURL_FONT_LIMIT
-              }&name=assets/[name].[ext]`,
+          loader:
+            isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+              ? `url-loader?limit=${
+                  process.env.WEBCUBE_DATAURL_FONT_LIMIT
+                }&name=${outputAssetsPath}/[name]_[hash].[ext]`
+              : `url-loader?limit=${
+                  process.env.WEBCUBE_DATAURL_FONT_LIMIT
+                }&name=${outputAssetsPath}/[name].[ext]`,
         },
         {
           test: /\.(wav|mp3)$/,
-          loader: isProductionEnv
-            ? 'file?name=assets/[name]_[hash].[ext]'
-            : 'file?name=assets/[name].[ext]',
+          loader:
+            isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+              ? `file?name=${outputAssetsPath}/[name]_[hash].[ext]`
+              : `file?name=${outputAssetsPath}/[name].[ext]`,
         },
       ].concat(customConfig.loaders),
     },
@@ -599,9 +611,10 @@ module.exports = Object.assign(
           ? [
               // https://www.npmjs.com/package/extract-text-webpack-plugin
               new ExtractTextPlugin(
-                isProductionEnv
-                  ? 'css/[name]_[contenthash].css'
-                  : 'css/[name].css',
+                outputCssPath +
+                  (isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_CACHE
+                    ? '/[name]_[contenthash].css'
+                    : '/[name].css'),
                 { allChunks: true }
               ),
             ]
@@ -614,6 +627,10 @@ module.exports = Object.assign(
           path: projectPath,
           fullPath: true,
           prettyPrint: true,
+        }),
+        new ManifestPlugin({
+          fileName: process.env.WEBCUBE_OUTPUT_MANIFEST_NAME || 'manifest.json',
+          publicPath: process.env.WEBCUBE_OUTPUT_MANIFEST_PREFIX || '',
         }),
         // https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95
         new WebpackMd5Hash(),

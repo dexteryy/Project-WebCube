@@ -8,8 +8,6 @@ const WebpackDevServer = require('webpack-dev-server');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const {
   isProductionEnv,
-  isStagingEnv,
-  deployMode,
   liveMode,
   serverPort,
   serverHost,
@@ -32,11 +30,7 @@ const compiler = webpack(webpackConfig);
 const DEFAULT_TIMEOUT = 300;
 const devServerConfig = {
   contentBase: path.join(projectPath, 'staticweb'),
-  publicPath:
-    deployMode === 'staticweb'
-      ? (isStagingEnv && process.env.WEBCUBE_DEPLOY_STAGING_STATIC_ROOT) ||
-        process.env.WEBCUBE_DEPLOY_STATIC_ROOT
-      : `/${staticRoot}/`,
+  publicPath: `/${process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT || staticRoot}/`,
   hot: liveMode === 'hmr',
   historyApiFallback: process.env.WEBCUBE_DEVSERVER_HISTORYAPI === '1',
   noInfo: process.env.WEBCUBE_DEVSERVER_NOINFO === '1',

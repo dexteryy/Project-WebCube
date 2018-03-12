@@ -4,7 +4,7 @@ const del = require('del');
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
 const running = require('is-running');
-const rename = require('gulp-rename');
+// const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const gulpFilter = require('gulp-filter');
 const webpackStream = require('webpack-stream');
@@ -20,26 +20,37 @@ const {
   isProductionEnv,
   serverPort,
   serverHost,
-  projectPath,
-  modulePath,
   staticRoot,
+  configRoot,
+  projectPath,
+  rootPath,
+  modulePath,
   cloudAdapter,
 } = require('../utils');
+
 //
 const webpackConfig = require('./webpack.config.js');
 
 const pidFile = path.join(projectPath, '.webserver.pid');
 
 try {
-  require(path.join(
-    projectPath,
-    `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/gulpfile.js`
-  ));
+  require(path.join(projectPath, `${configRoot}/gulpfile.js`));
 } catch (ex) {
   console.info('No custom gulpfile');
 }
 
 const htmlhintrcPath = path.join(projectPath, 'staticweb/.htmlhintrc');
+
+const outputJsPath = process.env.WEBCUBE_OUTPUT_CUSTOM_JS_PATH || 'js';
+const outputCssPath = process.env.WEBCUBE_OUTPUT_CUSTOM_CSS_PATH || 'css';
+const outputAssetsPath =
+  process.env.WEBCUBE_OUTPUT_CUSTOM_ASSETS_PATH || 'assets';
+const outputRootPath = !process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT
+  ? path.join(projectPath, `build/public/${staticRoot}/`)
+  : path.join(rootPath, process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT);
+const outputHtmlRootPath = !process.env.WWEBCUBE_OUTPUT_CUSTOM_HTML_ROOT
+  ? path.join(projectPath, `build/public/`)
+  : path.join(rootPath, process.env.WEBCUBE_OUTPUT_CUSTOM_HTML_ROOT);
 
 function buildApp(myWebpackConfig) {
   let stream = gulp
@@ -47,8 +58,12 @@ function buildApp(myWebpackConfig) {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(webpackStream(myWebpackConfig))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }));
-  if (isProductionEnv) {
+    .pipe(
+      gulp.dest(outputRootPath, {
+        // cwd: projectPath
+      })
+    );
+  if (isProductionEnv && !process.env.WEBCUBE_OUTPUT_DISABLE_MINIMIZE) {
     const jsFilter = gulpFilter(['**/*.js'], { restore: true });
     const cssFilter = gulpFilter(['**/*.css'], { restore: true });
     stream = stream
@@ -66,20 +81,28 @@ function buildApp(myWebpackConfig) {
               removeDebugger: true,
             })
       )
+      // .pipe(
+      //   rename({
+      //     suffix: '_min',
+      //   })
+      // )
       .pipe(
-        rename({
-          suffix: '_min',
+        gulp.dest(outputRootPath, {
+          // cwd: projectPath
         })
       )
-      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }))
       .pipe(jsFilter.restore)
       .pipe(cssFilter)
+      // .pipe(
+      //   rename({
+      //     suffix: '_min',
+      //   })
+      // )
       .pipe(
-        rename({
-          suffix: '_min',
+        gulp.dest(outputRootPath, {
+          // cwd: projectPath
         })
       )
-      .pipe(gulp.dest(`build/public/${staticRoot}/`, { cwd: projectPath }))
       .pipe(cssFilter.restore);
   }
   return stream;
@@ -91,7 +114,7 @@ function buildHTML() {
   );
   const RE_JS_FILE = /(<script\s[^>]*src=)['"](.+?)['"]/g;
   const RE_CSS_FILE = /(<link\s[^>]*href=)['"](.+?)['"]/g;
-  const RE_ADD_MIN = /^(.+\/.+?)\.(.+)$/;
+  // const RE_ADD_MIN = /^(.+\/.+?)\.(.+)$/;
   function replaceRev($0, $1, $2) {
     if (!/^\//.test($2)) {
       return $0;
@@ -104,9 +127,9 @@ function buildHTML() {
     if (!/\.(js|css)$/.test(res)) {
       return $0;
     }
-    if (isProductionEnv) {
-      res = res.replace(RE_ADD_MIN, '$1_min.$2');
-    }
+    // if (isProductionEnv) {
+    //   res = res.replace(RE_ADD_MIN, '$1_min.$2');
+    // }
     return `${$1}"${res}"`;
   }
   let stream = gulp
@@ -200,14 +223,23 @@ function stopStaticWebServer(done) {
 }
 
 gulp.task('clean:app', done => {
-  del([`build/public/${staticRoot}/**`, 'build/public/static-for-dev/**'], {
-    cwd: projectPath,
-  }).then(() => done());
+  del(
+    [
+      `${outputRootPath}/${outputJsPath}/**`,
+      `${outputRootPath}/${outputCssPath}/**`,
+      `${outputRootPath}/${outputAssetsPath}/**`,
+    ],
+    {
+      // cwd: projectPath,
+      force: true,
+    }
+  ).then(() => done());
 });
 
 gulp.task('clean:html', done => {
-  del([`build/public/!(${staticRoot}|static-for-dev)/**`], {
-    cwd: projectPath,
+  del([`${outputHtmlRootPath}/!(${staticRoot})/**`], {
+    // cwd: projectPath,
+    force: true,
   }).then(() => done());
 });
 

@@ -4,7 +4,12 @@ const gulp = require('gulp');
 const gutil = require('gulp-util');
 const mime = require('mime-types');
 const AWS = require('aws-sdk');
-const { isStagingEnv } = require('../');
+
+const isProductionEnv = process.env.NODE_ENV === 'production';
+const isStagingEnv = process.env.DEPLOY_ENV === 'staging';
+const staticRoot =
+  process.env.WEBCUBE_CUSTOM_STATIC_ROOT ||
+  (isProductionEnv ? 'static' : 'static-for-dev');
 
 const mimeOverride = {};
 
@@ -99,7 +104,7 @@ exports.deployStatic = function deployStatic(src, opt) {
             bucket: isStagingEnv
               ? process.env.WEBCUBE_DEPLOY_STAGING_S3_BUCKET
               : process.env.WEBCUBE_DEPLOY_S3_BUCKET,
-            root: process.env.WEBCUBE_STATIC_ROOT,
+            root: staticRoot,
             CacheControl: `max-age=${yearToSeconds}, public`,
             ContentEncoding: '', // enable CDN GZip
           },

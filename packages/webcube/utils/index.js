@@ -6,17 +6,17 @@ dotenv.config({
   path: path.join(projectPath, 'env.config'),
 });
 
-const isCloudEnv = process.env.NODE_ENV === 'cloud'; // deprecated
-const isProductionEnv = process.env.NODE_ENV === 'production' || isCloudEnv;
+const isProductionEnv = process.env.NODE_ENV === 'production';
 const isStagingEnv = process.env.DEPLOY_ENV === 'staging';
-const deployMode = process.env.DEPLOY_MODE || (isCloudEnv && 'staticweb');
+const deployMode = process.env.DEPLOY_MODE || 'staticweb';
 const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 const DEFAULT_DEV_PORT = 8000;
 const serverPort = process.env.WEBCUBE_DEVSERVER_PORT || DEFAULT_DEV_PORT;
 const serverHost = process.env.WEBCUBE_DEVSERVER_HOST || 'localhost';
-const staticRoot = isProductionEnv
-  ? process.env.WEBCUBE_STATIC_ROOT
-  : 'static-for-dev';
+const staticRoot =
+  process.env.WEBCUBE_CUSTOM_STATIC_ROOT ||
+  (isProductionEnv ? 'static' : 'static-for-dev');
+const configRoot = process.env.WEBCUBE_CUSTOM_CONFIG_ROOT || 'configs';
 const cloudAdapter = require(`./staticcloud/${
   process.env.WEBCUBE_DEPLOY_STATIC_CLOUD
 }`);
@@ -36,7 +36,6 @@ module.exports = {
   rootPath,
   modulePath,
   projectPath,
-  isCloudEnv,
   isProductionEnv,
   isStagingEnv,
   deployMode,
@@ -44,6 +43,7 @@ module.exports = {
   serverPort,
   serverHost,
   staticRoot,
+  configRoot,
   cloudAdapter,
   getUrlRoot,
 };

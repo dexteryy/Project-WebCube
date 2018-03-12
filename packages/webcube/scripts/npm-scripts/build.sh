@@ -13,7 +13,7 @@ CFG_FILE="${repoRoot}/node_modules/webcube/configs/gulpfile.js"
 (
   webcube-check
 ) && (
-  $binRoot/node_modules/.bin/gulp --gulpfile $CFG_FILE build:staticweb
+  node --max-old-space-size=8192 $binRoot/node_modules/.bin/gulp --gulpfile $CFG_FILE build:staticweb
 ) && (
   webcube-start-staticserver
 )
