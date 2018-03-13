@@ -10,30 +10,41 @@ export default function withNotify(config = {}) {
     onError,
     sourceStateName = 'source',
     disbleErrorLogger = false,
+    errorTexts = {},
+    filter,
   } = config;
   return TargetComponent => {
     class WithNotify extends Component {
       _trigger = null;
 
       componentWillReceiveProps({
-        [sourceStateName]: { isPending: nextIsPending, errors: nextErrors },
+        [sourceStateName]: {
+          isPending: nextIsPending,
+          errors: nextErrors,
+          result: nextResult,
+        },
       }) {
-        const { [sourceStateName]: { isPending } } = this.props;
+        const { [sourceStateName]: { isPending, result } } = this.props;
+        if (filter && !filter(result, nextResult)) {
+          return;
+        }
         if (isPending && !nextIsPending) {
           if (nextErrors.length) {
-            onError(this._trigger);
+            onError(this._trigger, nextErrors);
             if (
               nextErrors.length &&
               !disbleErrorLogger &&
               typeof console === 'object' &&
               console.error
             ) {
-              nextErrors.forEach(error =>
-                console.error(
-                  `${sourceStateName} error:`,
-                  error.stack || error,
-                ),
-              );
+              nextErrors.forEach(error => {
+                if (!errorTexts[error.message]) {
+                  console.error(
+                    `${sourceStateName} error:`,
+                    error.stack || error,
+                  );
+                }
+              });
             }
           } else {
             onSuccess(this._trigger);

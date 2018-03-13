@@ -54,7 +54,7 @@ import { actions, shopsSource } from '../ducks/shops';
   onSuccess: (ref) => { // `ref` is a reference to `MyMessage`'s DOM node
     myMessage.success('Success!')
   },
-  onError: (ref) => { // `ref` is a reference to `MyMessage`'s DOM node
+  onError: (ref, errors) => { // `ref` is a reference to `MyMessage`'s DOM node
     myMessage.error('Operation failed. Please try again or contact admin.')
   },
   sourceStateName = 'source',  // optional
@@ -80,27 +80,36 @@ export default function withNotify(config = {}) {
     errorDuration = 4,
     successText = 'Success!',
     errorText = 'Operation failed. Please try again or contact admin.',
-    sourceStateName,
+    errorTexts = {},
+    ...otherConfig
   } = config;
   return originWithNotify({
     onSuccess: notify => {
-      notify.addNotification({
-        message: successText,
-        level: 'success',
-        autoDismiss: successDuration,
-        position,
+      if (successText) {
+        notify.addNotification({
+          message: successText,
+          level: 'success',
+          autoDismiss: successDuration,
+          position,
+        });
+      }
+    },
+    onError: (notify, errors) => {
+      errors.forEach(error => {
+        const text = errorTexts[error.message] || errorText;
+        if (text) {
+          notify.addNotification({
+            message: text,
+            level: 'error',
+            autoDismiss: errorDuration,
+            position,
+          });
+        }
       });
     },
-    onError: notify => {
-      notify.addNotification({
-        message: errorText,
-        level: 'error',
-        autoDismiss: errorDuration,
-        position,
-      });
-    },
-    sourceStateName,
     trigger: NotificationSystem,
+    errorTexts,
+    ...otherConfig
   });
 }
 ```
