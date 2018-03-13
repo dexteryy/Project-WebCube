@@ -17,9 +17,8 @@ const staticRoot =
   process.env.WEBCUBE_CUSTOM_STATIC_ROOT ||
   (isProductionEnv ? 'static' : 'static-for-dev');
 const configRoot = process.env.WEBCUBE_CUSTOM_CONFIG_ROOT || 'configs';
-const cloudAdapter = require(`./staticcloud/${
-  process.env.WEBCUBE_DEPLOY_STATIC_CLOUD
-}`);
+const cloudAdapter = require(`./staticcloud/${process.env
+  .WEBCUBE_DEPLOY_STATIC_CLOUD || 'oss'}`);
 
 function getUrlRoot() {
   const myhost = process.env.WEBCUBE_DEVSERVER_HOST;
