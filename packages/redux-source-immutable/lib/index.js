@@ -5,10 +5,19 @@ import { createSource as _createSource } from 'redux-source-utils';
 
 const combineMethods = {
   replace({ state, stateName, result, entities }) {
-    state.mergeIn([stateName], {
-      result,
-      entities,
-    });
+    for (const resultName in result) {
+      state.mergeIn([stateName, 'result'], {
+        [resultName]: result[resultName],
+      });
+    }
+    for (const entityName in entities) {
+      for (const entityId in entities[entityName]) {
+        state.mergeIn(
+          [stateName, 'entities', entityName, entityId],
+          entities[entityName][entityId],
+        );
+      }
+    }
   },
   merge({ state, stateName, prevResult, result, entities }) {
     for (const resultName in result) {

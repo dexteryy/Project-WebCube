@@ -3,11 +3,35 @@ import difference from 'lodash/difference';
 import { createSource as _createSource } from 'redux-source-utils';
 
 const combineMethods = {
-  replace({ result, entities }) {
-    return {
-      result,
-      entities,
-    };
+  replace({ prevResult, prevEntities, result, entities }) {
+    const newState = {};
+    const newResults = { ...prevResult };
+    for (const resultName in result) {
+      newResults[resultName] = result[resultName];
+    }
+    const newEntities = {};
+    for (const entityName in entities) {
+      newEntities[entityName] = { ...(prevEntities[entityName] || {}) };
+      for (const entityId in entities[entityName]) {
+        newEntities[entityName][entityId] = {
+          ...((prevEntities[entityName] || {})[entityId] || {}),
+          ...entities[entityName][entityId],
+        };
+      }
+    }
+    if (Object.keys(result).length) {
+      newState.result = {
+        ...prevResult,
+        ...newResults,
+      };
+    }
+    if (Object.keys(newEntities).length) {
+      newState.entities = {
+        ...prevEntities,
+        ...newEntities,
+      };
+    }
+    return newState;
   },
 
   merge({ prevResult, prevEntities, result, entities }) {
