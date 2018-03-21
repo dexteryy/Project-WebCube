@@ -45,7 +45,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "chai": "^4.1.2",
-    "chance": "^1.0.11",
+    "chance": "^1.0.13",
     "fast-async": "^6.3.0",
     "form-data": "^2.3.1",
     "mocha": "^3.5.3",

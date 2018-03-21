@@ -23,6 +23,8 @@ const {
   projectPath,
 } = require('../utils');
 
+const disableSourceMapInProdEnv = !process.env.WEBCUBE_ENABLE_PROD_SOURCEMAP;
+
 const packageJson = require(path.join(rootPath, './package.json'));
 
 let customConfig;
@@ -373,7 +375,6 @@ module.exports = Object.assign(
     resolveLoader: {
       modulesDirectories: resolvePaths,
     },
-    devtool: 'source-map',
     module: {
       noParse: new RegExp(
         `(${JSON.parse(process.env.WEBCUBE_WEBPACK_NO_PARSE || '[]').join(
@@ -653,5 +654,10 @@ module.exports = Object.assign(
       .concat([new webpack.NoErrorsPlugin()])
       .concat(customConfig.plugins),
   },
+  !isProductionEnv || !disableSourceMapInProdEnv
+    ? {
+        devtool: 'source-map',
+      }
+    : {},
   customConfig.customFields
 );

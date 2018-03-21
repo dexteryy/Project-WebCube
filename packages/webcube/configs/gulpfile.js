@@ -52,12 +52,21 @@ const outputHtmlRootPath = !process.env.WWEBCUBE_OUTPUT_CUSTOM_HTML_ROOT
   ? path.join(projectPath, `build/public/`)
   : path.join(rootPath, process.env.WEBCUBE_OUTPUT_CUSTOM_HTML_ROOT);
 
+const disableSourceMapInProdEnv = !process.env.WEBCUBE_ENABLE_PROD_SOURCEMAP;
+
 function buildApp(myWebpackConfig) {
   let stream = gulp
     .src(['app/**/*.js', 'staticweb/**/*.js'], { cwd: projectPath })
-    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(
+      gulpif(
+        !isProductionEnv || !disableSourceMapInProdEnv,
+        sourcemaps.init({ loadMaps: true })
+      )
+    )
     .pipe(webpackStream(myWebpackConfig))
-    .pipe(sourcemaps.write())
+    .pipe(
+      gulpif(!isProductionEnv || !disableSourceMapInProdEnv, sourcemaps.write())
+    )
     .pipe(
       gulp.dest(outputRootPath, {
         // cwd: projectPath
