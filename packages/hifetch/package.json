@@ -1,6 +1,6 @@
 {
   "name": "hifetch",
-  "version": "2.1.7",
+  "version": "3.0.1",
   "description": "A minimal higher-level wrapper around Fetch API",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],

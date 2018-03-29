@@ -21,8 +21,10 @@ describe('error: 4', () => {
         a.b = 2;
         return json;
       },
+      responseStyle: 'unix',
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(4);
       expect(res.error).to.be.an('error');
       expect(res.httpStatus).to.equal(200);
@@ -57,6 +59,7 @@ describe('error: 4', () => {
       },
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(4);
       expect(res.error).to.be.an('error');
       expect(res.httpStatus).to.equal(200);
@@ -94,6 +97,7 @@ describe('error: 4', () => {
       a.b = 2;
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(4);
       expect(res.error).to.be.an('error');
       expect(res.httpStatus).to.equal(200);
@@ -132,6 +136,7 @@ describe('error: 4', () => {
       a.b = 2;
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(4);
       expect(res.error).to.be.an('error');
       expect(res.httpStatus).to.equal(200);

@@ -9,6 +9,7 @@ describe('error: 1', () => {
       url: `${ROOT}/error1`,
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(1);
       expect(res.error).to.exist;
     };
@@ -28,6 +29,7 @@ describe('error: 1', () => {
       url: `${ROOT}/error1`,
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(1);
       expect(res.error).to.exist;
     };

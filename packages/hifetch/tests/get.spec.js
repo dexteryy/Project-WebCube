@@ -44,6 +44,48 @@ describe('get', () => {
       });
   });
 
+  it('user1, promise style, google style response', done => {
+    nock(ROOT, {
+      reqheaders: {
+        'X-My-Headers': '1',
+      },
+    })
+      .defaultReplyHeaders({
+        'X-Powered-By': 'nock',
+      })
+      .get('/user')
+      .query({
+        uid: 1,
+      })
+      .reply(200, {
+        data: {
+          name: 'user1',
+        },
+      });
+    hifetch({
+      url: `${ROOT}/user`,
+      query: {
+        uid: 1,
+      },
+      responseStyle: 'google',
+      headers: {
+        'X-My-Headers': '1',
+      },
+      mergeHeaders: {
+        poweredBy: 'X-Powered-By',
+      },
+    })
+      .send()
+      .then(res => {
+        expect(res.name).to.equal('user1');
+        expect(res.poweredBy).to.equal('nock');
+        done();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+
   it('user1, promise style, enableMeta', done => {
     nock(ROOT, {
       reqheaders: {

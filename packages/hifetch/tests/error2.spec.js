@@ -15,6 +15,7 @@ describe('error: 2', () => {
       url: `${ROOT}/error2`,
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(2);
       expect(res.httpStatus).to.equal(500);
     };
@@ -39,6 +40,7 @@ describe('error: 2', () => {
       url: `${ROOT}/error2`,
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(2);
       expect(res.httpStatus).to.equal(500);
     };

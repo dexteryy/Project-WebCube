@@ -15,8 +15,10 @@ describe('error: 5', () => {
     const fetchConfig = {
       url: `${ROOT}/error5`,
       timeout: 100,
+      responseStyle: 'unix',
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(5);
       expect(res.timeout).to.equal(100);
       return res;
@@ -44,6 +46,7 @@ describe('error: 5', () => {
       timeout: 100,
     };
     const errorHandler = res => {
+      expect(res).to.be.an('error');
       expect(res.status).to.equal(5);
       expect(res.timeout).to.equal(100);
       return res;
