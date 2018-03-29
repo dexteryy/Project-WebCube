@@ -13,6 +13,7 @@ rev-version.json
 build/public/*
 !build/public/favicon.png
 !build/public/404.html
+dist/
 coverage/
 demo*/
 app/demo*

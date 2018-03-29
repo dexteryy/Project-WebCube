@@ -33,9 +33,7 @@ try {
     projectPath,
     `${process.env.WEBCUBE_CUSTOM_CONFIG_ROOT}/webpack.config.js`
   ));
-} catch (ex) {
-  console.info('No custom webpack configs');
-}
+} catch (ex) {}
 customConfig = _.defaults(customConfig || {}, {
   resolveAlias: {},
   babelLoaderPresets: presets => presets,
@@ -201,7 +199,7 @@ const babelLoaderConfig = {
           ie: 11,
         },
         include: [],
-        exclude: ['transform-async-to-generator'],
+        exclude: ['transform-regenerator', 'transform-async-to-generator'],
         useBuiltIns: 'usage',
         forceAllTransforms: Boolean(process.env.WEBCUBE_USE_UGLIFY),
         shippedProposals: false,

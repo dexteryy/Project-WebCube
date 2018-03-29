@@ -97,7 +97,7 @@ Create a monorepo based on [webcube's monorepo](https://github.com/dexteryy/Proj
 ```bash
 git clone git@github.com:dexteryy/webcube.git your-monorepo
 cd your-monorepo/
-rm -rf .git examples starters
+rm -rf .git examples starters yarn.lock
 mkdir entries
 mkdir services
 git init
