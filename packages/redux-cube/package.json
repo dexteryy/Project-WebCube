@@ -1,6 +1,6 @@
 {
   "name": "redux-cube",
-  "version": "1.0.0-rc.23",
+  "version": "1.0.0-rc.24",
   "description": "App state manager. A set of wrappers which simplify the use of Redux and its mainstream ecosystem, reduce boilerplate, and support many patterns (like Sub App, Reducer Bundle, ...)",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
