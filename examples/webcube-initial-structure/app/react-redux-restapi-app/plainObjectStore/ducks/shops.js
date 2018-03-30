@@ -16,27 +16,24 @@ export const shopsSource = source(
     }
 
     mutation addShop($id: ID!, $data: JSON!) {
-      shops(shopId: $id, shopData: $data) {
+      shops: updateShop(shopId: $id, shopData: $data) {
         ...shopFields
       }
-      timestamp
     }
 
     mutation updateShop($id: ID!, $data: JSON!) {
-      shops(shopId: $id, shopData: $data) {
+      shops: updateShop(shopId: $id, shopData: $data) {
         ...shopFields
       }
-      timestamp
     }
 
     mutation deleteShop($id: ID!) {
       __config__ {
         combineResult: crop
       }
-      shops(shopId: $id) {
+      shops: removeShop(shopId: $id) {
         ...shopFields
       }
-      timestamp
     }
 
     fragment shopFields on Shop {
