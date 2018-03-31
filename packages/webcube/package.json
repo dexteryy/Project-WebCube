@@ -10,7 +10,6 @@
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "version": "1.0.0-alpha.60",
   "license": "MIT",
-  "main": "boilerplate/index.js",
   "bin": {
     "webcube-setup": "./scripts/scaffold/setup.js",
     "webcube-update": "./scripts/scaffold/update.js",
@@ -46,6 +45,7 @@
     "react": ">= 15.x",
     "react-dom": ">= 15.x",
     "react-helmet": ">= 5.2.0",
+    "react-with-scripts": ">= 1.0.0",
     "redux-cube": ">= 1.0.0-rc.9",
     "redux-source": ">= 0.2.0"
   },

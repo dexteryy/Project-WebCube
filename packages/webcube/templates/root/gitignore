@@ -5,9 +5,8 @@ node_modules/
 env.config
 env.json
 rev-version.json
-build/public/*
-!build/public/favicon.png
-!build/public/404.html
+**/public/**/
+dist/
 coverage/
 app/demo*
 staticweb/demo*

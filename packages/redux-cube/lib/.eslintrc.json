@@ -1,6 +1,6 @@
 {
   "extends": [
-    "../../webcube/boilerplate/.eslintrc.json"
+    "webcube"
   ],
   "env": {
     "commonjs": true,

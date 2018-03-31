@@ -59,6 +59,7 @@
     "react-notification-system": "^0.2.17",
     "react-router-dom": "^4.2.2",
     "react-spinkit": "^3.0.0",
+    "react-with-scripts": "^1.0.0",
     "recompose": "^0.26.0",
     "redux-cube": "^1.0.0-rc.24",
     "redux-cube-with-immutable": "^1.0.5",

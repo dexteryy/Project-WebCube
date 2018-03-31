@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
-// import { withScripts } from 'webcube';
-// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
+import withScripts from 'react-with-scripts';
+import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
 
 import { isDynamicUrl } from '../common/utils';
 import { App as SampleApp } from '../sample';
@@ -35,12 +35,11 @@ class {{pascalCase entryName}} extends Component {
   }
 }
 
-export const App =
-  // withScripts(
-  //   googleTagManager({
-  //     googleTagManagerContainerId: '',
-  //   }),
-  // )(
+export const App = withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: '', // @TODO
+  }),
+)(
   createApp(
     withRouter({
       reducers: {
@@ -49,5 +48,5 @@ export const App =
       supportHtml5History: isDynamicUrl(),
       devToolsOptions: { name: '{{pascalCase entryName}}' },
     }),
-  )({{pascalCase entryName}});
-// );
+  )({{pascalCase entryName}})
+);

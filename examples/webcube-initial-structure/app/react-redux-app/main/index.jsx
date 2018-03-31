@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
+import withScripts from 'react-with-scripts';
+import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
 import { createApp } from 'redux-cube';
-// import { withScripts } from 'webcube';
-// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { App as SampleApp } from '../sample';
 import { reducer as renameMeReducer } from './ducks/renameMe';
@@ -27,16 +27,15 @@ class ReactReduxApp extends Component {
   }
 }
 
-export const App =
-  // withScripts(
-  //   googleTagManager({
-  //     googleTagManagerContainerId: '',
-  //   }),
-  // )(
+export const App = withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: 'UA-404086-14',
+  }),
+)(
   createApp({
     reducers: {
       renameMe: renameMeReducer,
     },
     devToolsOptions: { name: 'ReactReduxApp' },
-  })(ReactReduxApp);
-// );
+  })(ReactReduxApp),
+);

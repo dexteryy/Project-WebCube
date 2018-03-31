@@ -9,6 +9,7 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 
 * [webcube](./packages/webcube/) - Continuously updated JS infrastructure for modern Universal JS web app/site and static web.
 * [eslint-config-webcube](./packages/eslint-config-webcube/) - A sharable ESLint presets which integrates Prettier and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins.
+* [react-with-scripts](./packages/react-with-scripts/) - Add third party script tags, JS SDK and tracking code without modifying any HTML code
 * [redux-cube](./packages/redux-cube/) - App state manager. A set of wrappers which simplify the use of Redux and its whole ecosystem, reduce boilerplate, and provide many features (Sub App, Reducer Bundle, ...)
     * [redux-cube-with-router](./packages/redux-cube-with-router/) - redux-cube's pluggable module for react-router v4+
     * [redux-cube-with-router-legacy](./packages/redux-cube-with-router-legacy/) - redux-cube's pluggable module for react-router v3

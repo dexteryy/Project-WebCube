@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import withScripts from 'react-with-scripts';
+import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
-import { withScripts } from 'webcube';
-import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
 
 import { isDynamicUrl } from '../todo-app/common/utils';
 import { App as TodoApp } from '../todo-app/main';
@@ -50,8 +50,8 @@ const TodoApps = () => (
 const JumpToDefault = () => <Redirect to="jedi-todo/" />;
 
 @withScripts(
-  googleTagManager({
-    googleTagManagerContainerId: 'UA-81044026-3',
+  googleAnalytics({
+    googleAnalyticsTrackingId: 'UA-404086-14',
   }),
 )
 @createApp(

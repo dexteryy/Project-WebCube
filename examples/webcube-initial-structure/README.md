@@ -3,7 +3,7 @@
 
 [< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
-* Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube's boilerplate](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube/boilerplate)
+* Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube)
 * Examples for usage of [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source)
 * Examples for results for `npm run webcube:setup` script and webcube's micro generators (`npm run new`)
 

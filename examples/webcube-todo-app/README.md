@@ -2,7 +2,7 @@
 
 [< Back to Project WebCube](https://github.com/dexteryy/Project-WebCube/)
 
-* Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube's boilerplate](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube/boilerplate)
+* Examples for usage of [redux-cube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube) and [webcube](https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube)
 
 More Examples:
 

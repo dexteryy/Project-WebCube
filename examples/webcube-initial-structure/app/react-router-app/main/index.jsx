@@ -7,8 +7,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-// import { withScripts } from 'webcube';
-// import googleTagManager from 'webcube/boilerplate/external/googleTagManager';
+import withScripts from 'react-with-scripts';
+import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
 
 import { isDynamicUrl } from '../common/utils';
 import { App as SampleApp } from '../sample';
@@ -39,10 +39,8 @@ class ReactRouterApp extends Component {
   }
 }
 
-export const App = ReactRouterApp;
-
-// export const App = withScripts(
-//   googleTagManager({
-//     googleTagManagerContainerId: '',
-//   }),
-// )(ReactRouterApp);
+export const App = withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: 'UA-404086-14',
+  }),
+)(ReactRouterApp);
