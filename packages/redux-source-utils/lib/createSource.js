@@ -23,7 +23,7 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
   /* eslint-disable max-statements */
   const traverseProp = root => field => {
     const { name, alias, selectionSet } = field;
-    let { value: originName } = name;
+    const { value: originName } = name;
     if (!selectionSet || originName === idAttribute) {
       return;
     }
@@ -57,14 +57,18 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
     const childRoot = {};
     spreadSections.forEach(traverseProp(childRoot));
     let isList = false;
-    if (RE_LIST_SUFFIX.test(originName)) {
+    let dataName = alias ? alias.value : originName;
+    if (RE_LIST_SUFFIX.test(dataName)) {
       isList = true;
-      originName = originName.replace(RE_LIST_SUFFIX, '$1');
-      name.value = originName;
-    } else if (isPlural(originName)) {
+      dataName = dataName.replace(RE_LIST_SUFFIX, '$1');
+      if (alias) {
+        alias.value = originName;
+      } else {
+        name.value = originName;
+      }
+    } else if (isPlural(dataName)) {
       isList = true;
     }
-    const dataName = alias ? alias.value : originName;
     const entity = hasId
       ? new schema.Entity(singular(dataName), childRoot, {
           idAttribute,

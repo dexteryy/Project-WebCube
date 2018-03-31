@@ -136,19 +136,17 @@ const resolvers = {
     }).send().then(response => response.shops),
   },
   Mutation: {
-    shops: (_, { shopId, shopData }) =>
-      (
-        shopData
-          ? hifetch({
-              url: `https://example.com/api/shops/${shopId}`,
-              method: 'post',
-              data: shopData,
-            })
-          : hifetch({
-              url: `https://example.com/api/shops/${shopId}`,
-              method: 'delete',
-            })
-      ).send().then(response => [response.shop])
+    updateShop: (_, { shopId, shopData }) =>
+      hifetch({
+        url: `https://example.com/api/shops/${shopId}`,
+        method: 'post',
+        data: shopData,
+      }).send().then(response => [response.shop]),
+    deleteShop: (_, { shopId }) =>
+      hifetch({
+        url: `https://example.com/api/shops/${shopId}`,
+        method: 'delete',
+      }).send().then(response => [response.shop]),
   },
   Shop {
     services: shop => hifetch({
@@ -190,13 +188,13 @@ export const shopsSource = source(
     }
 
     mutation addShop($id: ID!, $data: JSON!) {
-      shops(shopId: $id, shopData: $data) {
+      shops: updateShop(shopId: $id, shopData: $data) {
         ...shopFields
       }
     }
 
     mutation updateShop($id: ID!, $data: JSON!) {
-      shops(shopId: $id, shopData: $data) {
+      shops: updateShop(shopId: $id, shopData: $data) {
         ...shopFields
       }
     }
@@ -205,7 +203,7 @@ export const shopsSource = source(
       __config__ {
         combineResult: crop
       }
-      shops(shopId: $id) {
+      shops: deleteShop(shopId: $id) {
         ...shopFields
       }
     }

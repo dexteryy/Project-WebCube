@@ -24,10 +24,7 @@ export const shopsLoader = () => {
 export const shopsUpdater = (shopId, shopData) =>
   new Promise(resolve => {
     setTimeout(() => {
-      resolve({
-        shops: [shopData],
-        timestamp: Date.now(),
-      });
+      resolve([shopData]);
     }, 100);
   });
 
@@ -35,10 +32,7 @@ export const shopsRemover = shopId =>
   new Promise(resolve => {
     setTimeout(() => {
       const deleteData = { id: shopId, deliveryEnabled: false };
-      resolve({
-        shops: [deleteData],
-        timestamp: Date.now(),
-      });
+      resolve([deleteData]);
     }, 100);
   });
 

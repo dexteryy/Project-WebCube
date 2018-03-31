@@ -25,21 +25,8 @@ const resolvers = {
     ),
   },
   Mutation: {
-    shops: isDependee((_, { shopId, shopData }, context) =>
-      (shopData ? shopsUpdater(shopId, shopData) : shopsRemover(shopId)).then(
-        ({ shops, timestamp }) => {
-          context.result = {
-            shops,
-            timestamp,
-          };
-          return shops;
-        },
-      ),
-    ),
-    timestamp: pipeResolvers(
-      resolveDependee('shops'),
-      (_, args, context) => context.result.timestamp,
-    ),
+    updateShop: (_, { shopId, shopData }) => shopsUpdater(shopId, shopData),
+    removeShop: (_, { shopId }) => shopsRemover(shopId),
   },
   Shop: {
     services: () => servicesLoader(),
