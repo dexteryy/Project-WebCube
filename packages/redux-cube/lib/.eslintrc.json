@@ -6,5 +6,8 @@
     "commonjs": true,
     "browser": true,
     "node": false
+  },
+  "globals": {
+    "process": true
   }
 }
