@@ -13,7 +13,10 @@ import topologicallyCombineReducers from 'topologically-combine-reducers';
 import thunkPayloadMiddleware from '../middlewares/thunkPayload';
 import { combineReducersWith } from '../utils';
 
-const isProdEnv = process.env.NODE_ENV === 'production';
+let isProdEnv = true;
+try {
+  isProdEnv = process.env.NODE_ENV === 'production';
+} catch (ex) {}
 let composeWithDevTools, freezeMiddleware, logger, createLogger;
 if (isProdEnv) {
   // https://medium.com/@zalmoxis/using-redux-devtools-in-production-4c5b56c5600f
