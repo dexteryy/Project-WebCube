@@ -287,12 +287,9 @@ class Hifetch {
                 ),
               );
             } else if (responseStyle === 'google' && result.error) {
-              const {
-                code,
-                message: originMessage,
-                errors = [{}],
-              } = result.error;
+              const { code, errors = [{}] } = result.error;
               const { reason } = errors[0];
+              const originMessage = result.error.message || errors[0].message;
               return error(
                 Object.assign(
                   new Error(
