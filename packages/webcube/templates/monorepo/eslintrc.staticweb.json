@@ -1,5 +1,14 @@
 {
   "extends": [
-    "../app/.eslintrc.json"
-  ]
+    "webcube"
+  ],
+  "env": {
+    "commonjs": false,
+    "browser": true,
+    "node": false
+  },
+  "rules": {},
+  "globals": {
+    "process": true
+  }
 }

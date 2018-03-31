@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css/normalize.css';
 import { App } from 'app/{{entryName}}';
+import 'normalize.css/normalize.css';
 
 function run() {
   if (

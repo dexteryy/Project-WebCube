@@ -17,6 +17,7 @@ const {
   liveMode,
   serverPort,
   serverHost,
+  srcRoot,
   staticRoot,
   rootPath,
   modulePath,
@@ -234,8 +235,7 @@ const resolvePaths = (projectPath !== rootPath
   .concat([path.join(rootPath, 'node_modules')]);
 
 const babelInclude = [
-  path.join(projectPath, 'app'),
-  path.join(projectPath, 'src'),
+  path.join(projectPath, srcRoot),
   path.join(projectPath, 'staticweb'),
   modulePath,
 ]
@@ -348,7 +348,8 @@ module.exports = Object.assign(
     resolve: {
       alias: Object.assign(
         {
-          app: path.join(projectPath, 'app'),
+          app: path.join(projectPath, srcRoot),
+          src: path.join(projectPath, srcRoot),
         },
         process.env.WEBCUBE_USE_PREACT
           ? {

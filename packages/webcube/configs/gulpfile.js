@@ -20,6 +20,7 @@ const {
   isProductionEnv,
   serverPort,
   serverHost,
+  srcRoot,
   staticRoot,
   configRoot,
   projectPath,
@@ -56,7 +57,9 @@ const disableSourceMapInProdEnv = !process.env.WEBCUBE_ENABLE_PROD_SOURCEMAP;
 
 function buildApp(myWebpackConfig) {
   let stream = gulp
-    .src(['app/**/*.js', 'staticweb/**/*.js'], { cwd: projectPath })
+    .src([`${srcRoot}/**/*.js`, 'staticweb/**/*.js'], {
+      cwd: projectPath,
+    })
     .pipe(
       gulpif(
         !isProductionEnv || !disableSourceMapInProdEnv,

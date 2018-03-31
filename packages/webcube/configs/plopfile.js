@@ -1,7 +1,7 @@
 // https://github.com/amwmedia/plop
 
 const path = require('path');
-const { configRoot, projectPath, modulePath } = require('../utils');
+const { srcRoot, configRoot, projectPath, modulePath } = require('../utils');
 
 let customPlopfile;
 try {
@@ -11,116 +11,69 @@ try {
 }
 
 const addReactEntryFiles = {
-  'app/{{entryName}}/index.jsx': 'templates/app/entries/react-app/index.jsx',
-  'app/{{entryName}}/main/index.jsx':
-    'templates/app/entries/react-app/main/index.jsx',
-  'app/{{entryName}}/sample/index.jsx':
-    'templates/app/entries/react-app/sample/index.jsx',
-  'app/{{entryName}}/sample/components/SampleList.jsx':
-    'templates/app/entries/react-app/sample/components/SampleList.jsx',
-  'app/{{entryName}}/sample/constants/sample.js':
-    'templates/app/entries/react-app/sample/constants/sample.js',
-  'app/{{entryName}}/sample/containers/Sample.jsx':
-    'templates/app/entries/react-app/sample/containers/Sample.jsx',
+  [`${srcRoot}/{{entryName}}/index.jsx`]: 'templates/app/entries/react-app/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/index.jsx`]: 'templates/app/entries/react-app/main/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/index.jsx`]: 'templates/app/entries/react-app/sample/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/components/SampleList.jsx`]: 'templates/app/entries/react-app/sample/components/SampleList.jsx',
+  [`${srcRoot}/{{entryName}}/sample/constants/sample.js`]: 'templates/app/entries/react-app/sample/constants/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/containers/Sample.jsx`]: 'templates/app/entries/react-app/sample/containers/Sample.jsx',
   'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
   'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
 };
 
 const addReactRouterEntryFiles = {
-  'app/{{entryName}}/index.jsx':
-    'templates/app/entries/react-router-app/index.jsx',
-  'app/{{entryName}}/main/index.jsx':
-    'templates/app/entries/react-router-app/main/index.jsx',
-  'app/{{entryName}}/sample/index.jsx':
-    'templates/app/entries/react-router-app/sample/index.jsx',
-  'app/{{entryName}}/sample/components/SampleList.jsx':
-    'templates/app/entries/react-router-app/sample/components/SampleList.jsx',
-  'app/{{entryName}}/sample/constants/sample.js':
-    'templates/app/entries/react-router-app/sample/constants/sample.js',
-  'app/{{entryName}}/sample/containers/Sample.jsx':
-    'templates/app/entries/react-router-app/sample/containers/Sample.jsx',
-  'app/{{entryName}}/common/utils/index.js':
-    'templates/app/entries/react-router-app/common/utils/index.js',
+  [`${srcRoot}/{{entryName}}/index.jsx`]: 'templates/app/entries/react-router-app/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/index.jsx`]: 'templates/app/entries/react-router-app/main/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/index.jsx`]: 'templates/app/entries/react-router-app/sample/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/components/SampleList.jsx`]: 'templates/app/entries/react-router-app/sample/components/SampleList.jsx',
+  [`${srcRoot}/{{entryName}}/sample/constants/sample.js`]: 'templates/app/entries/react-router-app/sample/constants/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/containers/Sample.jsx`]: 'templates/app/entries/react-router-app/sample/containers/Sample.jsx',
+  [`${srcRoot}/{{entryName}}/common/utils/index.js`]: 'templates/app/entries/react-router-app/common/utils/index.js',
   'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
   'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
 };
 
 const addReactReduxEntryFiles = {
-  'app/{{entryName}}/index.jsx':
-    'templates/app/entries/react-redux-app/index.jsx',
-  'app/{{entryName}}/main/index.jsx':
-    'templates/app/entries/react-redux-app/main/index.jsx',
-  'app/{{entryName}}/main/hub.js':
-    'templates/app/entries/react-redux-app/main/hub.js',
-  'app/{{entryName}}/main/containers/Layout.jsx':
-    'templates/app/entries/react-redux-app/main/containers/Layout.jsx',
-  'app/{{entryName}}/main/ducks/renameMe.js':
-    'templates/app/entries/react-redux-app/main/ducks/renameMe.js',
-  'app/{{entryName}}/sample/index.jsx':
-    'templates/app/entries/react-redux-app/sample/index.jsx',
-  'app/{{entryName}}/sample/hub.js':
-    'templates/app/entries/react-redux-app/sample/hub.js',
-  'app/{{entryName}}/sample/ducks/sample.js':
-    'templates/app/entries/react-redux-app/sample/ducks/sample.js',
-  'app/{{entryName}}/sample/ducks/actions/sample.js':
-    'templates/app/entries/react-redux-app/sample/ducks/actions/sample.js',
-  'app/{{entryName}}/sample/components/SampleList.jsx':
-    'templates/app/entries/react-redux-app/sample/components/SampleList.jsx',
-  'app/{{entryName}}/sample/constants/sample.js':
-    'templates/app/entries/react-redux-app/sample/constants/sample.js',
-  'app/{{entryName}}/sample/containers/Sample.jsx':
-    'templates/app/entries/react-redux-app/sample/containers/Sample.jsx',
-  'app/{{entryName}}/common/apis/main/index.js':
-    'templates/app/entries/react-redux-app/common/apis/main/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/index.js':
-    'templates/app/entries/react-redux-app/common/apis/main/resolvers/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/loaders/index.js':
-    'templates/app/entries/react-redux-app/common/apis/main/resolvers/loaders/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/__mock__/index.js':
-    'templates/app/entries/react-redux-app/common/apis/main/resolvers/__mock__/index.js',
-  'app/{{entryName}}/common/apis/main/schema/index.gql':
-    'templates/app/entries/react-redux-app/common/apis/main/schema/index.gql',
+  [`${srcRoot}/{{entryName}}/index.jsx`]: 'templates/app/entries/react-redux-app/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/index.jsx`]: 'templates/app/entries/react-redux-app/main/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/hub.js`]: 'templates/app/entries/react-redux-app/main/hub.js',
+  [`${srcRoot}/{{entryName}}/main/containers/Layout.jsx`]: 'templates/app/entries/react-redux-app/main/containers/Layout.jsx',
+  [`${srcRoot}/{{entryName}}/main/ducks/renameMe.js`]: 'templates/app/entries/react-redux-app/main/ducks/renameMe.js',
+  [`${srcRoot}/{{entryName}}/sample/index.jsx`]: 'templates/app/entries/react-redux-app/sample/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/hub.js`]: 'templates/app/entries/react-redux-app/sample/hub.js',
+  [`${srcRoot}/{{entryName}}/sample/ducks/sample.js`]: 'templates/app/entries/react-redux-app/sample/ducks/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/ducks/actions/sample.js`]: 'templates/app/entries/react-redux-app/sample/ducks/actions/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/components/SampleList.jsx`]: 'templates/app/entries/react-redux-app/sample/components/SampleList.jsx',
+  [`${srcRoot}/{{entryName}}/sample/constants/sample.js`]: 'templates/app/entries/react-redux-app/sample/constants/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/containers/Sample.jsx`]: 'templates/app/entries/react-redux-app/sample/containers/Sample.jsx',
+  [`${srcRoot}/{{entryName}}/common/apis/main/index.js`]: 'templates/app/entries/react-redux-app/common/apis/main/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/index.js`]: 'templates/app/entries/react-redux-app/common/apis/main/resolvers/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/loaders/index.js`]: 'templates/app/entries/react-redux-app/common/apis/main/resolvers/loaders/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/__mock__/index.js`]: 'templates/app/entries/react-redux-app/common/apis/main/resolvers/__mock__/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/schema/index.gql`]: 'templates/app/entries/react-redux-app/common/apis/main/schema/index.gql',
   'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
   'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
 };
 
 const addReactReduxRouterEntryFiles = {
-  'app/{{entryName}}/index.jsx':
-    'templates/app/entries/react-redux-router-app/index.jsx',
-  'app/{{entryName}}/main/index.jsx':
-    'templates/app/entries/react-redux-router-app/main/index.jsx',
-  'app/{{entryName}}/main/hub.js':
-    'templates/app/entries/react-redux-router-app/main/hub.js',
-  'app/{{entryName}}/main/containers/Layout.jsx':
-    'templates/app/entries/react-redux-router-app/main/containers/Layout.jsx',
-  'app/{{entryName}}/main/ducks/renameMe.js':
-    'templates/app/entries/react-redux-router-app/main/ducks/renameMe.js',
-  'app/{{entryName}}/sample/index.jsx':
-    'templates/app/entries/react-redux-router-app/sample/index.jsx',
-  'app/{{entryName}}/sample/hub.js':
-    'templates/app/entries/react-redux-router-app/sample/hub.js',
-  'app/{{entryName}}/sample/ducks/sample.js':
-    'templates/app/entries/react-redux-router-app/sample/ducks/sample.js',
-  'app/{{entryName}}/sample/ducks/actions/sample.js':
-    'templates/app/entries/react-redux-router-app/sample/ducks/actions/sample.js',
-  'app/{{entryName}}/sample/components/SampleList.jsx':
-    'templates/app/entries/react-redux-router-app/sample/components/SampleList.jsx',
-  'app/{{entryName}}/sample/constants/sample.js':
-    'templates/app/entries/react-redux-router-app/sample/constants/sample.js',
-  'app/{{entryName}}/sample/containers/Sample.jsx':
-    'templates/app/entries/react-redux-router-app/sample/containers/Sample.jsx',
-  'app/{{entryName}}/common/utils/index.js':
-    'templates/app/entries/react-redux-router-app/common/utils/index.js',
-  'app/{{entryName}}/common/apis/main/index.js':
-    'templates/app/entries/react-redux-router-app/common/apis/main/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/index.js':
-    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/loaders/index.js':
-    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/loaders/index.js',
-  'app/{{entryName}}/common/apis/main/resolvers/__mock__/index.js':
-    'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/__mock__/index.js',
-  'app/{{entryName}}/common/apis/main/schema/index.gql':
-    'templates/app/entries/react-redux-router-app/common/apis/main/schema/index.gql',
+  [`${srcRoot}/{{entryName}}/index.jsx`]: 'templates/app/entries/react-redux-router-app/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/index.jsx`]: 'templates/app/entries/react-redux-router-app/main/index.jsx',
+  [`${srcRoot}/{{entryName}}/main/hub.js`]: 'templates/app/entries/react-redux-router-app/main/hub.js',
+  [`${srcRoot}/{{entryName}}/main/containers/Layout.jsx`]: 'templates/app/entries/react-redux-router-app/main/containers/Layout.jsx',
+  [`${srcRoot}/{{entryName}}/main/ducks/renameMe.js`]: 'templates/app/entries/react-redux-router-app/main/ducks/renameMe.js',
+  [`${srcRoot}/{{entryName}}/sample/index.jsx`]: 'templates/app/entries/react-redux-router-app/sample/index.jsx',
+  [`${srcRoot}/{{entryName}}/sample/hub.js`]: 'templates/app/entries/react-redux-router-app/sample/hub.js',
+  [`${srcRoot}/{{entryName}}/sample/ducks/sample.js`]: 'templates/app/entries/react-redux-router-app/sample/ducks/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/ducks/actions/sample.js`]: 'templates/app/entries/react-redux-router-app/sample/ducks/actions/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/components/SampleList.jsx`]: 'templates/app/entries/react-redux-router-app/sample/components/SampleList.jsx',
+  [`${srcRoot}/{{entryName}}/sample/constants/sample.js`]: 'templates/app/entries/react-redux-router-app/sample/constants/sample.js',
+  [`${srcRoot}/{{entryName}}/sample/containers/Sample.jsx`]: 'templates/app/entries/react-redux-router-app/sample/containers/Sample.jsx',
+  [`${srcRoot}/{{entryName}}/common/utils/index.js`]: 'templates/app/entries/react-redux-router-app/common/utils/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/index.js`]: 'templates/app/entries/react-redux-router-app/common/apis/main/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/index.js`]: 'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/loaders/index.js`]: 'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/loaders/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/resolvers/__mock__/index.js`]: 'templates/app/entries/react-redux-router-app/common/apis/main/resolvers/__mock__/index.js',
+  [`${srcRoot}/{{entryName}}/common/apis/main/schema/index.gql`]: 'templates/app/entries/react-redux-router-app/common/apis/main/schema/index.gql',
   'staticweb/{{entryName}}/index.html': 'templates/staticweb/index.html',
   'staticweb/{{entryName}}/deploy.js': 'templates/staticweb/deploy.js',
 };

@@ -13,6 +13,7 @@ const liveMode = (process.env.LIVE_MODE || '').toLowerCase();
 const DEFAULT_DEV_PORT = 8000;
 const serverPort = process.env.WEBCUBE_DEVSERVER_PORT || DEFAULT_DEV_PORT;
 const serverHost = process.env.WEBCUBE_DEVSERVER_HOST || 'localhost';
+const srcRoot = process.env.WEBCUBE_CUSTOM_SRC_ROOT || 'app';
 const staticRoot =
   process.env.WEBCUBE_CUSTOM_STATIC_ROOT ||
   (isProductionEnv ? 'static' : 'static-for-dev');
@@ -41,6 +42,7 @@ module.exports = {
   liveMode,
   serverPort,
   serverHost,
+  srcRoot,
   staticRoot,
   configRoot,
   cloudAdapter,
