@@ -95,6 +95,6 @@ export const { reducer, actions, types, typeDict } = hub
       ...starWarsSource.initialState,
     },
   )
-  .with({
+  .mergeActions({
     ...starWarsSource.actions,
   });

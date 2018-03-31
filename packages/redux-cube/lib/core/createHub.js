@@ -228,13 +228,15 @@ export class Hub {
       typeDict = { [regularType]: actionCreator };
       ({ actions, types } = unflattenDict(typeDict, { delimiter }));
     }
-    return {
+    const res = {
       typeDict,
       types,
       actions,
       reducer: handleAction(regularType, reducer, initialState),
-      with: withTypes({ delimiter }),
+      mergeActions: withTypes({ delimiter }),
     };
+    res.with = res.mergeActions;
+    return res;
   }
 
   handleActions(reducerMap, initialState) {
@@ -252,14 +254,16 @@ export class Hub {
         typeDict[regularType] = actionCreator;
       }
     });
-    return {
+    const res = {
       typeDict,
       ...unflattenDict(typeDict, { delimiter }),
       reducer: handleActions(flatReducerMap, initialState, {
         namespace: delimiter,
       }),
-      with: withTypes({ delimiter }),
+      mergeActions: withTypes({ delimiter }),
     };
+    res.with = res.mergeActions;
+    return res;
   }
 
   // https://redux-actions.js.org/docs/api/createAction.html#createaction

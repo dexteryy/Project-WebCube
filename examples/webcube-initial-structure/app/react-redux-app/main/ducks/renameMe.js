@@ -24,7 +24,7 @@ export const { reducer, actions, types, typeDict } = hub
       ...reduxSource.initialState,
     },
   )
-  .with({
+  .mergeActions({
     ...reduxSource.actions,
     // ...existTypeDict,
   });

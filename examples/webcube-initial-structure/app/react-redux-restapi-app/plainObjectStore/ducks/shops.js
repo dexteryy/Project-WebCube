@@ -67,6 +67,6 @@ export const { reducer, actions, types, typeDict } = hub
       ...shopsSource.initialState,
     },
   )
-  .with({
+  .mergeActions({
     ...shopsSource.actions,
   });

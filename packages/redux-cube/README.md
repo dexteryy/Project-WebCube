@@ -369,7 +369,7 @@ export const { reducer, actions, types, typeDict } = hub.handle(
   myType3: (state, { payload, meta }) => newState,
   // undeclared action type
   myType4: (state, { payload, meta }) => newState,
-}, initialStateForASliceOfStore).with(existTypeDict);
+}, initialStateForASliceOfStore).mergeActions(existTypeDict);
 
 export const epics = [
   action$ =>

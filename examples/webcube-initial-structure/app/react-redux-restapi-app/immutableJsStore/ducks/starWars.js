@@ -64,6 +64,6 @@ export const { reducer, actions, types, typeDict } = hub
       shipId: '',
     }).merge(starWarsSource.initialState),
   )
-  .with({
+  .mergeActions({
     ...starWarsSource.actions,
   });

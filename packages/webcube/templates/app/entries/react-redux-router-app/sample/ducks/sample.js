@@ -40,7 +40,7 @@ export const { reducer, actions, types, typeDict } = hub
       message: '',
     },
   )
-  .with(existTypeDict);
+  .mergeActions(existTypeDict);
 
 export const epics = [
   action$ =>
