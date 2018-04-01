@@ -93,6 +93,7 @@ const combineMethods = {
         }
       } else if (prevResult[resultName] === result[resultName]) {
         delete newResult[resultName];
+        isResultChange = true;
       }
     }
     if (isResultChange) {
