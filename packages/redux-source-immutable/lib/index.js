@@ -58,6 +58,8 @@ const combineMethods = {
             [resultName]: filterd,
           });
         }
+      } else if (prevResult[resultName] === result[resultName]) {
+        state.deleteIn([stateName, 'result', resultName]);
       }
     }
   },
