@@ -91,6 +91,8 @@ const combineMethods = {
           newResult[resultName] = filterd;
           isResultChange = true;
         }
+      } else if (prevResult[resultName] === result[resultName]) {
+        delete newResult[resultName];
       }
     }
     if (isResultChange) {
