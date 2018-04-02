@@ -1,14 +1,14 @@
 {
-  "name": "redux-source-connect",
-  "version": "0.2.3",
-  "description": "Connect React components to Redux states maintained by redux-source automatically",
+  "name": "react-common-kit",
+  "version": "1.0.0",
+  "description": "Wrappers for some common used react components and utilities",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
   "bugs": {
-    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+    "url": "https://github.com/dexteryy/react-common-kit/issues"
   },
-  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-connect",
-  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-connect",
+  "homepage": "https://github.com/dexteryy/react-common-kit",
+  "repository": "https://github.com/dexteryy/react-common-kit",
   "license": "MIT",
   "engines": {
     "node": ">=6.9.0"
@@ -23,13 +23,11 @@
     "clear:babel": "rm -r dist 2>/dev/null || true"
   },
   "peerDependencies": {
-    "react": ">= 15.x",
-    "redux-source": "^0.2.1"
+    "react": ">= 15.x"
   },
   "dependencies": {
-    "react-redux": "^5.0.6",
-    "redux-source-utils": "^0.2.3",
-    "reselect": "^3.0.1"
+    "core-decorators": "^0.20.0",
+    "react-onclickoutside": "^6.7.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.32",
@@ -49,11 +47,10 @@
     "fast-async": "^6.3.0"
   },
   "keywords": [
-    "redux",
-    "graphql",
-    "api",
     "react",
-    "redux-source",
-    "webcube"
+    "component",
+    "modal",
+    "dialog",
+    "confirm"
   ]
 }

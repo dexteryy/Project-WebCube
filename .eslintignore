@@ -1,7 +1,5 @@
 **/node_modules/**
 **/build/**
 **/dist/**
-packages/react-with-scripts/vendors/**
-packages/react-with-scripts/*.js
 packages/webcube/templates/**
 

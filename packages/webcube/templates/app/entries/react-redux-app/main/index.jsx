@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { createApp } from 'redux-cube';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { App as SampleApp } from '../sample';
 import { reducer as renameMeReducer } from './ducks/renameMe';

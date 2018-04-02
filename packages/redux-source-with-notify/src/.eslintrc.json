@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "webcube"
+  ],
+  "env": {
+    "commonjs": true,
+    "browser": true,
+    "node": false
+  }
+}

@@ -362,7 +362,7 @@ module.exports = Object.assign(
       modulesDirectories: resolvePaths,
       extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
       packageMains: [
-        'webcube:module',
+        'webcube:module', // @TODO webpack v4
         'webpack',
         'browser',
         'web',

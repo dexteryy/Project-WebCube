@@ -7,8 +7,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { isDynamicUrl } from '../common/utils';
 import { App as SampleApp } from '../sample';

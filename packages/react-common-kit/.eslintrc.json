@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "../webcube/.eslintrc.json"
+  ]
+}

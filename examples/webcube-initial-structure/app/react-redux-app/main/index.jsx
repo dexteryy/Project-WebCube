@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 import { createApp } from 'redux-cube';
 
 import { App as SampleApp } from '../sample';

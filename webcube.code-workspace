@@ -10,6 +10,9 @@
       "path": "packages/react-with-scripts"
     },
     {
+      "path": "packages/react-common-kit"
+    },
+    {
       "path": "packages/redux-cube"
     },
     {

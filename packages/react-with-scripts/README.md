@@ -34,8 +34,7 @@ npm install --save react-with-scripts
 
 ```js
 import React, { Component } from 'react';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 @withScripts(
   googleAnalytics({
@@ -57,8 +56,7 @@ or
 
 ```js
 import React from 'react';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 export const App = withScripts(
   googleAnalytics({

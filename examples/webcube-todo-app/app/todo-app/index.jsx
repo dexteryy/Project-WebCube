@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
 

@@ -13,14 +13,14 @@
   "engines": {
     "node": ">=6.9.0"
   },
-  "webcube:module": "lib/connectSource.js",
-  "module": "lib/connectSource.js",
-  "main": "dist/connectSource.js",
+  "webcube:module": "src/index.js",
+  "module": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
-    "clear": "rm -r dist 2>/dev/null || true",
-    "build": "npm run clear && npm run build:dist",
-    "build:dist": "babel lib --out-dir dist --source-maps"
+    "build": "npm run clear:babel && npm run build:babel",
+    "build:babel": "babel src --out-dir dist --source-maps",
+    "clear:babel": "rm -r dist 2>/dev/null || true"
   },
   "peerDependencies": {
     "react": ">= 15.x",

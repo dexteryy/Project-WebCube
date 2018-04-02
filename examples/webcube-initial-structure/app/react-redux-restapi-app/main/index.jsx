@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, NavLink } from 'react-router-dom';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
 

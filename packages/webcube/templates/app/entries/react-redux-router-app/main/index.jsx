@@ -3,8 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
-import withScripts from 'react-with-scripts';
-import googleAnalytics from 'react-with-scripts/vendors/googleAnalytics';
+import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { isDynamicUrl } from '../common/utils';
 import { App as SampleApp } from '../sample';
