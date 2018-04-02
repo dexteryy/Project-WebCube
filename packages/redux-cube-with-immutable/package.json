@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-with-immutable",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "redux-cube's pluggable module for react-immutable",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],

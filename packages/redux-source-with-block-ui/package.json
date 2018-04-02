@@ -1,6 +1,6 @@
 {
   "name": "redux-source-with-block-ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React higher-order component for displaying \"React Block UI\" based on Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],

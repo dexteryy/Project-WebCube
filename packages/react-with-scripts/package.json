@@ -1,6 +1,6 @@
 {
   "name": "react-with-scripts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add third party script tags, JS SDK and tracking code without modifying any HTML code",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
