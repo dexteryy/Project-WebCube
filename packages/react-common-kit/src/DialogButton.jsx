@@ -1,7 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { autobind } from 'core-decorators';
 
-export default class DialogButton extends PureComponent {
+export default class DialogButton extends Component {
   static defaultProps = {
     trigger: 'button',
     triggerProps: {},
@@ -21,7 +21,11 @@ export default class DialogButton extends PureComponent {
   };
 
   componentWillReceiveProps({ isOpened }) {
-    if (isOpened !== this.state.isOpened) {
+    if (
+      typeof isOpened === 'boolean' &&
+      isOpened !== this.props.isOpened &&
+      isOpened !== this.state.isModalVisible
+    ) {
       this.setState({
         isModalVisible: isOpened,
       });
