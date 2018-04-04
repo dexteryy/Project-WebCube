@@ -1,7 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { autobind } from 'core-decorators';
 
-export default class DialogButton extends PureComponent {
+export default class DialogButton extends Component {
   static defaultProps = {
     trigger: 'button',
     triggerProps: {},
