@@ -45,10 +45,13 @@ export default class DialogButton extends Component {
   @autobind
   handleAction(handler) {
     return () => {
+      let res = true;
       if (handler) {
-        handler();
+        res = handler();
       }
-      this.handleHide();
+      if (typeof res !== 'boolean' || res === true) {
+        this.handleHide();
+      }
     };
   }
 
