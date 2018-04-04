@@ -113,6 +113,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
         entities: {},
         isPending: false,
         pendingCount: 0,
+        inited: false,
         errors: [],
       },
     }),
@@ -153,6 +154,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
         ...newNormalizedData,
         isPending: count > 0,
         pendingCount: count,
+        inited: true,
       };
       if (state[stateName].errors.length) {
         newSourceState.errors = [];
@@ -177,6 +179,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
             ...{
               isPending: count > 0,
               pendingCount: count,
+              inited: true,
               errors: payload,
             },
           },

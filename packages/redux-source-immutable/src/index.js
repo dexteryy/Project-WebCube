@@ -76,6 +76,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
           entities: {},
           isPending: false,
           pendingCount: 0,
+          inited: false,
           errors: [],
         },
       }),
@@ -98,6 +99,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
         _state.mergeIn([stateName], {
           isPending: count > 0,
           pendingCount: count,
+          inited: true,
         });
         combineMethod({
           state: _state,
@@ -116,6 +118,7 @@ export function createSource({ schema: typeDefs, resolvers }) {
       return state.mergeIn([stateName], {
         isPending: count > 0,
         pendingCount: count,
+        inited: true,
         errors: payload,
       });
     },

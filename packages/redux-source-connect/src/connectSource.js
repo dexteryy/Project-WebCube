@@ -14,8 +14,9 @@ export default function connectSource(
         state => slice(state)[stateName].entities,
         state => slice(state)[stateName].errors,
         state => slice(state)[stateName].isPending,
+        state => slice(state)[stateName].inited,
       ],
-      (result, entities, errors, isPending) => {
+      (result, entities, errors, isPending, inited) => {
         const res = denormalize(result, entities);
         // console.log('denormalize', { result, entities }, res);
         if (
@@ -39,6 +40,7 @@ export default function connectSource(
             result: res,
             errors,
             isPending,
+            inited,
           },
         };
       },

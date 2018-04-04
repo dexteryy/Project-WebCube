@@ -14,8 +14,10 @@ export default function connectSource(
         state => slice(state).getIn([stateName, 'entities']),
         state => slice(state).getIn([stateName, 'errors']),
         state => slice(state).getIn([stateName, 'isPending']),
+        state => slice(state).getIn([stateName, 'inited']),
       ],
-      (result, entities, errors, isPending) => {
+      /* eslint-disable max-params */
+      (result, entities, errors, isPending, inited) => {
         const res = denormalize(result.toJS(), entities.toJS());
         // console.log(
         //   'denormalize',
@@ -38,9 +40,11 @@ export default function connectSource(
             result: res,
             errors: errorList,
             isPending,
+            inited,
           },
         };
       },
+      /* eslint-enable max-params */
     )(newState, ...other);
   };
   const mapDispatchToProps = dispatch =>
