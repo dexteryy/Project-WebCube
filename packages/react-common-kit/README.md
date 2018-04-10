@@ -26,6 +26,52 @@ npm install --save react-common-kit
 
 ## Get Started
 
+### `createHoc`
+
+```js
+import { createHoc } from 'react-common-kit';
+
+export default function withXXX() {
+  return createHoc(
+    WrappedComponent =>
+      class WithXXX extends Component {
+        render() {
+          const { ...passThroughProps } = this.props;
+          return createElement(WrappedComponent, {
+            ...passThroughProps,
+          });
+        }
+      },
+    // optional
+    {
+      // optional
+      name: 'WithXXX'
+      // optional
+      enableRef: true,
+    },
+  );
+```
+
+### `errorBoundary`
+
+```js
+import { errorBoundary } from 'react-common-kit';
+
+@errorBoundary({
+  // optional
+  logger: (error, errorInfo, props) => {
+    // ...
+  },
+  // optional
+  fallbackRender: (error, errorInfo, props) => {
+    // ...
+  },
+  // optional
+  enableStrictMode: true,
+})
+class YourApp extends Component {
+```
+
 ### `DetectClickOutSide`
 
 ```js

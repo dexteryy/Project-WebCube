@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import hoistNonReactStatic from 'hoist-non-react-statics';
+import { Component, createElement } from 'react';
 import { Provider } from 'react-redux';
-import getDisplayName from 'react-display-name';
+import { createHoc } from 'react-common-kit';
 import appState from './appState';
 
 /**
@@ -29,69 +28,65 @@ export default function createApp(config) {
     _PersistGate: PersistGate,
     // withImmutable
   } = config;
-  return SubAppComponent => {
-    class WithAppState extends Component {
-      // https://redux.js.org/docs/recipes/IsolatingSubapps.html
-      // https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400
-      constructor(props) {
-        super(props);
-        let createAppState = createAppStateWithConfig;
-        if (!createAppState) {
-          const { appConfig = {} } = props;
-          const dynamicConfig = Object.assign({}, config, appConfig);
-          ({ create: createAppState } = appState(dynamicConfig));
+  return createHoc(
+    SubAppComponent =>
+      class WithAppState extends Component {
+        // https://redux.js.org/docs/recipes/IsolatingSubapps.html
+        // https://gist.github.com/gaearon/eeee2f619620ab7b55673a4ee2bf8400
+        constructor(props) {
+          super(props);
+          let createAppState = createAppStateWithConfig;
+          if (!createAppState) {
+            const { appConfig = {} } = props;
+            const dynamicConfig = Object.assign({}, config, appConfig);
+            ({ create: createAppState } = appState(dynamicConfig));
+          }
+          const { store, persistor } = createAppState();
+          Object.assign(this, {
+            store,
+            persistor,
+          });
         }
-        const { store, persistor } = createAppState();
-        Object.assign(this, {
-          store,
-          persistor,
-        });
-      }
 
-      render() {
-        const { store, persistor } = this;
-        const { ...passThroughProps } = this.props;
-        const withProps = React.createElement(SubAppComponent, {
-          // https://github.com/reactjs/react-router-redux#history--synchistorywithstorehistory-store-options
-          ...(_enableRouterLegacy
-            ? {
-                routerHistoryWithStore: _syncRouterHistoryWithStore(
-                  _routerHistory,
-                  store,
-                  _routerHistoryConfig,
-                ),
-              }
-            : {}),
-          ...passThroughProps,
-        });
-        const withStore = React.createElement(
-          // https://redux.js.org/docs/basics/UsageWithReact.html#passing-the-store
-          Provider,
-          { store },
-          // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux#usage
-          _enableRouter
-            ? React.createElement(
-                ConnectedRouter,
-                {
-                  history: _routerHistory,
-                  ...routerConfig,
-                },
-                withProps,
-              )
-            : withProps,
-        );
-        if (_enablePersist) {
-          // https://github.com/rt2zz/redux-persist#usage
-          return React.createElement(PersistGate, { persistor }, withStore);
-        } else {
-          return withStore;
+        render() {
+          const { store, persistor } = this;
+          const { ...passThroughProps } = this.props;
+          const withProps = createElement(SubAppComponent, {
+            // https://github.com/reactjs/react-router-redux#history--synchistorywithstorehistory-store-options
+            ...(_enableRouterLegacy
+              ? {
+                  routerHistoryWithStore: _syncRouterHistoryWithStore(
+                    _routerHistory,
+                    store,
+                    _routerHistoryConfig,
+                  ),
+                }
+              : {}),
+            ...passThroughProps,
+          });
+          const withStore = createElement(
+            // https://redux.js.org/docs/basics/UsageWithReact.html#passing-the-store
+            Provider,
+            { store },
+            // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux#usage
+            _enableRouter
+              ? createElement(
+                  ConnectedRouter,
+                  {
+                    history: _routerHistory,
+                    ...routerConfig,
+                  },
+                  withProps,
+                )
+              : withProps,
+          );
+          if (_enablePersist) {
+            // https://github.com/rt2zz/redux-persist#usage
+            return createElement(PersistGate, { persistor }, withStore);
+          } else {
+            return withStore;
+          }
         }
-      }
-    }
-    hoistNonReactStatic(WithAppState, SubAppComponent);
-    WithAppState.displayName = `WithAppState(${getDisplayName(
-      SubAppComponent,
-    )})`;
-    return WithAppState;
-  };
+      },
+  );
 }

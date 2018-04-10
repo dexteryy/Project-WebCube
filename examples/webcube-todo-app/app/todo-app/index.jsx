@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
+import { errorBoundary } from 'react-common-kit';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
 
@@ -8,6 +9,7 @@ import { isDynamicUrl } from './common/utils';
 import { App as TodoApp } from './main';
 import Endnote from './common/components/Endnote';
 
+@errorBoundary()
 @withScripts(
   googleAnalytics({
     googleAnalyticsTrackingId: 'UA-404086-14',

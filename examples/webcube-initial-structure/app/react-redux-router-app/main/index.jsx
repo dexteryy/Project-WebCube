@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
+import { errorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
@@ -12,16 +13,22 @@ import Layout from './containers/Layout';
 
 const toSample = () => <Redirect to="/sample" />;
 
+@errorBoundary()
+@withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: 'UA-404086-14',
+  }),
+)
+@createApp(
+  withRouter({
+    reducers: {
+      renameMe: renameMeReducer,
+    },
+    supportHtml5History: isDynamicUrl(),
+    devToolsOptions: { name: 'ReactReduxRouterApp' },
+  }),
+)
 class ReactReduxRouterApp extends Component {
-  static childContextTypes = {};
-
-  /* eslint-disable class-methods-use-this */
-  getChildContext() {
-    return {};
-  }
-
-  /* eslint-enable class-methods-use-this */
-
   render() {
     return (
       <Layout>
@@ -34,18 +41,4 @@ class ReactReduxRouterApp extends Component {
   }
 }
 
-export const App = withScripts(
-  googleAnalytics({
-    googleAnalyticsTrackingId: 'UA-404086-14',
-  }),
-)(
-  createApp(
-    withRouter({
-      reducers: {
-        renameMe: renameMeReducer,
-      },
-      supportHtml5History: isDynamicUrl(),
-      devToolsOptions: { name: 'ReactReduxRouterApp' },
-    }),
-  )(ReactReduxRouterApp),
-);
+export const App = ReactReduxRouterApp;

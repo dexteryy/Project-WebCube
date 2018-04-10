@@ -231,10 +231,15 @@
       "warn",
       {
         "exceptMethods": [
+          "getChildContext",
+          "UNSAFE_componentWillMount",
           "componentWillMount",
           "componentDidMount",
+          "UNSAFE_componentWillReceiveProps",
           "componentWillReceiveProps",
           "shouldComponentUpdate",
+          "getSnapshotBeforeUpdate",
+          "UNSAFE_componentWillUpdate",
           "componentWillUpdate",
           "componentDidUpdate",
           "componentWillUnmount",
@@ -1479,13 +1484,18 @@
             "mixins",
             "statics",
             "defaultProps",
+            "getDerivedStateFromProps",
             "static-methods"
           ],
           "lifecycle": [
+            "UNSAFE_componentWillMount",
             "componentWillMount",
             "componentDidMount",
+            "UNSAFE_componentWillReceiveProps",
             "componentWillReceiveProps",
             "shouldComponentUpdate",
+            "getSnapshotBeforeUpdate",
+            "UNSAFE_componentWillUpdate",
             "componentWillUpdate",
             "componentDidUpdate",
             "componentWillUnmount"

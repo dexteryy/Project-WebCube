@@ -29,12 +29,12 @@
     "react-router-redux": ">= 5.0.0-alpha.8"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.0.0-beta.32",
+    "@babel/polyfill": "^7.0.0-beta.44",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-lodash": "^3.3.2",
-    "babel-plugin-ramda": "^1.4.3",
+    "babel-plugin-ramda": "^1.5.0",
     "babel-plugin-rewire": "^1.1.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-optional-chaining": "^7.0.0-alpha.13",
@@ -43,7 +43,7 @@
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
-    "fast-async": "^6.3.0"
+    "fast-async": "6.3.1"
   },
   "keywords": [
     "redux",

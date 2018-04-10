@@ -14,6 +14,13 @@ export default class TodoItem extends PureComponent {
     onSubmit: noop,
   };
 
+  static getDerivedStateFromProps({ content }, { input }) {
+    if (content !== input) {
+      return { input: content };
+    }
+    return null;
+  }
+
   state = {
     input: '',
     isEditing: false,
@@ -22,12 +29,6 @@ export default class TodoItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state.input = props.content;
-  }
-
-  componentWillReceiveProps({ content }) {
-    if (content !== this.props.content) {
-      this.setState({ input: content });
-    }
   }
 
   @autobind

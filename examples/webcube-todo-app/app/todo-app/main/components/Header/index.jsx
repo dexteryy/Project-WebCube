@@ -14,6 +14,10 @@ export default class Header extends PureComponent {
     onSubmit: noop,
   };
 
+  static getDerivedStateFromProps({ input }) {
+    return { input };
+  }
+
   state = {
     input: '',
   };
@@ -21,12 +25,6 @@ export default class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.state.input = props.input;
-  }
-
-  componentWillReceiveProps({ input }) {
-    // if (input !== this.props.input) {
-    this.setState({ input });
-    // }
   }
 
   @autobind

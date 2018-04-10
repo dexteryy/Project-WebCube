@@ -3,6 +3,7 @@ import { connect as originConnect } from 'react-redux';
 // https://www.npmjs.com/package/reselect
 import { createSelector } from 'reselect';
 import merge from 'lodash/merge';
+import { createHoc } from 'react-common-kit';
 import { unwrap, bindActionCreators } from '../utils';
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
@@ -54,12 +55,13 @@ export default function connect({
         }
       : {}),
   });
-  // https://redux.js.org/docs/basics/UsageWithReact.html
-  // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-  return originConnect(
-    mapStateToProps,
-    mapDispatchToProps,
-    mergeProps,
-    options,
+  return createHoc(
+    WrappedComponent =>
+      // https://redux.js.org/docs/basics/UsageWithReact.html
+      // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
+      originConnect(mapStateToProps, mapDispatchToProps, mergeProps, options)(
+        WrappedComponent,
+      ),
+    { name: 'ConnectCube' },
   );
 }

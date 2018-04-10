@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
+import { errorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { isDynamicUrl } from '../common/utils';
@@ -12,16 +13,22 @@ import Layout from './containers/Layout';
 
 const toSample = () => <Redirect to="/sample" />;
 
+@errorBoundary()
+@withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: '', // @TODO
+  }),
+)
+@createApp(
+  withRouter({
+    reducers: {
+      renameMe: renameMeReducer,
+    },
+    supportHtml5History: isDynamicUrl(),
+    devToolsOptions: { name: '{{pascalCase entryName}}' },
+  }),
+)
 class {{pascalCase entryName}} extends Component {
-  static childContextTypes = {};
-
-  /* eslint-disable class-methods-use-this */
-  getChildContext() {
-    return {};
-  }
-
-  /* eslint-enable class-methods-use-this */
-
   render() {
     return (
       <Layout>
@@ -34,18 +41,4 @@ class {{pascalCase entryName}} extends Component {
   }
 }
 
-export const App = withScripts(
-  googleAnalytics({
-    googleAnalyticsTrackingId: '', // @TODO
-  }),
-)(
-  createApp(
-    withRouter({
-      reducers: {
-        renameMe: renameMeReducer,
-      },
-      supportHtml5History: isDynamicUrl(),
-      devToolsOptions: { name: '{{pascalCase entryName}}' },
-    }),
-  )({{pascalCase entryName}})
-);
+export const App = {{pascalCase entryName}};

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { createHoc } from 'react-common-kit';
 import { unwrap, bindActionCreators } from 'redux-source-utils';
 
 export default function connectSource(
@@ -53,5 +54,9 @@ export default function connectSource(
           [actionsProp]: bindActionCreators(actions, dispatch),
         }
       : {};
-  return connect(mapStateToProps, mapDispatchToProps);
+  return createHoc(
+    WrappedComponent =>
+      connect(mapStateToProps, mapDispatchToProps)(WrappedComponent),
+    { name: 'ConnectSource' },
+  );
 }

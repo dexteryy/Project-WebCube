@@ -7,6 +7,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { errorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { isDynamicUrl } from '../common/utils';
@@ -16,16 +17,13 @@ const Router = isDynamicUrl() ? BrowserRouter : HashRouter;
 
 const toSample = () => <Redirect to="/sample" />;
 
+@errorBoundary()
+@withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: 'UA-404086-14',
+  }),
+)
 class ReactRouterApp extends Component {
-  static childContextTypes = {};
-
-  /* eslint-disable class-methods-use-this */
-  getChildContext() {
-    return {};
-  }
-
-  /* eslint-enable class-methods-use-this */
-
   render() {
     return (
       <Router>
@@ -38,8 +36,4 @@ class ReactRouterApp extends Component {
   }
 }
 
-export const App = withScripts(
-  googleAnalytics({
-    googleAnalyticsTrackingId: 'UA-404086-14',
-  }),
-)(ReactRouterApp);
+export const App = ReactRouterApp;

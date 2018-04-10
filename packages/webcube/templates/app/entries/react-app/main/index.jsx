@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
+import { errorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import { App as SampleApp } from '../sample';
 
+@errorBoundary()
+@withScripts(
+  googleAnalytics({
+    googleAnalyticsTrackingId: '', // @TODO
+  }),
+)
 class {{pascalCase entryName}} extends Component {
-  static childContextTypes = {};
-
-  /* eslint-disable class-methods-use-this */
-  getChildContext() {
-    return {};
-  }
-
-  /* eslint-enable class-methods-use-this */
-
   render() {
     return (
       <div>
@@ -23,8 +21,4 @@ class {{pascalCase entryName}} extends Component {
   }
 }
 
-export const App = withScripts(
-  googleAnalytics({
-    googleAnalyticsTrackingId: '', // @TODO
-  }),
-)({{pascalCase entryName}});
+export const App = {{pascalCase entryName}};

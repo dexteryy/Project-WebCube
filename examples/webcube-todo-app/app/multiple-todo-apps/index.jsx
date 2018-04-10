@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
+import { errorBoundary } from 'react-common-kit';
 import withRouter from 'redux-cube-with-router';
 import { createApp } from 'redux-cube';
 
@@ -48,6 +49,7 @@ const TodoApps = () => (
 
 const JumpToDefault = () => <Redirect to="jedi-todo/" />;
 
+@errorBoundary()
 @withScripts(
   googleAnalytics({
     googleAnalyticsTrackingId: 'UA-404086-14',

@@ -16,21 +16,18 @@ export default class DialogButton extends Component {
     actionsContainer: 'div',
   };
 
+  static getDerivedStateFromProps({ isOpened }, { isModalVisible }) {
+    if (typeof isOpened === 'boolean' && isOpened !== isModalVisible) {
+      return {
+        isModalVisible: isOpened,
+      };
+    }
+    return null;
+  }
+
   state = {
     isModalVisible: false,
   };
-
-  componentWillReceiveProps({ isOpened }) {
-    if (
-      typeof isOpened === 'boolean' &&
-      isOpened !== this.props.isOpened &&
-      isOpened !== this.state.isModalVisible
-    ) {
-      this.setState({
-        isModalVisible: isOpened,
-      });
-    }
-  }
 
   @autobind
   handleTrigger(e) {
