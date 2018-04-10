@@ -16,16 +16,23 @@ export default class DialogButton extends Component {
     actionsContainer: 'div',
   };
 
-  static getDerivedStateFromProps({ isOpened }, { isModalVisible }) {
-    if (typeof isOpened === 'boolean' && isOpened !== isModalVisible) {
+  static getDerivedStateFromProps(
+    { isOpened },
+    { isOpened: isOpenedPrev, isModalVisible },
+  ) {
+    if (isOpened !== isOpenedPrev && isOpened !== isModalVisible) {
       return {
         isModalVisible: isOpened,
+        isOpened,
       };
     }
     return null;
   }
 
   state = {
+    /* eslint-disable react/no-unused-state */
+    isOpened: false,
+    /* eslint-enable react/no-unused-state */
     isModalVisible: false,
   };
 
