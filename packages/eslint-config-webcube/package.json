@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-webcube",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A sharable ESLint presets which integrates Prettier and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins.",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],

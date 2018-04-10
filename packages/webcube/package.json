@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
-  "version": "1.0.0-alpha.63",
+  "version": "1.0.0-alpha.64",
   "license": "MIT",
   "bin": {
     "webcube-setup": "./scripts/scaffold/setup.js",
@@ -43,9 +43,9 @@
   },
   "peerDependencies": {
     "react": ">= 16.3",
+    "react-common-kit": ">= 1.0.5",
     "react-dom": ">= 16.3",
     "react-helmet": ">= 5.2.0",
-    "react-common-kit": ">= 1.0.5",
     "react-with-scripts": ">= 1.0.0",
     "redux-cube": ">= 1.0.0-rc.9",
     "redux-source": ">= 0.2.0"
@@ -88,7 +88,7 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.13.1",
-    "eslint-config-webcube": "^1.1.1",
+    "eslint-config-webcube": "^1.1.2",
     "exports-loader": "^0.6.4",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^1.0.1",

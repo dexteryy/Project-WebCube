@@ -1,6 +1,6 @@
 {
   "name": "redux-source",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "redux-source-utils": "^1.0.0"
+    "redux-source-utils": "^1.0.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.44",

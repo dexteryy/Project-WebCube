@@ -1,6 +1,6 @@
 {
   "name": "redux-source-immutable",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The Immutable.js version of redux-source",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "redux-source-utils": "^1.0.0"
+    "redux-source-utils": "^1.0.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.44",
