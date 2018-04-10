@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
-  "version": "1.0.0-alpha.64",
+  "version": "1.0.0-alpha.65",
   "license": "MIT",
   "bin": {
     "webcube-setup": "./scripts/scaffold/setup.js",

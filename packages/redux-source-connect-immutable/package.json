@@ -1,6 +1,6 @@
 {
   "name": "redux-source-connect-immutable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Connect react components to redux-source-immutable's data source instance",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
