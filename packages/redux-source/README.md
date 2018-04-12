@@ -108,8 +108,8 @@ type Query {
   shops: [Shop!]
 }
 type Mutation {
-  updateShop: (shopId: String!, shopData: JSON!): [Shop!]
-  deleteShop: (shopId: String!): [Shop!]
+  updateShop(shopId: String!, shopData: JSON!): [Shop!]
+  deleteShop(shopId: String!): [Shop!]
 }
 ```
 
