@@ -1,5 +1,13 @@
 {
   "extends": [
-    "../webcube/.eslintrc.json"
-  ]
+    "webcube"
+  ],
+  "env": {
+    "commonjs": false,
+    "browser": true,
+    "node": false
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0
+  }
 }

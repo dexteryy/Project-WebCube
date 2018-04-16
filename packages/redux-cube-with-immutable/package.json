@@ -16,6 +16,7 @@
   "webcube:module": "src/index.js",
   "module": "src/index.js",
   "main": "dist/index.js",
+  "sideEffects": false,
   "scripts": {
     "prepare": "npm run build",
     "build": "npm run clear:babel && npm run build:babel",

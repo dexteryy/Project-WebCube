@@ -539,7 +539,7 @@ See [redux-source-connect](https://github.com/dexteryy/Project-WebCube/tree/mast
 
 #### Notification
 
-See [redux-source-with-notify](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-with-block-ui)
+See [redux-source-with-notify](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-with-notify)
 
 #### Block UI
 

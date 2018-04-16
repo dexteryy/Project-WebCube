@@ -13,6 +13,7 @@
   "webcube:module": "src/index.js",
   "module": "src/index.js",
   "main": "build/dist/index.js",
+  "sideEffects": false,
   "scripts": {
     "prepare": "npm run build",
     "precommit:custom": "npm run test",

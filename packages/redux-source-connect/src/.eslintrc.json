@@ -3,8 +3,11 @@
     "webcube"
   ],
   "env": {
-    "commonjs": true,
+    "commonjs": false,
     "browser": true,
     "node": false
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0
   }
 }
