@@ -10,10 +10,6 @@
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-connect",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-connect",
   "license": "MIT",
-  "engines": {
-    "node": ">=6.9.0"
-  },
-  "webcube:module": "src/index.js",
   "module": "src/index.js",
   "main": "dist/index.js",
   "sideEffects": false,

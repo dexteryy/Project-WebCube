@@ -39,7 +39,7 @@
   },
   "scripts": {},
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=9.11.1"
   },
   "peerDependencies": {
     "react": ">= 16.3",

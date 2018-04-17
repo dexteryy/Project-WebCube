@@ -26,8 +26,10 @@ const {
   projectPath,
   rootPath,
   modulePath,
-  cloudAdapter,
+  deploy,
 } = require('../utils');
+
+const cloudAdapter = require(`./staticcloud/${deploy.staticCloud}`);
 
 //
 const webpackConfig = require('./webpack.config.js');

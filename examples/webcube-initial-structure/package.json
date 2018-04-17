@@ -22,7 +22,7 @@
     "webcube:setup": "webcube-monorepo-setup"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=9.11.1"
   },
   "config": {
     "webcube": {

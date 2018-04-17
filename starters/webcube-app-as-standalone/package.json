@@ -27,7 +27,7 @@
     "webcube:setup": "webcube-setup"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=9.11.1"
   },
   "lint-staged": {
     "*.{js,jsx}": [
