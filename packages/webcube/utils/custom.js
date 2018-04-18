@@ -1,16 +1,16 @@
 const path = require('path');
-const fs = require('fs');
 const _ = require('lodash');
 const base = require('./base');
 
 const merge = _.partialRight(
   _.mergeWith,
-  (objValue, srcValue) => (srcValue ? srcValue : objValue)
+  (objValue, srcValue) =>
+    !srcValue && srcValue !== false ? srcValue : objValue
 );
 
 let custom = {};
 try {
-  custom = require(path.join(base.projectPath, `webcube.config.js`)) || {};
+  custom = require(path.resolve(base.projectPath, `webcube.config.js`)) || {};
 } catch (ex) {}
 
 custom.mode = process.env.NODE_ENV || 'development';
@@ -29,42 +29,28 @@ custom.base = merge(
   }
 );
 
-custom.entries = merge({}, custom.entries, {});
+custom.entries = merge({}, custom.entries);
 
 custom.output = merge(
   {
     jsPath: 'js',
+    cssPath: 'css',
     disableCache: false,
     disableMinimize: false,
     enableUglify: false,
+    disableExtractCss: false,
   },
   custom.output,
   {
     jsPath: process.env.WEBCUBE_OUTPUT_CUSTOM_JS_PATH,
+    cssPath: process.env.WEBCUBE_OUTPUT_CUSTOM_CSS_PATH,
     customPath: process.env.WEBCUBE_OUTPUT_CUSTOM_ROOT,
     disableCache: Boolean(process.env.WEBCUBE_OUTPUT_DISABLE_CACHE),
     disableMinimize: Boolean(process.env.WEBCUBE_OUTPUT_DISABLE_MINIMIZE),
     enableUglify: Boolean(process.env.WEBCUBE_USE_UGLIFY),
+    disableExtractCss: Boolean(process.env.WEBCUBE_ENABLE_EXTRACT_CSS),
   }
 );
-
-_.defaults(custom.output, {
-  cssNano: {
-    preset: [
-      // http://cssnano.co/guides/optimisations/
-      // http://cssnano.co/guides/advanced-transforms/
-      'default',
-      {
-        autoprefixer: false,
-        discardComments: {
-          removeAll: true,
-        },
-        discardUnused: true,
-        mergeIdents: true,
-      },
-    ],
-  },
-});
 
 custom.dev = merge(
   {
@@ -112,34 +98,124 @@ custom.moduleLoader = merge(
 _.defaults(custom.moduleLoader, {
   extensions: _.union(
     ['.js', '.jsx', '.ts', '.tsx'],
-    custom.moduleLoader.extensions || []
+    custom.moduleLoader.extensions
   ),
 });
 
-// https://github.com/browserslist/browserslist
-custom.browserslist = custom.browserslist || [
-  'Android >= 2.3',
-  'iOS >= 7',
-  'Chrome >= 16',
-  'Firefox >= 31',
-  'ie >= 11',
-  'Safari >= 7.1',
-];
+custom.moduleRules = _.union([], custom.moduleRules);
 
-custom.cssModules = merge(
+const tool = _.defaults(custom.tool || {}, {
+  // https://github.com/browserslist/browserslist
+  browserslist: [
+    'Android >= 2.3',
+    'iOS >= 7',
+    'Chrome >= 16',
+    'Firefox >= 31',
+    'ie >= 11',
+    'Safari >= 7.1',
+  ],
+  rootFontSize: 16,
+});
+
+custom.tool = tool;
+
+// https://github.com/kriasoft/isomorphic-style-loader
+tool.isormophicStyle = _.defaults(tool.isormophicStyle || {}, {
+  include: [],
+});
+
+tool.cssModules = merge(
   {
     disable: false,
     // https://github.com/webpack-contrib/css-loader#camelcase
     enableCamelCase: false,
   },
-  custom.cssModules
+  tool.cssModules
 );
 
-Object.assign(custom.cssModules, {
-  exclude: _.union([], custom.cssModules.exclude || []),
+Object.assign(tool.cssModules, {
+  exclude: _.union([], tool.cssModules.exclude),
 });
 
-custom.babel = merge(
+tool.postCss = _.defaults(tool.postCss || {}, {
+  // https://github.com/postcss/postcss-loader#plugins
+  plugins: [],
+});
+
+tool.postCss = merge(
+  {
+    // https://github.com/postcss/postcss-reporter#options
+    reporter: {},
+    // https://github.com/postcss/autoprefixer#options
+    autoprefixer: {
+      remove: false,
+      cascade: false,
+    },
+    // http://cssnext.io/features/
+    cssNext: {
+      autoprefixer: false,
+      // https://www.npmjs.com/package/postcss-initial#options
+      initial: {
+        reset: 'all',
+      },
+      // https://www.npmjs.com/package/pixrem
+      rem: {
+        browsers: tool.browserslist,
+        rootValue: tool.rootFontSize,
+      },
+    },
+    disableCssNext: false,
+    // https://www.rucksackcss.org/docs/#options
+    rucksack: {},
+    disableRucksack: false,
+    // https://www.npmjs.com/package/postcss-utilities#options
+    utilities: {},
+    disableUtilities: false,
+    // https://www.npmjs.com/package/postcss-font-magician#options
+    fontMagician: {},
+    // https://dev.opera.com/articles/css-will-change-property/
+    disableGpuHack: false,
+  },
+  tool.postCss
+);
+
+tool.scss = merge({}, tool.scss);
+
+Object.assign(tool.scss, {
+  // https://github.com/webpack-contrib/sass-loader#environment-variables
+  data: `$env: ${custom.mode}; ${tool.scss.data || ''}`,
+});
+
+tool.less = merge(
+  {
+    // https://github.com/webpack-contrib/less-loader#imports
+    // paths
+  },
+  tool.less
+);
+
+Object.assign(tool.less, {
+  // https://github.com/webpack-contrib/less-loader#plugins
+  plugins: _.union([], tool.less.plugins),
+});
+
+tool.cssNano = _.defaults(tool.cssNano || {}, {
+  preset: [
+    // http://cssnano.co/guides/optimisations/
+    // http://cssnano.co/guides/advanced-transforms/
+    'default',
+    {
+      autoprefixer: false,
+      discardComments: {
+        removeAll: true,
+      },
+      discardUnused: true,
+      mergeIdents: true,
+    },
+  ],
+});
+
+tool.babel = merge(
   {
     // https://github.com/babel/babel/tree/master/packages/babel-preset-env#targets
     platforms: {
@@ -153,12 +229,10 @@ custom.babel = merge(
     // http://2ality.com/2015/12/babel6-loose-mode.html
     enableLooseMode: false,
   },
-  custom.babel
+  tool.babel
 );
 
-Object.assign(custom.babel, {
-  // https://github.com/babel/babel/tree/master/packages/babel-preset-env#targetsbrowsers
-  browsers: custom.browserslist,
+Object.assign(tool.babel, {
   excludePlugins: _.union(
     [
       // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-regenerator
@@ -166,7 +240,7 @@ Object.assign(custom.babel, {
       // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-async-to-generator
       '@babel/plugin-transform-async-to-generator',
     ],
-    custom.babel.excludePlugins || []
+    tool.babel.excludePlugins
   ),
   // https://babeljs.io/docs/plugins/
   // https://github.com/babel/proposals
@@ -224,7 +298,7 @@ Object.assign(custom.babel, {
       ],
       // https://github.com/gajus/babel-plugin-react-css-modules
       // @TODO wait for babel v7: https://github.com/gajus/babel-plugin-react-css-modules/blob/master/package.json#L10
-      // ...(custom.cssModules.disable
+      // ...(tool.cssModules.disable
       //   ? []
       //   : [
       //       [
@@ -232,18 +306,18 @@ Object.assign(custom.babel, {
       //         {
       //           context: base.projectPath,
       //           handleMissingStyleName: 'ignore',
-      //           exclude: `(${custom.cssModules.exclude.join('|')})`,
+      //           exclude: `(${tool.cssModules.exclude.join('|')})`,
       //         },
       //       ],
       //     ]),
       // https://github.com/gajus/babel-plugin-graphql-tag
       'babel-plugin-graphql-tag',
     ],
-    custom.babel.plugins || []
+    tool.babel.plugins
   ),
   include: _.union(
     [
-      path.join(base.projectPath, base.srcRoot),
+      path.resolve(base.projectPath, base.srcRoot),
       'node_modules/react-with-scripts',
       'node_modules/react-common-kit',
       'node_modules/redux-cube',
@@ -262,12 +336,8 @@ Object.assign(custom.babel, {
       'node_modules/hifetch',
       'node_modules/ramda',
     ],
-    (custom.babel.include || []).map(es6ModulePath =>
-      fs.realpathSync(path.join(base.rootPath, es6ModulePath))
-    )
+    tool.babel.include
   ),
 });
-
-custom.moduleRules = _.union([], custom.moduleRules || []);
 
 module.exports = custom;
