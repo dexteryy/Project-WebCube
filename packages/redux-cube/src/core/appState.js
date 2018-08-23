@@ -94,13 +94,11 @@ export default function appState({
   }
   let rootReducer = reducer;
   if (!reducer) {
-    if (reducers) {
+    if (reducers && Object.keys(reducers).length) {
       if (_enableImmutable) {
         // https://www.npmjs.com/package/redux-immutable
         // https://redux.js.org/docs/recipes/UsingImmutableJS.html#make-your-entire-redux-state-tree-an-immutablejs-object
-        rootReducer = combineReducersWith(
-          _immutableCombineReducers(rootReducer),
-        );
+        rootReducer = combineReducersWith(_immutableCombineReducers, reducers);
       } else {
         rootReducer = combineReducersWith(combineReducers, reducers);
       }

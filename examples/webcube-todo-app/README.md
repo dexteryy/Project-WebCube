@@ -6,19 +6,14 @@
 
 More Examples:
 
-* [Initial Webcube Examples](../webcube-initial-structure)
+* [webcube-exampless](../webcube-examples)
+* [webcube-rough-examples](../webcube-rough-examples)
 
-## Source Code
+## View results in production environment
 
-* [./app/todo-app](./app/todo-app)
-* [./app/multiple-todo-apps](./app/multiple-todo-apps)
+WIP
 
-## View Results in Production Environment
-
-* [todo-app](https://app.cubemage.cn/todo-app/index.html)
-* [multiple-todo-apps](https://app.cubemage.cn/multiple-todo-apps/index.html)
-
-## View Results in Development Environment
+## View results in development environment
 
 Preparation
 
@@ -33,7 +28,6 @@ npm run update
 
 ```bash
 cd ./examples/webcube-todo-app
-cp ./configs/env.sample.config ./env.config
 ```
 
 Run
@@ -45,16 +39,15 @@ npm run dev
 or
 
 ```bash
-npm run build
+npm run deploy:local
 ```
 
 or
 
 ```bash
-NODE_ENV=production npm run build
+NODE_ENV=production npm run deploy:local
 ```
 
 View
 
-* http://localhost:8012/todo-app/
-* http://localhost:8012/multiple-todo-apps/
+* http://localhost:8012/

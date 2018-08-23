@@ -33,6 +33,6 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 
 ## Examples (in monorepo)
 
-* [Initial Webcube Examples](./examples/webcube-initial-structure/)
-* [Webcube's TodoMVC Example](./examples/webcube-todo-app/)
-* [Initial Nodecube Examples](./examples/nodecube-initial-structure/)
+* [webcube-todo-app](../examples/webcube-todo-app)
+* [webcube-examples](../examples/webcube-examples)
+* [webcube-rough-examples](../examples/webcube-rough-examples)

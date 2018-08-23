@@ -7,6 +7,8 @@ import load from './load';
 class Cube {
   reducers = {};
 
+  initialStates = {};
+
   typeDict = {};
 
   type = {};
@@ -63,20 +65,29 @@ class Cube {
       const sourceSelectors = selectSource || _sourceSelectors;
       if (sourceSelectors) {
         sourceSelectors.forEach(selector => {
-          const source = selector(this.source);
-          connectHoc = this.connectSource(source, {
-            slice: selector,
-            enableErrorLogger,
-          });
-          mapStateToPropsQueue.push(connectHoc.mapStateToProps);
-          result = connectHoc(result);
+          const sourceState = selector(this.sources);
+          const connectToSource = source => {
+            connectHoc = this.connectSource(source, {
+              slice: selector,
+              enableErrorLogger,
+            });
+            mapStateToPropsQueue.push(connectHoc.mapStateToProps);
+            result = connectHoc(result);
+          };
+          if (sourceState.stateName) {
+            connectToSource(sourceState);
+          } else {
+            Object.keys(sourceState).forEach(stateName =>
+              connectToSource(sourceState[stateName]),
+            );
+          }
         });
       }
       return result;
     };
   }
 
-  handle(sliceKey, maybeSource, ...args) {
+  handle(sliceKey, maybeSource, initialState, ...args) {
     let hubResult;
     if (
       maybeSource &&
@@ -85,24 +96,52 @@ class Cube {
       maybeSource.initialState &&
       maybeSource.actions
     ) {
+      const mergedState = {
+        ...(this.initialStates[sliceKey] || {}),
+        ...maybeSource.initialState,
+      };
+      this.initialStates[sliceKey] = mergedState;
       hubResult = this.hub
         .handle(
           {
             ...maybeSource.reducerMap,
           },
-          {
-            ...maybeSource.initialState,
-          },
+          mergedState,
         )
         .mergeActions(maybeSource.actions);
       if (!this.sources[sliceKey]) {
         this.sources[sliceKey] = {};
       }
       this.sources[sliceKey][maybeSource.stateName] = maybeSource;
-    } else {
-      hubResult = this.hub.handle(maybeSource, ...args);
+    } else if (typeof maybeSource === 'string') {
+      const mergedState = {
+        ...(this.initialStates[sliceKey] || {}),
+        ...args[0],
+      };
+      this.initialStates[sliceKey] = mergedState;
+      hubResult = this.hub.handle(
+        maybeSource,
+        initialState,
+        mergedState,
+        ...args.slice(1),
+      );
+    } else if (typeof maybeSource === 'object') {
+      const mergedState = {
+        ...(this.initialStates[sliceKey] || {}),
+        ...initialState,
+      };
+      this.initialStates[sliceKey] = mergedState;
+      hubResult = this.hub.handle(maybeSource, mergedState, ...args);
     }
-    this.reducers[sliceKey] = hubResult.reducer;
+    const prevReducer = this.reducers[sliceKey];
+    if (prevReducer) {
+      this.reducers[sliceKey] = (
+        state = this.initialStates[sliceKey],
+        action,
+      ) => hubResult.reducer(prevReducer(state, action), action);
+    } else {
+      this.reducers[sliceKey] = hubResult.reducer;
+    }
     merge(this.typeDict, hubResult.typeDict);
     merge(this.types, hubResult.types);
     merge(this.actions, hubResult.actions);

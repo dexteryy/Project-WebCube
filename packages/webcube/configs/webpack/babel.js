@@ -110,6 +110,10 @@ module.exports = ({ isSsrBuild }) => ({
       : []),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-function-bind
     require('@babel/plugin-proposal-function-bind'),
+    // https://babeljs.io/docs/en/next/babel-plugin-proposal-export-default-from.html
+    require('@babel/plugin-proposal-export-default-from'),
+    // https://babeljs.io/docs/en/next/babel-plugin-proposal-export-namespace-from.html
+    require('@babel/plugin-proposal-export-namespace-from'),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-optional-chaining
     require('@babel/plugin-proposal-optional-chaining'),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-optional-catch-binding

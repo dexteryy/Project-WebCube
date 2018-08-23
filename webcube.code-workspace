@@ -49,7 +49,10 @@
       "path": "packages/hifetch"
     },
     {
-      "path": "examples/webcube-initial-structure"
+      "path": "examples/webcube-examples"
+    },
+    {
+      "path": "examples/webcube-rough-examples"
     },
     {
       "path": "examples/webcube-todo-app"

@@ -28,7 +28,7 @@ It works great with [redux-source-with-block-ui](https://github.com/dexteryy/Pro
 
 ## Examples
 
-* "react-redux-restapi-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+* [webcube-examples](../examples/webcube-examples)
 
 ## Get Started
 

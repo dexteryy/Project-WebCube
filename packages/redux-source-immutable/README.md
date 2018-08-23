@@ -26,7 +26,7 @@ npm install --save redux-source-immutable
 
 ## Examples
 
-* "react-redux-restapi-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
+* [webcube-examples](../examples/webcube-examples)
 
 ## Get Started
 

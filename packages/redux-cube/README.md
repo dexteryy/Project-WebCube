@@ -32,8 +32,8 @@ npm install --save redux-cube
 <!-- code_chunk_output -->
 
 * [New docs based on the new `createCube` API and webcube's SSR feature](#new-docs-based-on-the-new-createcube-api-and-webcubes-ssr-feature)
-* [Old docs](#old-docs)
 	* [Examples](#examples)
+* [Old docs](#old-docs)
 	* [Overview](#overview)
 		* [Action Type](#action-type)
 		* [Action Creators](#action-creators)
@@ -56,14 +56,15 @@ npm install --save redux-cube
 
 Coming soon!
 
+### Examples
+
+* [webcube-todo-app](../examples/webcube-todo-app)
+* [webcube-examples](../examples/webcube-examples)
+* [webcube-rough-examples](../examples/webcube-rough-examples)
+
 ----------------
 
 ## Old docs
-
-### Examples
-
-* "react-redux-app" and "react-redux-router-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
-* [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-todo-app/)
 
 ### Overview
 
@@ -330,7 +331,7 @@ export const { reducer, actions, types, typeDict } = hub.handle(
 
 How to use redux-cube with [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source):
 
-See [react-redux-restapi-app/](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/app/react-redux-restapi-app/)
+See [webcube-rough-examples](../examples/webcube-rough-examples) and [webcube-examples](../examples/webcube-examples)
 
 #### Ducks Modular / Reducer Bundle
 

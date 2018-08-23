@@ -233,6 +233,7 @@ export class Hub {
       types,
       actions,
       reducer: handleAction(regularType, reducer, initialState),
+      initialState,
       mergeActions: withTypes({ delimiter }),
     };
     res.with = res.mergeActions;
@@ -260,6 +261,7 @@ export class Hub {
       reducer: handleActions(flatReducerMap, initialState, {
         namespace: delimiter,
       }),
+      initialState,
       mergeActions: withTypes({ delimiter }),
     };
     res.with = res.mergeActions;

@@ -54,9 +54,14 @@ export default function connectSource(
           [actionsProp]: bindActionCreators(actions, dispatch),
         }
       : {};
-  return createHoc(
+  const result = createHoc(
     WrappedComponent =>
-      connect(mapStateToProps, mapDispatchToProps)(WrappedComponent),
+      connect(
+        mapStateToProps,
+        mapDispatchToProps,
+      )(WrappedComponent),
     { name: 'ConnectSource' },
   );
+  result.mapStateToProps = mapStateToProps;
+  return result;
 }

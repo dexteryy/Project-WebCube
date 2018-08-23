@@ -1,0 +1,85 @@
+{
+  "private": true,
+  "name": "webcube-examples",
+  "version": "0.0.18",
+  "scripts": {
+    "precommit:custom": "create-cube test",
+    "test": "create-cube test",
+    "dev": "DEPLOY_MODE=static create-cube dev",
+    "build": "create-cube build -a",
+    "clean": "create-cube build --only-clean",
+    "serve": "create-cube serve",
+    "deploy:local": "npm run build && npm run serve"
+  },
+  "engines": {
+    "node": ">=8.6.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 50%",
+    "not ie <= 8",
+    "not dead"
+  ],
+  "webcube": {
+    "dev": {
+      "port": 8011
+    }
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "faker": "^4.1.0",
+    "graphql-resolvers": "^0.2.2",
+    "hifetch": "^3.0.5",
+    "immutability-helper": "^2.7.1",
+    "immutable": "^3.8.2",
+    "is_js": "^0.9.0",
+    "localforage": "^1.7.2",
+    "lodash": "^4.17.10",
+    "lodash-decorators": "^6.0.0",
+    "prop-types": "^15.6.2",
+    "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-common-kit": "^1.1.2",
+    "react-composer": "^5.0.1",
+    "react-display-name": "^0.2.4",
+    "react-dom": "^16.4.2",
+    "react-helmet": "^5.2.0",
+    "react-loaders": "^3.0.1",
+    "react-modal": "^3.5.1",
+    "react-motion": "^0.5.2",
+    "react-notification-system": "^0.2.17",
+    "react-router-dom": "^4.3.1",
+    "react-spinkit": "^3.0.0",
+    "react-with-scripts": "^1.0.4",
+    "recompose": "^0.28.2",
+    "redux-cube": "^1.1.0",
+    "redux-cube-with-immutable": "^1.0.8",
+    "redux-cube-with-persist": "^1.1.0",
+    "redux-cube-with-router": "^1.1.0",
+    "redux-form": "^7.4.2",
+    "redux-source": "^1.0.6",
+    "redux-source-connect": "^1.0.4",
+    "redux-source-connect-immutable": "^1.0.4",
+    "redux-source-immutable": "^1.0.3",
+    "redux-source-with-block-ui": "^1.0.7",
+    "redux-source-with-notify": "^1.1.5",
+    "rxjs": "^6.2.2",
+    "styled-components": "^3.4.4",
+    "styled-normalize": "^8.0.0",
+    "styled-system": "^3.0.2",
+    "validator": "^10.6.0",
+    "webcube": "^2.0.0-beta.4"
+  },
+  "devDependencies": {
+    "chance": "^1.0.16",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "enzyme-redux": "^0.2.1",
+    "faker": "^4.1.0",
+    "jest-styled-components": "^6.1.1",
+    "react-test-renderer": "^16.4.2",
+    "redux-test-utils": "^0.2.2",
+    "redux-testkit": "^1.0.6",
+    "sinon": "^6.1.5"
+  }
+}

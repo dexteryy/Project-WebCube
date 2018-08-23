@@ -1,0 +1,66 @@
+{
+  "private": true,
+  "name": "webcube-rough-examples",
+  "version": "2.0.0",
+  "scripts": {
+    "precommit:custom": "create-cube test",
+    "test": "create-cube test",
+    "dev": "DEPLOY_MODE=static create-cube dev",
+    "build": "create-cube build -a",
+    "clean": "create-cube build --only-clean",
+    "serve": "create-cube serve",
+    "deploy:local": "npm run build && npm run serve",
+    "deploy:staging": "NODE_ENV=production DEPLOY_ENV=staging npm run build -a -c && create-cube deploy",
+    "deploy:production": "NODE_ENV=production DEPLOY_ENV=production npm run build -a -c && create-cube deploy"
+  },
+  "engines": {
+    "node": ">=8.6.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 50%",
+    "not ie <= 8",
+    "not dead"
+  ],
+  "webcube": {
+    "output": {
+      "disableAllChunksPreload": true,
+      "disableInitialPreload": true
+    },
+    "dev": {
+      "port": 8013
+    },
+    "deploy": {
+      "ssrServer": {
+        "warmUpUrls": [
+          "/counter",
+          "/number"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "immutability-helper": "^2.7.1",
+    "lodash": "^4.17.10",
+    "lodash-decorators": "^6.0.0",
+    "react": "^16.4.2",
+    "react-common-kit": "^1.1.1",
+    "react-dom": "^16.4.2",
+    "react-helmet": "^5.2.0",
+    "react-icons": "^3.0.5",
+    "react-loadable": "^5.5.0",
+    "react-loaders": "^3.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-with-scripts": "^1.0.3",
+    "redux-cube": "^1.0.2",
+    "redux-cube-with-router": "^1.0.10",
+    "redux-source": "^1.0.5",
+    "redux-source-connect": "^1.0.3",
+    "redux-source-with-block-ui": "^1.0.6",
+    "redux-source-with-notify": "^1.1.4",
+    "styled-components": "^3.4.2",
+    "styled-sanitize": "^1.1.1",
+    "webcube": "^2.0.0-beta.4"
+  },
+  "devDependencies": {}
+}

@@ -1,8 +1,0 @@
-type Query {
-  renameMe: [String]
-}
-
-type Mutation {
-  renameMe(id: ID): [String]
-}
-
