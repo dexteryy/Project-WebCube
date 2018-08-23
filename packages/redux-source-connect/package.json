@@ -1,6 +1,6 @@
 {
   "name": "redux-source-connect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Connect React components to Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
