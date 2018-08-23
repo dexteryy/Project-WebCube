@@ -1,5 +1,4 @@
-import union from 'lodash/union';
-import difference from 'lodash/difference';
+import { union, difference } from 'lodash';
 import { createSource as _createSource } from 'redux-source-utils';
 
 const combineMethods = {

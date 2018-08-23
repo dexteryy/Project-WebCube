@@ -2,7 +2,7 @@
 import { connect as originConnect } from 'react-redux';
 // https://www.npmjs.com/package/reselect
 import { createSelector } from 'reselect';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 import { createHoc } from 'react-common-kit';
 import { unwrap, bindActionCreators } from '../utils';
 
@@ -16,7 +16,8 @@ function mapEmptyToProps() {
 
 export default function connect({
   // https://www.npmjs.com/package/reselect#creating-a-memoized-selector
-  selectors,
+  select,
+  selectors: _selectors,
   transform = () => ({}),
   mapStateToProps: customMapStateToProps = mapEmptyToProps,
   // actionCreators or [actionCreators, ...]
@@ -30,6 +31,7 @@ export default function connect({
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
   ...options
 }) {
+  const selectors = select || _selectors;
   // https://www.npmjs.com/package/reselect#createselectorinputselectors--inputselectors-resultfunc
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
   const mapStateToProps = (state, ownProps) => {
@@ -55,7 +57,7 @@ export default function connect({
         }
       : {}),
   });
-  return createHoc(
+  const result = createHoc(
     WrappedComponent =>
       // https://redux.js.org/docs/basics/UsageWithReact.html
       // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
@@ -64,4 +66,7 @@ export default function connect({
       ),
     { name: 'ConnectCube' },
   );
+  result.mapStateToProps = mapStateToProps;
+  result.mapDispatchToProps = mapDispatchToProps;
+  return result;
 }

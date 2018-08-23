@@ -433,7 +433,7 @@
       "except-parens"
     ],
     // https://eslint.org/docs/rules/no-return-await
-    "no-return-await": "error",
+    "no-return-await": "off",
     // https://eslint.org/docs/rules/no-script-url
     "no-script-url": "error",
     // https://eslint.org/docs/rules/no-self-assign
@@ -535,7 +535,7 @@
     // https://eslint.org/docs/rules/no-undef-init
     "no-undef-init": "error",
     // https://eslint.org/docs/rules/no-undefined
-    "no-undefined": "error",
+    "no-undefined": "off",
     // https://eslint.org/docs/rules/no-unused-vars
     "no-unused-vars": [
       "error",
@@ -819,7 +819,7 @@
     // https://eslint.org/docs/rules/max-statements
     "max-statements": [
       "warn",
-      20
+      40
     ],
     // https://eslint.org/docs/rules/max-statements-per-line
     "max-statements-per-line": [

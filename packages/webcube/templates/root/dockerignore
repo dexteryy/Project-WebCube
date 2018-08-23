@@ -1,8 +1,0 @@
-node_modules/
-.git
-.npm
-*.log
-*.pid
-env.config
-log/
-coverage/

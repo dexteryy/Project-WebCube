@@ -33,7 +33,7 @@ npm install --save redux-cube-with-persist
 import { createApp } from 'redux-cube';
 import withPersist from 'redux-cube-with-persist';
 import localforage from 'localforage';
-import withRouter from 'redux-cube-with-router-legacy';
+import withRouter from 'redux-cube-with-router';
 
 @createApp(withPersist(withRouter({
   reducers: {

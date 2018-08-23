@@ -19,9 +19,6 @@
       "path": "packages/redux-cube-with-router"
     },
     {
-      "path": "packages/redux-cube-with-router-legacy"
-    },
-    {
       "path": "packages/redux-cube-with-persist"
     },
     {
@@ -97,6 +94,7 @@
     ],
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
+    "npm.exclude": "**/starters/**",
     //
     "eslint.nodePath": "./node_modules",
     "eslint.enable": true,

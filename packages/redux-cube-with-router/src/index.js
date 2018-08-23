@@ -1,33 +1,37 @@
 /* eslint-disable filenames/match-exported */
-import createBrowserHistory from 'history/createBrowserHistory';
-import createHashHistory from 'history/createHashHistory';
-// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
+import {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from 'history';
+// https://www.npmjs.com/package/connected-react-router
 import {
   ConnectedRouter,
-  routerReducer,
+  connectRouter,
   routerMiddleware,
-} from 'react-router-redux';
+} from 'connected-react-router';
 
 // https://reacttraining.com/react-router/core/guides/redux-integration/deep-integration
 export default function withRouter({
   // optional
   // https://github.com/ReactTraining/history#usage
-  supportHtml5History = false,
+  supportHtml5History = true,
   // optional
   // https://github.com/ReactTraining/react-router/blob/master/packages/react-router-redux/modules/ConnectedRouter.js#L8
   routerConfig = {},
   ...config
 }) {
-  // https://reacttraining.com/react-router/web/api/BrowserRouter
-  // https://reacttraining.com/react-router/web/api/HashRouter
-  const createHistory = supportHtml5History
-    ? createBrowserHistory
-    : createHashHistory;
+  const createHistory =
+    // https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e
+    (typeof location !== 'object' && createMemoryHistory) ||
+    // https://reacttraining.com/react-router/web/api/BrowserRouter
+    // https://reacttraining.com/react-router/web/api/HashRouter
+    (supportHtml5History ? createBrowserHistory : createHashHistory);
   return {
     _enableRouter: true,
-    _routerReducer: routerReducer,
+    _connectRouter: connectRouter,
     _routerMiddleware: routerMiddleware,
-    _routerHistory: createHistory(),
+    _createRouterHistory: createHistory,
     _ConnectedRouter: ConnectedRouter,
     // allow dynamic config
     routerConfig,

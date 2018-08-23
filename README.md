@@ -11,7 +11,6 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
     * [eslint-config-webcube](./packages/eslint-config-webcube/) - A sharable ESLint presets which integrates Prettier and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins.
 * [redux-cube](./packages/redux-cube/) - App state manager. A set of wrappers which simplify the use of Redux and its whole ecosystem, reduce boilerplate, and provide many features (Sub App, Reducer Bundle, ...)
     * [redux-cube-with-router](./packages/redux-cube-with-router/) - redux-cube's pluggable module for react-router v4+
-    * [redux-cube-with-router-legacy](./packages/redux-cube-with-router-legacy/) - redux-cube's pluggable module for react-router v3
     * [redux-cube-with-persist](./packages/redux-cube-with-persist/) - redux-cube's pluggable module for redux-persist
     * [redux-cube-with-immutable](./packages/redux-cube-with-immutable/) - redux-cube's pluggable module for redux-immutable
 * [redux-source](./packages/redux-source/) - Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state

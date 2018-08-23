@@ -300,7 +300,8 @@ console.log(shopsSource.initialState)
 > * How to compile GraphQL queries at the build time
 >   * [babel-plugin-graphql-tag](https://www.npmjs.com/package/babel-plugin-graphql-tag)
 > * How to use the output of source query (like `shopsSource`) with [redux-cube](https://github.com/dexteryy/Project-WebCube/blob/master/packages/redux-cube)
->   * Example: [webcube-initial-structure](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/)'s [react-redux-restapi-app//plainObjectStore/ducks/*.js](https://github.com/dexteryy/Project-WebCube/blob/master/examples/webcube-initial-structure/app/react-redux-restapi-app/plainObjectStore/ducks/)
+>   * New docs coming soon! (based on the new `createCube` API and webcube's SSR feature)
+>   * Old example: [webcube-initial-structure](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/)'s [react-redux-restapi-app//plainObjectStore/ducks/*.js](https://github.com/dexteryy/Project-WebCube/blob/master/examples/webcube-initial-structure/app/react-redux-restapi-app/plainObjectStore/ducks/)
 
 How will the action creators (`shopsSource.actions`) and reducers (`shopsSource.reducerMap`) change the state slice (`shopsSource.initialState`):
 
@@ -533,6 +534,8 @@ console.log(shopsSource.initialState)
 ### Higher-order Components
 
 #### Connect To React Components
+
+> New docs coming soon! (based on the new `createCube` API and webcube's SSR feature)
 
 See [redux-source-connect](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source-connect)
 

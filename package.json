@@ -3,17 +3,17 @@
   "name": "webcube-projects",
   "description": "Continuously updated JS infrastructure for modern web dev",
   "scripts": {
-    "precommit": "webcube-precommit",
+    "precommit": "create-cube precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "update": "npm run clear:deps && yarn install && lerna run prepare && echo 6.0 > .project-version",
+    "update": "npm run clear:deps && yarn install && lerna run prepare && echo 7.0 > .project-version",
     "upgrade": "npm run clear:lock && npm run update",
     "clear:lock": "rm yarn.lock package-lock.json 2>/dev/null || true",
     "clear:deps": "lerna clean --yes 2>/dev/null || true && rm -rf ./node_modules yarn-error.log lerna-debug.log 2>/dev/null || true && lerna exec --bail=false -- rm yarn.lock package-lock.json yarn-error.log 2>/dev/null || true && rm .git/hooks/pre-commit 2>/dev/null || true",
-    "lint": "webcube-lint",
-    "lint:error": "webcube-lint-error"
+    "lint": "create-cube lint",
+    "lint:error": "create-cube lint --only-errors"
   },
   "engines": {
-    "node": ">=9.11.1"
+    "node": ">=8.6.0"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -22,11 +22,6 @@
     ]
   },
   "config": {
-    "webcube": {
-      "monorepo": {
-        "root": "./"
-      }
-    },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
@@ -38,6 +33,6 @@
     "examples/*"
   ],
   "devDependencies": {
-    "webcube": ">= 1.0.0-alpha.39"
+    "webcube": "^2.0.0-beta.1"
   }
 }

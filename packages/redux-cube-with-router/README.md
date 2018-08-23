@@ -18,13 +18,11 @@
 [dep-url]: https://david-dm.org/dexteryy/redux-cube-with-router
 -->
 
-[redux-cube](https://www.npmjs.com/package/redux-cube)'s pluggable module for [react-router v4+](https://reacttraining.com/react-router/) and [react-router-redux v5+](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)
+[redux-cube](https://www.npmjs.com/package/redux-cube)'s pluggable module for [react-router v4+](https://reacttraining.com/react-router/)
 
 ```
 npm install --save redux-cube-with-router
 ```
-
-For [react-router's legacy versions (< 4)](https://github.com/ReactTraining/react-router/tree/v3/docs), use [redux-cube-with-router-legacy](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router-legacy)
 
 ## Get Started
 

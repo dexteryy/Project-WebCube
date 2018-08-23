@@ -1,45 +1,82 @@
 {
+  "env": {
+    "dist": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "browsers": [
+                "last 1 version",
+                "> 1%",
+                "not ie <= 8",
+                "not dead"
+              ]
+            },
+            "exclude": [
+              "transform-regenerator",
+              "transform-async-to-generator"
+            ],
+            "useBuiltIns": "usage",
+            "forceAllTransforms": true,
+            "shippedProposals": false
+          }
+        ]
+      ],
+      "plugins": [
+        "babel-plugin-add-module-exports",
+        "@babel/plugin-syntax-dynamic-import"
+      ]
+    }
+  },
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
           "browsers": [
-            "last 2 versions",
-            "> 5%"
-          ],
-          "ios": 7,
-          "android": 4,
-          "node": 6,
-          "ie": 11
+            "last 1 Chrome versions"
+          ]
         },
-        "include": [],
+        "modules": false,
         "exclude": [
           "transform-regenerator",
           "transform-async-to-generator"
         ],
         "useBuiltIns": "usage",
-        "forceAllTransforms": true,
-        "shippedProposals": false,
-        "loose": false,
-        "debug": false
+        "shippedProposals": true
       }
     ],
-    "react",
-    "flow"
+    "@babel/preset-react",
+    "@babel/preset-typescript"
   ],
   "plugins": [
-    "add-module-exports",
-    "transform-es2015-modules-commonjs",
-    "fast-async",
-    "transform-function-bind",
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "syntax-dynamic-import",
-    "syntax-optional-chaining",
-    "transform-decorators-legacy",
+    "module:fast-async",
     [
-      "lodash",
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-function-bind",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-optional-catch-binding",
+    "@babel/plugin-proposal-numeric-separator",
+    [
+      "@babel/plugin-proposal-pipeline-operator",
+      {
+        "proposal": "minimal"
+      }
+    ],
+    [
+      "babel-plugin-lodash",
       {
         "id": [
           "lodash",
@@ -48,7 +85,18 @@
       }
     ],
     [
-      "ramda"
-    ]
+      "babel-plugin-ramda",
+      {
+        "useES": true
+      }
+    ],
+    [
+      "babel-plugin-styled-components",
+      {
+        "displayName": true,
+        "ssr": false
+      }
+    ],
+    "babel-plugin-graphql-tag"
   ]
 }

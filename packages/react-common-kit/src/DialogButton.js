@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 
 export default class DialogButton extends Component {
   static defaultProps = {
@@ -36,7 +36,7 @@ export default class DialogButton extends Component {
     isModalVisible: false,
   };
 
-  @autobind
+  @Bind
   handleTrigger(e) {
     if (e && e.preventDefault) {
       e.preventDefault();
@@ -46,7 +46,7 @@ export default class DialogButton extends Component {
     });
   }
 
-  @autobind
+  @Bind
   handleAction(handler) {
     return () => {
       let res = true;
@@ -59,7 +59,7 @@ export default class DialogButton extends Component {
     };
   }
 
-  @autobind
+  @Bind
   handleHide() {
     this.setState({
       isModalVisible: false,

@@ -1,7 +1,7 @@
 // https://www.npmjs.com/package/redux-actions
 import { createAction, handleAction, handleActions } from 'redux-actions';
 import changeCase from 'change-case';
-import deepMerge from 'lodash/merge';
+import { merge } from 'lodash';
 
 const ACTION_CREATOR = '__CUSTOM_ACTION_CREATOR__';
 const RE_IS_CONSTANT = /^[A-Z0-9_]+$/;
@@ -127,8 +127,8 @@ function withTypes({ delimiter }) {
     return {
       ...this,
       typeDict: Object.assign(this.typeDict, typeDict),
-      actions: deepMerge(this.actions, actions),
-      types: deepMerge(this.types, types),
+      actions: merge(this.actions, actions),
+      types: merge(this.types, types),
     };
     /* eslint-enable babel/no-invalid-this */
   };

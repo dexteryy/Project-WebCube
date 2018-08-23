@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+{{!-- https://github.com/joshbuchea/HEAD/#browsers-chinese --}}
+{{!-- https://browser.360.cn/se/help/kernel.html --}}
+{{!-- https://browser.qq.com/faq/#/detail/36 --}}
+<meta name="renderer" content="webkit">
+{{!-- http://www.uc.cn/business/developer/ --}}
+<meta name="layoutmode" content="standard"/>
+{{!-- Disabled the UC browser's "night mode" for this document --}}
+<meta name="nightmode" content="disable"/>
+{{!-- UC browser will display images even if in "text mode" --}}
+<meta name="imagemode" content="force"/>
+{{!-- Disable the UC browser's feature of "scaling font up when there are many words in this document" --}}
+<meta name="wap-font-scale" content="no">
+{{!-- Disable automatic detection and formatting of possible phone numbers --}}
+<meta name="format-detection" content="telephone=no">
+<title>Loading...</title>
+{{!-- https://github.com/joshbuchea/HEAD/#meta --}}
+</head>
+<body>
+{{#if htmlWebpackPlugin.options.unsupportedBrowser}}
+  <style>
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: white;
+  }
+  .unsupported-browser {
+    margin: 100px auto;
+    text-align: center;
+    padding: 20px;
+  }
+  .unsupported-browser p {
+    margin: 10px 0 0;
+    color: #aaa;
+  }
+  </style>
+  <div class="unsupported-browser">
+    <p>
+      Sorry, your browser is not supported. Please upgrade to the latest version or switch your browser to use this
+      site. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a> for options.
+    </p>
+  </div>
+{{/if}}
+
+{{#each htmlWebpackPlugin.options.appMountIds}}
+  <div id="{{this}}"></div>
+{{else}}
+  <div id="{{htmlWebpackPlugin.options.appMountId}}"></div>
+{{/each}}
+
+</body>
+</html>

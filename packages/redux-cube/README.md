@@ -31,36 +31,45 @@ npm install --save redux-cube
 <!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 
-* [Examples](#examples)
-* [Overview](#overview)
-	* [Action Type](#action-type)
-	* [Action Creators](#action-creators)
-	* [Reducers](#reducers)
-	* [Async Action Creators / Side Effects](#async-action-creators-side-effects)
-	* [Ducks Modular / Reducer Bundle](#ducks-modular-reducer-bundle)
-	* [Connect to React Components](#connect-to-react-components)
-	* [Sub-Apps](#sub-apps)
-	* [Immutable](#immutable)
-* [API](#api)
-	* [redux-cube](#redux-cube-1)
-		* [`createApp`](#createapp)
-		* [`createHub`](#createhub)
-		* [`connect`](#connect)
-	* [Plugins](#plugins)
+* [New docs based on the new `createCube` API and webcube's SSR feature](#new-docs-based-on-the-new-createcube-api-and-webcubes-ssr-feature)
+* [Old docs](#old-docs)
+	* [Examples](#examples)
+	* [Overview](#overview)
+		* [Action Type](#action-type)
+		* [Action Creators](#action-creators)
+		* [Reducers](#reducers)
+		* [Async Action Creators / Side Effects](#async-action-creators-side-effects)
+		* [Ducks Modular / Reducer Bundle](#ducks-modular-reducer-bundle)
+		* [Connect to React Components](#connect-to-react-components)
+		* [Sub-Apps](#sub-apps)
+		* [Immutable](#immutable)
+	* [API](#api)
+		* [redux-cube](#redux-cube-1)
+			* [`createApp`](#createapp)
+			* [`createHub`](#createhub)
+			* [`connect`](#connect)
+		* [Plugins](#plugins)
 
 <!-- /code_chunk_output -->
 
+## New docs based on the new `createCube` API and webcube's SSR feature
 
-## Examples
+Coming soon!
+
+----------------
+
+## Old docs
+
+### Examples
 
 * "react-redux-app" and "react-redux-router-app" in [Initial Webcube Examples](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure)
 * [Webcube's TodoMVC Example](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-todo-app/)
 
-## Overview
+### Overview
 
 ![](overview.png)
 
-### Action Type
+#### Action Type
 
 ```js
 // sampleApp/hub.js
@@ -145,7 +154,7 @@ The `defaultPayloadCreator` is equivalent to:
 a => a
 ```
 
-### Action Creators
+#### Action Creators
 
 ```js
 export const { actions, types, typeDict } = hub.add('NAMESPACE/MORE_NAMESPACE/MY_TYPE', payloadCreator, metaCreator);
@@ -193,7 +202,7 @@ typeDict['NAMESPACE/MORE_NAMESPACE/MY_TYPE_4'](1, 10);
 // }
 ```
 
-### Reducers
+#### Reducers
 
 ```js
 // sampleApp/reducers/sample.js
@@ -209,7 +218,7 @@ export const { reducer } = hub.handle({
 }, initialStateForASliceOfStore);
 ```
 
-### Async Action Creators / Side Effects
+#### Async Action Creators / Side Effects
 
 For common needs:
 
@@ -323,7 +332,7 @@ How to use redux-cube with [redux-source](https://github.com/dexteryy/Project-We
 
 See [react-redux-restapi-app/](https://github.com/dexteryy/Project-WebCube/tree/master/examples/webcube-initial-structure/app/react-redux-restapi-app/)
 
-### Ducks Modular / Reducer Bundle
+#### Ducks Modular / Reducer Bundle
 
 Original Ducks Modular:
 
@@ -403,7 +412,7 @@ Action files should be only used by "duck" files. They should be totally transpa
 
 Because `hub.handle` can automatically add actions for undeclared action types, you only need to manually call `hub.add` (and maybe write them in a separate action file) when these actions have side effects
 
-### Connect to React Components
+#### Connect to React Components
 
 ```js
 // sampleApp/containers/Sample.jsx
@@ -467,7 +476,7 @@ export default class Main extends PureComponent {
 
 `mapStateToProps` option can be used together with `selectors` option.
 
-### Sub-Apps
+#### Sub-Apps
 
 ```js
 // multipleTodoApp/todo/index.jsx
@@ -560,7 +569,7 @@ class EntryApp extends Component {
 export const App = EntryApp;
 ```
 
-### Immutable
+#### Immutable
 
 [Frozen](https://www.npmjs.com/package/redux-immutable-state-invariant) plain object + [immutability-helper](https://www.npmjs.com/package/immutability-helper) / [icepick](https://www.npmjs.com/package/icepick) / [seamless-immutable](https://www.npmjs.com/package/seamless-immutable) / [dot-prop-immutable](https://www.npmjs.com/package/dot-prop-immutable) / [object-path-immutable](https://www.npmjs.com/package/object-path-immutable) / [timm](https://www.npmjs.com/package/timm) / [updeep](https://www.npmjs.com/package/updeep)
 
@@ -568,7 +577,6 @@ export const App = EntryApp;
 @createApp(withPersist(withRouter({
   reducers,
   disableFreezeState: false, // default
-  enableTopologic: true,
   // ...
 })))
 ```
@@ -611,15 +619,15 @@ ImmutableJS object + [redux-immutable](https://www.npmjs.com/package/redux-immut
 ```
 
 
-## API
+### API
 
-### redux-cube
+#### redux-cube
 
 ```js
 import { createApp, createHub, connect } from 'redux-cube'
 ```
 
-#### `createApp`
+##### `createApp`
 
 It's mainly a wrapper of [redux API](https://redux.js.org/docs/api/) and some must-have action middlewares, store enhancers, high-order reducers and high-order components.
 
@@ -629,16 +637,12 @@ Options
 
 * `reducers`
 * `reducer`
-* `reducerDeps`
-  * https://www.npmjs.com/package/topologically-combine-reducers
 * `epics`
   * https://redux-observable.js.org/docs/basics/Epics.html
 * `disableDevTools`
 * `devToolsOptions`
   * https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md
 * `disableFreezeState`
-* `enableTopologic`
-  * https://www.npmjs.com/package/topologically-combine-reducers
 * `loggerConfig`
   * https://www.npmjs.com/package/redux-logger#options
 * promiseMiddlewareConfig`
@@ -654,7 +658,7 @@ Options
 * `priorEnhancers`
 * `storeListeners`
 
-#### `createHub`
+##### `createHub`
 
 An superset and enhanced implement (almost a rewrite) of [redux-actions](https://www.npmjs.com/package/redux-actions).
 
@@ -664,7 +668,7 @@ Options:
 
 * `delimiter`
 
-#### `connect`
+##### `connect`
 
 It's mainly a wrapper of [react-redux](https://www.npmjs.com/package/react-redux) and  [reselect](https://www.npmjs.com/package/reselect)
 
@@ -677,9 +681,8 @@ Options:
 * `actionsProp`
 * `mapDispatchToProps`
 
-### Plugins
+#### Plugins
 
 * [redux-cube-with-router](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router)
-* [redux-cube-with-router-legacy](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router-legacy)
 * [redux-cube-with-persist](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist)
 * [redux-cube-with-immutable](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-immutable)

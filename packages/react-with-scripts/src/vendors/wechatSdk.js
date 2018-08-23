@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import union from 'lodash/union';
+import { union } from 'lodash';
 
 // http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html
 export default function wechatSdk({
