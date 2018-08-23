@@ -17,10 +17,10 @@ class Cube {
 
   loaders = [];
 
-  hub = createHub();
-
-  constructor({ connectSource }) {
+  constructor(opt = {}) {
+    const { connectSource, ...hubConfig } = opt;
     this.connectSource = connectSource;
+    this.hub = createHub(hubConfig);
   }
 
   createApp({ reducers, ...opt }) {

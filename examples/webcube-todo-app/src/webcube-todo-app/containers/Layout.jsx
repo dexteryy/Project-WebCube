@@ -1,50 +1,39 @@
 import React, { PureComponent } from 'react';
-import { withRouter as withRouterMeta } from 'react-router';
-import { autobind } from 'core-decorators';
+import { withRouter } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'redux-cube';
-
-import { actions as todoActions } from '../ducks/todo';
+import { Bind } from 'lodash-decorators';
+import cube from '../cube';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import List from './List';
 
-@withRouterMeta
-@connect({
-  selectors: [state => state.todo.input, state => state.todo.items],
-  transform: (input, items) => ({
-    input,
-    items,
-    count: items.filter(item => !item.isCompleted).length,
-  }),
-  actions: todoActions,
-})
-export default class Main extends PureComponent {
+class Layout extends PureComponent {
   static defaultProps = {
     title: '',
-    routePath: '',
   };
 
-  @autobind
+  @Bind
   handleInputChange(content) {
     this.props.actions.changeInput(content);
   }
 
-  @autobind
+  @Bind
   handleInputSubmit(content) {
     this.props.actions.todo.add(content);
   }
 
-  @autobind
+  @Bind
   handleClear() {
     this.props.actions.todo.clearCompleted();
   }
 
+  @Bind
+  handleReset() {
+    this.props.actions.todo.load();
+  }
+
   render() {
-    const { location, title, routePath, input, count } = this.props;
-    const isRouteMatch = routePath
-      ? location.pathname.indexOf(routePath) > -1
-      : true;
+    const { location, title, input, count } = this.props;
     const allFilter = item => item;
     const activeFilter = item => !item.isCompleted;
     const completedFilter = item => item.isCompleted;
@@ -53,34 +42,59 @@ export default class Main extends PureComponent {
         <Header
           title={title}
           input={input}
-          disableInput={!isRouteMatch}
+          disableInput={false}
           onChange={this.handleInputChange}
           onSubmit={this.handleInputSubmit}
         />
         {/* eslint-disable react/jsx-no-bind */}
         <Switch>
           <Route
-            path={`${routePath}/active`}
+            path={`/active`}
             render={() => <List filter={activeFilter} />}
           />
           <Route
-            path={`${routePath}/completed`}
+            path={`/completed`}
             render={() => <List filter={completedFilter} />}
           />
           <Route
             exact={true}
-            path={`${routePath}`}
+            path={`/`}
             render={() => <List filter={allFilter} />}
           />
         </Switch>
         {/* eslint-enable react/jsx-no-bind */}
         <Footer
           count={count}
-          basePath={routePath}
           currentPath={location.pathname}
           onClear={this.handleClear}
         />
+        <div className="footer">
+          <button
+            type="button"
+            className="clear-completed"
+            onClick={this.handleReset}>
+            Reset local storage with remote data
+          </button>
+        </div>
       </section>
     );
   }
 }
+
+export default Layout
+  |> cube.connect({
+    select: [
+      state => state.todo.input,
+      state => state.todo.items,
+      state => state.todo.isLoading,
+    ],
+    transform: (input, items, isLoading) => ({
+      input,
+      items,
+      isLoading,
+      count: items.filter(item => !item.isCompleted).length,
+    }),
+    loader: props => props.actions.todo.load(),
+    isLoaded: props => !props.isLoading,
+  })
+  |> withRouter;

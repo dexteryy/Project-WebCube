@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 import { connect } from 'redux-cube';
 
 import { actions } from '../ducks/sample';
@@ -16,12 +16,12 @@ import SampleList from '../components/SampleList';
   actions,
 })
 export default class Sample extends PureComponent {
-  @autobind
+  @Bind
   handleReset() {
     this.props.actions.reset();
   }
 
-  @autobind
+  @Bind
   handleSend(e) {
     if (e.key === 'Enter') {
       this.props.actions.send(e.target.value);
@@ -29,7 +29,7 @@ export default class Sample extends PureComponent {
     }
   }
 
-  @autobind
+  @Bind
   handleRemove(id) {
     this.props.actions.log.removeItem(id);
   }

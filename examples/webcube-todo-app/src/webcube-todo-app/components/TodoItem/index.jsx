@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 
 const noop = () => {
   /* */
@@ -14,11 +14,8 @@ export default class TodoItem extends PureComponent {
     onSubmit: noop,
   };
 
-  static getDerivedStateFromProps({ content }, { input }) {
-    if (content !== input) {
-      return { input: content };
-    }
-    return null;
+  static getDerivedStateFromProps({ content }) {
+    return { input: content };
   }
 
   state = {
@@ -31,29 +28,29 @@ export default class TodoItem extends PureComponent {
     this.state.input = props.content;
   }
 
-  @autobind
+  @Bind
   handleInput(e) {
     this.setState({ input: e.target.value });
   }
 
-  @autobind
+  @Bind
   handleEnter(e) {
     if (e.key === 'Enter') {
       this.submitInput();
     }
   }
 
-  @autobind
+  @Bind
   handleBlur() {
     this.submitInput();
   }
 
-  @autobind
+  @Bind
   handleStartInput() {
     this.startInput();
   }
 
-  @autobind
+  @Bind
   startInput() {
     this.setState({
       isEditing: true,
@@ -63,7 +60,7 @@ export default class TodoItem extends PureComponent {
     }, 50);
   }
 
-  @autobind
+  @Bind
   submitInput() {
     this.props.onSubmit(this.state.input);
     this.setState({

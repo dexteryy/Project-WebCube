@@ -1,5 +1,5 @@
 
-FROM node:8.5
+FROM node:10.8
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -25,11 +25,11 @@ RUN mkdir -p /ebsa/service \
 # RUN ln -s /tmp/service/node_modules
 # for yarn
 ADD package.json yarn.lock /tmp/service/
-RUN cd /tmp/service && NODE_ENV=development yarn
+RUN cd /tmp/service && npm run update
 WORKDIR /ebsa/service
 RUN ln -s /tmp/service/node_modules
 
 COPY . /ebsa/service
 
 EXPOSE 80
-CMD ["npm", "run", "staticserver"]
+CMD ["npm", "run", "deploy:local"]

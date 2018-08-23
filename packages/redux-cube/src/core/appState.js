@@ -29,6 +29,7 @@ if (!isDevToolsDisabled) {
 }
 /* eslint-enable no-undef */
 
+/* eslint-disable complexity */
 export default function appState({
   // https://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html
   // https://redux.js.org/docs/recipes/reducers/ReusingReducerLogic.html
@@ -113,7 +114,7 @@ export default function appState({
     // https://www.npmjs.com/package/connected-react-router
     rootReducer = _connectRouter(_routerHistory)(rootReducer);
   }
-  if (_enablePersist) {
+  if (!isSsrEnv && _enablePersist) {
     // https://github.com/rt2zz/redux-persist#usage
     rootReducer = _persistReducer(
       Object.assign({}, persistConfig, {
@@ -188,7 +189,7 @@ export default function appState({
   // https://redux.js.org/docs/api/createStore.html
   // https://redux.js.org/docs/api/Store.html
   res.store = createStore(rootReducer, initialState, allEnhancers);
-  if (_enablePersist) {
+  if (!isSsrEnv && _enablePersist) {
     // https://github.com/rt2zz/redux-persist#usage
     res.persistor = _persistStore(res.store);
   }
@@ -199,3 +200,4 @@ export default function appState({
   epicMiddleware.run(combineEpics(...epics));
   return res;
 }
+/* eslint-enable complexity */

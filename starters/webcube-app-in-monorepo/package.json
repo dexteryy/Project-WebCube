@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "core-decorators": "^0.20.0",
     "graphql-resolvers": "^0.2.2",
     "hifetch": "^3.0.0",
     "immutable": "^3.8.2",

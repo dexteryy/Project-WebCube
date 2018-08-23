@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// const path = require('path');
+const path = require('path');
+const { ensureDirSync } = require('fs-extra');
 const program = require('commander');
 const serve = require('webpack-serve');
 const convert = require('koa-connect');
@@ -18,6 +19,8 @@ program
   .option('-w --warnings', 'Show warnings')
   .option('-e --error-details', 'Show error details')
   .parse(process.argv);
+
+ensureDirSync(path.join(output.buildRoot, 'manifest'));
 
 const HOST = process.env.HOST || dev.host;
 const PORT = process.env.PORT || dev.port;

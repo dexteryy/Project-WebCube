@@ -417,7 +417,7 @@ Because `hub.handle` can automatically add actions for undeclared action types, 
 ```js
 // sampleApp/containers/Sample.jsx
 import { connect } from 'redux-cube';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 import { actions as todoActions } from '../ducks/todo';
 
 @connect({
@@ -433,7 +433,7 @@ import { actions as todoActions } from '../ducks/todo';
  actions: todoActions,
 })
 export default class Main extends PureComponent {
-  @autobind
+  @Bind
   handleInputChange(content) {
    this.props.actions.todo.changeInput(content);
   }

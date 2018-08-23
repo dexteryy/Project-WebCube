@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4';
 import update from 'immutability-helper';
 
-import hub from '../hub';
+import cube from '../cube';
 
 function createItem({ content = '', isCompleted = false }) {
   return {
@@ -15,9 +15,22 @@ function findItem(items, id) {
   return items.findIndex(item => item.id === id);
 }
 
-export const { reducer, actions, types, typeDict } = hub.handle(
+cube.add({
+  todo: {
+    load: () =>
+      import('../data/items.json').then(({ default: { items } }) => items),
+  },
+});
+
+cube.handle(
+  'todo',
   {
     todo: {
+      loadFulfilled: (state, { payload }) =>
+        update(state, {
+          items: { $set: payload },
+          isLoading: { $set: false },
+        }),
       add: (state, { payload: content }) =>
         update(state, {
           items: { $unshift: [createItem({ content })] },
@@ -76,5 +89,6 @@ export const { reducer, actions, types, typeDict } = hub.handle(
   {
     items: [],
     input: '',
+    isLoading: true,
   },
 );

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 
 import styles from '../styles/info.scss';
 
 export default class StarWarsInfo extends PureComponent {
-  @autobind
+  @Bind
   handleCharacterSearch(e) {
     if (e.key === 'Enter') {
       const characterId = e.target.value;
@@ -12,7 +12,7 @@ export default class StarWarsInfo extends PureComponent {
     }
   }
 
-  @autobind
+  @Bind
   handleShipSearch(e) {
     if (e.key === 'Enter') {
       const shipId = e.target.value;
@@ -20,17 +20,17 @@ export default class StarWarsInfo extends PureComponent {
     }
   }
 
-  @autobind
+  @Bind
   handleCharacterIdInput(e) {
     this.props.actions.character.inputId(e.target.value);
   }
 
-  @autobind
+  @Bind
   handleShipIdInput(e) {
     this.props.actions.ship.inputId(e.target.value);
   }
 
-  @autobind
+  @Bind
   handleCharacterFieldChange(e) {
     this.props.actions.character.changeField({
       id: e.target.getAttribute('data-id'),
@@ -39,7 +39,7 @@ export default class StarWarsInfo extends PureComponent {
     });
   }
 
-  @autobind
+  @Bind
   handleShipFieldChange(e) {
     this.props.actions.ship.changeField({
       id: e.target.getAttribute('data-id'),

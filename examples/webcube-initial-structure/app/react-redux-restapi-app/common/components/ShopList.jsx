@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 import faker from 'faker';
 
 import styles from '../styles/info.scss';
@@ -20,12 +20,12 @@ function getRandomShop(id) {
 }
 
 export default class ShopList extends PureComponent {
-  @autobind
+  @Bind
   handleFetch() {
     this.props.actions.shopsSource.fetchShops();
   }
 
-  @autobind
+  @Bind
   handleAdd() {
     const { source: { result: { shops = [] } } } = this.props;
     if (shops.find(shop => shop.id === 'shop-1')) {
@@ -41,7 +41,7 @@ export default class ShopList extends PureComponent {
     }
   }
 
-  @autobind
+  @Bind
   handleUpdate() {
     this.props.actions.shopsSource.updateShop({
       id: 'shop-1',
@@ -49,7 +49,7 @@ export default class ShopList extends PureComponent {
     });
   }
 
-  @autobind
+  @Bind
   handleDelete() {
     const { source: { result: { shops = [] } } } = this.props;
     if (shops.find(shop => shop.id === 'shop-1')) {

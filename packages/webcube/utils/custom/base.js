@@ -24,7 +24,13 @@ const webcubePath = custom.webcubePath
   : path.join(__dirname, '../../');
 const srcRoot = path.join(projectPath, custom.srcRoot || 'src');
 const configRoot = path.join(projectPath, custom.configRoot || 'config');
-const entryFileName = custom.entryFileName || [
+let entryFileName = ['index.js', 'index.ts'];
+if (custom.entryFileName) {
+  entryFileName = Array.isArray(custom.entryFileName)
+    ? custom.entryFileName
+    : [custom.entryFileName];
+}
+let ssrEntryFileName = [
   'Entry.jsx',
   'Entry.js',
   'App.jsx',
@@ -34,6 +40,11 @@ const entryFileName = custom.entryFileName || [
   'App.tsx',
   'App.ts',
 ];
+if (custom.ssrEntryFileName) {
+  ssrEntryFileName = Array.isArray(custom.ssrEntryFileName)
+    ? custom.ssrEntryFileName
+    : [custom.ssrEntryFileName];
+}
 const entryFileTemplate = custom.entryFileTemplate
   ? path.join(configRoot, custom.entryFileTemplate)
   : path.join(webcubePath, 'boilerplate/entry.js');
@@ -64,76 +75,85 @@ const exportsFileTemplateContent = fs.readFileSync(
   path.join(webcubePath, 'boilerplate/exports.js')
 );
 
-config.entries = merge({}, custom.entries);
-if (!custom.entries) {
-  fs.readdirSync(srcRoot).forEach(name => {
-    config.entries[name] = name;
-  });
-}
+config.entries = {};
+fs.readdirSync(srcRoot).forEach(name => {
+  config.entries[name] = path.join(srcRoot, name);
+});
+merge(config.entries, custom.entries);
 
 const entries = {};
 const ssrEntries = {};
 Object.keys(config.entries).forEach(name => {
-  const fullPath = path.join(srcRoot, name);
+  const fullPath = config.entries[name];
   let isFullPathOk = false;
   try {
     isFullPathOk = fs.statSync(fullPath).isDirectory();
   } catch (ex) {}
-  if (isFullPathOk) {
-    let entryFilePath;
-    (Array.isArray(entryFileName) ? entryFileName : [entryFileName]).forEach(
-      fileName => {
-        const tryPath = path.join(fullPath, fileName);
-        try {
-          fs.accessSync(tryPath);
-          if (!entryFilePath) {
-            entryFilePath = tryPath;
-          }
-        } catch (ex) {}
-      }
-    );
-    if (!entryFilePath) {
-      entries[name] = fullPath;
-      return;
-    }
-    const entryId = entryNameToId(name);
-    const internalEntryFileName = path.join(
-      projectPath,
-      `node_modules/.webcube/boilerplate/${entryId}.js`
-    );
-    ensureFileSync(internalEntryFileName);
-    fs.writeFileSync(
-      internalEntryFileName,
-      entryFileTemplateContent
-        .toString()
-        .replace(/WebcubePlaceholderForEntryApp/gi, entryId)
-        .replace(
-          /WebcubePlaceholderForEntryPath/gi,
-          path.relative(path.dirname(internalEntryFileName), entryFilePath)
-        )
-        .replace(
-          /WebcubePlaceholderForBaseUrl/gi,
-          JSON.stringify(name === projectName ? '' : `/${name}`)
-        )
-    );
-    entries[name] = internalEntryFileName;
-    const internalExportsFileName = path.join(
-      projectPath,
-      `node_modules/.webcube/boilerplate/exports_${entryId}.js`
-    );
-    ensureFileSync(internalExportsFileName);
-    fs.writeFileSync(
-      internalExportsFileName,
-      exportsFileTemplateContent
-        .toString()
-        .replace(/WebcubePlaceholderForEntryApp/gi, entryId)
-        .replace(
-          /WebcubePlaceholderForEntryPath/gi,
-          path.relative(path.dirname(internalEntryFileName), entryFilePath)
-        )
-    );
-    ssrEntries[name] = internalExportsFileName;
+  if (!isFullPathOk) {
+    return;
   }
+  let entryFilePath;
+  ssrEntryFileName.forEach(fileName => {
+    const tryPath = path.join(fullPath, fileName);
+    try {
+      fs.accessSync(tryPath);
+      if (!entryFilePath) {
+        entryFilePath = tryPath;
+      }
+    } catch (ex) {}
+  });
+  if (!entryFilePath) {
+    entryFileName.forEach(fileName => {
+      const tryPath = path.join(fullPath, fileName);
+      try {
+        fs.accessSync(tryPath);
+        if (!entryFilePath) {
+          entryFilePath = tryPath;
+        }
+      } catch (ex) {}
+    });
+    if (entryFilePath) {
+      entries[name] = entryFilePath;
+    }
+    return;
+  }
+  const entryId = entryNameToId(name);
+  const internalEntryFileName = path.join(
+    projectPath,
+    `node_modules/.webcube/boilerplate/${entryId}.js`
+  );
+  ensureFileSync(internalEntryFileName);
+  fs.writeFileSync(
+    internalEntryFileName,
+    entryFileTemplateContent
+      .toString()
+      .replace(/WebcubePlaceholderForEntryApp/gi, entryId)
+      .replace(
+        /WebcubePlaceholderForEntryPath/gi,
+        path.relative(path.dirname(internalEntryFileName), entryFilePath)
+      )
+      .replace(
+        /WebcubePlaceholderForBaseUrl/gi,
+        JSON.stringify(name === projectName ? '' : `/${name}`)
+      )
+  );
+  entries[name] = internalEntryFileName;
+  const internalExportsFileName = path.join(
+    projectPath,
+    `node_modules/.webcube/boilerplate/exports_${entryId}.js`
+  );
+  ensureFileSync(internalExportsFileName);
+  fs.writeFileSync(
+    internalExportsFileName,
+    exportsFileTemplateContent
+      .toString()
+      .replace(/WebcubePlaceholderForEntryApp/gi, entryId)
+      .replace(
+        /WebcubePlaceholderForEntryPath/gi,
+        path.relative(path.dirname(internalEntryFileName), entryFilePath)
+      )
+  );
+  ssrEntries[name] = internalExportsFileName;
 });
 config.entries = entries;
 config.ssrEntries = ssrEntries;

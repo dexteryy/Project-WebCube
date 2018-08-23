@@ -3,56 +3,44 @@
   "name": "webcube-todo-app",
   "version": "0.0.18",
   "scripts": {
-    "precommit:custom": "npm run test",
-    "test": "webcube-test",
-    "build": "webcube-build",
-    "build:html": "webcube-build-html",
-    "new": "webcube-new",
-    "dev": "webcube-dev",
-    "dev:dashboard": "webcube-dev-dashboard",
-    "staticserver": "webcube-staticserver",
-    "start:staticserver": "webcube-start-staticserver",
-    "stop:staticserver": "webcube-stop-staticserver",
-    "deploy:staticserver": "webcube-deploy-staticserver",
-    "deploy:staticserver:push": "webcube-deploy-staticserver-push",
-    "deploy:staticweb": "webcube-deploy-staticweb",
-    "upload:staticweb:html": "webcube-upload-staticweb-html",
-    "upload:staticweb:assets": "webcube-upload-staticweb-assets",
-    "webcube:update": "webcube-monorepo-update",
-    "webcube:setup": "webcube-monorepo-setup"
+    "precommit:custom": "create-cube test",
+    "test": "create-cube test",
+    "dev": "DEPLOY_MODE=static create-cube dev",
+    "build": "create-cube build -a",
+    "clean": "create-cube build --only-clean",
+    "serve": "create-cube serve",
+    "deploy:local": "npm run build && npm run serve"
   },
   "engines": {
-    "node": ">=9.11.1"
+    "node": ">=8.6.0"
   },
-  "config": {
-    "webcube": {
-      "monorepo": {
-        "root": "../../",
-        "packagePath": "packages/webcube",
-        "projectPath": "examples/webcube-todo-app"
-      },
-      "staticserver": {
-        "container": "[registry]/[hub]/[container]"
-      }
+  "browserslist": [
+    "last 1 version",
+    "> 50%",
+    "not ie <= 8",
+    "not dead"
+  ],
+  "webcube": {
+    "dev": {
+      "port": 8012
     }
   },
   "dependencies": {
-    "core-decorators": "^0.20.0",
-    "immutability-helper": "^2.6.4",
-    "localforage": "^1.5.5",
-    "lodash-decorators": "^5.0.0",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "immutability-helper": "^2.7.1",
+    "localforage": "^1.7.2",
+    "lodash-decorators": "^6.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^4.3.1",
     "react-with-scripts": "^1.0.4",
     "redux-cube": "^1.1.0",
     "redux-cube-with-persist": "^1.1.0",
     "redux-cube-with-router": "^1.1.0",
-    "todomvc-app-css": "^2.1.0",
-    "todomvc-common": "^1.0.4",
-    "uuid": "^3.1.0",
-    "webcube": "^1.0.0-alpha.65"
+    "todomvc-app-css": "^2.1.2",
+    "todomvc-common": "^1.0.5",
+    "uuid": "^3.3.2",
+    "webcube": "^2.0.0-beta.3"
   }
 }

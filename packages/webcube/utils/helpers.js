@@ -12,6 +12,9 @@ exports.getExcludeNames = (names, name) =>
 
 exports.getExcludeSplitChunks = (entries, entry) => {
   const otherEntries = exports.getExcludeNames(entries, entry);
+  if (!otherEntries.length) {
+    return [];
+  }
   const combs = Combinatorics.permutationCombination(otherEntries);
   const otherPossibleVendors = combs.map(
     comb => `vendors${output.chunkDelimiter}${comb.join(output.chunkDelimiter)}`
@@ -30,6 +33,9 @@ exports.getIncludeSplitChunks = (entries, entry) => {
   });
   const results = [];
   list.forEach(set => {
+    if (!set.length) {
+      return;
+    }
     Combinatorics.permutation(set).forEach(comb => {
       results.push(
         `vendors${output.chunkDelimiter}${comb.join(output.chunkDelimiter)}`

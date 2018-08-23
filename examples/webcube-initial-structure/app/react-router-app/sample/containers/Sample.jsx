@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 
 import { TITLE } from '../constants/sample';
 import SampleList from '../components/SampleList';
@@ -13,7 +13,7 @@ export default class Sample extends PureComponent {
     log: [],
   };
 
-  @autobind
+  @Bind
   handleReset() {
     this.setState({
       message: '',
@@ -21,7 +21,7 @@ export default class Sample extends PureComponent {
     });
   }
 
-  @autobind
+  @Bind
   handleSend(e) {
     if (e.key === 'Enter') {
       const { log } = this.state;
@@ -44,7 +44,7 @@ export default class Sample extends PureComponent {
     }
   }
 
-  @autobind
+  @Bind
   handleRemove(id) {
     const { log } = this.state;
     this.setState({

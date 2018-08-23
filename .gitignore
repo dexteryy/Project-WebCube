@@ -11,10 +11,6 @@ package-lock.json
 .project-version
 build/
 dist/
-coverage/
-env.config
-env.json
-rev-version.json
 demo*/
 app/demo*
-staticweb/demo*
+src/demo*

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { autobind } from 'core-decorators';
+import { Bind } from 'lodash-decorators';
 
 const noop = () => {
   /* */
@@ -14,35 +14,30 @@ export default class Header extends PureComponent {
     onSubmit: noop,
   };
 
-  static getDerivedStateFromProps({ input }) {
-    return { input };
-  }
-
-  state = {
-    input: '',
-  };
-
   constructor(props) {
     super(props);
-    this.state.input = props.input;
+    this.state = {
+      input: props.input,
+    };
   }
 
-  @autobind
+  @Bind
   handleInput(e) {
     this.setState({ input: e.target.value });
   }
 
-  @autobind
+  @Bind
   handleChange() {
     const { onChange } = this.props;
     onChange(this.state.input);
   }
 
-  @autobind
+  @Bind
   handleEnter(e) {
     const { onSubmit } = this.props;
     if (e.key === 'Enter') {
       onSubmit(this.state.input);
+      this.setState({ input: '' });
     }
   }
 

@@ -1,39 +1,29 @@
 import React, { PureComponent } from 'react';
-import { autobind } from 'core-decorators';
-import { connect } from 'redux-cube';
-
-import { actions as todoActions } from '../ducks/todo';
+import { Bind } from 'lodash-decorators';
+import cube from '../cube';
 import TodoList from '../components/TodoList';
 
-@connect({
-  selectors: [state => state.todo.items],
-  transform: items => ({
-    items,
-    isAllCompleted: !items.find(item => !item.isCompleted),
-  }),
-  actions: todoActions,
-})
-export default class List extends PureComponent {
-  @autobind
+class List extends PureComponent {
+  @Bind
   handleToggleAll() {
     this.props.actions.todo.toggleAll();
   }
 
-  @autobind
+  @Bind
   createHandleToggle(id) {
     return () => {
       this.props.actions.todo.toggle({ id });
     };
   }
 
-  @autobind
+  @Bind
   createHandleDelete(id) {
     return () => {
       this.props.actions.todo.delete({ id });
     };
   }
 
-  @autobind
+  @Bind
   createHandleSubmit(id) {
     return content => {
       this.props.actions.todo.update({ id, content });
@@ -56,3 +46,12 @@ export default class List extends PureComponent {
     );
   }
 }
+
+export default List
+  |> cube.connect({
+    select: [state => state.todo.items],
+    transform: items => ({
+      items,
+      isAllCompleted: !items.find(item => !item.isCompleted),
+    }),
+  });

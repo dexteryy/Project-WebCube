@@ -32,8 +32,15 @@ dev.server.headers = []
 // https://github.com/bripkens/connect-history-api-fallback#options
 dev.server.rewrites = Object.keys(entries)
   .map(entry => ({
-    from: new RegExp(`${escapeStringRegexp(`/${entry}/`)}`),
-    to: `/${entry}/index.html`,
+    from: new RegExp(`${escapeStringRegexp(`/${entry}`)}`),
+    to(context) {
+      // @bug
+      const realEntry = (/^.*?\/([^/]+)/.exec(context.parsedUrl.href) || [])[1];
+      if (realEntry === entry) {
+        return `/${entry}/index.html`;
+      }
+      return context.parsedUrl.href;
+    },
   }))
   .concat([
     {

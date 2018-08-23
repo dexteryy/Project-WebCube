@@ -62,7 +62,6 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
           if (isSsrEnv && !appState.store && reportAppState) {
             reportAppState({
               store,
-              persistor,
               routerHistory,
               loaders,
             });
@@ -107,7 +106,7 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
             );
           }
           // https://github.com/rt2zz/redux-persist#usage
-          if (_enablePersist) {
+          if (!isSsrEnv && _enablePersist) {
             root = createElement(
               PersistGate,
               { persistor, loading: null },
