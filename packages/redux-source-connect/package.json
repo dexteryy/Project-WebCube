@@ -1,6 +1,6 @@
 {
   "name": "redux-source-connect",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Connect React components to Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -26,14 +26,14 @@
     "redux-source": "^0.2.1"
   },
   "dependencies": {
-    "react-common-kit": "^1.1.0",
+    "react-common-kit": "^1.1.2",
     "react-redux": "^5.0.6",
-    "redux-source-utils": "^1.0.1",
+    "redux-source-utils": "^1.0.2",
     "reselect": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
     "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
     "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-function-bind": "^7.0.0-rc.1",

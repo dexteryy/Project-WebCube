@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-with-immutable",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "redux-cube's pluggable module for react-immutable",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -28,8 +28,8 @@
     "redux-immutable": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
     "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
     "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-function-bind": "^7.0.0-rc.1",

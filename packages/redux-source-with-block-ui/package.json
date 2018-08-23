@@ -1,6 +1,6 @@
 {
   "name": "redux-source-with-block-ui",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A React higher-order component for displaying \"React Block UI\" based on Redux states maintained by redux-source automatically",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "react-block-ui": "^1.1.1",
-    "react-common-kit": "^1.1.0"
+    "react-common-kit": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
     "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
     "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-function-bind": "^7.0.0-rc.1",

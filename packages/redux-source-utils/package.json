@@ -1,6 +1,6 @@
 {
   "name": "redux-source-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "redux-source-utils's common code",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -35,8 +35,8 @@
     "pluralize": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
     "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
     "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-function-bind": "^7.0.0-rc.1",

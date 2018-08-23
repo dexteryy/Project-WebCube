@@ -1,6 +1,6 @@
 {
   "name": "redux-source-immutable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The Immutable.js version of redux-source",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "redux-source-utils": "^1.0.1"
+    "redux-source-utils": "^1.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
     "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
     "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-function-bind": "^7.0.0-rc.1",
