@@ -7,7 +7,7 @@ import data from './data.json';
 console.log(1, data);
 
 import('./a').then(({ default: a }) => {
-  console.log(3, a);
+  console.log(3, a.talk('2'));
   console.log(4, a.talk(2));
 });
 

@@ -46,7 +46,6 @@ class Hifetch {
     error: res => Promise.reject(res),
   };
 
-  /* eslint-disable max-statements */
   constructor(opt) {
     this._config = Object.assign({}, Hifetch.defaultConfig, opt);
     const {
@@ -126,7 +125,6 @@ class Hifetch {
         : {},
     );
   }
-  /* eslint-enable max-statements */
 
   send() {
     const {

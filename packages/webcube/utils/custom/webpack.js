@@ -22,6 +22,7 @@ const webpack = merge(
         // .mjs must be put before .js
         // https://github.com/graphql/graphql-js/issues/1272#issuecomment-404154877
         '.mjs',
+        '.mjsx',
         '.js',
         '.jsx',
         '.ts',

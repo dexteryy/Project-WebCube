@@ -1,11 +1,11 @@
 import { Component, createElement } from 'react';
-import uuidv4 from 'uuid/v4';
+// import uuidv4 from 'uuid/v4';
 import { createHoc } from 'react-common-kit';
 
 /* eslint-disable react/no-multi-comp */
 const dataLoader = {
   loader(getPromise) {
-    const uuid = uuidv4();
+    // const uuid = uuidv4();
     return createHoc(
       OriginComponent =>
         class WithLoader extends Component {
@@ -39,11 +39,11 @@ const dataLoader = {
     return createHoc(
       OriginComponent =>
         class WithRootLoader extends Component {
-          constructor(props) {
-            super(props);
-          }
+          // constructor(props) {
+          //   super(props);
+          // }
 
-          componentDidMount() {}
+          // componentDidMount() {}
 
           render() {
             const { ...passThroughProps } = this.props;

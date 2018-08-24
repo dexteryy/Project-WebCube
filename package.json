@@ -5,18 +5,16 @@
   "scripts": {
     "precommit": "create-cube precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "update": "npm run clear:deps && yarn install && lerna run prepare && echo 7.0 > .project-version",
-    "upgrade": "npm run clear:lock && npm run update",
-    "clear:lock": "rm yarn.lock package-lock.json 2>/dev/null || true",
-    "clear:deps": "lerna clean --yes 2>/dev/null || true && rm -rf ./node_modules yarn-error.log lerna-debug.log 2>/dev/null || true && lerna exec --bail=false -- rm yarn.lock package-lock.json yarn-error.log 2>/dev/null || true && rm .git/hooks/pre-commit 2>/dev/null || true",
+    "update": "create-cube update && echo 7.0 > .project-version",
+    "upgrade": "create-cube update -c && echo 7.0 > .project-version",
     "lint": "create-cube lint",
-    "lint:error": "create-cube lint --only-errors"
+    "lint:error": "create-cube lint --quiet"
   },
   "engines": {
     "node": ">=8.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx,mjs,mjsx,es6,css,scss,less}": [
       "npm run lint:error --",
       "git add"
     ]

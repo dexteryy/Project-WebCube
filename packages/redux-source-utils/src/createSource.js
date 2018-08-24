@@ -20,7 +20,6 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
     }
   });
   const normalizeSchema = {};
-  /* eslint-disable max-statements */
   const traverseProp = root => field => {
     const { name, alias, selectionSet } = field;
     const { value: originName } = name;
@@ -76,7 +75,6 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
       : childRoot;
     root[dataName] = isList ? [entity] : entity;
   };
-  /* eslint-enable max-statements */
   definitions.forEach(definition => {
     const { kind, selectionSet } = definition;
     if (kind !== 'OperationDefinition') {
@@ -90,8 +88,10 @@ function astToNormalizeSchema(gqlAst, { idAttribute }) {
 function getConfig(selectionSet) {
   const config = {};
   const selections = (selectionSet && selectionSet.selections) || [];
-  const { name: { value: configFieldName }, selectionSet: configSelectionSet } =
-    selections[0] || {};
+  const {
+    name: { value: configFieldName },
+    selectionSet: configSelectionSet,
+  } = selections[0] || {};
   if (configFieldName === '__config__') {
     selections.shift();
     if (configSelectionSet) {

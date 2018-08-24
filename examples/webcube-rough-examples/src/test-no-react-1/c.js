@@ -1,4 +1,4 @@
-import { merge, pick } from 'lodash';
+import { merge } from 'lodash';
 
 console.log(merge);
 

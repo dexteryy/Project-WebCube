@@ -46,7 +46,6 @@ class Layout extends PureComponent {
           onChange={this.handleInputChange}
           onSubmit={this.handleInputSubmit}
         />
-        {/* eslint-disable react/jsx-no-bind */}
         <Switch>
           <Route
             path={`/active`}
@@ -62,7 +61,6 @@ class Layout extends PureComponent {
             render={() => <List filter={allFilter} />}
           />
         </Switch>
-        {/* eslint-enable react/jsx-no-bind */}
         <Footer
           count={count}
           currentPath={location.pathname}

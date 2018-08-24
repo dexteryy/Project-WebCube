@@ -4,23 +4,21 @@ import styled, { injectGlobal } from 'styled-components';
 import htmlData from '../../data/data.html';
 import mdData from '../../data/data.md';
 import logo from '../../data/favicon.png';
-import scssStyles from './demo.scss';
-import cssStyles from './demo.css';
+import scssStyles from './css/demo.scss';
+import cssStyles from './css/demo.css';
 
-/* eslint-disable no-unused-expressions */
 injectGlobal`
   ul {
-    padding: 0;
-    margin: 0;
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 `;
-/* eslint-enable no-unused-expressions */
 
 const Item = styled.li`
-  margin: 20px 0;
-  padding: 10px;
   border: 1px solid #666;
+  padding: 10px;
+  margin: 20px 0;
 `;
 
 export default class Counter extends Component {

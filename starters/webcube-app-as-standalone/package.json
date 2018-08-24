@@ -1,104 +1,64 @@
 {
   "private": true,
   "scripts": {
-    "precommit": "webcube-precommit",
-    "precommit:custom": "npm run test",
-    "update": "npm run clear:deps && yarn install && echo 5.0 > .project-version",
-    "upgrade": "npm run clear:lock && npm run update",
-    "clear:lock": "rm yarn.lock package-lock.json 2>/dev/null || true",
-    "clear:deps": "rm -rf ./node_modules 2>/dev/null || true && rm .git/hooks/pre-commit 2>/dev/null || true",
-    "lint": "webcube-lint",
-    "lint:error": "webcube-lint-error",
-    "test": "webcube-test",
-    "build": "webcube-build",
-    "build:html": "webcube-build-html",
-    "new": "webcube-new",
-    "dev": "webcube-dev",
-    "dev:dashboard": "webcube-dev-dashboard",
-    "staticserver": "webcube-staticserver",
-    "start:staticserver": "webcube-start-staticserver",
-    "stop:staticserver": "webcube-stop-staticserver",
-    "deploy:staticserver": "webcube-deploy-staticserver",
-    "deploy:staticserver:push": "webcube-deploy-staticserver-push",
-    "deploy:staticweb": "webcube-deploy-staticweb",
-    "upload:staticweb:html": "webcube-upload-staticweb-html",
-    "upload:staticweb:assets": "webcube-upload-staticweb-assets",
-    "webcube:update": "webcube-update",
-    "webcube:setup": "webcube-setup"
+    "precommit": "create-cube precommit",
+    "update": "create-cube update && echo 7.0 > .project-version",
+    "upgrade": "create-cube update -c && echo 7.0 > .project-version",
+    "lint": "create-cube lint",
+    "lint:error": "create-cube lint --quiet"
   },
   "engines": {
-    "node": ">=9.11.1"
+    "node": ">=8.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx,mjs,mjsx,es6,css,scss,less}": [
       "npm run lint:error --",
       "git add"
     ]
   },
+  "browserslist": [
+    "last 1 version",
+    "> 50%",
+    "not ie <= 8",
+    "not dead"
+  ],
   "config": {
-    "webcube": {
-      "staticserver": {
-        "container": "[registry]/[hub]/[container]"
-      }
-    },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "graphql-resolvers": "^0.2.2",
-    "hifetch": "^3.0.0",
-    "immutable": "^3.8.2",
-    "immutability-helper": "^2.6.4",
-    "is_js": "^0.9.0",
-    "localforage": "^1.5.5",
-    "lodash": "^4.17.4",
-    "lodash-decorators": "^5.0.0",
-    "prop-types": "^15.6.1",
+    "immutability-helper": "^2.7.1",
+    "lodash": "^4.17.10",
+    "lodash-decorators": "^6.0.0",
+    "polished": "^1.9.3",
+    "prop-types": "^15.6.2",
     "ramda": "^0.25.0",
-    "react": "^16.3.0",
-    "react-common-kit": "^1.1.0",
-    "react-composer": "^5.0.0",
-    "react-display-name": "^0.2.3",
-    "react-dom": "^16.3.0",
+    "react": "^16.4.2",
+    "react-common-kit": "^1.1.1",
+    "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
+    "react-icons": "^3.0.5",
+    "react-loadable": "^5.5.0",
     "react-loaders": "^3.0.1",
-    "react-modal": "^3.3.2",
-    "react-motion": "^0.5.2",
-    "react-notification-system": "^0.2.17",
-    "react-router-dom": "^4.2.2",
-    "react-spinkit": "^3.0.0",
-    "react-with-scripts": "^1.0.0",
-    "recompose": "^0.26.0",
-    "redux-cube": "^1.0.0",
-    "redux-cube-with-immutable": "^1.0.5",
-    "redux-cube-with-persist": "^1.0.0",
-    "redux-cube-with-router": "^1.0.0",
-    "redux-form": "^7.2.3",
-    "redux-source": "^1.0.0",
-    "redux-source-immutable": "^1.0.0",
-    "redux-source-connect": "^1.0.0",
-    "redux-source-connect-immutable": "^1.0.0",
-    "redux-source-with-block-ui": "^1.0.0",
-    "redux-source-with-notify": "^1.0.0",
-    "rxjs": "^5.5.6",
-    "styled-components": "^3.1.6",
-    "styled-normalize": "^4.0.0",
-    "styled-system": "^2.1.1",
-    "validator": "^9.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-with-scripts": "^1.0.3",
+    "redux-cube": "^1.0.2",
+    "redux-cube-with-router": "^1.0.10",
+    "redux-source": "^1.0.5",
+    "redux-source-connect": "^1.0.3",
+    "redux-source-with-block-ui": "^1.0.6",
+    "redux-source-with-notify": "^1.1.4",
+    "rxjs": "^6.2.2",
+    "styled-components": "^3.4.2",
+    "styled-icons": "^2.3.2",
+    "styled-normalize": "^8.0.0",
+    "styled-sanitize": "^1.1.1",
     "webcube": "^2.0.0-beta.4"
   },
   "devDependencies": {
-    "chance": "^1.0.13",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-redux": "^0.2.1",
+    "chance": "^1.0.16",
     "faker": "^4.1.0",
-    "jest-styled-components": "^5.0.0",
-    "react-test-renderer": "^16.2.0",
-    "redux-test-utils": "^0.2.2",
-    "redux-testkit": "^1.0.6",
-    "sinon": "^4.4.2"
+    "sinon": "^6.1.5"
   }
 }

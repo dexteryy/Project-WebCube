@@ -15,7 +15,9 @@ export default function withBlockUi(config = {}) {
       /* eslint-disable react/prefer-stateless-function */
       class WithBlockUi extends Component {
         render() {
-          const { [sourceStateName]: { isPending } } = this.props;
+          const {
+            [sourceStateName]: { isPending },
+          } = this.props;
           return (
             <BlockUi
               {...otherProps}

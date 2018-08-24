@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const program = require('commander');
 const logger = require('../utils/logger');
 const { dev, deploy } = require('../utils/custom');

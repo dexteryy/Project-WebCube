@@ -1,9 +1,9 @@
-import { merge, pick } from 'lodash';
+import { merge } from 'lodash';
 
 console.log(merge);
 
 const a = {
-  talk(n) {
+  talk(n: number) {
     return Object.assign({}, { n });
   },
 };

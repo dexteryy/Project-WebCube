@@ -1,10 +1,8 @@
-
-
-
 .counter {
   --text-size: 20px;
   --bd-style: 2px solid #000;
-  padding: var(--text-size);
-  font-size: var(--text-size);
+
   border: var(--bd-style);
+  font-size: var(--text-size);
+  padding: var(--text-size);
 }

@@ -1,6 +1,5 @@
 {
   "files.associations": {
-    "*.config": "properties",
     ".code-workspace": "jsonc",
     ".babelrc": "json",
     "babelrc": "json",
@@ -17,6 +16,7 @@
   "search.useIgnoreFiles": true,
   "search.exclude": {
     "**/dist": true,
+    "**/es6": true,
     "**/build": true,
     "**/yarn.lock": true,
     "**/package-lock.json": true,
@@ -33,6 +33,7 @@
   ],
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
+  "npm.exclude": "**/starters/**",
   //
   "eslint.nodePath": "./node_modules",
   "eslint.enable": true,
@@ -44,19 +45,23 @@
   },
   "eslint.validate": [
     "javascript",
-    "javascriptreact"
-    // {
-    //   "language": "typescript",
-    //   "autoFix": true
-    // },
-    // {
-    //   "language": "typescriptreact",
-    //   "autoFix": true
-    // }
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    },
+    {
+      "language": "html",
+      "autoFix": true
+    }
   ],
   "javascript.validate.enable": false,
   "typescript.validate.enable": true,
-  "tslint.enable": true,
+  "tslint.enable": false,
   "flow.enabled": false,
   //
   "stylelint.enable": true,
@@ -71,17 +76,27 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "css",
-    "less",
-    "scss",
+    // "css",
+    // "less",
+    // "scss",
     "jsonc",
     "json"
   ],
+  "prettier.stylelintIntegration": true,
+  "prettier.trailingComma": "all",
+  "prettier.printWidth": 80,
+  "prettier.semi": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
+  "prettier.jsxBracketSameLine": true,
+  "prettier.parser": "babylon",
+  "prettier.singleQuote": true,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false,
   //
   "eslint.autoFixOnSave": true,
   "javascript.format.enable": false,
-  // "typescript.format.enable": false,
-  // "typescript.format.enable": true,
+  "typescript.format.enable": false,
   "json.format.enable": true,
   "[json]": {
     "editor.tabSize": 2,

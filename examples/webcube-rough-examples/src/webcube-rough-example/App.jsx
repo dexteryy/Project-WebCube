@@ -13,7 +13,6 @@ import './ducks/number';
 import Number from './containers/Number';
 // import Counter from './components/Counter';
 
-/* eslint-disable no-unused-expressions */
 injectGlobal`
   ${styledSanitize}
   body {
@@ -21,7 +20,6 @@ injectGlobal`
     font-size: 16px;
   }
 `;
-/* eslint-enable no-unused-expressions */
 
 const Loading = () => <Loader type="line-scale" active={true} color="#06f" />;
 

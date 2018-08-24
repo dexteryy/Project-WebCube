@@ -1,7 +1,7 @@
 import React from 'react';
 // import { loader } from 'react-common-kit';
 
-function JsonView({ initialData, isInitialDataLoading }) {
+function JsonView({ initialData /* isInitialDataLoading */ }) {
   return (
     <div>
       <p>JSON:</p>

@@ -1,10 +1,6 @@
 #!/bin/bash
 repoRoot="."
-if [[ -e $npm_package_config_webcube_monorepo_root ]]; then
-  repoRoot="${npm_package_config_webcube_monorepo_root}"
-fi
-
-project_version="6.0"
+project_version="7.0"
 
 if [ -e "${repoRoot}/.project-version" ] && [[ "$(cat "${repoRoot}/.project-version")" == $project_version ]]; then
   exit 0

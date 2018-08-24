@@ -27,7 +27,11 @@ export default class ShopList extends PureComponent {
 
   @Bind
   handleAdd() {
-    const { source: { result: { shops = [] } } } = this.props;
+    const {
+      source: {
+        result: { shops = [] },
+      },
+    } = this.props;
     if (shops.find(shop => shop.id === 'shop-1')) {
       this.props.actions.shopsSource.addShop({
         id: 'shop-100',
@@ -51,7 +55,11 @@ export default class ShopList extends PureComponent {
 
   @Bind
   handleDelete() {
-    const { source: { result: { shops = [] } } } = this.props;
+    const {
+      source: {
+        result: { shops = [] },
+      },
+    } = this.props;
     if (shops.find(shop => shop.id === 'shop-1')) {
       this.props.actions.shopsSource.deleteShop({
         id: 'shop-1',
@@ -64,7 +72,11 @@ export default class ShopList extends PureComponent {
   }
 
   render() {
-    const { source: { result: { shops = [], timestamp = '' } } } = this.props;
+    const {
+      source: {
+        result: { shops = [], timestamp = '' },
+      },
+    } = this.props;
     return (
       <div>
         <h3>Shop List</h3>

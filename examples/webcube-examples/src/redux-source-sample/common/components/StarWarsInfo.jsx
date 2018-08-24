@@ -90,7 +90,9 @@ export default class StarWarsInfo extends PureComponent {
     const {
       characterId,
       shipId,
-      source: { result: { character, ship } },
+      source: {
+        result: { character, ship },
+      },
     } = this.props;
     return (
       <div className={styles.box}>

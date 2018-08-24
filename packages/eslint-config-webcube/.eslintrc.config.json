@@ -46,7 +46,9 @@
     // https://www.npmjs.com/package/eslint-plugin-promise
     "promise",
     // https://www.npmjs.com/package/eslint-plugin-node
-    "node"
+    "node",
+    // https: //github.com/eslint/eslint-plugin-markdown
+    "markdown"
   ],
   // https://eslint.org/docs/user-guide/configuring#extending-configuration-files
   "extends": [
@@ -457,7 +459,7 @@
       {
         "allowShortCircuit": false,
         "allowTernary": false,
-        "allowTaggedTemplates": false
+        "allowTaggedTemplates": true
       }
     ],
     // https://eslint.org/docs/rules/no-unused-labels
@@ -1243,7 +1245,8 @@
         "singleQuote": true,
         "trailingComma": "all",
         "bracketSpacing": true,
-        "jsxBracketSameLine": true
+        "jsxBracketSameLine": true,
+        "arrowParens": "avoid"
       }
     ],
     // react
@@ -1551,6 +1554,7 @@
         "extensions": [
           ".jsx",
           ".tsx",
+          ".mjsx",
           ".es6"
         ]
       }
@@ -1594,7 +1598,8 @@
     "react/jsx-no-bind": [
       "error",
       {
-        "ignoreRefs": true
+        "ignoreRefs": true,
+        "allowArrowFunctions": true
       }
     ],
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md
@@ -1905,7 +1910,10 @@
       "\\.tsx$",
       "\\.coffee$",
       "\\.cjsx$"
-    ]
+    ],
+    "react": {
+      "version": "16.0"
+    }
   },
   // https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns
   "overrides": []

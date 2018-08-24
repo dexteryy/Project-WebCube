@@ -1,0 +1,48 @@
+{
+  "name": "stylelint-config-webcube",
+  "version": "0.1.0",
+  "description": "A sharable Stylelint presets for webcube",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/stylelint-config-webcube",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/stylelint-config-webcube",
+  "license": "MIT",
+  "main": "stylelint.config.js",
+  "files": [
+    "stylelint.config.js",
+    "package.json",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "scripts": {
+    "prepublish": "npm run check",
+    "check": "cd ../../; stylelint-find-rules --config ./packages/stylelint-config-webcube/stylelint.config.js; cd -"
+  },
+  "peerDependencies": {
+    "stylelint": "^9.5.0"
+  },
+  "dependencies": {
+    "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
+    "@mapbox/stylelint-processor-markdown": "^0.3.1",
+    "stylelint-config-prettier": "^4.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-order": "^1.0.0",
+    "stylelint-prettier": "^0.2.2"
+  },
+  "devDependencies": {
+    "stylelint": "^9.5.0",
+    "stylelint-find-rules": "^1.1.1"
+  },
+  "keywords": [
+    "stylelint",
+    "stylelint-config",
+    "prettier",
+    "webcube",
+    "nodecube"
+  ]
+}
