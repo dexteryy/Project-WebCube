@@ -14,10 +14,13 @@
     "node": ">=8.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,mjsx,es6,css,scss,less}": [
-      "npm run lint:error --",
-      "git add"
-    ]
+    "linters": {
+      "*": [
+        "npm run lint:error --",
+        "git add"
+      ]
+    },
+    "ignore": []
   },
   "config": {
     "commitizen": {
