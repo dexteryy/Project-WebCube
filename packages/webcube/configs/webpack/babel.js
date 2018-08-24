@@ -59,7 +59,13 @@ module.exports = ({ isSsrBuild }) => ({
     [require('@babel/preset-react'), { development: !isProductionEnv }],
     babel.disableTypeScript
       ? require('@babel/preset-flow')
-      : require('@babel/preset-typescript'),
+      : [
+          require('@babel/preset-typescript'),
+          {
+            isTSX: true,
+            allExtensions: true,
+          },
+        ],
     // faster but incomplete compression, use MinifyPlugin instead
     // https://github.com/babel/minify/tree/master/packages/babel-preset-minify#options
     // ...(isProductionEnv &&

@@ -158,6 +158,12 @@ Object.keys(config.entries).forEach(name => {
 config.entries = entries;
 config.ssrEntries = ssrEntries;
 
+if (!Object.keys(entries).length) {
+  logger.fail(
+    `Cannot find valid entry in source code directory (\`srcRoot\`). Try to create a './src/entry-name/index.js' or './src/ssr-entry-name/App.jsx' in your project`
+  );
+}
+
 Object.keys(entries).forEach(entry => {
   if (!/^[a-zA-Z][a-zA-Z0-9-_]*$/.test(entry)) {
     logger.fail(

@@ -6,7 +6,7 @@
 More Examples:
 
 * [webcube-todo-app](../webcube-todo-app)
-* [webcube-rough-examples](../webcube-rough-examples)
+* [webcube-rough-example](../webcube-rough-example)
 
 ## Source code
 

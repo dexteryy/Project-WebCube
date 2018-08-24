@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "webcube-rough-examples",
+  "name": "webcube-rough-example",
   "version": "2.0.0",
   "scripts": {
     "precommit:custom": "create-cube test",

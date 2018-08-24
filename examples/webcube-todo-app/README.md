@@ -7,7 +7,7 @@
 More Examples:
 
 * [webcube-exampless](../webcube-examples)
-* [webcube-rough-examples](../webcube-rough-examples)
+* [webcube-rough-example](../webcube-rough-example)
 
 ## View results in production environment
 
