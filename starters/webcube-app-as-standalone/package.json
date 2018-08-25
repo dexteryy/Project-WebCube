@@ -16,12 +16,6 @@
       "git add"
     ]
   },
-  "browserslist": [
-    "last 1 version",
-    "> 50%",
-    "not ie <= 8",
-    "not dead"
-  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

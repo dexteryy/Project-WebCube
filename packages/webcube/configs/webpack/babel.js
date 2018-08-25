@@ -145,6 +145,9 @@ module.exports = ({ isSsrBuild }) => ({
         useES: true,
       },
     ],
+    // https://www.styled-components.com/docs/advanced#avoiding-conflicts-with-thirdparty-styles-and-scripts
+    // https://github.com/QuickBase/babel-plugin-styled-components-css-namespace
+    require('@quickbaseoss/babel-plugin-styled-components-css-namespace'),
     // https://github.com/styled-components/babel-plugin-styled-components
     [
       require('babel-plugin-styled-components'),
@@ -155,7 +158,7 @@ module.exports = ({ isSsrBuild }) => ({
     ],
     // https://github.com/gajus/babel-plugin-react-css-modules
     // @TODO wait for babel v7: https://github.com/gajus/babel-plugin-react-css-modules/blob/master/package.json#L10
-    // ...(css.cssModules.disable
+    // ...(!css.cssModules.enable
     //   ? []
     //   : [
     //       [

@@ -25,14 +25,37 @@ const renderApp = () => {
   );
 };
 
-if (process.env.DEPLOY_MODE === 'ssr') {
-  // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
-  Loadable.preloadReady().then(() => {
-    hydrateApp();
-  });
-} else {
-  renderApp();
-}
+new Promise(resolve => {
+  function check() {
+    if (
+      window.innerWidth &&
+      window.innerHeight &&
+      screen.availWidth &&
+      screen.availHeight
+    ) {
+      resolve();
+    } else {
+      setTimeout(check, 10);
+    }
+  }
+  if (
+    ['complete', 'loaded', 'interactive'].includes(document.readyState) &&
+    document.body
+  ) {
+    check();
+  } else {
+    document.addEventListener('DOMContentLoaded', check, false);
+  }
+}).then(() => {
+  if (process.env.DEPLOY_MODE === 'ssr') {
+    // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
+    Loadable.preloadReady().then(() => {
+      hydrateApp();
+    });
+  } else {
+    renderApp();
+  }
+});
 
 if (process.env.NODE_ENV !== 'production') {
   /* eslint-disable no-undef */

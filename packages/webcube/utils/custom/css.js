@@ -8,8 +8,8 @@ if (!custom.css) {
 const css = merge(
   {
     cssModules: {
-      disable: false,
-      exclude: /node_modules/,
+      enable: false,
+      exclude: ['node_modules'],
       // https://github.com/webpack-contrib/css-loader#camelcase
       enableCamelCase: false,
       localIdentName: '[local]--[hash:base64:5]',

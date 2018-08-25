@@ -14,12 +14,6 @@
   "engines": {
     "node": ">=8.6.0"
   },
-  "browserslist": [
-    "last 1 version",
-    "> 50%",
-    "not ie <= 8",
-    "not dead"
-  ],
   "dependencies": {
     "immutability-helper": "^2.7.1",
     "lodash": "^4.17.10",

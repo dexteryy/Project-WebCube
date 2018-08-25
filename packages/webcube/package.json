@@ -45,6 +45,7 @@
     "@babel/preset-flow": "^7.0.0-rc.1",
     "@babel/preset-react": "^7.0.0-rc.1",
     "@babel/preset-typescript": "^7.0.0-rc.1",
+    "@quickbaseoss/babel-plugin-styled-components-css-namespace": "^0.1.1",
     "ansi-colors": "^3.0.0",
     "babel-loader": "^8.0.0-beta.4",
     "babel-minify-webpack-plugin": "^0.3.1",
@@ -150,7 +151,5 @@
     "xml-loader": "^1.2.1"
   },
   "keywords": [],
-  "devDependencies": {
-    "pino": "^5.1.0"
-  }
+  "devDependencies": {}
 }

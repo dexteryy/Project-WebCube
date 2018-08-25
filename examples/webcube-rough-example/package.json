@@ -17,12 +17,15 @@
     "node": ">=8.6.0"
   },
   "browserslist": [
-    "last 1 version",
-    "> 50%",
-    "not ie <= 8",
-    "not dead"
+    "last 1 Chrome versions",
+    "last 1 Firefox versions"
   ],
   "webcube": {
+    "css": {
+      "cssModules": {
+        "enable": true
+      }
+    },
     "output": {
       "disableAllChunksPreload": true,
       "disableInitialPreload": true

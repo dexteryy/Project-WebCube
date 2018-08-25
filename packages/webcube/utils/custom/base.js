@@ -11,8 +11,8 @@ const projectPath = process.cwd();
 let custom = {};
 const pkg = require(path.join(projectPath, `package.json`));
 const projectName = pkg.name;
-const { config: browserslist } = cosmiconfig('browserslist').searchSync();
-const { config: customConfig } = cosmiconfig('webcube').searchSync();
+const { config: browserslist } = cosmiconfig('browserslist').searchSync() || {};
+const { config: customConfig } = cosmiconfig('webcube').searchSync() || {};
 custom = merge(custom, customConfig);
 
 // https://medium.com/webpack/webpack-4-mode-and-optimization-5423a6bc597a
@@ -60,8 +60,19 @@ const config = {
 };
 
 // https://github.com/browserslist/browserslist
-config.browserslist = browserslist ||
-  custom.browserslist || ['last 1 version', '> 1%', 'not ie <= 8', 'not dead'];
+config.browserslist = (browserslist && browserslist.length && browserslist) ||
+  (custom.browserslist &&
+    custom.browserslist.length &&
+    custom.browserslist) || [
+    // http://getbootstrap.com/docs/4.1/getting-started/browsers-devices/#supported-browsers
+    // https://reactjs.org/blog/2016/01/12/discontinuing-ie8-support.html
+    'last 1 major version',
+    '>= 1%',
+    'Explorer >= 10',
+    'iOS >= 9',
+    'Android >= 4.4',
+    'not dead',
+  ];
 
 const entryNameToId = name => {
   const letters = name.split(/[-_]/);

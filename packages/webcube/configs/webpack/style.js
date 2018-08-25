@@ -28,7 +28,7 @@ const { getOutputConfig } = require('../../utils/helpers');
 const { cssModules, postCss, scss, less } = css;
 
 const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
-  const isCssModulesEnabled = !cssModules.disable && !disableCssModules;
+  const isCssModulesEnabled = cssModules.enable && !disableCssModules;
   const loaders = [
     // https://github.com/webpack-contrib/css-loader
     {
