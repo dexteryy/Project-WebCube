@@ -193,7 +193,7 @@ module.exports = {
       );
       return new HtmlWebpackPlugin({
         filename: path.join(output.htmlRoot, entry, 'index.html'),
-        inject: 'body',
+        inject: output.enableBodyInject ? 'body' : 'head',
         chunks: output.maxInitialRequests > 1 ? undefined : [entry],
         excludeChunks:
           output.maxInitialRequests > 1

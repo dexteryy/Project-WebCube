@@ -21,6 +21,7 @@ const output = merge(
     chunkDelimiter: '~',
     maxEntrypointSize: 250000,
     maxAssetSize: 1000000,
+    enableBodyInject: false,
     enableUglify: false,
     enableInlineSource: false,
     disableCssExtract: false,
