@@ -34,6 +34,7 @@ const { errorPageFor400, errorPageFor500 } = deploy.staticServer;
 const RE_IS_CSS = /\.css$/;
 const RE_IS_JS = /\.js$/;
 const RE_FIRST_BODY_SCRIPT = /<body>([\s\S\n\r]*?)(<script[\s>])/;
+const RE_FIRST_HEAD_SCRIPT = /<head>([\s\S\n\r]*?)(<script[\s>])/;
 const RE_LAST_IN_HEAD = /<\/head>/;
 const RE_TITLE = /<title>[\s\S\n\r]*?<\/title>/;
 const RE_AFTER_TITLE = /<\/title>/;
@@ -135,6 +136,7 @@ function injectSsrHtml(
     logger.error('[WEBCUBE] Failed to inject HTML string');
     logger.error(ex);
   }
+  const hasScriptInHead = RE_FIRST_HEAD_SCRIPT.test(entryHtml);
   try {
     const cssBundles = bundles.filter(bundle =>
       RE_IS_CSS.test(bundle.publicPath)
@@ -158,9 +160,9 @@ function injectSsrHtml(
       // It is important that the bundles are included before the main bundle, so that they can be loaded by the browser prior to the app rendering.
       // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
       entryHtml = entryHtml.replace(
-        RE_FIRST_BODY_SCRIPT,
+        hasScriptInHead ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
         ($0, $1, $2) =>
-          `<body>${$1}${jsBundles
+          `${hasScriptInHead ? '<head>' : '<body>'}${$1}${jsBundles
             .map(bundle => `<script src=${bundle.publicPath}></script>`)
             .join('')}${$2}`
       );
@@ -175,8 +177,9 @@ function injectSsrHtml(
         store.getState()
       )}</script>`;
       entryHtml = entryHtml.replace(
-        RE_FIRST_BODY_SCRIPT,
-        ($0, $1, $2) => `<body>${$1}${initialStateTag}${$2}`
+        hasScriptInHead ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
+        ($0, $1, $2) =>
+          `${hasScriptInHead ? '<head>' : '<body>'}${$1}${initialStateTag}${$2}`
       );
     }
   } catch (ex) {
@@ -260,6 +263,7 @@ async function ssrRender({ Entry, entry, url, appState }) {
     await new Promise(resolve => {
       reportResult.loaders.forEach(
         ({
+          propsMemories,
           loader,
           isLoaded,
           mapStateToPropsQueue,
@@ -268,7 +272,10 @@ async function ssrRender({ Entry, entry, url, appState }) {
         }) => {
           function getProps() {
             const state = reportResult.store.getState();
-            const loadedProps = {};
+            const loadedProps = Object.assign(
+              {},
+              propsMemories[propsMemories.length - 1]
+            );
             mapStateToPropsQueue.forEach(mapStateToProps => {
               Object.assign(loadedProps, mapStateToProps(state));
             });

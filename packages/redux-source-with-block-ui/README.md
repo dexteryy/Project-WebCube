@@ -39,6 +39,7 @@ For [redux-source's example](https://github.com/dexteryy/Project-WebCube/tree/ma
 import { connect } from 'react-redux';
 import connectSource from 'redux-source-connect';
 import withBlockUi from 'redux-source-with-block-ui';
+import 'react-block-ui/style.css';
 import { Loader } from 'react-loaders';
 import 'loaders.css/src/animations/line-scale.scss';
 
@@ -66,6 +67,7 @@ Or you can create a custom wrapper:
 // shopManageApp/hoc/withBlockUi.js
 import React from 'react';
 import originWithBlockUi from 'redux-source-with-block-ui';
+import 'react-block-ui/style.css';
 import { Loader } from 'react-loaders';
 import 'loaders.css/src/animations/line-scale.scss';
 

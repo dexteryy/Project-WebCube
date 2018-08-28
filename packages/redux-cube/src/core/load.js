@@ -1,6 +1,8 @@
 import { Component, createElement } from 'react';
 import { createHoc } from 'react-common-kit';
 
+const isSsrEnv = typeof location !== 'object';
+
 export default function load({ loader, isLoaded }) {
   return createHoc(
     OriginComponent =>
@@ -12,9 +14,11 @@ export default function load({ loader, isLoaded }) {
         }
 
         render() {
-          const { ...passThroughProps } = this.props;
+          if (isSsrEnv) {
+            loader(this.props);
+          }
           return createElement(OriginComponent, {
-            ...passThroughProps,
+            ...this.props,
           });
         }
       },

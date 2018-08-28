@@ -4,6 +4,8 @@ import createApp from './createApp';
 import connect from './connect';
 import load from './load';
 
+const isSsrEnv = typeof location !== 'object';
+
 class Cube {
   reducers = {};
 
@@ -42,11 +44,24 @@ class Cube {
     ...opt
   }) {
     return component => {
-      let result = loader ? load({ loader, isLoaded })(component) : component;
+      const propsMemories = [];
+      let result = loader
+        ? load({
+            loader: props => {
+              if (isSsrEnv) {
+                return propsMemories.push(props);
+              } else {
+                return loader(props);
+              }
+            },
+            isLoaded,
+          })(component)
+        : component;
       const mapStateToPropsQueue = [];
       const mapDispatchToPropsQueue = [];
       if (loader) {
         this.loaders.push({
+          propsMemories,
           loader,
           isLoaded,
           mapStateToPropsQueue,

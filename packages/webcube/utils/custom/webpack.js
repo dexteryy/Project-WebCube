@@ -76,5 +76,6 @@ union(['NODE_ENV'], custom.webpack.exposedEnv).forEach(name => {
   webpack.exposedEnv[name] = JSON.stringify(process.env[name]);
 });
 webpack.exposedEnv.DEPLOY_MODE = JSON.stringify(deploy.mode);
+webpack.exposedEnv.REACT_SPINKIT_NO_STYLES = JSON.stringify(true);
 
 module.exports = webpack;

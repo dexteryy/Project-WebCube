@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BlockUi from 'react-block-ui';
 import { createHoc } from 'react-common-kit';
-import 'react-block-ui/style.css';
 
 export default function withBlockUi(config = {}) {
   const {
