@@ -28,7 +28,7 @@ git clone git@github.com:dexteryy/Project-WebCube.git ./a-mono-repo
 
 ```bash
 cd ./a-mono-repo
-npm run update
+npm run setup
 ```
 
 ```bash

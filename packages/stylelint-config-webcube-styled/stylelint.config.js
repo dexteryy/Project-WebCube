@@ -28,15 +28,6 @@ module.exports = {
       'custom-properties', // Custom properties (e. g., --property: 10px;)
       'dollar-variables', // Dollar variables (e. g., $variable)
       'at-variables', // At-variables (e. g., @variable available in Less syntax)
-      {
-        type: 'at-rule',
-        name: 'include',
-      },
-      'less-mixins', // Mixins in Less syntax (e. g., .mixin();)
-      {
-        type: 'rule',
-        selector: /^composes$/,
-      },
       'declarations', // CSS declarations (e. g., display: block)
       'rules', // Nested rules (e. g., a { span {} })
       'at-rules', // Nested at-rules (e. g., div { @media () {} })

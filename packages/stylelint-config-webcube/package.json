@@ -32,7 +32,8 @@
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^1.0.0",
-    "stylelint-prettier": "^0.2.2"
+    "stylelint-prettier": "^0.2.2",
+    "stylelint-scss": "^3.3.0"
   },
   "devDependencies": {
     "stylelint": "^9.5.0",

@@ -30,7 +30,7 @@ js.babel = merge(
     disableTypeScript: false,
     // http://2ality.com/2015/12/babel6-loose-mode.html
     enableLooseMode: false,
-    // https://babeljs.io/docs/en/next/babel-preset-env.html#shippedproposals
+    // https://babeljs.io/docs/en/babel-preset-env.html#shippedproposals
     enableShippedProposals: false,
   },
   custom.js.babel,

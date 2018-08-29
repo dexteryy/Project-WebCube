@@ -25,7 +25,7 @@ RUN mkdir -p /ebsa/service \
 # RUN ln -s /tmp/service/node_modules
 # for yarn
 ADD package.json yarn.lock /tmp/service/
-RUN cd /tmp/service && npm run update
+RUN cd /tmp/service && npm run setup
 WORKDIR /ebsa/service
 RUN ln -s /tmp/service/node_modules
 

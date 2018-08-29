@@ -13,7 +13,7 @@ More Examples:
 
 ```
 cd ../../
-npm run update
+npm run setup
 ```
 
 ## Develeopment

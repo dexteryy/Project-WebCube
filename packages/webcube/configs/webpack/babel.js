@@ -12,16 +12,16 @@ const { babel } = js;
 // https://github.com/babel/babel-loader
 // https://babeljs.io/blog/2017/09/12/planning-for-7.0
 // https://babeljs.io/blog/2017/12/27/nearing-the-7.0-release
-// https://babeljs.io/docs/en/next/v7-migration
+// https://babeljs.io/docs/en/v7-migration
 module.exports = ({ isSsrBuild }) => ({
   presets: [
-    // https://babeljs.io/docs/en/next/babel-preset-env.html
+    // https://babeljs.io/docs/en/babel-preset-env.html
     [
       // monorepo bug, must use `require('fast-async')`
       require('@babel/preset-env'),
       {
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#browserslist-support
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#targets
+        // https://babeljs.io/docs/en/babel-preset-env.html#browserslist-support
+        // https://babeljs.io/docs/en/babel-preset-env.html#targets
         targets: isSsrBuild
           ? {
               node: 'current',
@@ -29,29 +29,29 @@ module.exports = ({ isSsrBuild }) => ({
           : {
               browsers: browserslist,
             },
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#spec
+        // https://babeljs.io/docs/en/babel-preset-env.html#spec
         spec: false,
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#loose
+        // https://babeljs.io/docs/en/babel-preset-env.html#loose
         loose: babel.enableLooseMode,
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#modules
+        // https://babeljs.io/docs/en/babel-preset-env.html#modules
         // https://webpack.js.org/migrate/3/#mixing-es2015-with-amd-and-commonjs
         modules: false,
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#debug
+        // https://babeljs.io/docs/en/babel-preset-env.html#debug
         debug: false,
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#include
+        // https://babeljs.io/docs/en/babel-preset-env.html#include
         include: [],
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#exclude
+        // https://babeljs.io/docs/en/babel-preset-env.html#exclude
         exclude: [
           // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-async-to-generator
           'transform-regenerator',
           'transform-async-to-generator',
         ].concat(babel.excludePlugins),
         // https://babeljs.io/blog/2017/12/27/nearing-the-7.0-release#preset-env-usebuiltins-usage
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#usebuiltins
+        // https://babeljs.io/docs/en/babel-preset-env.html#usebuiltins
         useBuiltIns: 'usage',
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#forcealltransforms
+        // https://babeljs.io/docs/en/babel-preset-env.html#forcealltransforms
         forceAllTransforms: output.enableUglify,
-        // https://babeljs.io/docs/en/next/babel-preset-env.html#shippedproposals
+        // https://babeljs.io/docs/en/babel-preset-env.html#shippedproposals
         shippedProposals: babel.enableShippedProposals,
       },
     ],
@@ -93,7 +93,7 @@ module.exports = ({ isSsrBuild }) => ({
     // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
     // https://github.com/jamiebuilds/react-loadable#babel-plugin
     require('react-loadable/babel'),
-    // https://babeljs.io/docs/en/next/babel-plugin-proposal-decorators.html#legacy
+    // https://babeljs.io/docs/en/babel-plugin-proposal-decorators.html#legacy
     [
       require('@babel/plugin-proposal-decorators'),
       {
@@ -105,8 +105,8 @@ module.exports = ({ isSsrBuild }) => ({
     [
       require('@babel/plugin-proposal-class-properties'),
       {
-        // https://babeljs.io/docs/en/next/babel-plugin-proposal-class-properties.html#loose
-        // https://babeljs.io/docs/en/next/babel-plugin-proposal-decorators.html#note-compatibility-with-babel-plugin-proposal-class-properties
+        // https://babeljs.io/docs/en/babel-plugin-proposal-class-properties.html#loose
+        // https://babeljs.io/docs/en/babel-plugin-proposal-decorators.html#note-compatibility-with-babel-plugin-proposal-class-properties
         loose: babel.enableLegacyDecorators,
       },
     ],
@@ -116,9 +116,9 @@ module.exports = ({ isSsrBuild }) => ({
       : []),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-function-bind
     require('@babel/plugin-proposal-function-bind'),
-    // https://babeljs.io/docs/en/next/babel-plugin-proposal-export-default-from.html
+    // https://babeljs.io/docs/en/babel-plugin-proposal-export-default-from.html
     require('@babel/plugin-proposal-export-default-from'),
-    // https://babeljs.io/docs/en/next/babel-plugin-proposal-export-namespace-from.html
+    // https://babeljs.io/docs/en/babel-plugin-proposal-export-namespace-from.html
     require('@babel/plugin-proposal-export-namespace-from'),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-optional-chaining
     require('@babel/plugin-proposal-optional-chaining'),
@@ -126,7 +126,7 @@ module.exports = ({ isSsrBuild }) => ({
     require('@babel/plugin-proposal-optional-catch-binding'),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-numeric-separator
     require('@babel/plugin-proposal-numeric-separator'),
-    // https://babeljs.io/docs/en/next/babel-plugin-proposal-pipeline-operator.html
+    // https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator.html
     // https://docs.google.com/presentation/d/1eFFRK1wLIazIuK0F6fY974OIDvvWXS890XAMB59PUBA/edit#slide=id.p
     [
       require('@babel/plugin-proposal-pipeline-operator'),
