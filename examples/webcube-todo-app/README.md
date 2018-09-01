@@ -39,13 +39,13 @@ npm run dev
 or
 
 ```bash
-npm run deploy:local
+npm run build && npm run serve
 ```
 
 or
 
 ```bash
-NODE_ENV=production npm run deploy:local
+NODE_ENV=production npm run build && npm run serve
 ```
 
 View

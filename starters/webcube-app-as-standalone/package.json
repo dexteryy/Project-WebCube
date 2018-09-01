@@ -5,7 +5,13 @@
     "update": "create-cube update && echo 7.0 > .project-version",
     "upgrade": "create-cube update -c && echo 7.0 > .project-version",
     "lint": "create-cube lint",
-    "lint:error": "create-cube lint --quiet"
+    "lint:error": "create-cube lint --quiet",
+    "test": "create-cube test",
+    "dev": "DEPLOY_MODE=static create-cube dev",
+    "build": "node --max-old-space-size=4096 node_modules/.bin/create-cube build -a",
+    "clean": "create-cube build --only-clean",
+    "serve": "create-cube serve",
+    "deploy": "create-cube deploy"
   },
   "engines": {
     "node": ">=8.6.0"

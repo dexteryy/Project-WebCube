@@ -24,30 +24,20 @@ npm run dev
 
 ## Running
 
-In local env:
-
 ```
-npm run deploy:local
+npm run build && npm run serve
 ```
 
 or
 
 ```
-npm run build
-npm run serve
+NODE_ENV=production npm run build && npm run serve
 ```
 
 Clean cache:
 
 ```
 npm run clean
-```
-
-In production env:
-
-```
-NODE_ENV=production npm run build
-HOST=mydomain.com PORT=80 npm run serve
 ```
 
 View

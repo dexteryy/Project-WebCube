@@ -157,8 +157,23 @@ export default function createSource({
         dispatch({
           type: PENDING_TYPE,
         });
-        execute(executableSchema, gqlAst, null, {}, args, name.value).then(
-          result => {
+        const executedGql = execute(
+          executableSchema,
+          gqlAst,
+          null,
+          {},
+          args,
+          name.value,
+        );
+        if (executedGql.errors) {
+          dispatch({
+            type: ERROR_TYPE,
+            payload: executedGql.errors,
+          });
+          return;
+        }
+        executedGql
+          .then(result => {
             if (result.errors && result.errors.length) {
               return dispatch({
                 type: ERROR_TYPE,
@@ -171,8 +186,13 @@ export default function createSource({
                 ? normalize(result.data, normalizeSchema)
                 : null,
             });
-          },
-        );
+          })
+          .catch(err =>
+            dispatch({
+              type: ERROR_TYPE,
+              payload: [err],
+            }),
+          );
       };
       actions[TYPE] = actionCreator;
       reducerMap[PENDING_TYPE] = pendingReducer({

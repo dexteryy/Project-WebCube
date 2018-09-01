@@ -42,7 +42,7 @@ module.exports = {
       'at-rules', // Nested at-rules (e. g., div { @media () {} })
     ],
     // // https://github.com/hudochenkov/stylelint-order/blob/master/rules/properties-alphabetical-order/README.md
-    'order/properties-alphabetical-order': false,
+    'order/properties-alphabetical-order': null,
     // https://github.com/BPScott/stylelint-prettier
     'prettier/prettier': [
       true,

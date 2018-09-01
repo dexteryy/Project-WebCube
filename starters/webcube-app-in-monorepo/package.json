@@ -4,12 +4,10 @@
     "precommit:custom": "create-cube test",
     "test": "create-cube test",
     "dev": "DEPLOY_MODE=static create-cube dev",
-    "build": "create-cube build -a",
+    "build": "node --max-old-space-size=4096 node_modules/.bin/create-cube build -a",
     "clean": "create-cube build --only-clean",
     "serve": "create-cube serve",
-    "deploy:local": "npm run build && npm run serve",
-    "deploy:staging": "NODE_ENV=production DEPLOY_ENV=staging npm run build -a -c && create-cube deploy",
-    "deploy:production": "NODE_ENV=production DEPLOY_ENV=production npm run build -a -c && create-cube deploy"
+    "deploy": "create-cube deploy"
   },
   "engines": {
     "node": ">=8.6.0"

@@ -59,11 +59,11 @@ module.exports = {
   output: {
     filename:
       isProductionEnv && !getOutputConfig().disableCache
-        ? `${getOutputConfig().jsRoot}/[name]_[chunkhash].js`
+        ? `${getOutputConfig().jsRoot}/[name]_[contenthash].js`
         : `${getOutputConfig().jsRoot}/[name].js`,
     chunkFilename:
       isProductionEnv && !getOutputConfig().disableCache
-        ? `${getOutputConfig().jsRoot}/[name]_[chunkhash].js`
+        ? `${getOutputConfig().jsRoot}/[name]_[contenthash].js`
         : `${getOutputConfig().jsRoot}/[name].js`,
     path: output.staticRoot,
     // https://webpack.js.org/configuration/output/#output-publicpath
@@ -164,6 +164,12 @@ module.exports = {
     }),
     // https://www.npmjs.com/package/lodash-webpack-plugin#feature-sets
     // new LodashModuleReplacementPlugin(),
+    // https://github.com/erm0l0v/webpack-md5-hash/issues/19
+    // https://www.npmjs.com/package/webpack-chunk-hash
+    // https://codeburst.io/avoid-using-webpack-md5-hash-when-using-long-term-caching-f460a6f03551
+    // ...(!output.disableMd5Hash
+    //   ? [new WebpackChunkHash({ algorithm: 'md5' })]
+    //   : []),
     // https://github.com/webpack-contrib/extract-text-webpack-plugin#usage
     // https://www.npmjs.com/package/mini-css-extract-plugin
     ...(!output.disableCssExtract
@@ -171,11 +177,11 @@ module.exports = {
           new MiniCssExtractPlugin({
             filename:
               isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[chunkhash].css`
+                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
                 : `${getOutputConfig().cssRoot}/[name].css`,
             chunkFilename:
               isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[chunkhash].css`
+                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
                 : `${getOutputConfig().cssRoot}/[name].css`,
           }),
         ]

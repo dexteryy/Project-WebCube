@@ -295,7 +295,12 @@ async function ssrRender({ Entry, entry, url, appState }) {
               resolve();
             }
           });
-          loader(getProps());
+          if (false === loader(getProps())) {
+            loadCount--;
+            if (loadCount <= 0) {
+              resolve();
+            }
+          }
         }
       );
     });

@@ -73,11 +73,11 @@ module.exports = {
           new MiniCssExtractPlugin({
             filename:
               isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[chunkhash].css`
+                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
                 : `${getOutputConfig().cssRoot}/[name].css`,
             chunkFilename:
               isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[chunkhash].css`
+                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
                 : `${getOutputConfig().cssRoot}/[name].css`,
           }),
         ]

@@ -4,6 +4,7 @@ import { createHoc } from 'react-common-kit';
 export default function withNotify(config = {}) {
   const {
     trigger: Trigger,
+    triggerProps = {},
     onSuccess,
     onError,
     sourceStateName = 'source',
@@ -63,8 +64,8 @@ export default function withNotify(config = {}) {
           const { ...passThroughProps } = this.props;
           return (
             <div>
+              {Trigger && <Trigger ref={this.trigger} {...triggerProps} />}
               <TargetComponent {...passThroughProps} />
-              {Trigger && <Trigger ref={this.trigger} />}
             </div>
           );
         }

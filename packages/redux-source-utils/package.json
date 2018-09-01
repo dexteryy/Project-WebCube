@@ -1,6 +1,6 @@
 {
   "name": "redux-source-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "redux-source-utils's common code",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -14,6 +14,10 @@
   "module": "es6/index.js",
   "main": "dist/index.js",
   "sideEffects": false,
+  "files": [
+    "dist/**/*",
+    "es6/**/*"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "build": "npm run clear && npm run build:dist && npm run build:es6",
