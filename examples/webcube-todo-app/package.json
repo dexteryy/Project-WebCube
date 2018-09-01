@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webcube-todo-app",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "scripts": {
     "precommit:custom": "create-cube test",
     "test": "create-cube test",
@@ -28,13 +28,13 @@
     "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
-    "react-with-scripts": "^1.0.4",
-    "redux-cube": "^1.1.0",
-    "redux-cube-with-persist": "^1.1.0",
-    "redux-cube-with-router": "^1.1.0",
+    "react-with-scripts": "^1.0.5",
+    "redux-cube": "^1.1.4",
+    "redux-cube-with-persist": "^1.1.1",
+    "redux-cube-with-router": "^1.1.1",
     "todomvc-app-css": "^2.1.2",
     "todomvc-common": "^1.0.5",
     "uuid": "^3.3.2",
-    "webcube": "^2.0.0-beta.4"
+    "webcube": "^2.0.0-beta.8"
   }
 }
