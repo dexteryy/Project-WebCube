@@ -1,6 +1,6 @@
 {
   "name": "react-with-scripts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Add third party script tags, JS SDK and tracking code without modifying any HTML code",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -31,7 +31,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
-    "react-common-kit": "^1.1.2"
+    "react-common-kit": "^1.1.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
