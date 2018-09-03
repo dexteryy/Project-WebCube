@@ -6,7 +6,7 @@
     "precommit:custom": "create-cube test",
     "test": "create-cube test",
     "dev": "DEPLOY_MODE=static create-cube dev",
-    "build": "node --max-old-space-size=4096 node_modules/.bin/create-cube build -a",
+    "build": "node --max-old-space-size=8192 node_modules/.bin/create-cube build -a",
     "clean": "create-cube build --only-clean",
     "serve": "create-cube serve",
     "deploy": "create-cube deploy"
@@ -17,6 +17,14 @@
   "webcube": {
     "dev": {
       "port": 8012
+    },
+    "deploy": {
+      "production": {
+        "staticRoot": "https://app.cubemage.cn/static/",
+        "staticCloud": "oss",
+        "staticCloudEndpoint": "oss-cn-hangzhou.aliyuncs.com",
+        "staticCloudUrl": "oss://yy-static-web-app"
+      }
     }
   },
   "dependencies": {

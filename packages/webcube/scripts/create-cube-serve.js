@@ -5,7 +5,6 @@ const { dev, deploy } = require('../utils/custom');
 
 program.parse(process.argv);
 
-const HOST = process.env.HOST || dev.host;
 const PORT = process.env.PORT || dev.port;
 
 if (deploy.mode !== 'static' && deploy.mode !== 'ssr') {
@@ -17,7 +16,7 @@ function startServer() {
   (deploy.mode === 'ssr'
     ? require('../server/ssrServer')
     : require('../server/staticServer')
-  ).listen(PORT, HOST, err => {
+  ).listen(PORT, err => {
     if (err) {
       console.error(err);
       logger.fail();
@@ -25,7 +24,7 @@ function startServer() {
     logger.success(
       `Running successfully in ${
         deploy.mode === 'ssr' ? 'server-side rendering' : 'static server'
-      } mode. Listening at http://${HOST}:${PORT}`
+      } mode. Listening at http://localhost:${PORT}`
     );
   });
 }

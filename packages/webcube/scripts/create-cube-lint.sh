@@ -1,7 +1,8 @@
 #!/bin/bash
+set -e
 
 echo 'Lint js...'
-npx eslint --fix --color --ext .js,.jsx,.ts,.tsx,.mjs,.mjsx,.es6 $* .
+npx eslint --fix --color --ext .js,.jsx,.ts,.tsx,.mjs,.mjsx,.es6 .
 
 echo 'Lint styled-components...'
 npx stylelint "**/*.js"

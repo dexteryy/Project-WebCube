@@ -261,6 +261,10 @@ async function ssrRender({ Entry, entry, url, appState }) {
   if (!appState && reportResult.loaders && reportResult.loaders.length) {
     let loadCount = reportResult.loaders.length;
     await new Promise(resolve => {
+      const timer = setTimeout(() => {
+        loadCount = 0;
+        resolve();
+      }, deploy.ssrServer.dataLoaderTimeout);
       reportResult.loaders.forEach(
         ({
           propsMemories,
@@ -290,15 +294,17 @@ async function ssrRender({ Entry, entry, url, appState }) {
           reportResult.store.subscribe(() => {
             if (isLoaded(getProps())) {
               loadCount--;
-            }
-            if (loadCount <= 0) {
-              resolve();
+              if (loadCount === 0) {
+                resolve();
+                clearTimeout(timer);
+              }
             }
           });
           if (false === loader(getProps())) {
             loadCount--;
-            if (loadCount <= 0) {
+            if (loadCount === 0) {
               resolve();
+              clearTimeout(timer);
             }
           }
         }

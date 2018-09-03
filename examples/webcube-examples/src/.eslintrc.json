@@ -7,7 +7,9 @@
     "browser": true,
     "node": false
   },
-  "rules": {},
+  "rules": {
+    "no-console": 0
+  },
   "globals": {
     "process": true
   }

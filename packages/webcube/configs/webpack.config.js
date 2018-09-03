@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { pathExistsSync } = require('fs-extra');
 const escapeStringRegexp = require('escape-string-regexp');
 // Webpack plugins
@@ -197,6 +198,16 @@ module.exports = {
         'staticweb',
         `${entry}/index.hbs`
       );
+      const customHeadHtml = path.join(
+        configRoot,
+        'staticweb',
+        `${entry}/head.hbs`
+      );
+      const customBodyHtml = path.join(
+        configRoot,
+        'staticweb',
+        `${entry}/body.hbs`
+      );
       return new HtmlWebpackPlugin({
         filename: path.join(output.htmlRoot, entry, 'index.html'),
         inject: output.enableBodyInject ? 'body' : 'head',
@@ -214,6 +225,10 @@ module.exports = {
         template: pathExistsSync(customTemplate)
           ? customTemplate
           : path.join(webcubePath, 'configs/template.hbs'),
+        headHtml:
+          pathExistsSync(customHeadHtml) && fs.readFileSync(customHeadHtml),
+        bodyHtml:
+          pathExistsSync(customBodyHtml) && fs.readFileSync(customBodyHtml),
         appMountIds: output.appMountIds,
         appMountId: entryNameToId(entry),
       });

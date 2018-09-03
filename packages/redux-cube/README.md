@@ -60,7 +60,6 @@ Coming soon!
 
 * [webcube-todo-app](../examples/webcube-todo-app)
 * [webcube-examples](../examples/webcube-examples)
-* [webcube-rough-example](../examples/webcube-rough-example)
 
 ----------------
 
@@ -230,7 +229,7 @@ For common needs:
 
 For API-related needs:
 
-* [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/examples/package/redux-source)
+* [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source)
 
 For complex needs:
 
@@ -331,7 +330,7 @@ export const { reducer, actions, types, typeDict } = hub.handle(
 
 How to use redux-cube with [redux-source](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-source):
 
-See [webcube-rough-example](../examples/webcube-rough-example) and [webcube-examples](../examples/webcube-examples)
+See [webcube-examples](../examples/webcube-examples)
 
 #### Ducks Modular / Reducer Bundle
 

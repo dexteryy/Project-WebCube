@@ -22,7 +22,6 @@ program
 
 ensureDirSync(path.join(output.buildRoot, 'manifest'));
 
-const HOST = process.env.HOST || dev.host;
 const PORT = process.env.PORT || dev.port;
 
 const newWebpackConfig = Object.assign({}, webpackConfig);
@@ -37,11 +36,10 @@ serve(
     // open: true,
   },
   {
-    host: HOST,
     port: PORT,
     config: newWebpackConfig,
     content: [output.htmlRoot, output.staticRoot],
-    clipboard: true,
+    clipboard: false,
     // https://github.com/webpack/webpack-dev-middleware#options
     devMiddleware: {
       stats: getWebpackStats({

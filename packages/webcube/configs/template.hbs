@@ -20,6 +20,9 @@
 <meta name="format-detection" content="telephone=no">
 <title>Loading...</title>
 {{!-- https://github.com/joshbuchea/HEAD/#meta --}}
+{{#if htmlWebpackPlugin.options.headHtml}}
+  {{{htmlWebpackPlugin.options.headHtml}}}
+{{/if}}
 </head>
 <body>
 {{#if htmlWebpackPlugin.options.unsupportedBrowser}}
@@ -51,6 +54,10 @@
 {{else}}
   <div id="{{htmlWebpackPlugin.options.appMountId}}"></div>
 {{/each}}
+
+{{#if htmlWebpackPlugin.options.bodyHtml}}
+  {{{htmlWebpackPlugin.options.bodyHtml}}}
+{{/if}}
 
 </body>
 </html>

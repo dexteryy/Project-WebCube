@@ -1,6 +1,8 @@
 
 FROM node:10.9
 
+ARG MONOREPO_APP_PATH
+ARG MONOREPO_PACKAGES_PATH
 ARG ENABLE_CHINA_MIRROR
 
 # for unbuntu
@@ -8,7 +10,9 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 WORKDIR /usr/src/app
-COPY package.json yarn.lock .yarnrc ./
+COPY package.json yarn.lock .yarnrc lerna.json ./
+COPY ${MONOREPO_APP_PATH}/package.json ${MONOREPO_APP_PATH}/
+COPY ${MONOREPO_PACKAGES_PATH} ${MONOREPO_PACKAGES_PATH}/
 
 RUN set -ex; \
     if [ "$ENABLE_CHINA_MIRROR" = "true" ]; then \
@@ -27,6 +31,8 @@ RUN set -ex; \
 RUN yarn install --no-cache --pure-lockfile
 
 COPY . .
+
+WORKDIR /usr/src/app/${MONOREPO_APP_PATH}
 
 EXPOSE 80
 CMD ["npm", "run", "serve"]

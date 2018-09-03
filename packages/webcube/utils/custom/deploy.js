@@ -148,7 +148,12 @@ if (!custom.deploy.ssrServer) {
   custom.deploy.ssrServer = {};
 }
 
-deploy.ssrServer = merge({}, custom.deploy.ssrServer);
+deploy.ssrServer = merge(
+  {
+    dataLoaderTimeout: 6000,
+  },
+  custom.deploy.ssrServer
+);
 
 const warmUpUrls = { [projectName]: [] };
 (custom.deploy.ssrServer.warmUpUrls || [])

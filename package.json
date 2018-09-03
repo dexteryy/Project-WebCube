@@ -16,8 +16,13 @@
   },
   "lint-staged": {
     "linters": {
-      "*": [
-        "npm run lint:error --",
+      "*.{js,jsx,ts,tsx,mjs,mjsx,es6}": [
+        "eslint --fix --color",
+        "stylelint",
+        "git add"
+      ],
+      "*.{css,scss,less}": [
+        "stylelint --fix",
         "git add"
       ]
     },

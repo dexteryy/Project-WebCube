@@ -1,35 +1,32 @@
 
-FROM node:10.8
+FROM node:10.9
+
+ARG ENABLE_CHINA_MIRROR
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
+WORKDIR /usr/src/app
+COPY package.json yarn.lock .yarnrc ./
 
+RUN set -ex; \
+    if [ "$ENABLE_CHINA_MIRROR" = "true" ]; then \
+        npm set registry https://registry.npm.taobao.org; \
+        npm set disturl https://npm.taobao.org/dist; \
+        npm set sass_binary_site https://npm.taobao.org/mirrors/node-sass; \
+        npm set electron_mirror https://npm.taobao.org/mirrors/electron/; \
+        npm set puppeteer_download_host https://npm.taobao.org/mirrors; \
+        npm set chromedriver_cdnurl https://npm.taobao.org/mirrors/chromedriver; \
+        npm set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs; \
+        npm set selenium_cdnurl https://npm.taobao.org/mirrors/selenium; \
+        npm set node_inspector_cdnurl https://npm.taobao.org/mirrors/node-inspector; \
+        yarn config set registry https://registry.npm.taobao.org; \
+    fi;
 
+RUN yarn install --no-cache --pure-lockfile
 
-
-
-
-
-
-RUN mkdir -p /ebsa/service \
-  && mkdir -p /tmp/service \
-  && mkdir -p /int/www \
-  && touch /int/www/stats.html
-
-# for npm install
-# ADD package.json /tmp/service/
-# RUN cd /tmp/service && NODE_ENV=development npm install
-# WORKDIR /ebsa/service
-# RUN ln -s /tmp/service/node_modules
-# for yarn
-ADD package.json yarn.lock /tmp/service/
-RUN cd /tmp/service && npm run setup
-WORKDIR /ebsa/service
-RUN ln -s /tmp/service/node_modules
-
-COPY . /ebsa/service
+COPY . .
 
 EXPOSE 80
-CMD ["npm", "run", "deploy:local"]
+CMD ["npm", "run", "serve"]

@@ -29,7 +29,6 @@ npm install --save react-with-scripts
 
 * [webcube-todo-app](../examples/webcube-todo-app)
 * [webcube-examples](../examples/webcube-examples)
-* [webcube-rough-example](../examples/webcube-rough-example)
 
 ## Get Started
 

@@ -8,7 +8,7 @@
     "lint:error": "create-cube lint --quiet",
     "test": "create-cube test",
     "dev": "DEPLOY_MODE=static create-cube dev",
-    "build": "node --max-old-space-size=4096 node_modules/.bin/create-cube build -a",
+    "build": "node --max-old-space-size=8192 node_modules/.bin/create-cube build -a",
     "clean": "create-cube build --only-clean",
     "serve": "create-cube serve",
     "deploy": "create-cube deploy"
@@ -17,10 +17,18 @@
     "node": ">=8.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,mjsx,es6,css,scss,less}": [
-      "npm run lint:error --",
-      "git add"
-    ]
+    "linters": {
+      "*.{js,jsx,ts,tsx,mjs,mjsx,es6}": [
+        "eslint --fix --color",
+        "stylelint",
+        "git add"
+      ],
+      "*.{css,scss,less}": [
+        "stylelint --fix",
+        "git add"
+      ]
+    },
+    "ignore": []
   },
   "config": {
     "commitizen": {

@@ -35,4 +35,3 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 
 * [webcube-todo-app](../examples/webcube-todo-app)
 * [webcube-examples](../examples/webcube-examples)
-* [webcube-rough-example](../examples/webcube-rough-example)
