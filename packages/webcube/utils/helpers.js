@@ -1,3 +1,4 @@
+const { spawn } = require('child_process');
 const Combinatorics = require('js-combinatorics');
 const { entryNameToId } = require('./custom/base');
 const { mode, output, deploy } = require('./custom');
@@ -72,3 +73,19 @@ exports.getWebpackStats = opt =>
   );
 
 exports.entryNameToId = entryNameToId;
+
+exports.runCmd = function runCmd(cmd) {
+  return new Promise(resolve => {
+    logger.info(cmd);
+    const child = spawn(cmd, {
+      stdio: 'inherit',
+      shell: true,
+    });
+    child.on('exit', code => {
+      if (code) {
+        process.exit(code);
+      }
+      resolve();
+    });
+  });
+};

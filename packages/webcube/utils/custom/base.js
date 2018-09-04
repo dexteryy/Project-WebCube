@@ -22,6 +22,9 @@ const isProductionEnv = process.env.NODE_ENV === 'production';
 const webcubePath = custom.webcubePath
   ? path.resolve(projectPath, custom.webcubePath)
   : path.join(__dirname, '../../');
+const rootPath = custom.rootPath
+  ? path.join(projectPath, custom.rootPath)
+  : path.join(webcubePath, '../../');
 const srcRoot = path.join(projectPath, custom.srcRoot || 'src');
 const configRoot = path.join(projectPath, custom.configRoot || 'config');
 let entryFileName = ['index.js', 'index.ts'];
@@ -54,6 +57,7 @@ const config = {
   projectName,
   projectPath,
   webcubePath,
+  rootPath,
   srcRoot,
   configRoot,
   entryFileName,

@@ -124,7 +124,7 @@ const mainEntry = Object.keys(entries).find(entry => entry === projectName);
 
 function injectSsrHtml(
   originHtml,
-  { entry, html, bundles, styleTags, helmet, store }
+  { entry, html, bundles, styleTags, helmet, store, requestId }
 ) {
   let entryHtml;
   try {
@@ -133,7 +133,7 @@ function injectSsrHtml(
       `<div id="${entryNameToId(entry)}">${html}</div>`
     );
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to inject HTML string');
+    logger.error(`[WEBCUBE] [${requestId}] Failed to inject HTML string`);
     logger.error(ex);
   }
   const hasScriptInHead = RE_FIRST_HEAD_SCRIPT.test(entryHtml);
@@ -168,7 +168,7 @@ function injectSsrHtml(
       );
     }
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to inject loadable bundles');
+    logger.error(`[WEBCUBE] [${requestId}] Failed to inject loadable bundles`);
     logger.error(ex);
   }
   try {
@@ -183,7 +183,7 @@ function injectSsrHtml(
       );
     }
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to inject inistal state tag');
+    logger.error(`[WEBCUBE] [${requestId}] Failed to inject inistal state tag`);
     logger.error(ex);
   }
   try {
@@ -191,7 +191,9 @@ function injectSsrHtml(
       entryHtml = entryHtml.replace(RE_LAST_IN_HEAD, `${styleTags}</head>`);
     }
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to inject styled-component tag');
+    logger.error(
+      `[WEBCUBE] [${requestId}] Failed to inject styled-component tag`
+    );
     logger.error(ex);
   }
   try {
@@ -213,13 +215,14 @@ function injectSsrHtml(
       .replace(RE_HTML_ATTR, `<html ${helmet.htmlAttributes.toString()}>`)
       .replace(RE_BODY_ATTR, `<body ${helmet.bodyAttributes.toString()}>`);
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to inject helmet tag');
+    logger.error(`[WEBCUBE] [${requestId}] Failed to inject helmet tag`);
     logger.error(ex);
   }
   return entryHtml;
 }
 
-async function ssrRender({ Entry, entry, url, appState }) {
+async function ssrRender({ Entry, entry, url, appState, requestId }) {
+  const baseUrl = entry === mainEntry ? '' : `/${entry}`;
   const context = {};
   // https://www.styled-components.com/docs/advanced#server-side-rendering
   const sheet = new ServerStyleSheet();
@@ -245,7 +248,7 @@ async function ssrRender({ Entry, entry, url, appState }) {
             routerContext: context,
             currentUrl: url,
             // https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-set-router-props-eg-basename-initialentries-etc
-            baseUrl: entry === mainEntry ? '' : `/${entry}`,
+            baseUrl,
             reportAppState: result => {
               Object.assign(reportResult, result);
             },
@@ -255,14 +258,19 @@ async function ssrRender({ Entry, entry, url, appState }) {
       )
     );
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to render to string. Error: ');
+    logger.error(
+      `[WEBCUBE] [${requestId}] Failed to render to string. Error: `
+    );
     logger.error(ex);
   }
   if (!appState && reportResult.loaders && reportResult.loaders.length) {
     let loadCount = reportResult.loaders.length;
     await new Promise(resolve => {
+      const { store } = reportResult;
       const timer = setTimeout(() => {
         loadCount = 0;
+        reportResult.store = null;
+        logger.warn(`[WEBCUBE] [${requestId}] Data loader timeout ${baseUrl}`);
         resolve();
       }, deploy.ssrServer.dataLoaderTimeout);
       reportResult.loaders.forEach(
@@ -275,7 +283,7 @@ async function ssrRender({ Entry, entry, url, appState }) {
           actions,
         }) => {
           function getProps() {
-            const state = reportResult.store.getState();
+            const state = store.getState();
             const loadedProps = Object.assign(
               {},
               propsMemories[propsMemories.length - 1]
@@ -286,31 +294,37 @@ async function ssrRender({ Entry, entry, url, appState }) {
             mapDispatchToPropsQueue.forEach(mapDispatchToProps => {
               Object.assign(
                 loadedProps,
-                mapDispatchToProps(reportResult.store.dispatch, actions)
+                mapDispatchToProps(store.dispatch, actions)
               );
             });
             return loadedProps;
           }
-          reportResult.store.subscribe(() => {
-            if (isLoaded(getProps())) {
-              loadCount--;
-              if (loadCount === 0) {
-                resolve();
-                clearTimeout(timer);
-              }
-            }
-          });
-          if (false === loader(getProps())) {
+          const markLoader = () => {
             loadCount--;
             if (loadCount === 0) {
               resolve();
               clearTimeout(timer);
             }
+          };
+          if (false === loader(getProps())) {
+            markLoader();
+          } else {
+            store.subscribe(() => {
+              if (isLoaded(getProps())) {
+                markLoader();
+              }
+            });
           }
         }
       );
     });
-    return await ssrRender({ Entry, entry, url, appState: reportResult });
+    return await ssrRender({
+      Entry,
+      entry,
+      url,
+      appState: reportResult,
+      requestId,
+    });
   }
   return Promise.resolve({
     html,
@@ -322,6 +336,7 @@ async function ssrRender({ Entry, entry, url, appState }) {
 }
 
 module.exports = async function ssrRoute(req, res) {
+  const requestId = res.get('Request-Id');
   const entry =
     req.params.entry &&
     (ssrEntries[req.params.entry] || entries[req.params.entry])
@@ -339,7 +354,9 @@ module.exports = async function ssrRoute(req, res) {
   try {
     [entryHtml, exportedEntryCodePath] = await entryData[entry];
   } catch (ex) {
-    logger.error("[WEBCUBE] Failed to load entry's html and code path");
+    logger.error(
+      `[WEBCUBE] [${requestId}] Failed to load entry's html and code path`
+    );
     logger.error(ex);
   }
   if (!entryHtml) {
@@ -348,7 +365,7 @@ module.exports = async function ssrRoute(req, res) {
   try {
     Entry = require(exportedEntryCodePath);
   } catch (ex) {
-    logger.error('[WEBCUBE] Failed to import code');
+    logger.error(`[WEBCUBE] [${requestId}] Failed to import code`);
     logger.error(ex);
     return res.send(entryHtml);
   }
@@ -356,6 +373,7 @@ module.exports = async function ssrRoute(req, res) {
     Entry,
     entry,
     url: req.url,
+    requestId,
   });
   if (!ssrHtml) {
     return res.send(entryHtml);
@@ -378,6 +396,7 @@ module.exports = async function ssrRoute(req, res) {
     styleTags: sheet.getStyleTags(),
     helmet,
     store,
+    requestId,
   });
   return res.send(entryHtml);
 };

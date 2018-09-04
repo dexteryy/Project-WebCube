@@ -13,7 +13,9 @@ import { combineReducersWith } from '../utils';
 
 let isProdEnv = true;
 try {
-  isProdEnv = process.env.NODE_ENV === 'production';
+  if (process.env.NODE_ENV !== 'production') {
+    isProdEnv = false;
+  }
 } catch (ex) {}
 const isSsrEnv = typeof location !== 'object';
 const isDevToolsDisabled = isProdEnv || isSsrEnv;

@@ -150,13 +150,20 @@ if (!custom.deploy.ssrServer) {
 
 deploy.ssrServer = merge(
   {
-    dataLoaderTimeout: 6000,
+    dataLoaderTimeout: 5000,
   },
-  custom.deploy.ssrServer
+  custom.deploy.ssrServer,
+  {
+    dataLoaderTimeout: process.env.WEBCUBE_DATA_LOADER_TIMEOUT || undefined,
+  }
 );
 
 const warmUpUrls = { [projectName]: [] };
-(custom.deploy.ssrServer.warmUpUrls || [])
+let warmUpUrlsInEnvVars;
+try {
+  warmUpUrlsInEnvVars = JSON.parse(process.env.WEBCUBE_WARM_UP_URLS || '');
+} catch (ex) {}
+(warmUpUrlsInEnvVars || custom.deploy.ssrServer.warmUpUrls || [])
   .map(url => url.replace(/^.*?\//, '/'))
   .forEach(url => {
     const entry = /\/([^/]+)/.exec(url);
