@@ -13,8 +13,9 @@ const { runCmd, getDeployConfig } = require('../utils/helpers');
 const logger = require('../utils/logger');
 
 program
-  .option('-s --disable-static', "Don't build and upload static files")
-  .option('-i --disable-image', "Don't build and push docker image")
+  .option('-u --disable-static', "Don't build and upload static files")
+  .option('-b --disable-build-image', "Don't build docker image")
+  .option('-p --disable-push-image', "Don't push docker image")
   .parse(process.argv);
 
 const cloud = getDeployConfig().staticCloud;
@@ -33,7 +34,7 @@ const enableChinaMirror = process.env.ENABLE_CHINA_MIRROR;
           getDeployConfig().staticCloudUrl
         } -r -i ${accessKeyId} -k ${accessKeySecret} -e ${
           getDeployConfig().staticCloudEndpoint
-        } -f`
+        } --output-dir=${output.buildRoot} -f`
       );
     } else if (cloud === 's3') {
       await runCmd(
@@ -48,23 +49,25 @@ const enableChinaMirror = process.env.ENABLE_CHINA_MIRROR;
     }
   }
 
-  if (!program.disableImage && registryUrl) {
-    if (isMonoRepo) {
-      shell.pushd(rootPath);
-    }
+  if (isMonoRepo) {
+    shell.pushd(rootPath);
+  }
+
+  if (!program.disableBuildImage) {
     await runCmd(
       `docker build -t ${projectName} --build-arg MONOREPO_APP_PATH="${path.relative(
         rootPath,
         projectPath
       )}" --build-arg MONOREPO_PACKAGES_PATH="${packagesPath}" --build-arg ENABLE_CHINA_MIRROR=${enableChinaMirror} .`
     );
+  }
 
+  if (!program.disablePushImage && registryUrl) {
     await runCmd(`docker tag ${projectName} ${registryUrl}`);
-
     await runCmd(`docker push ${registryUrl}`);
+  }
 
-    if (isMonoRepo) {
-      shell.popd();
-    }
+  if (isMonoRepo) {
+    shell.popd();
   }
 })();
