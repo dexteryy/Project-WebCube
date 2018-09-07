@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { merge } = require('lodash');
 const logger = require('../logger');
 const { config, custom } = require('./base');
@@ -155,9 +156,7 @@ deploy.ssrServer = merge(
       // https://www.i18next.com/overview/configuration-options
       fallbackLng: 'en',
       load: 'languageOnly',
-      preload: ['en', 'cn'],
       defaultNS: 'common',
-      ns: ['common'],
       detection: {
         order: ['querystring', 'cookie', 'header'],
         caches: ['cookie'],
@@ -168,9 +167,7 @@ deploy.ssrServer = merge(
         })(),
       },
       // https://github.com/i18next/i18next-node-fs-backend
-      backend: {
-        loadPath: path.join(configRoot, 'locales/{{lng}}/{{ns}}.yml'),
-      },
+      backend: {},
     },
     i18nextMiddlewareConfig: {},
   },
@@ -179,6 +176,40 @@ deploy.ssrServer = merge(
     dataLoaderTimeout: process.env.WEBCUBE_DATA_LOADER_TIMEOUT || undefined,
   }
 );
+
+const localeNs = [];
+const localePreloads = [];
+try {
+  fs.readdirSync(path.join(configRoot, 'locales')).forEach(name => {
+    let isDir;
+    try {
+      isDir = fs.statSync(path.join(configRoot, 'locales', name)).isDirectory();
+    } catch (ex) {}
+    if (isDir) {
+      localePreloads.push(name);
+    }
+  });
+} catch (ex) {}
+try {
+  fs.readdirSync(
+    path.join(configRoot, 'locales', deploy.ssrServer.i18nextConfig.fallbackLng)
+  ).forEach(name => {
+    const ext = path.extname(name);
+    if (!deploy.ssrServer.i18nextConfig.backend.loadPath) {
+      deploy.ssrServer.i18nextConfig.backend.loadPath = path.join(
+        configRoot,
+        `locales/{{lng}}/{{ns}}${ext}`
+      );
+    }
+    localeNs.push(path.basename(name, ext));
+  });
+} catch (ex) {}
+if (!deploy.ssrServer.i18nextConfig.ns) {
+  deploy.ssrServer.i18nextConfig.ns = localeNs;
+}
+if (!deploy.ssrServer.i18nextConfig.preload) {
+  deploy.ssrServer.i18nextConfig.preload = localePreloads;
+}
 
 const warmUpUrls = { [projectName]: [] };
 let warmUpUrlsInEnvVars;
