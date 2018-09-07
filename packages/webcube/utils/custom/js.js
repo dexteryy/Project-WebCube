@@ -1,7 +1,7 @@
 const { merge, union } = require('lodash');
 const { config, custom } = require('./base');
 
-const { srcRoot } = config;
+const { srcRoot, configRoot } = config;
 
 if (!custom.js) {
   custom.js = {};
@@ -43,6 +43,7 @@ js.babel = merge(
     include: union(
       [
         srcRoot,
+        configRoot,
         // /react-with-scripts/,
         // /react-common-kit/,
         // /redux-cube.*/,

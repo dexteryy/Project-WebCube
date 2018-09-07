@@ -2,7 +2,7 @@ const { merge, union } = require('lodash');
 const { config, custom } = require('./base');
 const deploy = require('./deploy');
 
-const { srcRoot } = config;
+const { srcRoot, configRoot } = config;
 
 if (!custom.webpack) {
   custom.webpack = {};
@@ -16,6 +16,7 @@ const webpack = merge(
       alias: {
         app: srcRoot,
         src: srcRoot,
+        config: configRoot,
       },
       // https://webpack.js.org/configuration/resolve/#resolve-extensions
       extensions: [
@@ -41,6 +42,7 @@ const webpack = merge(
     disabledLoaders: {
       js: false,
       workerize: false,
+      i18next: false,
       css: false,
       scss: false,
       less: false,

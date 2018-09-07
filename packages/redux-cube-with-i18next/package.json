@@ -1,0 +1,69 @@
+{
+  "name": "redux-cube-with-i18next",
+  "version": "1.0.0",
+  "description": "redux-cube's pluggable module for react-i18next",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-i18next",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-i18next",
+  "license": "MIT",
+  "webcube:module": "src/index.js",
+  "module": "es6/index.js",
+  "main": "dist/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist/**/*",
+    "es6/**/*"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "npm run clear && npm run build:dist && npm run build:es6",
+    "build:dist": "BABEL_ENV=dist babel src --out-dir dist",
+    "build:es6": "babel src --out-dir es6",
+    "clear": "rm -r dist es6 2>/dev/null || true"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "i18next": "^11.7.0",
+    "i18next-browser-languagedetector": "^2.2.3",
+    "i18next-xhr-backend": "^1.5.1",
+    "lodash": "^4.17.10",
+    "react-i18next": "^7.11.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-bind": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-optional-catch-binding": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-graphql-tag": "^1.6.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-ramda": "^1.6.3",
+    "babel-plugin-styled-components": "^1.5.1",
+    "fast-async": "^7.0.0"
+  },
+  "keywords": [
+    "redux",
+    "redux-cube",
+    "i18n",
+    "i18next",
+    "boilerplate",
+    "webcube"
+  ]
+}

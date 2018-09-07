@@ -25,6 +25,9 @@
       "path": "packages/redux-cube-with-router"
     },
     {
+      "path": "packages/redux-cube-with-i18next"
+    },
+    {
       "path": "packages/redux-cube-with-persist"
     },
     {
@@ -98,6 +101,7 @@
       80,
       120
     ],
+    "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "npm.exclude": "**/starters/**",

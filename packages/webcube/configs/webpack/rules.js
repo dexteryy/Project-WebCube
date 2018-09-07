@@ -1,4 +1,5 @@
 const {
+  configRoot,
   webcubePath,
   webpack,
   js,
@@ -16,6 +17,7 @@ const {
 
 const { babel } = js;
 
+/* eslint-disable complexity */
 module.exports = (opt = {}) => ({
   babelRules: !webpack.disabledLoaders.js
     ? [
@@ -65,6 +67,19 @@ module.exports = (opt = {}) => ({
           include: babel.include,
           use: {
             loader: 'workerize-loader',
+          },
+        },
+      ]
+    : [],
+
+  i18nextRules: !webpack.disabledLoaders.i18next
+    ? [
+        {
+          test: /locales/,
+          include: [configRoot],
+          use: {
+            loader: '@alienfast/i18next-loader',
+            options: { basenameAsNamespace: true },
           },
         },
       ]
@@ -129,7 +144,7 @@ module.exports = (opt = {}) => ({
   yamlRules: !webpack.disabledLoaders.yaml
     ? [
         {
-          test: /\.yml$/,
+          test: /\.ya?ml$/,
           use: ['yaml-loader'],
         },
       ]
@@ -257,3 +272,4 @@ module.exports = (opt = {}) => ({
       ]
     : [],
 });
+/* eslint-enable complexity */

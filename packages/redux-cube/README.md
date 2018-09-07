@@ -684,5 +684,6 @@ Options:
 #### Plugins
 
 * [redux-cube-with-router](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-router)
+* [redux-cube-with-i18next](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-i18next)
 * [redux-cube-with-persist](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-persist)
 * [redux-cube-with-immutable](https://github.com/dexteryy/Project-WebCube/tree/master/packages/redux-cube-with-immutable)

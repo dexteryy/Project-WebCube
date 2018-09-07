@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "webcube"
+  ],
+  "env": {
+    "commonjs": false,
+    "browser": true,
+    "node": false
+  },
+  "globals": {
+    "process": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0
+  }
+}

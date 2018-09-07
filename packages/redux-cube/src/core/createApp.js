@@ -22,6 +22,10 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
     _createRouterHistory,
     _ConnectedRouter: ConnectedRouter,
     routerConfig,
+    // withI18next
+    _enableI18next = false,
+    _I18nextProvider,
+    _initClientI18n,
     // withPersist
     _enablePersist = false,
     _PersistGate: PersistGate,
@@ -83,11 +87,21 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
             currentUrl,
             routerContext,
             baseUrl,
+            i18n,
             ...passThroughProps
           } = this.props;
           let root = createElement(SubAppComponent, {
             ...passThroughProps,
           });
+          if (_enableI18next && (!isSsrEnv || i18n)) {
+            root = createElement(
+              _I18nextProvider,
+              {
+                i18n: isSsrEnv ? i18n : _initClientI18n(),
+              },
+              root,
+            );
+          }
           if (_enableRouter) {
             root = createElement(
               isSsrEnv ? StaticRouter : ConnectedRouter,

@@ -221,7 +221,15 @@ function injectSsrHtml(
   return entryHtml;
 }
 
-async function ssrRender({ Entry, entry, url, appState, requestId }) {
+async function ssrRender({
+  Entry,
+  entry,
+  url,
+  i18n,
+  language,
+  appState,
+  requestId,
+}) {
   const baseUrl = entry === mainEntry ? '' : `/${entry}`;
   const context = {};
   // https://www.styled-components.com/docs/advanced#server-side-rendering
@@ -249,6 +257,8 @@ async function ssrRender({ Entry, entry, url, appState, requestId }) {
             currentUrl: url,
             // https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-set-router-props-eg-basename-initialentries-etc
             baseUrl,
+            i18n,
+            language,
             reportAppState: result => {
               Object.assign(reportResult, result);
             },
@@ -306,7 +316,7 @@ async function ssrRender({ Entry, entry, url, appState, requestId }) {
               clearTimeout(timer);
             }
           };
-          if (false === loader(getProps())) {
+          if (true === loader(getProps())) {
             markLoader();
           } else {
             store.subscribe(() => {
@@ -322,6 +332,8 @@ async function ssrRender({ Entry, entry, url, appState, requestId }) {
       Entry,
       entry,
       url,
+      i18n,
+      language,
       appState: reportResult,
       requestId,
     });
@@ -373,6 +385,8 @@ module.exports = async function ssrRoute(req, res) {
     Entry,
     entry,
     url: req.url,
+    language: req.language,
+    i18n: req.i18n,
     requestId,
   });
   if (!ssrHtml) {

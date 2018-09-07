@@ -3,7 +3,7 @@ const { merge } = require('lodash');
 const logger = require('../logger');
 const { config, custom } = require('./base');
 
-const { projectName, entries } = config;
+const { projectName, configRoot, entries } = config;
 
 if (!custom.deploy) {
   custom.deploy = {};
@@ -151,6 +151,28 @@ if (!custom.deploy.ssrServer) {
 deploy.ssrServer = merge(
   {
     dataLoaderTimeout: 5000,
+    i18nextConfig: {
+      // https://www.i18next.com/overview/configuration-options
+      fallbackLng: 'en',
+      load: 'languageOnly',
+      preload: ['en', 'cn'],
+      defaultNS: 'common',
+      ns: ['common'],
+      detection: {
+        order: ['querystring', 'cookie', 'header'],
+        caches: ['cookie'],
+        cookieExpirationDate: (() => {
+          const time = new Date();
+          time.setFullYear(time.getFullYear() + 1);
+          return time;
+        })(),
+      },
+      // https://github.com/i18next/i18next-node-fs-backend
+      backend: {
+        loadPath: path.join(configRoot, 'locales/{{lng}}/{{ns}}.yml'),
+      },
+    },
+    i18nextMiddlewareConfig: {},
   },
   custom.deploy.ssrServer,
   {

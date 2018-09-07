@@ -7,12 +7,14 @@ const flash = require('connect-flash');
 const helmet = require('helmet');
 const errorHandler = require('errorhandler');
 const pino = require('express-pino-logger');
+const i18nextMiddleware = require('i18next-express-middleware');
 const {
   isProductionEnv,
   projectPath,
   output,
   deploy,
 } = require('../utils/custom');
+const { i18n } = require('./i18n');
 const { staticMiddleware } = require('./staticServer');
 const ssrRoute = require('./ssrRoute');
 const { logger } = require('./logger');
@@ -66,6 +68,10 @@ ssrRouter.use((req, res, next) => {
   res.set('Request-Id', uuidv4());
   next();
 });
+
+ssrRouter.use(
+  i18nextMiddleware.handle(i18n, deploy.ssrServer.i18nextMiddlewareConfig)
+);
 
 ssrRouter.get(['/:entry/*', '/:entry', '/*'], ssrRoute);
 

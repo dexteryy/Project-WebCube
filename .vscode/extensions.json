@@ -3,7 +3,10 @@
     "mgmcdermott.vscode-language-babel",
     "jpoissonnier.vscode-styled-components",
     "kumar-harsh.graphql-for-vscode",
+    "dtsvet.vscode-wasm",
     "clinyong.vscode-css-modules",
+    "cpylua.language-postcss",
+    "robinbentley.sass-indented",
     "naumovs.color-highlight",
     "EditorConfig.editorconfig",
     "dbaeumer.vscode-eslint",
@@ -34,7 +37,11 @@
     "Shan.code-settings-sync",
     "RolandGreim.sharecode",
     "idleberg.svg-icons",
+    "cssho.vscode-svgviewer",
+    "andrejunges.handlebar",
+    "bungcip.better-toml",
     "wayou.vscode-todo-highlight",
+    "wallabyjs.quokka-vscode",
     "robertohuertasm.vscode-icons"
   ]
 }
