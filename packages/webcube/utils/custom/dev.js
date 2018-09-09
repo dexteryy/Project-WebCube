@@ -14,6 +14,7 @@ if (!custom.dev) {
 const dev = merge(
   {
     port: 8000,
+    enableCustomHtml: false,
   },
   custom.dev
 );

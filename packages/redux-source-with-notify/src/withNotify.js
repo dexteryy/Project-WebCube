@@ -5,6 +5,7 @@ export default function withNotify(config = {}) {
   const {
     trigger: Trigger,
     triggerProps = {},
+    triggerPos = 'top',
     onSuccess,
     onError,
     sourceStateName = 'source',
@@ -62,10 +63,14 @@ export default function withNotify(config = {}) {
 
         render() {
           const { ...passThroughProps } = this.props;
+          const trigger = Trigger && (
+            <Trigger ref={this.trigger} {...triggerProps} />
+          );
           return (
             <div>
-              {Trigger && <Trigger ref={this.trigger} {...triggerProps} />}
+              {triggerPos === 'top' && trigger}
               <TargetComponent {...passThroughProps} />
+              {triggerPos === 'bottom' && trigger}
             </div>
           );
         }

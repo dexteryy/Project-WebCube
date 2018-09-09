@@ -28,6 +28,7 @@ const {
   isProductionEnv,
   entries,
   output,
+  dev,
   deploy,
   webpack,
   js,
@@ -226,9 +227,13 @@ module.exports = {
           ? customTemplate
           : path.join(webcubePath, 'configs/template.hbs'),
         headHtml:
-          pathExistsSync(customHeadHtml) && fs.readFileSync(customHeadHtml),
+          (dev.enableCustomHtml || isProductionEnv) &&
+          pathExistsSync(customHeadHtml) &&
+          fs.readFileSync(customHeadHtml),
         bodyHtml:
-          pathExistsSync(customBodyHtml) && fs.readFileSync(customBodyHtml),
+          (dev.enableCustomHtml || isProductionEnv) &&
+          pathExistsSync(customBodyHtml) &&
+          fs.readFileSync(customBodyHtml),
         appMountIds: output.appMountIds,
         appMountId: entryNameToId(entry),
       });
