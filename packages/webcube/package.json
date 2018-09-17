@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/webcube",
-  "version": "2.0.0-beta.10",
+  "version": "2.0.0-beta.11",
   "license": "MIT",
   "bin": {
     "create-cube-new": "./scripts/create-cube-new.js",
