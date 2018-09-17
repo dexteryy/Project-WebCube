@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "react": ">= 16.x",
-    "redux-source": "^0.2.1"
+    "redux-source": "^1.0.7"
   },
   "dependencies": {
     "react-common-kit": "^1.1.3",

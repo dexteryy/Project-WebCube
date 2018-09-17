@@ -37,12 +37,12 @@
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
     "react-with-scripts": "^1.0.5",
-    "redux-cube": "^1.1.4",
+    "redux-cube": "^1.2.0",
     "redux-cube-with-persist": "^1.1.1",
     "redux-cube-with-router": "^1.1.1",
     "todomvc-app-css": "^2.1.2",
     "todomvc-common": "^1.0.5",
     "uuid": "^3.3.2",
-    "webcube": "^2.0.0-beta.8"
+    "webcube": "^2.0.0-beta.11"
   }
 }
