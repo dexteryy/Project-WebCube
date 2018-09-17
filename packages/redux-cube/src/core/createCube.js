@@ -1,10 +1,9 @@
 import { merge } from 'lodash';
+import getDisplayName from 'react-display-name';
 import createHub from './createHub';
 import createApp from './createApp';
 import connect from './connect';
 import load from './load';
-
-const isSsrEnv = typeof location !== 'object';
 
 class Cube {
   reducers = {};
@@ -44,31 +43,29 @@ class Cube {
     ...opt
   }) {
     return component => {
-      const propsMemories = [];
+      const mapStateToPropsQueue = [];
+      const mapDispatchToPropsQueue = [];
+      const loaderData = {
+        componentName: getDisplayName(component),
+        propsMemory: {},
+        loader,
+        isLoaded,
+        mapStateToPropsQueue,
+        mapDispatchToPropsQueue,
+        actions: this.actions,
+      };
+      if (loader) {
+        this.loaders.push(loaderData);
+      }
       let result = loader
         ? load({
-            loader: props => {
-              if (isSsrEnv) {
-                return propsMemories.push(props);
-              } else {
-                return loader(props);
-              }
+            mark: props => {
+              loaderData.propsMemory.props = props;
             },
+            loader,
             isLoaded,
           })(component)
         : component;
-      const mapStateToPropsQueue = [];
-      const mapDispatchToPropsQueue = [];
-      if (loader) {
-        this.loaders.push({
-          propsMemories,
-          loader,
-          isLoaded,
-          mapStateToPropsQueue,
-          mapDispatchToPropsQueue,
-          actions: this.actions,
-        });
-      }
       let connectHoc = connect(
         Object.assign({}, opt, {
           actions: this.actions,

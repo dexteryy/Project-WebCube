@@ -157,6 +157,9 @@ deploy.ssrServer = merge(
       fallbackLng: 'en',
       load: 'languageOnly',
       defaultNS: 'common',
+      interpolation: {
+        escapeValue: false, // not needed for react!!
+      },
       detection: {
         order: ['querystring', 'cookie', 'header'],
         caches: ['cookie'],

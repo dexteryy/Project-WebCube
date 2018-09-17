@@ -4,10 +4,6 @@ module.exports = {
       enable: true,
     },
   },
-  output: {
-    disableAllChunksPreload: true,
-    disableInitialPreload: true,
-  },
   dev: {
     port: 8011,
   },

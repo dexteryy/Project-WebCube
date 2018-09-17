@@ -8,6 +8,7 @@
     "setup": "yarn install && lerna run prepare && echo 7.0 > .project-version",
     "update": "create-cube update && echo 7.0 > .project-version",
     "upgrade": "create-cube update -c && echo 7.0 > .project-version",
+    "test": "lerna run test",
     "lint": "create-cube lint",
     "lint:error": "create-cube lint --quiet"
   },

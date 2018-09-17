@@ -25,8 +25,9 @@ const output = merge(
     enableUglify: false,
     enableInlineSource: false,
     disableCssExtract: false,
-    disableAllChunksPreload: false,
-    disableInitialPreload: false,
+    disablePreload: false,
+    preloadInclude: 'initial',
+    preloadBlacklist: [],
     disableWorkbox: false,
     development: {
       jsRoot: 'js',

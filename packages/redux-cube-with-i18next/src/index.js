@@ -24,6 +24,9 @@ export default function withI18next({
             load: 'languageOnly',
             defaultNS: 'common',
             debug: process.env.NODE_ENV !== 'production',
+            interpolation: {
+              escapeValue: false, // not needed for react!!
+            },
             // https://github.com/i18next/i18next-browser-languageDetector
             detection: {
               caches: ['cookie', 'localStorage'],

@@ -44,6 +44,7 @@ const RE_MOUNT_CONTAINERS = {};
 
 const entryData = {};
 Object.keys(entries).forEach(entry => {
+  logger.info(`[WEBCUBE] Warm up entry "${entry}"`);
   const entryHtmlPath = path.join(output.htmlRoot, entry, 'index.html');
   const entryCodePath = ssrEntries[entry]
     ? path.join(output.buildRoot, 'ssr', 'js', `${entry}.js`)
@@ -59,6 +60,7 @@ Object.keys(entries).forEach(entry => {
   );
   entryData[entry] = Promise.all([
     (async () => {
+      logger.info(`[WEBCUBE] Load HTML file from ${entryHtmlPath}`);
       try {
         await util.promisify(fs.access)(entryHtmlPath);
         const entryHtml = await util.promisify(fs.readFile)(entryHtmlPath);
@@ -70,11 +72,17 @@ Object.keys(entries).forEach(entry => {
     })(),
     (async () => {
       try {
+        logger.info(
+          `[WEBCUBE] Load source code for SSR entry file from ${entryCodePath}`
+        );
         if (!entryCodePath) {
           return '';
         }
         await util.promisify(fs.access)(entryCodePath);
         const entryCode = await util.promisify(fs.readFile)(entryCodePath);
+        logger.info(
+          `[WEBCUBE] Generate SSR entry file: ${exportedEntryCodePath}`
+        );
         await util.promisify(ensureFile)(exportedEntryCodePath);
         await util.promisify(fs.writeFile)(
           exportedEntryCodePath,
@@ -95,6 +103,9 @@ Object.keys(entries).forEach(entry => {
       if (!html || !codePath) {
         return;
       }
+      logger.info(
+        `[WEBCUBE] Import app code from "${codePath}" for warming entry "${entry}"`
+      );
       try {
         Entry = require(codePath);
       } catch (ex) {
@@ -111,6 +122,7 @@ Object.keys(entries).forEach(entry => {
     const urls = deploy.ssrServer.warmUpUrls[entry];
     if (urls) {
       urls.forEach(url => {
+        logger.info(`[WEBCUBE] Render "${entry}" for warming up url: "${url}"`);
         ssrRender({
           Entry,
           entry,
@@ -227,7 +239,8 @@ async function ssrRender({
   url,
   i18n,
   language,
-  appState,
+  preloadedAppState,
+  skipPreload,
   requestId,
 }) {
   const baseUrl = entry === mainEntry ? '' : `/${entry}`;
@@ -236,8 +249,16 @@ async function ssrRender({
   const sheet = new ServerStyleSheet();
   // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
   const modules = [];
-  const reportResult = {};
+  const renderInfo = {};
   let html;
+  const startRenderTime = Date.now();
+  logger.info(
+    `[WEBCUBE] [${requestId}] Rendering react app to ${
+      skipPreload || preloadedAppState
+        ? 'string'
+        : 'collect info for preload store'
+    }... ${skipPreload ? '(preload is skipped)' : ''}`
+  );
   try {
     html = renderToString(
       createElement(
@@ -259,10 +280,12 @@ async function ssrRender({
             baseUrl,
             i18n,
             language,
-            reportAppState: result => {
-              Object.assign(reportResult, result);
-            },
-            appState,
+            reportPreloadInfo: !skipPreload
+              ? info => {
+                  Object.assign(renderInfo, info);
+                }
+              : undefined,
+            preloadedAppState: !skipPreload ? preloadedAppState : undefined,
           })
         )
       )
@@ -273,19 +296,37 @@ async function ssrRender({
     );
     logger.error(ex);
   }
-  if (!appState && reportResult.loaders && reportResult.loaders.length) {
-    let loadCount = reportResult.loaders.length;
-    await new Promise(resolve => {
-      const { store } = reportResult;
+  logger.info(
+    `[WEBCUBE] [${requestId}] Rendered (time: ${Date.now() - startRenderTime})`
+  );
+  const renderedLoader = ((renderInfo && renderInfo.loaders) || []).filter(
+    ({ propsMemory }) => propsMemory.props
+  );
+  let loadCount = renderedLoader.length;
+  let timeoutCount = 0;
+  if (!skipPreload && !preloadedAppState && loadCount) {
+    const isLoaderAllDone = await new Promise(resolve => {
+      const { store } = renderInfo;
+      logger.info(
+        `[WEBCUBE] [${requestId}] Fetching ${loadCount} data loaders (<${renderedLoader
+          .map(({ componentName }) => componentName)
+          .join('/>, <')}/>)...`
+      );
+      const startTime = Date.now();
       const timer = setTimeout(() => {
+        logger.warn(
+          `[WEBCUBE] [${requestId}] Timeout. Incomplete loaders: ${loadCount}  (time: ${Date.now() -
+            startTime})`
+        );
+        timeoutCount = loadCount;
         loadCount = 0;
-        reportResult.store = null;
-        logger.warn(`[WEBCUBE] [${requestId}] Data loader timeout ${baseUrl}`);
-        resolve();
+        renderInfo.store = null;
+        resolve(false);
       }, deploy.ssrServer.dataLoaderTimeout);
-      reportResult.loaders.forEach(
+      renderedLoader.forEach(
         ({
-          propsMemories,
+          componentName,
+          propsMemory,
           loader,
           isLoaded,
           mapStateToPropsQueue,
@@ -294,10 +335,7 @@ async function ssrRender({
         }) => {
           function getProps() {
             const state = store.getState();
-            const loadedProps = Object.assign(
-              {},
-              propsMemories[propsMemories.length - 1]
-            );
+            const loadedProps = Object.assign({}, propsMemory.props);
             mapStateToPropsQueue.forEach(mapStateToProps => {
               Object.assign(loadedProps, mapStateToProps(state));
             });
@@ -309,15 +347,33 @@ async function ssrRender({
             });
             return loadedProps;
           }
-          const markLoader = () => {
+          let isMarked = false;
+          const markLoader = (opt = {}) => {
+            if (isMarked) {
+              return;
+            }
+            isMarked = true;
             loadCount--;
+            logger.info(
+              `[WEBCUBE] [${requestId}] ${
+                loadCount < 0 ? '(after timeout) ' : ''
+              }Loader for <${componentName}/> is ${
+                opt.skip ? 'skipped' : 'fetched'
+              }, fetching ${
+                loadCount < 0 ? --timeoutCount : loadCount
+              } data loaders... (time: ${Date.now() - startTime})`
+            );
             if (loadCount === 0) {
-              resolve();
+              logger.info(
+                `[WEBCUBE] [${requestId}] all data loaders are done (time: ${Date.now() -
+                  startTime})`
+              );
+              resolve(true);
               clearTimeout(timer);
             }
           };
           if (true === loader(getProps())) {
-            markLoader();
+            markLoader({ skip: true });
           } else {
             store.subscribe(() => {
               if (isLoaded(getProps())) {
@@ -334,7 +390,8 @@ async function ssrRender({
       url,
       i18n,
       language,
-      appState: reportResult,
+      preloadedAppState: renderInfo,
+      skipPreload: !isLoaderAllDone,
       requestId,
     });
   }
@@ -343,7 +400,7 @@ async function ssrRender({
     context,
     sheet,
     modules,
-    store: appState && appState.store,
+    store: preloadedAppState && preloadedAppState.store,
   });
 }
 

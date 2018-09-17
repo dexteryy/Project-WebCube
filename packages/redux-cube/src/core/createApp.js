@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import { Provider } from 'react-redux';
 import { createHoc } from 'react-common-kit';
 import createAppState from './appState';
+import { CubeContext } from './context';
 
 /**
  * @param {object} config see appState's param
@@ -41,10 +42,10 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
           const {
             appConfig = {},
             baseUrl,
-            reportAppState,
-            appState = {},
+            reportPreloadInfo,
+            preloadedAppState = {},
           } = props;
-          let { store, persistor, routerHistory } = appState;
+          let { store, persistor, routerHistory } = preloadedAppState;
           if (!store) {
             routerHistory =
               _enableRouter &&
@@ -63,21 +64,13 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
             persistor,
             routerHistory,
           });
-          if (isSsrEnv && !appState.store && reportAppState) {
-            reportAppState({
+          if (isSsrEnv && !preloadedAppState.store && reportPreloadInfo) {
+            reportPreloadInfo({
               store,
               routerHistory,
               loaders,
             });
           }
-        }
-
-        resetLoader(key) {
-          this.setState(prevState => {
-            const newLoaders = prevState.loaders.slice();
-            newLoaders[key] = null;
-            return { loaders: newLoaders };
-          });
         }
 
         render() {
@@ -88,11 +81,24 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
             routerContext,
             baseUrl,
             i18n,
+            reportPreloadInfo,
+            preloadedAppState = {},
             ...passThroughProps
           } = this.props;
-          let root = createElement(SubAppComponent, {
-            ...passThroughProps,
+          loaders.forEach(loader => {
+            loader.propsMemory = {};
           });
+          let root = createElement(
+            CubeContext.Provider,
+            {
+              value: {
+                enableSsrPreload: reportPreloadInfo && !preloadedAppState.store,
+              },
+            },
+            createElement(SubAppComponent, {
+              ...passThroughProps,
+            }),
+          );
           if (_enableI18next && (!isSsrEnv || i18n)) {
             root = createElement(
               _I18nextProvider,

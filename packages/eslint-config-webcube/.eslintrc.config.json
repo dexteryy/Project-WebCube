@@ -254,7 +254,7 @@
     "complexity": [
       "warn",
       {
-        "max": 20
+        "max": 30
       }
     ],
     // https://eslint.org/docs/rules/consistent-return
@@ -1367,7 +1367,7 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-did-mount-set-state.md
     "react/no-did-mount-set-state": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-did-update-set-state.md
-    "react/no-did-update-set-state": "error",
+    "react/no-did-update-set-state": "off",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-direct-mutation-state.md
     "react/no-direct-mutation-state": "error",
     // https://github.com/yannickcr/eslint-plugin-react/blob/HEAD/docs/rules/no-find-dom-node.md

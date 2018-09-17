@@ -246,19 +246,20 @@ module.exports = {
     ...(output.enableInlineSource ? [new HtmlWebpackInlineSourcePlugin()] : []),
     // https://www.npmjs.com/package/preload-webpack-plugin
     // https://github.com/GoogleChromeLabs/preload-webpack-plugin/issues/60
-    ...(!output.disableInitialPreload
+    ...(!output.disablePreload
       ? [
           new PreloadWebpackPlugin({
             rel: 'preload',
-            include:
-              (!output.disableAllChunksPreload && 'allChunks') || 'initial',
-            fileBlacklist: [/\.map/].concat(
-              output.enableInlineSource
-                ? Object.keys(entries).map(
-                    entry => new RegExp(escapeStringRegexp(entry))
-                  )
-                : []
-            ),
+            include: output.preloadInclude,
+            fileBlacklist: [/\.map/]
+              .concat(
+                output.enableInlineSource
+                  ? Object.keys(entries).map(
+                      entry => new RegExp(escapeStringRegexp(entry))
+                    )
+                  : []
+              )
+              .concat(output.preloadBlacklist),
           }),
         ]
       : []),

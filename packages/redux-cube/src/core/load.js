@@ -1,9 +1,8 @@
 import { Component, createElement } from 'react';
 import { createHoc } from 'react-common-kit';
+import { CubeContext } from './context';
 
-const isSsrEnv = typeof location !== 'object';
-
-export default function load({ loader, isLoaded }) {
+export default function load({ mark, loader, isLoaded }) {
   return createHoc(
     OriginComponent =>
       class WithLoader extends Component {
@@ -14,12 +13,18 @@ export default function load({ loader, isLoaded }) {
         }
 
         render() {
-          if (isSsrEnv) {
-            loader(this.props);
-          }
-          return createElement(OriginComponent, {
-            ...this.props,
-          });
+          return createElement(
+            CubeContext.Consumer,
+            {},
+            ({ enableSsrPreload }) => {
+              if (enableSsrPreload) {
+                mark(this.props);
+              }
+              return createElement(OriginComponent, {
+                ...this.props,
+              });
+            },
+          );
         }
       },
   );

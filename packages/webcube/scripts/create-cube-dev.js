@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const path = require('path');
-const { ensureDirSync } = require('fs-extra');
+const { removeSync, ensureDirSync } = require('fs-extra');
 const program = require('commander');
 const serve = require('webpack-serve');
 const convert = require('koa-connect');
@@ -20,6 +20,12 @@ program
   .option('-e --error-details', 'Show error details')
   .parse(process.argv);
 
+removeSync(output.staticRoot);
+logger.success(`Cleaned:`, output.staticRoot);
+removeSync(output.htmlRoot);
+logger.success(`Cleaned:`, output.htmlRoot);
+removeSync(output.buildRoot);
+logger.success(`Cleaned:`, output.buildRoot);
 ensureDirSync(path.join(output.buildRoot, 'manifest'));
 
 const PORT = process.env.PORT || dev.port;
