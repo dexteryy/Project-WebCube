@@ -74,9 +74,11 @@ exports.getWebpackStats = opt =>
 
 exports.entryNameToId = entryNameToId;
 
-exports.runCmd = function runCmd(cmd) {
+exports.runCmd = function runCmd(cmd, opt = {}) {
   return new Promise(resolve => {
-    logger.info(cmd);
+    if (!opt.quiet) {
+      logger.info(cmd);
+    }
     const child = spawn(cmd, {
       stdio: 'inherit',
       shell: true,

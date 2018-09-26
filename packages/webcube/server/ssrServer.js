@@ -6,10 +6,12 @@ const compression = require('compression');
 const flash = require('connect-flash');
 const helmet = require('helmet');
 const errorHandler = require('errorhandler');
+const bugsnag = require('bugsnag');
 const pino = require('express-pino-logger');
 const i18nextMiddleware = require('i18next-express-middleware');
 const {
   isProductionEnv,
+  projectVersion,
   projectPath,
   output,
   deploy,
@@ -21,6 +23,30 @@ const { logger } = require('./logger');
 
 const { errorPageFor500 } = deploy.staticServer;
 
+if (deploy.ssrServer.bugsnag.apiKey) {
+  bugsnag.register(
+    deploy.ssrServer.bugsnag.apiKey,
+    Object.assign(
+      {
+        appVersion: projectVersion,
+        releaseStage: deploy.env === 'local' ? 'development' : deploy.env,
+        logger: {
+          info(...args) {
+            logger.info(...args);
+          },
+          warn(...args) {
+            logger.warn(...args);
+          },
+          error(...args) {
+            logger.error(...args);
+          },
+        },
+      },
+      deploy.ssrServer.bugsnag
+    )
+  );
+}
+
 // https://github.com/firebase/superstatic#api
 const ssrServer = express();
 const staticAssetsRouter = express.Router();
@@ -29,6 +55,10 @@ const ssrRouter = express.Router();
 ssrServer.enable('trust proxy');
 ssrServer.set('port', process.env.PORT || 8080);
 ssrServer.engine('html', ejs.renderFile);
+
+if (deploy.ssrServer.bugsnag.apiKey) {
+  ssrServer.use(bugsnag.requestHandler);
+}
 
 if (deploy.env === 'local') {
   staticAssetsRouter.use(
@@ -63,7 +93,6 @@ ssrRouter.use(
   })
 );
 ssrRouter.use(helmet.permittedCrossDomainPolicies());
-ssrRouter.use(helmet.noCache());
 ssrRouter.use((req, res, next) => {
   res.set('Request-Id', uuidv4());
   next();
@@ -77,7 +106,9 @@ ssrRouter.get(['/:entry/*', '/:entry', '/*'], ssrRoute);
 
 ssrServer.use('/', ssrRouter);
 
-if (!isProductionEnv) {
+if (deploy.ssrServer.bugsnag.apiKey) {
+  ssrServer.use(bugsnag.errorHandler);
+} else if (!isProductionEnv) {
   // https://www.npmjs.com/package/errorhandler
   ssrServer.use(errorHandler());
 }

@@ -9,7 +9,7 @@ const css = merge(
   {
     cssModules: {
       enable: false,
-      exclude: ['node_modules'],
+      exclude: [/node_modules/],
       // https://github.com/webpack-contrib/css-loader#camelcase
       enableCamelCase: false,
       localIdentName: '[local]--[hash:base64:5]',

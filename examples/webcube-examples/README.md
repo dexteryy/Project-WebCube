@@ -58,7 +58,7 @@ npm run build -- -c
 
 ```bash
 NODE_ENV=production DEPLOY_ENV={{delopy_env}} npm run build -- -c
-NODE_ENV=production DEPLOY_ENV={{delopy_env}} ACCESS_KEY_ID={{key}} ACCESS_KEY_SECRET={{scecret}} MONOREPO_PACKAGES_PATH=packages ENABLE_CHINA_MIRROR=true REGISTRY_URL="{{registry}}/{{namespace}}/{{image}}:{{tag}}" npm run deploy
+NODE_ENV=production DEPLOY_ENV={{delopy_env}} OSSUTIL_PATH={{ossutil}} AWSCLI_PATH={{awscli}} ACCESS_KEY_ID={{key}} ACCESS_KEY_SECRET={{scecret}} MONOREPO_PACKAGES_PATH=packages ENABLE_CHINA_MIRROR=true REGISTRY_URL="{{registry}}/{{namespace}}/{{image}}:{{tag}}" npm run deploy
 ```
 
 

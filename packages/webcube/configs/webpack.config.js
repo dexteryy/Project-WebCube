@@ -227,15 +227,16 @@ module.exports = {
           ? customTemplate
           : path.join(webcubePath, 'configs/template.hbs'),
         headHtml:
-          (dev.enableCustomHtml || isProductionEnv) &&
+          (!dev.disableCustomHtml || isProductionEnv) &&
           pathExistsSync(customHeadHtml) &&
           fs.readFileSync(customHeadHtml),
         bodyHtml:
-          (dev.enableCustomHtml || isProductionEnv) &&
+          (!dev.disableCustomHtml || isProductionEnv) &&
           pathExistsSync(customBodyHtml) &&
           fs.readFileSync(customBodyHtml),
         appMountIds: output.appMountIds,
         appMountId: entryNameToId(entry),
+        enableUserScalable: output.enableUserScalable,
       });
     }),
     // https://github.com/jantimon/html-webpack-harddisk-plugin

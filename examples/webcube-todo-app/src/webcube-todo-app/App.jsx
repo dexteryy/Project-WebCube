@@ -4,7 +4,7 @@ import 'todomvc-app-css/index.css';
 import Helmet from 'react-helmet';
 import localforage from 'localforage';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
-import { errorBoundary } from 'react-common-kit';
+import { ErrorBoundary } from 'react-common-kit';
 import withPersist from 'redux-cube-with-persist';
 import withRouter from 'redux-cube-with-router';
 
@@ -32,10 +32,10 @@ export default App
     supportHtml5History: isDynamicUrl(),
     persistStorage: localforage,
     persistKey: 'todoAppRoot',
+    ErrorBoundary,
   })
   |> withScripts(
     googleAnalytics({
       googleAnalyticsTrackingId: 'UA-404086-14',
     }),
-  )
-  |> errorBoundary();
+  );

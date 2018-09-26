@@ -11,6 +11,7 @@ const projectPath = process.cwd();
 let custom = {};
 const pkg = require(path.join(projectPath, `package.json`));
 const projectName = pkg.name;
+const projectVersion = pkg.version;
 const { config: browserslist } = cosmiconfig('browserslist').searchSync() || {};
 const { config: customConfig } = cosmiconfig('webcube').searchSync() || {};
 custom = merge(custom, customConfig);
@@ -55,6 +56,7 @@ const config = {
   mode,
   isProductionEnv,
   projectName,
+  projectVersion,
   projectPath,
   webcubePath,
   rootPath,

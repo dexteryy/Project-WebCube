@@ -2,7 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8">
+{{#if htmlWebpackPlugin.options.enableUserScalable}}
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{else}}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{{/if}}
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 {{!-- https://github.com/joshbuchea/HEAD/#browsers-chinese --}}
 {{!-- https://browser.360.cn/se/help/kernel.html --}}

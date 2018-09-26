@@ -2,6 +2,9 @@
 FROM node:10.9
 
 ARG ENABLE_CHINA_MIRROR
+ARG PORT=80
+
+ENV PORT ${PORT}
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -28,5 +31,5 @@ RUN yarn install --no-cache --pure-lockfile
 
 COPY . .
 
-EXPOSE 80
+EXPOSE ${PORT}
 CMD ["npm", "run", "serve"]

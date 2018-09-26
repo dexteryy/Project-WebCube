@@ -4,6 +4,9 @@ FROM node:10.9
 ARG MONOREPO_APP_PATH
 ARG MONOREPO_PACKAGES_PATH
 ARG ENABLE_CHINA_MIRROR
+ARG PORT=80
+
+ENV PORT ${PORT}
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -34,5 +37,5 @@ COPY . .
 
 WORKDIR /usr/src/app/${MONOREPO_APP_PATH}
 
-EXPOSE 80
+EXPOSE ${PORT}
 CMD ["npm", "run", "serve"]

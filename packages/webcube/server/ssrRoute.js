@@ -375,8 +375,9 @@ async function ssrRender({
           if (true === loader(getProps())) {
             markLoader({ skip: true });
           } else {
-            store.subscribe(() => {
+            const unsubscribe = store.subscribe(() => {
               if (isLoaded(getProps())) {
+                unsubscribe();
                 markLoader();
               }
             });

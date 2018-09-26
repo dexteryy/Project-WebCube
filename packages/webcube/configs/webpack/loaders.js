@@ -8,7 +8,7 @@ exports.fileLoader = {
     name:
       getOutputConfig().assetRoot +
       (isProductionEnv && !getOutputConfig().disableCache
-        ? '/[path][name]_[hash].[ext]'
+        ? '/[name]_[hash].[ext]'
         : '/[path][name].[ext]'),
   },
 };

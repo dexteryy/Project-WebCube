@@ -52,24 +52,26 @@ export default function withXXX() {
   );
 ```
 
-### `errorBoundary`
+### `ErrorBoundary`
 
 ```js
-import { errorBoundary } from 'react-common-kit';
+import { ErrorBoundary } from 'react-common-kit';
 
-@errorBoundary({
-  // optional
-  logger: (error, errorInfo, props) => {
-    // ...
-  },
-  // optional
-  fallbackRender: (error, errorInfo, props) => {
-    // ...
-  },
-  // optional
-  enableStrictMode: true,
-})
-class YourApp extends Component {
+function YourApp() {
+  return (
+    <ErrorBoundary
+      // optional
+      FallbackComponent={YourFallbackComponent}
+      // optional
+      logger={(error, info, props) => {
+        // ...
+      }}
+      // optional
+      enableStrictMode={true}>
+      <YourComponents />
+    </ErrorBoundary>
+  );
+}
 ```
 
 ### `DetectClickOutSide`

@@ -5,6 +5,8 @@ import { union } from 'lodash';
 export default function wechatSdk({
   wechatScript,
   wechatSignatureApi,
+  wechatSignatureApiAdapter = data => data,
+  wechatAppId,
   wechatDebug,
   wechatApiList,
 }) {
@@ -38,7 +40,12 @@ export default function wechatSdk({
           ).then(response => response.json()),
         ])
           .then(([wx, json]) => {
-            const { appId, timestamp, nonceStr, signature } = json;
+            const {
+              appId = wechatAppId,
+              timestamp,
+              nonceStr,
+              signature,
+            } = wechatSignatureApiAdapter(json);
             wx.config({
               debug: wechatDebug,
               appId,

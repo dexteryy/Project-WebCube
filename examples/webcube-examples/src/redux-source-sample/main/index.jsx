@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, NavLink } from 'react-router-dom';
-import { errorBoundary } from 'react-common-kit';
+import { ErrorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 import withRouter from 'redux-cube-with-router';
 
@@ -43,10 +43,10 @@ export default ReactReduxRestapiApp
     plugins: [withRouter],
     supportHtml5History: isDynamicUrl(),
     devToolsOptions: { name: 'ReactReduxRestapiApp' },
+    ErrorBoundary,
   })
   |> withScripts(
     googleAnalytics({
       googleAnalyticsTrackingId: 'UA-404086-14',
     }),
-  )
-  |> errorBoundary();
+  );

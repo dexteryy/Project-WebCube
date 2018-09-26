@@ -173,6 +173,9 @@ deploy.ssrServer = merge(
       backend: {},
     },
     i18nextMiddlewareConfig: {},
+    bugsnag: {
+      apiKey: '',
+    },
   },
   custom.deploy.ssrServer,
   {

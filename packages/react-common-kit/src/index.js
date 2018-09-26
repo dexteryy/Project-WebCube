@@ -1,6 +1,6 @@
 import createHoc from './createHoc';
-import errorBoundary from './errorBoundary';
+import ErrorBoundary from './ErrorBoundary';
 import DetectClickOutSide from './DetectClickOutSide';
 import DialogButton from './DialogButton';
 
-export { createHoc, errorBoundary, DetectClickOutSide, DialogButton };
+export { createHoc, ErrorBoundary, DetectClickOutSide, DialogButton };

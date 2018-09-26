@@ -29,13 +29,13 @@
     "react-router-dom": ">= 4.2.2"
   },
   "dependencies": {
-    "connected-react-router": "^4.4.1"
+    "connected-react-router": "^4.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.0",
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
     "@babel/plugin-proposal-function-bind": "^7.0.0",
@@ -46,14 +46,14 @@
     "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.0.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "@babel/preset-typescript": "^7.1.0",
+    "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-graphql-tag": "^1.6.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-ramda": "^1.6.3",
-    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-styled-components": "^1.7.1",
     "fast-async": "^7.0.0"
   },
   "keywords": [

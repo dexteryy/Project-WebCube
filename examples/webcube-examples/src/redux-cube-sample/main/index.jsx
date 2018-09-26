@@ -1,5 +1,5 @@
 import React from 'react';
-import { errorBoundary } from 'react-common-kit';
+import { ErrorBoundary } from 'react-common-kit';
 import withScripts, { googleAnalytics } from 'react-with-scripts';
 
 import Sample from '../sample';
@@ -18,10 +18,10 @@ function ReactReduxApp() {
 export default ReactReduxApp
   |> cube.createApp({
     devToolsOptions: { name: 'ReactReduxApp' },
+    ErrorBoundary,
   })
   |> withScripts(
     googleAnalytics({
       googleAnalyticsTrackingId: 'UA-404086-14',
     }),
-  )
-  |> errorBoundary();
+  );

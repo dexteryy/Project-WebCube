@@ -6,7 +6,7 @@ import styledSanitize from 'styled-sanitize';
 import { Loader } from 'react-loaders';
 import 'loaders.css/src/animations/line-scale.scss';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import { errorBoundary } from 'react-common-kit';
+import { ErrorBoundary } from 'react-common-kit';
 import withRouter from 'redux-cube-with-router';
 import cube from './cube';
 import './ducks/number';
@@ -65,5 +65,5 @@ function App() {
 export default App
   |> cube.createApp({
     plugins: [withRouter],
-  })
-  |> errorBoundary();
+    ErrorBoundary,
+  });
