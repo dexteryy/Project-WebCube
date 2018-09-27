@@ -13,13 +13,15 @@ const {
   isProductionEnv,
   projectVersion,
   projectPath,
-  output,
   deploy,
 } = require('../utils/custom');
+const { getDeployConfig, getOutputConfig } = require('../utils/helpers');
 const { i18n } = require('./i18n');
 const { staticMiddleware } = require('./staticServer');
 const ssrRoute = require('./ssrRoute');
 const { logger } = require('./logger');
+
+const output = getOutputConfig();
 
 const { errorPageFor500 } = deploy.staticServer;
 
@@ -29,7 +31,7 @@ if (deploy.ssrServer.bugsnag.apiKey) {
     Object.assign(
       {
         appVersion: projectVersion,
-        releaseStage: deploy.env === 'local' ? 'development' : deploy.env,
+        releaseStage: deploy.env,
         logger: {
           info(...args) {
             logger.info(...args);
@@ -60,7 +62,7 @@ if (deploy.ssrServer.bugsnag.apiKey) {
   ssrServer.use(bugsnag.requestHandler);
 }
 
-if (deploy.env === 'local') {
+if (deploy.env === 'development') {
   staticAssetsRouter.use(
     staticMiddleware({
       config: Object.assign({}, deploy.staticAssetsServer.config, {
@@ -68,7 +70,7 @@ if (deploy.env === 'local') {
       }),
     })
   );
-  ssrServer.use(deploy.local.staticRoot, staticAssetsRouter);
+  ssrServer.use(getDeployConfig('development').staticRoot, staticAssetsRouter);
 }
 
 // https://www.npmjs.com/package/express-pino-logger

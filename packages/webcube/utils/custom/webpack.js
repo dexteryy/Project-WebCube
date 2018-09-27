@@ -1,8 +1,9 @@
 const { merge, union } = require('lodash');
 const { config, custom } = require('./base');
+const output = require('./output');
 const deploy = require('./deploy');
 
-const { projectVersion, srcRoot, configRoot } = config;
+const { mode, projectVersion, srcRoot, configRoot } = config;
 
 if (!custom.webpack) {
   custom.webpack = {};
@@ -74,11 +75,13 @@ Object.keys(webpack.injectedGlobalVars).forEach(key => {
 webpack.injectedGlobalVars = globalVars;
 
 webpack.exposedEnv = {};
-union(['NODE_ENV'], custom.webpack.exposedEnv).forEach(name => {
+union([], custom.webpack.exposedEnv).forEach(name => {
   webpack.exposedEnv[name] = JSON.stringify(process.env[name]);
 });
+webpack.exposedEnv.NODE_ENV = JSON.stringify(mode);
 webpack.exposedEnv.DEPLOY_MODE = JSON.stringify(deploy.mode);
 webpack.exposedEnv.DEPLOY_ENV = JSON.stringify(deploy.env);
+webpack.exposedEnv.OUTPUT_ENV = JSON.stringify(output.env);
 webpack.exposedEnv.REACT_SPINKIT_NO_STYLES = JSON.stringify(true);
 webpack.exposedEnv.PROJECT_VERSION = JSON.stringify(projectVersion);
 

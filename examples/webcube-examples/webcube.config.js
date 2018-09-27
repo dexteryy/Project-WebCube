@@ -8,11 +8,13 @@ module.exports = {
     port: 8011,
   },
   deploy: {
-    production: {
-      staticRoot: 'https://app.cubemage.cn/static/',
-      staticCloud: 'oss',
-      staticCloudEndpoint: 'oss-cn-hangzhou.aliyuncs.com',
-      staticCloudUrl: 'oss://yy-static-web-app',
+    override: {
+      production: {
+        staticRoot: 'https://app.cubemage.cn/static/',
+        staticCloud: 'oss',
+        staticCloudEndpoint: 'oss-cn-hangzhou.aliyuncs.com',
+        staticCloudUrl: 'oss://yy-static-web-app',
+      },
     },
     ssrServer: {
       warmUpUrls: ['/counter', '/number'],

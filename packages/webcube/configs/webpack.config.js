@@ -27,8 +27,6 @@ const {
   mode,
   isProductionEnv,
   entries,
-  output,
-  dev,
   deploy,
   webpack,
   js,
@@ -45,6 +43,8 @@ const {
 const rules = require('./webpack/rules');
 const { styleEntries } = require('./webpack/style');
 
+const output = getOutputConfig();
+
 const loaderRules = rules();
 
 let faviconSource = path.join(projectPath, assets.favicon.logo);
@@ -60,13 +60,13 @@ module.exports = {
   entry: entries,
   output: {
     filename:
-      isProductionEnv && !getOutputConfig().disableCache
-        ? `${getOutputConfig().jsRoot}/[name]_[contenthash].js`
-        : `${getOutputConfig().jsRoot}/[name].js`,
+      isProductionEnv && !output.disableCache
+        ? `${output.jsRoot}/[name]_[contenthash].js`
+        : `${output.jsRoot}/[name].js`,
     chunkFilename:
-      isProductionEnv && !getOutputConfig().disableCache
-        ? `${getOutputConfig().jsRoot}/[name]_[contenthash].js`
-        : `${getOutputConfig().jsRoot}/[name].js`,
+      isProductionEnv && !output.disableCache
+        ? `${output.jsRoot}/[name]_[contenthash].js`
+        : `${output.jsRoot}/[name].js`,
     path: output.staticRoot,
     // https://webpack.js.org/configuration/output/#output-publicpath
     // the value of this option ends with / in most cases
@@ -88,16 +88,15 @@ module.exports = {
       .concat(webpack.moduleRules),
   },
   // https://webpack.js.org/configuration/devtool/
-  devtool: !getOutputConfig().disableSourceMap
+  devtool: !output.disableSourceMap
     ? (isProductionEnv &&
-        (((getOutputConfig().enableSourceMapOptimize ||
+        (((output.enableSourceMapOptimize ||
           // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68
           // bug hack
           !output.enableUglify) &&
           'cheap-module-source-map') ||
           'source-map')) ||
-      ((getOutputConfig().enableSourceMapOptimize &&
-        'cheap-module-eval-source-map') ||
+      ((output.enableSourceMapOptimize && 'cheap-module-eval-source-map') ||
         'inline-source-map')
     : false,
   stats: getWebpackStats(),
@@ -112,14 +111,14 @@ module.exports = {
   // https://medium.com/webpack/webpack-4-mode-and-optimization-5423a6bc597a
   optimization: {
     // https://webpack.js.org/configuration/optimization/#optimization-minimize
-    minimize: isProductionEnv && !getOutputConfig().disableMinimize,
+    minimize: isProductionEnv && !output.disableMinimize,
     minimizer: [
       ...(output.enableUglify
         ? [
             // https://github.com/webpack-contrib/uglifyjs-webpack-plugin
             // https://github.com/webpack/webpack/blob/master/package.json#L30
             new UglifyJsPlugin({
-              sourceMap: !getOutputConfig().disableSourceMap,
+              sourceMap: !output.disableSourceMap,
             }),
           ]
         : // https://webpack.js.org/plugins/babel-minify-webpack-plugin/
@@ -178,13 +177,13 @@ module.exports = {
       ? [
           new MiniCssExtractPlugin({
             filename:
-              isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
-                : `${getOutputConfig().cssRoot}/[name].css`,
+              isProductionEnv && !output.disableCache
+                ? `${output.cssRoot}/[name]_[contenthash].css`
+                : `${output.cssRoot}/[name].css`,
             chunkFilename:
-              isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
-                : `${getOutputConfig().cssRoot}/[name].css`,
+              isProductionEnv && !output.disableCache
+                ? `${output.cssRoot}/[name]_[contenthash].css`
+                : `${output.cssRoot}/[name].css`,
           }),
         ]
       : []),
@@ -196,17 +195,17 @@ module.exports = {
     ...Object.keys(entries).map(entry => {
       const customTemplate = path.join(
         configRoot,
-        'staticweb',
+        getDeployConfig().staticWebRoot,
         `${entry}/index.hbs`
       );
       const customHeadHtml = path.join(
         configRoot,
-        'staticweb',
+        getDeployConfig().staticWebRoot,
         `${entry}/head.hbs`
       );
       const customBodyHtml = path.join(
         configRoot,
-        'staticweb',
+        getDeployConfig().staticWebRoot,
         `${entry}/body.hbs`
       );
       return new HtmlWebpackPlugin({
@@ -227,13 +226,9 @@ module.exports = {
           ? customTemplate
           : path.join(webcubePath, 'configs/template.hbs'),
         headHtml:
-          (!dev.disableCustomHtml || isProductionEnv) &&
-          pathExistsSync(customHeadHtml) &&
-          fs.readFileSync(customHeadHtml),
+          pathExistsSync(customHeadHtml) && fs.readFileSync(customHeadHtml),
         bodyHtml:
-          (!dev.disableCustomHtml || isProductionEnv) &&
-          pathExistsSync(customBodyHtml) &&
-          fs.readFileSync(customBodyHtml),
+          pathExistsSync(customBodyHtml) && fs.readFileSync(customBodyHtml),
         appMountIds: output.appMountIds,
         appMountId: entryNameToId(entry),
         enableUserScalable: output.enableUserScalable,
@@ -269,8 +264,8 @@ module.exports = {
     ...(!output.disableWorkbox
       ? [
           new WorkboxPlugin.GenerateSW({
-            swDest: `${getOutputConfig().jsRoot}/service-worker.js`,
-            importsDirectory: `${getOutputConfig().jsRoot}/workbox-imports`,
+            swDest: `${output.jsRoot}/service-worker.js`,
+            importsDirectory: `${output.jsRoot}/workbox-imports`,
             importWorkboxFrom: 'local',
             excludeChunks: output.enableInlineSource
               ? getExcludeSplitChunks(entries)

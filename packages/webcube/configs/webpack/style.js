@@ -19,11 +19,12 @@ const {
   isProductionEnv,
   browserslist,
   entries,
-  output,
   deploy,
   css,
 } = require('../../utils/custom');
 const { getOutputConfig } = require('../../utils/helpers');
+
+const output = getOutputConfig();
 
 const { cssModules, postCss, scss, less } = css;
 
@@ -38,7 +39,7 @@ const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
         modules: isCssModulesEnabled,
         camelCase: isCssModulesEnabled && cssModules.enableCamelCase,
         localIdentName: cssModules.localIdentName,
-        sourceMap: !getOutputConfig().disableSourceMap,
+        sourceMap: !output.disableSourceMap,
         importLoaders: preprocessor ? 2 : 1,
       },
     },
@@ -46,7 +47,7 @@ const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
     {
       loader: 'postcss-loader',
       options: {
-        sourceMap: !getOutputConfig().disableSourceMap,
+        sourceMap: !output.disableSourceMap,
         ident: 'postcss',
         plugins: () => [
           // https://github.com/seaneking/rucksack
@@ -101,7 +102,7 @@ const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: !getOutputConfig().disableSourceMap,
+              sourceMap: !output.disableSourceMap,
               data: scss.data,
             },
           },
@@ -113,7 +114,7 @@ const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
           {
             loader: 'less-loader',
             options: {
-              sourceMap: !getOutputConfig().disableSourceMap,
+              sourceMap: !output.disableSourceMap,
               paths: less.paths,
               plugins: less.plugins,
             },
@@ -128,7 +129,7 @@ const styleLoaders = ({ preprocessor = '', disableCssModules = false }) => {
           loader: 'style-loader',
           options: {
             hmr: !isProductionEnv,
-            sourceMap: !getOutputConfig().disableSourceMap,
+            sourceMap: !output.disableSourceMap,
             convertToAbsoluteUrls: !isProductionEnv,
           },
         }

@@ -3,7 +3,7 @@ const escapeStringRegexp = require('escape-string-regexp');
 const { config, custom } = require('./base');
 const deploy = require('./deploy');
 
-const { staticAssetsServer } = deploy;
+const { staticAssetsServer, getDeployConfig } = deploy;
 
 const { projectName, entries } = config;
 
@@ -14,7 +14,6 @@ if (!custom.dev) {
 const dev = merge(
   {
     port: 8000,
-    disableCustomHtml: false,
   },
   custom.dev
 );
@@ -44,10 +43,14 @@ dev.server.rewrites = Object.keys(entries)
   }))
   .concat([
     {
-      from: new RegExp(escapeStringRegexp(deploy.local.staticRoot)),
+      from: new RegExp(
+        escapeStringRegexp(getDeployConfig('development').staticRoot)
+      ),
       to(context) {
         return context.parsedUrl.href.replace(
-          new RegExp(`^${escapeStringRegexp(deploy.local.staticRoot)}`),
+          new RegExp(
+            `^${escapeStringRegexp(getDeployConfig('development').staticRoot)}`
+          ),
           ''
         );
       },

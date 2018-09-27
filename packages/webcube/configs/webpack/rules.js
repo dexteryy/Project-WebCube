@@ -17,7 +17,6 @@ const {
 
 const { babel } = js;
 
-/* eslint-disable complexity */
 module.exports = (opt = {}) => ({
   babelRules: !webpack.disabledLoaders.js
     ? [
@@ -205,7 +204,7 @@ module.exports = (opt = {}) => ({
   //         // https://ilikekillnerds.com/2018/03/disable-webpack-4-native-json-loader/
   //         type: 'javascript/auto',
   //         test: /\.json$/,
-  //         use: !output.disableExtractFrom.json ? [fileLoader] : [],
+  //         use: !getOutputConfig().disableExtractFrom.json ? [fileLoader] : [],
   //       },
   //     ]
   //   : [],
@@ -272,4 +271,3 @@ module.exports = (opt = {}) => ({
       ]
     : [],
 });
-/* eslint-enable complexity */

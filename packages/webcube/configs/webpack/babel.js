@@ -1,11 +1,12 @@
 const {
   isProductionEnv,
-  output,
   deploy,
   browserslist,
   js,
 } = require('../../utils/custom');
-// const { getOutputConfig } = require('../../utils/helpers');
+const { getOutputConfig } = require('../../utils/helpers');
+
+const output = getOutputConfig();
 
 const { babel } = js;
 
@@ -70,7 +71,7 @@ module.exports = ({ isSsrBuild }) => ({
     // https://github.com/babel/minify/tree/master/packages/babel-preset-minify#options
     // ...(isProductionEnv &&
     // !output.enableUglify &&
-    // !getOutputConfig().disableMinimize
+    // !output.disableMinimize
     //   ? [[require('babel-preset-minify'), js.minifyOptions]]
     //   : []),
   ],

@@ -1,12 +1,17 @@
 const { spawn } = require('child_process');
 const Combinatorics = require('js-combinatorics');
 const { entryNameToId } = require('./custom/base');
-const { mode, output, deploy } = require('./custom');
+const {
+  output: { getOutputConfig },
+  deploy: { getDeployConfig },
+} = require('./custom');
 const logger = require('./logger');
 
-exports.getDeployConfig = () => deploy[deploy.env];
+const output = getOutputConfig();
 
-exports.getOutputConfig = () => output[mode];
+exports.getDeployConfig = getDeployConfig;
+
+exports.getOutputConfig = getOutputConfig;
 
 exports.getExcludeNames = (names, name) =>
   Object.keys(names).filter(otherName => otherName !== name);

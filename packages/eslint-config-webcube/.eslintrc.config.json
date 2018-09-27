@@ -1746,15 +1746,15 @@
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     "import/extensions": [
       "error",
+      "ignorePackages",
       {
         "js": "never",
         "jsx": "never",
         "ts": "never",
-        "es6": "never",
-        "css": "always",
-        "scss": "always",
-        "less": "always",
-        "json": "always"
+        "tsx": "never",
+        "mjs": "never",
+        "mjsx": "never",
+        "es6": "never"
       }
     ],
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md

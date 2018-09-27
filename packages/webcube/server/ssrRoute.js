@@ -9,15 +9,11 @@ const { StaticRouter } = require('react-router');
 const Loadable = require('react-loadable');
 const { Helmet } = require('react-helmet');
 const { getBundles } = require('react-loadable/webpack');
-const {
-  projectName,
-  ssrEntries,
-  entries,
-  output,
-  deploy,
-} = require('../utils/custom');
-const { entryNameToId } = require('../utils/helpers');
+const { projectName, ssrEntries, entries, deploy } = require('../utils/custom');
+const { entryNameToId, getOutputConfig } = require('../utils/helpers');
 const { logger } = require('./logger');
+
+const output = getOutputConfig();
 
 // const manifest = require(path.join(output.staticRoot, 'manifest.json'));
 let loadableStats = {};

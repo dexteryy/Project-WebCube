@@ -6,13 +6,11 @@ const compression = require('compression');
 const helmet = require('helmet');
 const errorHandler = require('errorhandler');
 const pino = require('express-pino-logger');
-const {
-  isProductionEnv,
-  projectPath,
-  output,
-  deploy,
-} = require('../utils/custom');
+const { isProductionEnv, projectPath, deploy } = require('../utils/custom');
+const { getDeployConfig, getOutputConfig } = require('../utils/helpers');
 const { logger } = require('./logger');
+
+const output = getOutputConfig();
 
 // https://github.com/firebase/superstatic#api
 const staticMiddleware = ({ config }) =>
@@ -29,7 +27,7 @@ staticServer.staticMiddleware = staticMiddleware;
 const staticAssetsRouter = express.Router();
 const staticRouter = express.Router();
 
-if (deploy.env === 'local') {
+if (deploy.env === 'development') {
   staticAssetsRouter.use(
     staticMiddleware({
       config: Object.assign({}, deploy.staticAssetsServer.config, {
@@ -37,7 +35,10 @@ if (deploy.env === 'local') {
       }),
     })
   );
-  staticServer.use(deploy.local.staticRoot, staticAssetsRouter);
+  staticServer.use(
+    getDeployConfig('development').staticRoot,
+    staticAssetsRouter
+  );
 }
 
 // https://www.npmjs.com/package/express-pino-logger

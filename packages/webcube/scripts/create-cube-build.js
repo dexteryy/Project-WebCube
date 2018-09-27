@@ -5,9 +5,11 @@ const program = require('commander');
 const webpack = require('webpack');
 const webpackConfig = require('../configs/webpack.config');
 const webpackSsrConfig = require('../configs/webpack.config.ssr');
-const { output, deploy } = require('../utils/custom');
+const { deploy } = require('../utils/custom');
 const logger = require('../utils/logger');
-const { getWebpackStats } = require('../utils/helpers');
+const { getWebpackStats, getOutputConfig } = require('../utils/helpers');
+
+const output = getOutputConfig();
 
 program
   .option('-c --clean', 'Clean build results')

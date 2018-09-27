@@ -2,12 +2,14 @@ const { merge } = require('lodash');
 const { isProductionEnv, deploy, assets } = require('../../utils/custom');
 const { getOutputConfig } = require('../../utils/helpers');
 
+const output = getOutputConfig();
+
 exports.fileLoader = {
   loader: 'file-loader',
   options: {
     name:
-      getOutputConfig().assetRoot +
-      (isProductionEnv && !getOutputConfig().disableCache
+      output.assetRoot +
+      (isProductionEnv && !output.disableCache
         ? '/[name]_[hash].[ext]'
         : '/[path][name].[ext]'),
   },
@@ -21,7 +23,7 @@ exports.assetLoader = merge({}, exports.fileLoader, {
 });
 
 exports.imageminLoaders =
-  isProductionEnv && !getOutputConfig().disableMinimize && !assets.imagemin
+  isProductionEnv && !output.disableMinimize && !assets.imagemin
     ? [
         {
           loader: 'image-webpack-loader',
@@ -33,7 +35,7 @@ exports.imageminLoaders =
 exports.htmlLoader = {
   loader: 'html-loader',
   options: {
-    minimize: isProductionEnv && !getOutputConfig().disableMinimize,
+    minimize: isProductionEnv && !output.disableMinimize,
     ...deploy.htmlMinifier,
   },
 };

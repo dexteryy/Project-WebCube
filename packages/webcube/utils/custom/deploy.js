@@ -1,60 +1,64 @@
 const path = require('path');
 const fs = require('fs');
-const { merge } = require('lodash');
+const { merge, pick } = require('lodash');
 const logger = require('../logger');
 const { config, custom } = require('./base');
 
-const { projectName, configRoot, entries } = config;
+const { mode, projectName, configRoot, entries } = config;
 
 if (!custom.deploy) {
-  custom.deploy = {};
+  custom.deploy = { override: {} };
 }
 
+const deployDefaults = {
+  mode: 'ssr',
+  // https://webpack.js.org/configuration/output/#output-publicpath
+  // the value of this option ends with / in most cases
+  staticCloud: 's3',
+  staticRoot: '/static/',
+  staticWebRoot: 'html',
+};
+
 const deploy = merge(
+  deployDefaults,
+  pick(custom.deploy, Object.keys(deployDefaults)),
   {
-    mode: 'ssr',
-    production: {
-      staticCloud: 's3',
-      // https://webpack.js.org/configuration/output/#output-publicpath
-      // the value of this option ends with / in most cases
-      staticRoot: '/static/',
-    },
-    staging: {
-      staticCloud: 's3',
-      staticRoot: '/static/',
-    },
-    local: {
-      // used in dev server rewrites rules
-      staticRoot: '/static/',
-    },
-  },
-  custom.deploy,
-  {
-    env: process.env.DEPLOY_ENV || 'local',
     mode: process.env.DEPLOY_MODE || undefined,
   }
 );
 
-Object.keys(deploy).forEach(deployEnv => {
-  if (
-    deployEnv === 'local' ||
-    typeof deployEnv !== 'object' ||
-    !deployEnv.staticRoot
-  ) {
+delete deploy.override;
+const override = merge({}, custom.deploy.override);
+const initializedOverride = {};
+Object.keys(override).forEach(envName => {
+  initializedOverride[envName] = merge({}, deploy, override[envName], {
+    mode: process.env.DEPLOY_MODE || undefined,
+  });
+});
+deploy.override = initializedOverride;
+
+deploy.env = process.env.DEPLOY_ENV || custom.deploy.env || mode;
+
+const getDeployConfig = env => deploy.override[env || deploy.env] || deploy;
+
+deploy.getDeployConfig = getDeployConfig;
+
+Object.keys(deploy.override).forEach(deployEnv => {
+  if (deployEnv === 'development') {
     return;
   }
-  if (!/\/$/.test(deployEnv.staticRoot)) {
+  if (!/\/$/.test(deploy.override[deployEnv].staticRoot)) {
     logger.fail(
-      `Invalid deploy.${deployEnv}.staticRoot "${
-        deployEnv.staticRoot
+      `Invalid deploy.override.${deployEnv}.staticRoot "${
+        deploy.override[deployEnv].staticRoot
       }". It must end with "/"`
     );
   }
 });
-if (!/^\/(.+\/$|$)/.test(deploy.local.staticRoot)) {
+if (!/^\/(.+\/$|$)/.test(getDeployConfig('development').staticRoot)) {
   logger.fail(
-    `Invalid deploy.local.staticRoot "${
-      deploy.local.staticRoot
+    `Invalid deploy.override.development.staticRoot "${
+      getDeployConfig('development').staticRoot
     }". It must start and end with "/"`
   );
 }

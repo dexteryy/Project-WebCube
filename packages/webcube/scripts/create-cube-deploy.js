@@ -2,14 +2,15 @@
 const path = require('path');
 const program = require('commander');
 const shell = require('shelljs');
+const { rootPath, projectPath, projectName } = require('../utils/custom');
 const {
-  rootPath,
-  projectPath,
-  projectName,
-  output,
-} = require('../utils/custom');
-const { runCmd, getDeployConfig } = require('../utils/helpers');
+  runCmd,
+  getDeployConfig,
+  getOutputConfig,
+} = require('../utils/helpers');
 const logger = require('../utils/logger');
+
+const output = getOutputConfig();
 
 program
   .option('-u --disable-static', "Don't build and upload static files")

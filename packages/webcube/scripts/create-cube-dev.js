@@ -8,10 +8,12 @@ const compression = require('compression');
 const history = require('connect-history-api-fallback');
 const webpackServeWaitpage = require('webpack-serve-waitpage');
 const webpackConfig = require('../configs/webpack.config');
-const { dev, output } = require('../utils/custom');
+const { dev } = require('../utils/custom');
 // const logger = require('../utils/logger');
-const { getWebpackStats } = require('../utils/helpers');
+const { getWebpackStats, getOutputConfig } = require('../utils/helpers');
 const logger = require('../utils/logger');
+
+const output = getOutputConfig();
 
 program
   .option('-k --chunks', 'Show chunk information')

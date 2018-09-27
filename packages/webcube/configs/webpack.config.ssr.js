@@ -7,7 +7,6 @@ const {
   webcubePath,
   mode,
   ssrEntries,
-  output,
   webpack,
 } = require('../utils/custom');
 const {
@@ -16,6 +15,8 @@ const {
   getWebpackStats,
 } = require('../utils/helpers');
 const rules = require('./webpack/rules');
+
+const output = getOutputConfig();
 
 const loaderRules = rules({ isSsrBuild: true });
 
@@ -72,13 +73,13 @@ module.exports = {
       ? [
           new MiniCssExtractPlugin({
             filename:
-              isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
-                : `${getOutputConfig().cssRoot}/[name].css`,
+              isProductionEnv && !output.disableCache
+                ? `${output.cssRoot}/[name]_[contenthash].css`
+                : `${output.cssRoot}/[name].css`,
             chunkFilename:
-              isProductionEnv && !getOutputConfig().disableCache
-                ? `${getOutputConfig().cssRoot}/[name]_[contenthash].css`
-                : `${getOutputConfig().cssRoot}/[name].css`,
+              isProductionEnv && !output.disableCache
+                ? `${output.cssRoot}/[name]_[contenthash].css`
+                : `${output.cssRoot}/[name].css`,
           }),
         ]
       : []),
