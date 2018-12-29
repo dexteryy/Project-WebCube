@@ -9,6 +9,7 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 
 * [webcube](./packages/webcube/) - Continuously updated JS infrastructure for modern Universal JS web app/site and static web.
     * [eslint-config-webcube](./packages/eslint-config-webcube/) - A sharable ESLint presets which integrates Prettier and explicitly configures all-available rules (guaranteed by scripts) from ESLint core and commonly used plugins.
+* [nodecube](./packages/nodecube) - Continuously updated JS infrastructure for Node.js microservice or API gateway service.
 * [redux-cube](./packages/redux-cube/) - App state manager. A set of wrappers which simplify the use of Redux and its whole ecosystem, reduce boilerplate, and provide many features (Sub App, Reducer Bundle, ...)
     * [redux-cube-with-router](./packages/redux-cube-with-router/) - redux-cube's pluggable module for react-router v4+
     * [redux-cube-with-i18next](./packages/redux-cube-with-i18next/) - redux-cube's pluggable module for react-i18next
@@ -23,14 +24,13 @@ Continuously updated JS infrastructure for [modern web dev](https://github.com/d
 * [react-with-scripts](./packages/react-with-scripts/) - Add third party script tags, JS SDK and tracking code without modifying any HTML code
 * [react-common-kit](./packages/react-common-kit/) - Wrappers for some common used react components and utilities
 * [hifetch](./packages/hifetch/) - A minimal higher-level wrapper around Fetch API
-* [WIP] [nodecube](https://github.com/dexteryy/nodecube) - Continuously updated JS infrastructure for Node.js microservice or API gateway service.
 
 ## Starters
 
 * [Webcube's Starter For Standalone Repo](./starters/webcube-app-as-standalone/)
 * [Webcube's Starter For Project In Monorepo](./starters/webcube-app-in-monorepo/)
-* [Nodecube's Starter For Standalone Repo](./starters/nodecube-service-as-standalone/)
-* [Nodecube's Starter For Project In Monorepo](./starters/nodecube-service-in-monorepo/)
+<!-- * [Nodecube's Starter For Standalone Repo](./starters/nodecube-service-as-standalone/) -->
+<!-- * [Nodecube's Starter For Project In Monorepo](./starters/nodecube-service-in-monorepo/) -->
 
 ## Examples (in monorepo)
 

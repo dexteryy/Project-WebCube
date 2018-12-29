@@ -43,6 +43,9 @@ if (deploy.ssrServer.bugsnag.apiKey) {
           error(...args) {
             logger.error(...args);
           },
+          debug(...args) {
+            logger.debug(...args);
+          },
         },
       },
       deploy.ssrServer.bugsnag

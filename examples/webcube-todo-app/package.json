@@ -43,6 +43,6 @@
     "todomvc-app-css": "^2.1.2",
     "todomvc-common": "^1.0.5",
     "uuid": "^3.3.2",
-    "webcube": "^2.0.0-beta.11"
+    "webcube": "^2.0.0"
   }
 }

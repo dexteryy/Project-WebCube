@@ -42,6 +42,6 @@
     "examples/*"
   ],
   "devDependencies": {
-    "webcube": "^2.0.0-beta.11"
+    "webcube": "^2.0.0"
   }
 }
