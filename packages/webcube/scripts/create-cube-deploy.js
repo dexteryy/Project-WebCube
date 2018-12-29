@@ -49,7 +49,7 @@ const { quiet } = program;
           getDeployConfig().staticCloudUrl
         } --recursive --region=${
           getDeployConfig().staticCloudRegion
-        } --cache-control="max-age=31536000, public"`,
+        } --cache-control="max-age=31536000, public" --acl="public-read"`,
         { quiet }
       );
     } else {
@@ -63,7 +63,9 @@ const { quiet } = program;
 
   if (!program.disableBuildImage) {
     await runCmd(
-      `docker build -t ${projectName} --build-arg MONOREPO_APP_PATH="${path.relative(
+      `docker build -t ${projectName} --build-arg NODE_ENV="${
+        process.env.NODE_ENV
+      }" --build-arg MONOREPO_APP_PATH="${path.relative(
         rootPath,
         projectPath
       )}" --build-arg MONOREPO_PACKAGES_PATH="${packagesPath}" --build-arg ENABLE_CHINA_MIRROR=${enableChinaMirror} .`,

@@ -5,15 +5,16 @@
   "scripts": {
     "precommit": "create-cube precommit",
     "precommit:custom": "lerna run precommit:custom",
-    "setup": "yarn install && lerna run prepare && echo 7.0 > .project-version",
-    "update": "create-cube update && echo 7.0 > .project-version",
-    "upgrade": "create-cube update -c && echo 7.0 > .project-version",
+    "setup": "yarn install && lerna run prepare && npm run setup:env",
+    "setup:env": "echo 10.0 > .project-version",
+    "update": "create-cube update && npm run setup:env",
+    "upgrade": "create-cube update -c && npm run setup:env",
     "test": "lerna run test",
     "lint": "create-cube lint",
     "lint:error": "create-cube lint --quiet"
   },
   "engines": {
-    "node": ">=8.6.0"
+    "node": ">=8.6.0 <11.0.0"
   },
   "lint-staged": {
     "linters": {

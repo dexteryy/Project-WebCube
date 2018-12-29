@@ -1,6 +1,6 @@
 {
   "name": "redux-source-utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "redux-source-utils's common code",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -32,17 +32,17 @@
     "change-case": "^3.0.2",
     "graphql": "^14.0.2",
     "graphql-iso-date": "^3.6.1",
-    "graphql-tools": "^4.0.0",
+    "graphql-tools": "^4.0.2",
     "graphql-type-json": "^0.2.1",
     "lodash": "^4.17.11",
-    "normalizr": "^3.2.4",
+    "normalizr": "^3.3.0",
     "pluralize": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.0",
-    "@babel/core": "^7.1.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
     "@babel/plugin-proposal-function-bind": "^7.0.0",
@@ -59,8 +59,8 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-graphql-tag": "^1.6.0",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-ramda": "^1.6.3",
-    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-ramda": "^2.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "fast-async": "^7.0.0"
   },
   "keywords": [

@@ -4,7 +4,7 @@ import { connect as originConnect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { merge } from 'lodash';
 import { createHoc } from 'react-common-kit';
-import { unwrap, bindActionCreators } from '../utils';
+import { bindActionCreators } from '../utils';
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, stateProps, dispatchProps);
@@ -34,15 +34,11 @@ export default function connect({
   const selectors = select || _selectors;
   // https://www.npmjs.com/package/reselect#createselectorinputselectors--inputselectors-resultfunc
   // https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-  const mapStateToProps = (state, ownProps) => {
-    const newState = unwrap(state);
-    return {
-      ...customMapStateToProps(state, ownProps),
-      ...(selectors
-        ? createSelector(...selectors, transform)(newState, ownProps)
-        : {}),
-    };
-  };
+  const selector = selectors && createSelector(...selectors, transform);
+  const mapStateToProps = (state, ownProps) => ({
+    ...customMapStateToProps(state, ownProps),
+    ...(selectors ? selector(state, ownProps) : {}),
+  });
   let actionCreators = actions;
   if (!customMapDispatchToProps && Array.isArray(actionCreators)) {
     actionCreators = merge({}, ...actions);

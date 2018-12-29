@@ -109,7 +109,7 @@ import DialogButton from './DialogButton'
 // DialogButton.jsx
 import React from 'react';
 import Modal from 'react-modal';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { DialogButton as CommonDialogButton } from 'react-common-kit';
 
 const ActionButton = styled.button.attrs({ type: 'button' })`
@@ -134,7 +134,7 @@ const Content = styled.div`
   padding: 20px;
 `;
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
 .ReactModal__Overlay { /* ... */ }
 .ReactModal__Overlay--after-open { /* ... */ }
 .ReactModal__Overlay--before-close { /* ... */ }
@@ -175,6 +175,7 @@ export default function DialogButton({
       componentProps={componentProps}
       isOpened={isOpened}>
       <Content>{children}</Content>
+      <GlobalStyle />
     </CommonDialogButton>
   );
 }

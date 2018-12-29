@@ -6,6 +6,7 @@ const {
   assets,
   marked,
 } = require('../../utils/custom');
+const { getOutputConfig } = require('../../utils/helpers');
 const babelOptions = require('./babel');
 const { styleRules } = require('./style');
 const {
@@ -15,6 +16,7 @@ const {
   htmlLoader,
 } = require('./loaders');
 
+const output = getOutputConfig();
 const { babel } = js;
 
 module.exports = (opt = {}) => ({
@@ -30,6 +32,12 @@ module.exports = (opt = {}) => ({
               isSsrBuild: opt.isSsrBuild,
             }),
           },
+          // https://webpack.js.org/configuration/module/#rule-sideeffects
+          ...(output.enableForceTreeShaking
+            ? {
+                sideEffects: false,
+              }
+            : {}),
         },
       ]
     : [],
@@ -99,6 +107,7 @@ module.exports = (opt = {}) => ({
     ? [
         {
           test: /\.svg$/i,
+          exclude: assets.svgReact.include,
           use: [
             Object.assign({}, assetLoader, { loader: 'svg-url-loader' }),
             ...imageminLoaders,

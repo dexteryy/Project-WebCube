@@ -9,7 +9,31 @@ module.exports = {
   ],
   processors: [
     // https://github.com/styled-components/stylelint-processor-styled-components
-    'stylelint-processor-styled-components',
+    [
+      'stylelint-processor-styled-components',
+      {
+        parserPlugins: [
+          'jsx',
+          'doExpressions',
+          'objectRestSpread',
+          'decorators-legacy',
+          'classProperties',
+          'classPrivateProperties',
+          'classPrivateMethods',
+          'exportExtensions',
+          'asyncGenerators',
+          'functionBind',
+          'functionSent',
+          'dynamicImport',
+          'numericSeparator',
+          'optionalChaining',
+          'optionalCatchBinding',
+          'throwExpressions',
+          ['pipelineOperator', { proposal: 'minimal' }],
+          'nullishCoalescingOperator',
+        ],
+      },
+    ],
     // @bug
     // // https://github.com/mapbox/stylelint-processor-arbitrary-tags
     // '@mapbox/stylelint-processor-arbitrary-tags',
@@ -22,6 +46,9 @@ module.exports = {
     // https://www.npmjs.com/package/stylelint-no-unsupported-browser-features
   ],
   rules: {
+    indentation: [2, { ignore: ['value'] }],
+    'declaration-colon-newline-after': null,
+    'no-descending-specificity': null,
     'no-empty-source': null,
     // https://github.com/hudochenkov/stylelint-order/blob/master/rules/order/README.md
     'order/order': [

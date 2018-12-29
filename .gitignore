@@ -1,8 +1,10 @@
 .DS_Store
 node_modules/
+tmp
 .npm
 *.log
 *.pid
+*.report
 package-lock.json
 .vscode/**/*
 !.vscode/settings.json
@@ -11,6 +13,7 @@ package-lock.json
 .project-version
 build/
 dist/
+coverage/
 demo*/
 app/demo*
 src/demo*

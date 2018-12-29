@@ -6,7 +6,8 @@ const compression = require('compression');
 const flash = require('connect-flash');
 const helmet = require('helmet');
 const errorHandler = require('errorhandler');
-const bugsnag = require('bugsnag');
+const bugsnag = require('@bugsnag/js');
+const bugsnagExpress = require('@bugsnag/plugin-express');
 const pino = require('express-pino-logger');
 const i18nextMiddleware = require('i18next-express-middleware');
 const {
@@ -25,9 +26,9 @@ const output = getOutputConfig();
 
 const { errorPageFor500 } = deploy.staticServer;
 
+let bugsnagMiddleware;
 if (deploy.ssrServer.bugsnag.apiKey) {
-  bugsnag.register(
-    deploy.ssrServer.bugsnag.apiKey,
+  const bugsnagClient = bugsnag(
     Object.assign(
       {
         appVersion: projectVersion,
@@ -47,6 +48,8 @@ if (deploy.ssrServer.bugsnag.apiKey) {
       deploy.ssrServer.bugsnag
     )
   );
+  bugsnagClient.use(bugsnagExpress);
+  bugsnagMiddleware = bugsnagClient.getPlugin('express');
 }
 
 // https://github.com/firebase/superstatic#api
@@ -58,8 +61,8 @@ ssrServer.enable('trust proxy');
 ssrServer.set('port', process.env.PORT || 8080);
 ssrServer.engine('html', ejs.renderFile);
 
-if (deploy.ssrServer.bugsnag.apiKey) {
-  ssrServer.use(bugsnag.requestHandler);
+if (bugsnagMiddleware) {
+  ssrServer.use(bugsnagMiddleware.requestHandler);
 }
 
 if (deploy.env === 'development') {
@@ -108,8 +111,8 @@ ssrRouter.get(['/:entry/*', '/:entry', '/*'], ssrRoute);
 
 ssrServer.use('/', ssrRouter);
 
-if (deploy.ssrServer.bugsnag.apiKey) {
-  ssrServer.use(bugsnag.errorHandler);
+if (bugsnagMiddleware) {
+  ssrServer.use(bugsnagMiddleware.errorHandler);
 } else if (!isProductionEnv) {
   // https://www.npmjs.com/package/errorhandler
   ssrServer.use(errorHandler());

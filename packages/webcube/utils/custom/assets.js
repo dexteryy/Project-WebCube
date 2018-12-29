@@ -23,23 +23,24 @@ const assets = merge(
       },
     },
     // https://github.com/jantimon/favicons-webpack-plugin
-    favicon: {
-      logo: 'config/favicon.png',
+    icon: {
+      favicon: 'config/favicon.png',
+      icon: 'config/icon.png',
       prefix: 'brand/icons-[hash]/',
       // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
       // background: '#fff',
       // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
       // title: 'Webpack App',
       // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
-      icons: {
+      platforms: {
         android: true,
         appleIcon: true,
         appleStartup: true,
         coast: false,
         favicons: true,
         firefox: false,
-        opengraph: false,
-        twitter: false,
+        opengraph: true,
+        twitter: true,
         yandex: false,
         windows: true,
       },
@@ -49,7 +50,7 @@ const assets = merge(
   },
   custom.assets,
   {
-    favicon: {
+    icon: {
       persistentCache: true,
       inject: true,
     },

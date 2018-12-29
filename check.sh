@@ -1,6 +1,6 @@
 #!/bin/bash
 repoRoot="."
-project_version="7.0"
+project_version="10.0"
 
 if [ -e "${repoRoot}/.project-version" ] && [[ "$(cat "${repoRoot}/.project-version")" == $project_version ]]; then
   exit 0

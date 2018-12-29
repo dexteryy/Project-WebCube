@@ -31,12 +31,10 @@ if (!isDevToolsDisabled) {
 }
 /* eslint-enable no-undef */
 
-/* eslint-disable complexity */
 export default function appState({
   // https://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html
   // https://redux.js.org/docs/recipes/reducers/ReusingReducerLogic.html
   reducers,
-  reducer = null,
   // optional
   // https://redux-observable.js.org/docs/basics/Epics.html
   epics = [],
@@ -94,25 +92,27 @@ export default function appState({
       `[redux-cube] Wrong appState settings. \`enablePersist: true\` conflicts with \`withImmutable\``,
     );
   }
-  let rootReducer = reducer;
-  if (!reducer) {
-    if (reducers && Object.keys(reducers).length) {
-      if (_enableImmutable) {
-        // https://www.npmjs.com/package/redux-immutable
-        // https://redux.js.org/docs/recipes/UsingImmutableJS.html#make-your-entire-redux-state-tree-an-immutablejs-object
-        rootReducer = combineReducersWith(_immutableCombineReducers, reducers);
-      } else {
-        rootReducer = combineReducersWith(combineReducers, reducers);
-      }
+  let rootReducer;
+  const reducersWithRouter =
+    _enableRouter && !_enableImmutable // @TODO https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-support-immutablejs
+      ? {
+          router: _connectRouter(_routerHistory),
+        }
+      : {};
+  if (reducers && Object.keys(reducers).length) {
+    Object.assign(reducersWithRouter, reducers);
+    if (_enableImmutable) {
+      // https://www.npmjs.com/package/redux-immutable
+      // https://redux.js.org/docs/recipes/UsingImmutableJS.html#make-your-entire-redux-state-tree-an-immutablejs-object
+      rootReducer = combineReducersWith(
+        _immutableCombineReducers,
+        reducersWithRouter,
+      );
     } else {
-      /* eslint-disable no-empty-function */
-      rootReducer = () => {};
-      /* eslint-enable no-empty-function */
+      rootReducer = combineReducersWith(combineReducers, reducersWithRouter);
     }
-  }
-  if (_enableRouter) {
-    // https://www.npmjs.com/package/connected-react-router
-    rootReducer = _connectRouter(_routerHistory)(rootReducer);
+  } else {
+    rootReducer = combineReducersWith(combineReducers, reducersWithRouter);
   }
   if (!isSsrEnv && _enablePersist) {
     // https://github.com/rt2zz/redux-persist#usage
@@ -200,4 +200,3 @@ export default function appState({
   epicMiddleware.run(combineEpics(...epics));
   return res;
 }
-/* eslint-enable complexity */

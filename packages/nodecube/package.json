@@ -1,0 +1,63 @@
+{
+  "name": "nodecube",
+  "description": "continuously updated JS infrastructure for Node.js microservice or API gateway service",
+  "author": "dexteryy <dexter.yy@gmail.com>",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/dexteryy/Project-WebCube/issues"
+  },
+  "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
+  "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "serve-cube-build": "./scripts/serve-cube-build.js",
+    "serve-cube-deploy": "./scripts/serve-cube-deploy.js",
+    "serve-cube": "./scripts/serve-cube.js"
+  },
+  "scripts": {},
+  "engines": {
+    "node": ">=8.6.0"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.2.0",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "connect-timeout": "^1.9.0",
+    "content-type": "^1.0.4",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "cz-conventional-changelog": "^2.1.0",
+    "debug": "^4.1.0",
+    "dotenv": "^6.2.0",
+    "errorhandler": "^1.5.0",
+    "eslint": "^4.13.1",
+    "eslint-config-webcube": "^1.1.4",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "helmet": "^3.15.0",
+    "lodash": "^4.17.11",
+    "method-override": "^3.0.0",
+    "pino": "^5.9.0",
+    "raw-body": "^2.3.3",
+    "response-time": "^2.3.2",
+    "uuid": "^3.3.2",
+    "webcube": "^2.0.0"
+  },
+  "keywords": [
+    "restful",
+    "api-service",
+    "microservice",
+    "12-factor",
+    "docker",
+    "express",
+    "jwt",
+    "es6",
+    "boilerplate",
+    "starter-kit",
+    "generator",
+    "minimal",
+    "zero-configuration"
+  ]
+}

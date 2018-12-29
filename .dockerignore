@@ -7,3 +7,5 @@
 **/*.report
 **/build/public/static
 **/build/bundle-analyzer
+**/env.ini
+**/.env

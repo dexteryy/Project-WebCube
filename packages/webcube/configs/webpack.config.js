@@ -3,15 +3,16 @@ const fs = require('fs');
 const { pathExistsSync } = require('fs-extra');
 const escapeStringRegexp = require('escape-string-regexp');
 // Webpack plugins
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, ContextReplacementPlugin } = require('webpack');
 // const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
@@ -47,11 +48,14 @@ const output = getOutputConfig();
 
 const loaderRules = rules();
 
-let faviconSource = path.join(projectPath, assets.favicon.logo);
+let faviconSource = path.join(projectPath, assets.icon.favicon);
 if (!pathExistsSync(faviconSource)) {
   faviconSource = path.join(webcubePath, 'configs/webcube.png');
 }
-assets.favicon.logo = faviconSource;
+let appIconSource = path.join(projectPath, assets.icon.icon);
+if (!pathExistsSync(appIconSource)) {
+  appIconSource = path.join(webcubePath, 'configs/webcube.png');
+}
 
 module.exports = {
   // https://medium.com/webpack/webpack-4-mode-and-optimization-5423a6bc597a
@@ -93,7 +97,7 @@ module.exports = {
         (((output.enableSourceMapOptimize ||
           // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68
           // bug hack
-          !output.enableUglify) &&
+          output.minimizer === 'minify') &&
           'cheap-module-source-map') ||
           'source-map')) ||
       ((output.enableSourceMapOptimize && 'cheap-module-eval-source-map') ||
@@ -113,16 +117,29 @@ module.exports = {
     // https://webpack.js.org/configuration/optimization/#optimization-minimize
     minimize: isProductionEnv && !output.disableMinimize,
     minimizer: [
-      ...(output.enableUglify
-        ? [
-            // https://github.com/webpack-contrib/uglifyjs-webpack-plugin
-            // https://github.com/webpack/webpack/blob/master/package.json#L30
-            new UglifyJsPlugin({
-              sourceMap: !output.disableSourceMap,
-            }),
-          ]
-        : // https://webpack.js.org/plugins/babel-minify-webpack-plugin/
-          [new MinifyPlugin(js.minifyOptions, {})]),
+      ...((output.minimizer === 'minify' && [
+        // https://webpack.js.org/plugins/babel-minify-webpack-plugin/
+        // No tree shaking
+        // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/43
+        // No babel 7
+        // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/83
+        new MinifyPlugin(js.minifyOptions, {}),
+      ]) ||
+        (output.minimizer === 'terser' && [
+          // https://github.com/webpack-contrib/terser-webpack-plugin
+          new TerserPlugin({
+            terserOptions: js.uglifyOptions,
+            sourceMap: !output.disableSourceMap,
+          }),
+        ]) || [
+          // https://github.com/webpack-contrib/uglifyjs-webpack-plugin
+          // https://github.com/webpack/webpack/blob/master/package.json#L30
+          // uglify-js v3 https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/349
+          new UglifyJsPlugin({
+            uglifyOptions: js.uglifyOptions,
+            sourceMap: !output.disableSourceMap,
+          }),
+        ]),
       // https://www.npmjs.com/package/mini-css-extract-plugin#minimizing-for-production
       // https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration
       new OptimizeCSSAssetsPlugin({
@@ -137,6 +154,8 @@ module.exports = {
       // must set to `async` and `1` for HtmlWebpackPlugin's `chunks`
       // solution: `excludeChunks`
       maxInitialRequests: output.maxInitialRequests,
+      maxSize: output.maxChunkSize,
+      minSize: output.minChunkSize,
       chunks: 'all',
       automaticNameDelimiter: output.chunkDelimiter,
       // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunks-chunks
@@ -187,6 +206,12 @@ module.exports = {
           }),
         ]
       : []),
+    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
+    // load `moment/locale/*.js`
+    new ContextReplacementPlugin(
+      /moment[/\\]locale$/,
+      new RegExp(output.momentLocaleWhitelist.join('|'))
+    ),
     new ManifestPlugin(),
     new ReactLoadablePlugin({
       filename: path.join(output.buildRoot, 'manifest/react-loadable.json'),
@@ -210,7 +235,7 @@ module.exports = {
       );
       return new HtmlWebpackPlugin({
         filename: path.join(output.htmlRoot, entry, 'index.html'),
-        inject: output.enableBodyInject ? 'body' : 'head',
+        inject: output.enableHeadInject ? 'head' : 'body',
         chunks: output.maxInitialRequests > 1 ? undefined : [entry],
         excludeChunks:
           output.maxInitialRequests > 1
@@ -235,14 +260,37 @@ module.exports = {
       });
     }),
     // https://github.com/jantimon/html-webpack-harddisk-plugin
-    // new HtmlWebpackHarddiskPlugin(),
+    new HtmlWebpackHarddiskPlugin(),
     // https://github.com/jantimon/favicons-webpack-plugin
-    new FaviconsWebpackPlugin(assets.favicon),
+    new FaviconsWebpackPlugin({
+      ...assets.icon,
+      logo: faviconSource,
+      icons: {
+        favicons: assets.icon.platforms.favicons,
+        android: false,
+        appleIcon: false,
+        appleStartup: false,
+        coast: false,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false,
+      },
+    }),
+    new FaviconsWebpackPlugin({
+      ...assets.icon,
+      logo: appIconSource,
+      icons: {
+        ...assets.icon.platforms,
+        favicons: false,
+      },
+    }),
     // https://www.npmjs.com/package/html-webpack-inline-source-plugin
     ...(output.enableInlineSource ? [new HtmlWebpackInlineSourcePlugin()] : []),
     // https://www.npmjs.com/package/preload-webpack-plugin
     // https://github.com/GoogleChromeLabs/preload-webpack-plugin/issues/60
-    ...(!output.disablePreload
+    ...(output.enablePreload
       ? [
           new PreloadWebpackPlugin({
             rel: 'preload',

@@ -16,6 +16,7 @@ module.exports = {
     // https://www.npmjs.com/package/stylelint-no-unsupported-browser-features
   ],
   rules: {
+    'no-descending-specificity': null,
     'no-empty-source': null,
     'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': true,

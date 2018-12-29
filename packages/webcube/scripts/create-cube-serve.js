@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+require('newrelic');
 const program = require('commander');
+const Loadable = require('react-loadable');
 const logger = require('../utils/logger');
 const { dev, deploy } = require('../utils/custom');
 
@@ -36,4 +38,6 @@ function startServer() {
   }
 }
 
-startServer();
+Loadable.preloadAll().then(() => {
+  startServer();
+});

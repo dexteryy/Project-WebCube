@@ -1,6 +1,6 @@
 {
   "name": "redux-source",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Using GraphQL schema and query language to access any data source (eg. RESTful APIs) and automatically generate reducers, actions and normalized state",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -30,13 +30,13 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "redux-source-utils": "^1.0.4"
+    "redux-source-utils": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.0",
-    "@babel/core": "^7.1.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
     "@babel/plugin-proposal-function-bind": "^7.0.0",
@@ -53,8 +53,8 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-graphql-tag": "^1.6.0",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-ramda": "^1.6.3",
-    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-ramda": "^2.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "fast-async": "^7.0.0"
   },
   "keywords": [

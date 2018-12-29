@@ -30,7 +30,7 @@ removeSync(output.buildRoot);
 logger.success(`Cleaned:`, output.buildRoot);
 ensureDirSync(path.join(output.buildRoot, 'manifest'));
 
-const PORT = process.env.PORT || dev.port;
+const { PORT = dev.port, HOST = 'localhost' } = process.env;
 
 const newWebpackConfig = Object.assign({}, webpackConfig);
 // disable BundleAnalyzerPlugin
@@ -45,6 +45,7 @@ serve(
   },
   {
     port: PORT,
+    host: HOST,
     config: newWebpackConfig,
     content: [output.htmlRoot, output.staticRoot],
     clipboard: false,

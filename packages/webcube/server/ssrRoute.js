@@ -9,9 +9,21 @@ const { StaticRouter } = require('react-router');
 const Loadable = require('react-loadable');
 const { Helmet } = require('react-helmet');
 const { getBundles } = require('react-loadable/webpack');
-const { projectName, ssrEntries, entries, deploy } = require('../utils/custom');
-const { entryNameToId, getOutputConfig } = require('../utils/helpers');
+const newrelic = require('newrelic');
+const {
+  projectName,
+  isProductionEnv,
+  ssrEntries,
+  entries,
+  deploy,
+} = require('../utils/custom');
+const {
+  entryNameToId,
+  getOutputConfig,
+  getDeployConfig,
+} = require('../utils/helpers');
 const { logger } = require('./logger');
+const { i18n: serveri18n } = require('./i18n');
 
 const output = getOutputConfig();
 
@@ -117,12 +129,17 @@ Object.keys(entries).forEach(entry => {
     // https://github.com/jamiebuilds/react-loadable#loadablepreloadall
     const urls = deploy.ssrServer.warmUpUrls[entry];
     if (urls) {
+      await Loadable.preloadAll();
       urls.forEach(url => {
         logger.info(`[WEBCUBE] Render "${entry}" for warming up url: "${url}"`);
         ssrRender({
           Entry,
           entry,
           url,
+          hostname: 'localhost',
+          language: 'en',
+          i18n: serveri18n,
+          requestId: 'warmUpRequest',
         });
       });
     }
@@ -132,19 +149,20 @@ const mainEntry = Object.keys(entries).find(entry => entry === projectName);
 
 function injectSsrHtml(
   originHtml,
-  { entry, html, bundles, styleTags, helmet, store, requestId }
+  { entry, html, bundles = [], styleTags, helmet, store, requestId }
 ) {
-  let entryHtml;
+  let entryHtml = originHtml;
   try {
-    entryHtml = originHtml.replace(
-      RE_MOUNT_CONTAINERS[entry],
-      `<div id="${entryNameToId(entry)}">${html}</div>`
-    );
+    if (html) {
+      entryHtml = entryHtml.replace(
+        RE_MOUNT_CONTAINERS[entry],
+        `<div id="${entryNameToId(entry)}">${html}</div>`
+      );
+    }
   } catch (ex) {
     logger.error(`[WEBCUBE] [${requestId}] Failed to inject HTML string`);
     logger.error(ex);
   }
-  const hasScriptInHead = RE_FIRST_HEAD_SCRIPT.test(entryHtml);
   try {
     const cssBundles = bundles.filter(bundle =>
       RE_IS_CSS.test(bundle.publicPath)
@@ -168,9 +186,9 @@ function injectSsrHtml(
       // It is important that the bundles are included before the main bundle, so that they can be loaded by the browser prior to the app rendering.
       // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
       entryHtml = entryHtml.replace(
-        hasScriptInHead ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
+        output.enableHeadInject ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
         ($0, $1, $2) =>
-          `${hasScriptInHead ? '<head>' : '<body>'}${$1}${jsBundles
+          `${output.enableHeadInject ? '<head>' : '<body>'}${$1}${jsBundles
             .map(bundle => `<script src=${bundle.publicPath}></script>`)
             .join('')}${$2}`
       );
@@ -185,9 +203,11 @@ function injectSsrHtml(
         store.getState()
       )}</script>`;
       entryHtml = entryHtml.replace(
-        hasScriptInHead ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
+        output.enableHeadInject ? RE_FIRST_HEAD_SCRIPT : RE_FIRST_BODY_SCRIPT,
         ($0, $1, $2) =>
-          `${hasScriptInHead ? '<head>' : '<body>'}${$1}${initialStateTag}${$2}`
+          `${
+            output.enableHeadInject ? '<head>' : '<body>'
+          }${$1}${initialStateTag}${$2}`
       );
     }
   } catch (ex) {
@@ -205,23 +225,32 @@ function injectSsrHtml(
     logger.error(ex);
   }
   try {
-    const afterTitle = [
-      helmet.meta.toString(),
-      helmet.link.toString(),
-      helmet.style.toString(),
-      helmet.script.toString(),
-      helmet.noscript.toString(),
-    ];
-    entryHtml = entryHtml
-      .replace(RE_TITLE, helmet.title.toString())
-      .replace(
-        RE_AFTER_TITLE,
-        `</title>\n${afterTitle
-          .filter(tag => /[^\S\n\r]/.test(tag))
-          .join('\n')}`
-      )
-      .replace(RE_HTML_ATTR, `<html ${helmet.htmlAttributes.toString()}>`)
-      .replace(RE_BODY_ATTR, `<body ${helmet.bodyAttributes.toString()}>`);
+    const afterTitle = (isProductionEnv && getDeployConfig().enableNewRelic
+      ? [newrelic.getBrowserTimingHeader()]
+      : []
+    ).concat(
+      helmet
+        ? [
+            helmet.meta.toString(),
+            helmet.link.toString(),
+            helmet.style.toString(),
+            helmet.script.toString(),
+            helmet.noscript.toString(),
+          ]
+        : []
+    );
+    if (helmet) {
+      entryHtml = entryHtml.replace(RE_TITLE, helmet.title.toString());
+    }
+    entryHtml = entryHtml.replace(
+      RE_AFTER_TITLE,
+      `</title>\n${afterTitle.filter(tag => /[^\S\n\r]/.test(tag)).join('\n')}`
+    );
+    if (helmet) {
+      entryHtml = entryHtml
+        .replace(RE_HTML_ATTR, `<html ${helmet.htmlAttributes.toString()}>`)
+        .replace(RE_BODY_ATTR, `<body ${helmet.bodyAttributes.toString()}>`);
+    }
   } catch (ex) {
     logger.error(`[WEBCUBE] [${requestId}] Failed to inject helmet tag`);
     logger.error(ex);
@@ -233,6 +262,7 @@ async function ssrRender({
   Entry,
   entry,
   url,
+  hostname,
   i18n,
   language,
   preloadedAppState,
@@ -272,6 +302,7 @@ async function ssrRender({
             StaticRouter,
             routerContext: context,
             currentUrl: url,
+            hostname,
             // https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-set-router-props-eg-basename-initialentries-etc
             baseUrl,
             i18n,
@@ -300,7 +331,12 @@ async function ssrRender({
   );
   let loadCount = renderedLoader.length;
   let timeoutCount = 0;
-  if (!skipPreload && !preloadedAppState && loadCount) {
+  if (
+    !deploy.ssrServer.disableStorePreload &&
+    !skipPreload &&
+    !preloadedAppState &&
+    loadCount
+  ) {
     const isLoaderAllDone = await new Promise(resolve => {
       const { store } = renderInfo;
       logger.info(
@@ -309,16 +345,18 @@ async function ssrRender({
           .join('/>, <')}/>)...`
       );
       const startTime = Date.now();
-      const timer = setTimeout(() => {
-        logger.warn(
-          `[WEBCUBE] [${requestId}] Timeout. Incomplete loaders: ${loadCount}  (time: ${Date.now() -
-            startTime})`
-        );
-        timeoutCount = loadCount;
-        loadCount = 0;
-        renderInfo.store = null;
-        resolve(false);
-      }, deploy.ssrServer.dataLoaderTimeout);
+      const timer = isProductionEnv
+        ? setTimeout(() => {
+            logger.warn(
+              `[WEBCUBE] [${requestId}] Timeout. Incomplete loaders: ${loadCount}  (time: ${Date.now() -
+                startTime})`
+            );
+            timeoutCount = loadCount;
+            loadCount = 0;
+            renderInfo.store = null;
+            resolve(false);
+          }, deploy.ssrServer.storePreloadTimeout)
+        : 0;
       renderedLoader.forEach(
         ({
           componentName,
@@ -385,6 +423,7 @@ async function ssrRender({
       Entry,
       entry,
       url,
+      hostname,
       i18n,
       language,
       preloadedAppState: renderInfo,
@@ -402,6 +441,7 @@ async function ssrRender({
 }
 
 module.exports = async function ssrRoute(req, res) {
+  let entryHtml, exportedEntryCodePath, Entry;
   const requestId = res.get('Request-Id');
   const entry =
     req.params.entry &&
@@ -410,13 +450,15 @@ module.exports = async function ssrRoute(req, res) {
       : mainEntry;
   if (!ssrEntries[entry]) {
     if (entries[entry]) {
-      const [entryHtml] = await entryData[entry];
+      [entryHtml] = await entryData[entry];
+      entryHtml = injectSsrHtml(entryHtml, {
+        requestId,
+      });
       return res.send(entryHtml);
     } else {
       return res.status(404).render(errorPageFor400);
     }
   }
-  let entryHtml, exportedEntryCodePath, Entry;
   try {
     [entryHtml, exportedEntryCodePath] = await entryData[entry];
   } catch (ex) {
@@ -428,22 +470,46 @@ module.exports = async function ssrRoute(req, res) {
   if (!entryHtml) {
     return res.status(500).render(errorPageFor500);
   }
+  logger.info(
+    `[WEBCUBE] [${requestId}] language: "${req.language}", hostname: "${
+      req.hostname
+    }", url: "${req.url}"`
+  );
   try {
     Entry = require(exportedEntryCodePath);
   } catch (ex) {
     logger.error(`[WEBCUBE] [${requestId}] Failed to import code`);
     logger.error(ex);
+    entryHtml = injectSsrHtml(entryHtml, {
+      requestId,
+    });
     return res.send(entryHtml);
   }
   const { html: ssrHtml, context, sheet, modules, store } = await ssrRender({
     Entry,
     entry,
     url: req.url,
+    hostname: req.hostname,
     language: req.language,
     i18n: req.i18n,
     requestId,
   });
+  // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
+  const bundles = getBundles(loadableStats, modules);
+  logger.info(
+    `[WEBCUBE] [${requestId}] Loadable modules: ${modules.join(', ')} `
+  );
+  // https://github.com/nfl/react-helmet
+  // https://github.com/gaearon/react-side-effect
+  const helmet = Helmet.renderStatic();
   if (!ssrHtml) {
+    entryHtml = injectSsrHtml(entryHtml, {
+      entry,
+      bundles,
+      styleTags: sheet && sheet.getStyleTags(),
+      helmet,
+      requestId,
+    });
     return res.send(entryHtml);
   }
   if (context.url) {
@@ -452,11 +518,6 @@ module.exports = async function ssrRoute(req, res) {
     });
     return res.end();
   }
-  // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
-  const bundles = getBundles(loadableStats, modules);
-  // https://github.com/nfl/react-helmet
-  // https://github.com/gaearon/react-side-effect
-  const helmet = Helmet.renderStatic();
   entryHtml = injectSsrHtml(entryHtml, {
     entry,
     html: ssrHtml,

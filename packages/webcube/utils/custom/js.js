@@ -11,7 +11,15 @@ const js = merge(
   {
     // https://github.com/babel/minify/tree/master/packages/babel-preset-minify#options
     minifyOptions: {
+      removeConsole: { exclude: ['info', 'error', 'warn'] },
       removeDebugger: true,
+    },
+    // https://github.com/mishoo/UglifyJS2#minify-options
+    // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+    uglifyOptions: {
+      compress: {
+        pure_funcs: ['debugger', 'console.log'],
+      },
     },
   },
   custom.js

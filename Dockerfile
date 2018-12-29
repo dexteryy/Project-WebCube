@@ -1,16 +1,18 @@
 
-FROM node:10.9
+FROM node:10.12
 
+ARG NODE_ENV=development
 ARG MONOREPO_APP_PATH
 ARG MONOREPO_PACKAGES_PATH
 ARG ENABLE_CHINA_MIRROR
 ARG PORT=80
 
+ENV NODE_ENV ${NODE_ENV}
 ENV PORT ${PORT}
 
-# for unbuntu
-RUN echo "Asia/Shanghai" > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+# # for unbuntu
+# RUN echo "Asia/Shanghai" > /etc/timezone
+# RUN dpkg-reconfigure -f noninteractive tzdata
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock .yarnrc lerna.json ./

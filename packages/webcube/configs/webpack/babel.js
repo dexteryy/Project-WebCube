@@ -14,7 +14,7 @@ const { babel } = js;
 // https://babeljs.io/blog/2017/09/12/planning-for-7.0
 // https://babeljs.io/blog/2017/12/27/nearing-the-7.0-release
 // https://babeljs.io/docs/en/v7-migration
-module.exports = ({ isSsrBuild }) => ({
+module.exports = ({ isSsrBuild, isServiceBuild }) => ({
   presets: [
     // https://babeljs.io/docs/en/babel-preset-env.html
     [
@@ -23,20 +23,21 @@ module.exports = ({ isSsrBuild }) => ({
       {
         // https://babeljs.io/docs/en/babel-preset-env.html#browserslist-support
         // https://babeljs.io/docs/en/babel-preset-env.html#targets
-        targets: isSsrBuild
-          ? {
-              node: 'current',
-            }
-          : {
-              browsers: browserslist,
-            },
+        targets:
+          isSsrBuild || isServiceBuild
+            ? {
+                node: 'current',
+              }
+            : {
+                browsers: browserslist,
+              },
         // https://babeljs.io/docs/en/babel-preset-env.html#spec
         spec: false,
         // https://babeljs.io/docs/en/babel-preset-env.html#loose
         loose: babel.enableLooseMode,
         // https://babeljs.io/docs/en/babel-preset-env.html#modules
         // https://webpack.js.org/migrate/3/#mixing-es2015-with-amd-and-commonjs
-        modules: false,
+        modules: isServiceBuild,
         // https://babeljs.io/docs/en/babel-preset-env.html#debug
         debug: false,
         // https://babeljs.io/docs/en/babel-preset-env.html#include
@@ -51,7 +52,7 @@ module.exports = ({ isSsrBuild }) => ({
         // https://babeljs.io/docs/en/babel-preset-env.html#usebuiltins
         useBuiltIns: 'usage',
         // https://babeljs.io/docs/en/babel-preset-env.html#forcealltransforms
-        forceAllTransforms: output.enableUglify,
+        forceAllTransforms: !output.minimizer || output.minimizer === 'uglify',
         // https://babeljs.io/docs/en/babel-preset-env.html#shippedproposals
         shippedProposals: babel.enableShippedProposals,
       },
@@ -70,7 +71,7 @@ module.exports = ({ isSsrBuild }) => ({
     // faster but incomplete compression, use MinifyPlugin instead
     // https://github.com/babel/minify/tree/master/packages/babel-preset-minify#options
     // ...(isProductionEnv &&
-    // !output.enableUglify &&
+    // output.minimizer === 'minify' &&
     // !output.disableMinimize
     //   ? [[require('babel-preset-minify'), js.minifyOptions]]
     //   : []),
@@ -86,11 +87,13 @@ module.exports = ({ isSsrBuild }) => ({
     // DO NOT USE THIS PLUGIN
     // require('babel-plugin-add-module-exports'),
     // https://github.com/MatAtBread/fast-async
-    ...(isSsrBuild ? [require('fast-async')] : []),
+    ...(!isSsrBuild && !isServiceBuild ? [require('fast-async')] : []),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import
     // https://medium.com/webpack/webpack-4-import-and-commonjs-d619d626b655
     require('@babel/plugin-syntax-dynamic-import'),
-    ...(isSsrBuild ? [require('babel-plugin-dynamic-import-node')] : []),
+    ...(isSsrBuild || isServiceBuild
+      ? [require('babel-plugin-dynamic-import-node')]
+      : []),
     // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
     // https://github.com/jamiebuilds/react-loadable#babel-plugin
     require('react-loadable/babel'),
@@ -112,7 +115,7 @@ module.exports = ({ isSsrBuild }) => ({
       },
     ],
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-object-rest-spread
-    ...(isSsrBuild
+    ...(!isSsrBuild && !isServiceBuild
       ? [require('@babel/plugin-proposal-object-rest-spread')]
       : []),
     // https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-function-bind
@@ -138,7 +141,7 @@ module.exports = ({ isSsrBuild }) => ({
     ],
     // https://github.com/lodash/babel-plugin-lodash
     // @BUG conflict with `import { Bind } from 'lodash-decorators';`
-    // [require('babel-plugin-lodash'), { id: ['lodash', 'recompose'] }],
+    [require('babel-plugin-lodash'), { id: ['lodash', 'recompose'] }],
     // https://github.com/megawac/babel-plugin-ramda
     [
       require('babel-plugin-ramda'),
@@ -174,7 +177,10 @@ module.exports = ({ isSsrBuild }) => ({
     // https://github.com/gajus/babel-plugin-graphql-tag
     require('babel-plugin-graphql-tag'),
   ].concat(babel.plugins),
-  // https://github.com/babel/babel-loader#options
-  // node_modules/.cache/babel-loader
-  cacheDirectory: true,
+  ...((isServiceBuild && {
+    // https://github.com/babel/babel-loader#options
+    // node_modules/.cache/babel-loader
+    cacheDirectory: true,
+  }) ||
+    {}),
 });

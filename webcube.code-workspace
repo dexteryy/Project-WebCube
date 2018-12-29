@@ -4,6 +4,9 @@
       "path": "packages/webcube"
     },
     {
+      "path": "packages/nodecube"
+    },
+    {
       "path": "packages/eslint-config-webcube"
     },
     {

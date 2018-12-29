@@ -1,6 +1,6 @@
 {
   "name": "stylelint-config-webcube",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A sharable Stylelint presets for webcube",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -24,20 +24,20 @@
     "check": "cd ../../; stylelint-find-rules --config ./packages/stylelint-config-webcube/stylelint.config.js; cd -"
   },
   "peerDependencies": {
-    "stylelint": "^9.5.0"
+    "stylelint": "^9.6.0"
   },
   "dependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "@mapbox/stylelint-processor-markdown": "^0.3.1",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-order": "^1.0.0",
-    "stylelint-prettier": "^1.0.1",
-    "stylelint-scss": "^3.3.1"
+    "stylelint-order": "^2.0.0",
+    "stylelint-prettier": "^1.0.3",
+    "stylelint-scss": "^3.3.2"
   },
   "devDependencies": {
-    "stylelint": "^9.5.0",
-    "stylelint-find-rules": "^1.1.1"
+    "stylelint": "^9.6.0",
+    "stylelint-find-rules": "^2.0.0"
   },
   "keywords": [
     "stylelint",

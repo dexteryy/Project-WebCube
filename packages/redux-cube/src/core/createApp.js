@@ -80,6 +80,7 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
           const {
             StaticRouter,
             currentUrl,
+            hostname,
             routerContext,
             baseUrl,
             i18n,
@@ -99,6 +100,7 @@ export default function createApp({ plugins, loaders, ...originConfig }) {
             },
             createElement(SubAppComponent, {
               ...passThroughProps,
+              hostname,
             }),
           );
           if (_enableI18next && (!isSsrEnv || i18n)) {

@@ -4,7 +4,7 @@ const { merge, pick } = require('lodash');
 const logger = require('../logger');
 const { config, custom } = require('./base');
 
-const { mode, projectName, configRoot, entries } = config;
+const { mode, projectName, rootPath, configRoot, entries } = config;
 
 if (!custom.deploy) {
   custom.deploy = { override: {} };
@@ -12,11 +12,15 @@ if (!custom.deploy) {
 
 const deployDefaults = {
   mode: 'ssr',
+  logLevel: 'info',
   // https://webpack.js.org/configuration/output/#output-publicpath
   // the value of this option ends with / in most cases
   staticCloud: 's3',
   staticRoot: '/static/',
   staticWebRoot: 'html',
+  enableNewRelic: fs.existsSync(
+    path.join(process.env.NEW_RELIC_HOME || rootPath, 'newrelic.js')
+  ),
 };
 
 const deploy = merge(
@@ -74,6 +78,7 @@ deploy.htmlMinifier = merge(
     removeScriptTypeAttributes: true,
     removeStyleLinkTypeAttributes: true,
     useShortDoctype: true,
+    keepClosingSlash: true,
     minifyCSS: true,
     minifyJS: true,
   },
@@ -155,7 +160,8 @@ if (!custom.deploy.ssrServer) {
 
 deploy.ssrServer = merge(
   {
-    dataLoaderTimeout: 5000,
+    disableStorePreload: false,
+    storePreloadTimeout: 400,
     i18nextConfig: {
       // https://www.i18next.com/overview/configuration-options
       fallbackLng: 'en',
@@ -183,7 +189,12 @@ deploy.ssrServer = merge(
   },
   custom.deploy.ssrServer,
   {
-    dataLoaderTimeout: process.env.WEBCUBE_DATA_LOADER_TIMEOUT || undefined,
+    storePreloadTimeout: process.env.WEBCUBE_STORE_PRELOAD_TIMEOUT || undefined,
+    disableStorePreload:
+      (process.env.WEBCUBE_DISABLE_STORE_PRELOAD === 'true' && true) ||
+      (process.env.WEBCUBE_DISABLE_STORE_PRELOAD === 'false'
+        ? false
+        : undefined),
   }
 );
 

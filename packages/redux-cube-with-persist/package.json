@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-with-persist",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "redux-cube's pluggable module for react-persist",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
@@ -49,8 +49,8 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-graphql-tag": "^1.6.0",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-ramda": "^1.6.3",
-    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-ramda": "^2.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "fast-async": "^7.0.0"
   },
   "keywords": [

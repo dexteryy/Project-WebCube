@@ -13,7 +13,15 @@ const pkg = require(path.join(projectPath, `package.json`));
 const projectName = pkg.name;
 const projectVersion = pkg.version;
 const { config: browserslist } = cosmiconfig('browserslist').searchSync() || {};
-const { config: customConfig } = cosmiconfig('webcube').searchSync() || {};
+let { config: customConfig } = cosmiconfig('webcube').searchSync() || {};
+const { config: customNodeCubeConfig } =
+  cosmiconfig('nodecube').searchSync() || {};
+if (customNodeCubeConfig) {
+  ({ config: customConfig } = cosmiconfig('webcube').loadSync(
+    path.join(__dirname, '../../../nodecube/configs/webcube.config.js')
+  ));
+  merge(customConfig, customNodeCubeConfig.webcube || {});
+}
 custom = merge(custom, customConfig);
 
 // https://medium.com/webpack/webpack-4-mode-and-optimization-5423a6bc597a
