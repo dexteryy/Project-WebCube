@@ -1,5 +1,5 @@
 
-FROM node:10.12
+FROM node:10.15
 
 ARG NODE_ENV=development
 ARG MONOREPO_APP_PATH
