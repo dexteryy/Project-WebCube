@@ -9,7 +9,7 @@
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "bin": {
     "serve-cube-build": "./scripts/serve-cube-build.js",
@@ -43,7 +43,7 @@
     "raw-body": "^2.3.3",
     "response-time": "^2.3.2",
     "uuid": "^3.3.2",
-    "webcube": "^2.0.0"
+    "webcube": "^2.0.2"
   },
   "keywords": [
     "restful",
