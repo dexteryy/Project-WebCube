@@ -10,7 +10,7 @@ const insight = new Insight({
   trackingCode: 'UA-404086-15',
   pkg,
 });
-if (insight.optOut === undefined) {
+if (process.env.NODE_ENV !== 'production' && insight.optOut === undefined) {
   insight.askPermission();
 }
 
