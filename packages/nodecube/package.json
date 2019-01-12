@@ -9,7 +9,7 @@
   "homepage": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
   "repository": "https://github.com/dexteryy/Project-WebCube/tree/master/packages/nodecube",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "bin": {
     "serve-cube-build": "./scripts/serve-cube-build.js",
