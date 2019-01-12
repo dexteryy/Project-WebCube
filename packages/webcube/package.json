@@ -80,6 +80,7 @@
     "favicons-webpack-plugin": "^0.0.9",
     "file-loader": "^3.0.1",
     "fs-extra": "^7.0.0",
+    "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "handlebars": "^4.0.12",
     "handlebars-loader": "^1.7.0",
