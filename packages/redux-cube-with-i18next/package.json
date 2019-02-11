@@ -1,6 +1,6 @@
 {
   "name": "redux-cube-with-i18next",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "redux-cube's pluggable module for react-i18next",
   "author": "dexteryy <dexter.yy@gmail.com>",
   "contributors": [],
