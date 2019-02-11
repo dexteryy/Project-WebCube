@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 // https://www.npmjs.com/package/redux-debounced
 import createDebounce from 'redux-debounced';
 // https://www.npmjs.com/package/redux-promise-middleware
-import promiseMiddleware from 'redux-promise-middleware';
+import { createPromise } from 'redux-promise-middleware';
 // https://www.npmjs.com/package/redux-observable
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import thunkPayloadMiddleware from '../middlewares/thunkPayload';
@@ -137,7 +137,7 @@ export default function appState({
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-suffixes.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/4c6282e54c41034591d8925fe29457b472b04e69/docs/guides/custom-separators.md
     // https://github.com/pburtchaell/redux-promise-middleware/blob/master/src/index.js
-    promiseMiddleware(promiseMiddlewareConfig),
+    createPromise(promiseMiddlewareConfig),
     // https://redux-observable.js.org/docs/basics/SettingUpTheMiddleware.html
     epicMiddleware,
     ...middlewares,

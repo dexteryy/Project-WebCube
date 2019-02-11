@@ -62,7 +62,7 @@
     "styled-icons": "^3.0.0",
     "styled-normalize": "^8.0.1",
     "styled-sanitize": "^1.1.1",
-    "webcube": "^2.0.0"
+    "webcube": "^2.0.2"
   },
   "devDependencies": {
     "chance": "^1.0.16",

@@ -26,11 +26,11 @@
     "clear": "rm -r dist es6 2>/dev/null || true"
   },
   "dependencies": {
-    "i18next": "^13.0.0",
-    "i18next-browser-languagedetector": "^2.2.3",
-    "i18next-xhr-backend": "^1.5.1",
+    "i18next": "^15.0.1",
+    "i18next-browser-languagedetector": "^3.0.0",
+    "i18next-xhr-backend": "^2.0.0",
     "lodash": "^4.17.11",
-    "react-i18next": "^8.3.0"
+    "react-i18next": "^10.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
