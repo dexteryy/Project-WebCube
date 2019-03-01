@@ -8,7 +8,7 @@ import { createCube } from 'redux-cube';
 import * as styles from '../common/styles/head.scss';
 import { isDynamicUrl } from '../common/utils';
 import PlainObjectStoreApp from '../plainObjectStore';
-import ImmutableJsStoreApp from '../immutableJsStore';
+// import ImmutableJsStoreApp from '../immutableJsStore';
 
 const cube = createCube();
 
@@ -26,14 +26,14 @@ function ReactReduxRestapiApp() {
           </li>
           <li>
             <NavLink to={`/immutable`} activeClassName={styles.selected}>
-              Immutable.js Store
+              Immutable.js Store (Unavailable Now)
             </NavLink>
           </li>
         </ul>
       </nav>
       <Route path="/" exact={true} render={toPlain} />
       <PlainObjectStoreApp />
-      <ImmutableJsStoreApp />
+      {/* <ImmutableJsStoreApp /> */}
     </div>
   );
 }

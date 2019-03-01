@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
-import styled, { injectGlobal } from 'styled-components';
+import styled from 'styled-components';
+// import styled, { injectGlobal } from 'styled-components';
 import htmlData from '../../data/data.html';
 import mdData from '../../data/data.md';
 import logo from '../../data/favicon.png';
 import scssStyles from './css/demo.scss';
 import cssStyles from './css/demo.css';
 
-injectGlobal`
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-`;
+// injectGlobal`
+//   ul {
+//     list-style: none;
+//     margin: 0;
+//     padding: 0;
+//   }
+// `;
 
 const Item = styled.li`
   border: 1px solid #666;
