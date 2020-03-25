@@ -140,6 +140,7 @@ Object.keys(entries).forEach(entry => {
           language: 'en',
           i18n: serveri18n,
           requestId: 'warmUpRequest',
+          cookies: 'warmUpRequest'
         });
       });
     }
@@ -268,6 +269,7 @@ async function ssrRender({
   preloadedAppState,
   skipPreload,
   requestId,
+  cookies
 }) {
   const baseUrl = entry === mainEntry ? '' : `/${entry}`;
   const context = {};
@@ -313,6 +315,7 @@ async function ssrRender({
                 }
               : undefined,
             preloadedAppState: !skipPreload ? preloadedAppState : undefined,
+            cookies
           })
         )
       )
@@ -429,6 +432,7 @@ async function ssrRender({
       preloadedAppState: renderInfo,
       skipPreload: !isLoaderAllDone,
       requestId,
+      cookies
     });
   }
   return Promise.resolve({
@@ -473,7 +477,7 @@ module.exports = async function ssrRoute(req, res) {
   logger.info(
     `[WEBCUBE] [${requestId}] language: "${req.language}", hostname: "${
       req.hostname
-    }", url: "${req.url}"`
+    }", url: "${req.url}", cookies: "${req.headers.cookie}"`
   );
   try {
     Entry = require(exportedEntryCodePath);
@@ -493,6 +497,7 @@ module.exports = async function ssrRoute(req, res) {
     language: req.language,
     i18n: req.i18n,
     requestId,
+    cookies: req.headers.cookie
   });
   // https://github.com/jamiebuilds/react-loadable#------------server-side-rendering
   const bundles = getBundles(loadableStats, modules);
