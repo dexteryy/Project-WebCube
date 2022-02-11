@@ -21,7 +21,7 @@ COPY ${MONOREPO_PACKAGES_PATH} ${MONOREPO_PACKAGES_PATH}/
 
 RUN set -ex; \
     if [ "$ENABLE_CHINA_MIRROR" = "true" ]; then \
-        npm set registry https://registry.npm.taobao.org; \
+        npm set registry https://registry.npmmirror.com; \
         npm set disturl https://npm.taobao.org/dist; \
         npm set sass_binary_site https://npm.taobao.org/mirrors/node-sass; \
         npm set electron_mirror https://npm.taobao.org/mirrors/electron/; \
@@ -30,7 +30,7 @@ RUN set -ex; \
         npm set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs; \
         npm set selenium_cdnurl https://npm.taobao.org/mirrors/selenium; \
         npm set node_inspector_cdnurl https://npm.taobao.org/mirrors/node-inspector; \
-        yarn config set registry https://registry.npm.taobao.org; \
+        yarn config set registry https://registry.npmmirror.com; \
     fi;
 
 RUN yarn install --no-cache --pure-lockfile
